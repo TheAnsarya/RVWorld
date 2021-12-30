@@ -10,38 +10,35 @@ namespace RomVaultCore.RvDB {
 		}
 
 		private long _filePointer = -1;
-		private bool _pTreeExpanded;
-		private TreeSelect _pChecked;
-
 		public object UiObject;
 
 		public RvTreeRow() {
-			_pTreeExpanded = true;
-			_pChecked = TreeSelect.Selected;
+			TreeExpanded = true;
+			Checked = TreeSelect.Selected;
 		}
 
-		public bool TreeExpanded => _pTreeExpanded;
+		public bool TreeExpanded { get; private set; }
 
 		public void SetTreeExpanded(bool value, bool CoreActive) {
-			if (_pTreeExpanded == value) {
+			if (TreeExpanded == value) {
 				return;
 			}
 
-			_pTreeExpanded = value;
+			TreeExpanded = value;
 
 			if (!CoreActive) {
 				CacheUpdate();
 			}
 		}
 
-		public TreeSelect Checked => _pChecked;
+		public TreeSelect Checked { get; private set; }
 
 		public void SetChecked(TreeSelect value, bool CoreActive) {
-			if (_pChecked == value) {
+			if (Checked == value) {
 				return;
 			}
 
-			_pChecked = value;
+			Checked = value;
 			if (!CoreActive) {
 				CacheUpdate();
 			}
@@ -49,14 +46,14 @@ namespace RomVaultCore.RvDB {
 
 		public void Write(BinaryWriter bw) {
 			_filePointer = bw.BaseStream.Position;
-			bw.Write(_pTreeExpanded);
-			bw.Write((byte)_pChecked);
+			bw.Write(TreeExpanded);
+			bw.Write((byte)Checked);
 		}
 
 		public void Read(BinaryReader br) {
 			_filePointer = br.BaseStream.Position;
-			_pTreeExpanded = br.ReadBoolean();
-			_pChecked = (TreeSelect)br.ReadByte();
+			TreeExpanded = br.ReadBoolean();
+			Checked = (TreeSelect)br.ReadByte();
 		}
 
 		private static FileStream fsl;
@@ -89,16 +86,16 @@ namespace RomVaultCore.RvDB {
 
 			if (fsl != null && bwl != null) {
 				fsl.Position = _filePointer;
-				bwl.Write(_pTreeExpanded);
-				bwl.Write((byte)_pChecked);
+				bwl.Write(TreeExpanded);
+				bwl.Write((byte)Checked);
 				return;
 			}
 
 			using (var fs = new FileStream(Settings.rvSettings.CacheFile, FileMode.Open, FileAccess.Write)) {
 				using (var bw = new BinaryWriter(fs, Encoding.UTF8, true)) {
 					fs.Position = _filePointer;
-					bw.Write(_pTreeExpanded);
-					bw.Write((byte)_pChecked);
+					bw.Write(TreeExpanded);
+					bw.Write((byte)Checked);
 
 					bw.Flush();
 					bw.Close();
