@@ -1,4 +1,4 @@
-// Deflate.cs
+﻿// Deflate.cs
 // ------------------------------------------------------------------
 //
 // Copyright (c) 2009 Dino Chiesa and Microsoft Corporation.
@@ -1412,7 +1412,7 @@ namespace Compress.Support.Compression.Deflate {
 			}
 
 			if (memLevel < 1 || memLevel > MEM_LEVEL_MAX) {
-				throw new ZlibException(string.Format("memLevel must be in the range 1.. {0}", MEM_LEVEL_MAX));
+				throw new ZlibException($"memLevel must be in the range 1.. {MEM_LEVEL_MAX}");
 			}
 
 			_codec.dstate = this;
@@ -1574,7 +1574,7 @@ namespace Compress.Support.Compression.Deflate {
 				(_codec.InputBuffer == null && _codec.AvailableBytesIn != 0) ||
 				(status == FINISH_STATE && flush != FlushType.Finish)) {
 				_codec.Message = _ErrorMessage[ZlibConstants.Z_NEED_DICT - (ZlibConstants.Z_STREAM_ERROR)];
-				throw new ZlibException(string.Format("Something is fishy. [{0}]", _codec.Message));
+				throw new ZlibException($"Something is fishy. [{_codec.Message}]");
 			}
 			if (_codec.AvailableBytesOut == 0) {
 				_codec.Message = _ErrorMessage[ZlibConstants.Z_NEED_DICT - (ZlibConstants.Z_BUF_ERROR)];

@@ -1,4 +1,4 @@
-// Inflate.cs
+﻿// Inflate.cs
 // ------------------------------------------------------------------
 //
 // Copyright (c) 2009 Dino Chiesa and Microsoft Corporation.
@@ -1401,13 +1401,13 @@ namespace Compress.Support.Compression.Deflate {
 						_codec.TotalBytesIn++;
 						if (((method = _codec.InputBuffer[_codec.NextIn++]) & 0xf) != Z_DEFLATED) {
 							mode = InflateManagerMode.BAD;
-							_codec.Message = string.Format("unknown compression method (0x{0:X2})", method);
+							_codec.Message = $"unknown compression method (0x{method:X2})";
 							marker = 5; // can't try inflateSync
 							break;
 						}
 						if ((method >> 4) + 8 > wbits) {
 							mode = InflateManagerMode.BAD;
-							_codec.Message = string.Format("invalid window size ({0})", (method >> 4) + 8);
+							_codec.Message = $"invalid window size ({(method >> 4) + 8})";
 							marker = 5; // can't try inflateSync
 							break;
 						}
@@ -1576,7 +1576,7 @@ namespace Compress.Support.Compression.Deflate {
 						return ZlibConstants.Z_STREAM_END;
 
 					case InflateManagerMode.BAD:
-						throw new ZlibException(string.Format("Bad state ({0})", _codec.Message));
+						throw new ZlibException($"Bad state ({_codec.Message})");
 
 					default:
 						throw new ZlibException("Stream error.");

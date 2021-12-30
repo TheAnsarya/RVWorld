@@ -1,4 +1,4 @@
-// ZlibCodec.cs
+﻿// ZlibCodec.cs
 // ------------------------------------------------------------------
 //
 // Copyright (c) 2009 Dino Chiesa and Microsoft Corporation.  
@@ -669,8 +669,7 @@ namespace Compress.Support.Compression.Deflate {
 				OutputBuffer.Length <= NextOut ||
 				dstate.pending.Length < (dstate.nextPending + len) ||
 				OutputBuffer.Length < (NextOut + len)) {
-				throw new ZlibException(string.Format("Invalid State. (pending.Length={0}, pendingCount={1})",
-					dstate.pending.Length, dstate.pendingCount));
+				throw new ZlibException($"Invalid State. (pending.Length={dstate.pending.Length}, pendingCount={dstate.pendingCount})");
 			}
 
 			Array.Copy(dstate.pending, dstate.nextPending, OutputBuffer, NextOut, len);

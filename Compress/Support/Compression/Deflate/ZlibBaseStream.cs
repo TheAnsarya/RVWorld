@@ -1,4 +1,4 @@
-// ZlibBaseStream.cs
+﻿// ZlibBaseStream.cs
 // ------------------------------------------------------------------
 //
 // Copyright (c) 2009 Dino Chiesa and Microsoft Corporation.
@@ -174,7 +174,7 @@ namespace Compress.Support.Compression.Deflate {
 					if (rc != ZlibConstants.Z_STREAM_END && rc != ZlibConstants.Z_OK) {
 						var verb = (_wantCompress ? "de" : "in") + "flating";
 						if (_z.Message == null) {
-							throw new ZlibException(string.Format("{0}: (rc = {1})", verb, rc));
+							throw new ZlibException($"{verb}: (rc = {rc})");
 						} else {
 							throw new ZlibException(verb + ": " + _z.Message);
 						}
@@ -229,8 +229,7 @@ namespace Compress.Support.Compression.Deflate {
 														 _z.AvailableBytesIn,
 														 bytesNeeded);
 							if (bytesNeeded != bytesRead) {
-								throw new ZlibException(string.Format("Missing or incomplete GZIP trailer. Expected 8 bytes, got {0}.",
-																	  _z.AvailableBytesIn + bytesRead));
+								throw new ZlibException($"Missing or incomplete GZIP trailer. Expected 8 bytes, got {_z.AvailableBytesIn + bytesRead}.");
 							}
 						} else {
 							Array.Copy(_z.InputBuffer, _z.NextIn, trailer, 0, trailer.Length);
@@ -242,11 +241,11 @@ namespace Compress.Support.Compression.Deflate {
 						var isize_actual = (int)(_z.TotalBytesOut & 0x00000000FFFFFFFF);
 
 						if (crc32_actual != crc32_expected) {
-							throw new ZlibException(string.Format("Bad CRC32 in GZIP trailer. (actual({0:X8})!=expected({1:X8}))", crc32_actual, crc32_expected));
+							throw new ZlibException($"Bad CRC32 in GZIP trailer. (actual({crc32_actual:X8})!=expected({crc32_expected:X8}))");
 						}
 
 						if (isize_actual != isize_expected) {
-							throw new ZlibException(string.Format("Bad size in GZIP trailer. (actual({0})!=expected({1}))", isize_actual, isize_expected));
+							throw new ZlibException($"Bad size in GZIP trailer. (actual({isize_actual})!=expected({isize_expected}))");
 						}
 					} else {
 						throw new ZlibException("Reading with compression is not supported.");
@@ -457,7 +456,7 @@ namespace Compress.Support.Compression.Deflate {
 				}
 
 				if (rc != ZlibConstants.Z_OK && rc != ZlibConstants.Z_STREAM_END) {
-					throw new ZlibException(string.Format("{0}flating:  rc={1}  msg={2}", (_wantCompress ? "de" : "in"), rc, _z.Message));
+					throw new ZlibException($"{(_wantCompress ? "de" : "in")}flating:  rc={rc}  msg={_z.Message}");
 				}
 
 				if ((nomoreinput || rc == ZlibConstants.Z_STREAM_END) && (_z.AvailableBytesOut == count)) {
@@ -484,7 +483,7 @@ namespace Compress.Support.Compression.Deflate {
 						rc = _z.Deflate(FlushType.Finish);
 
 						if (rc != ZlibConstants.Z_OK && rc != ZlibConstants.Z_STREAM_END) {
-							throw new ZlibException(string.Format("Deflating:  rc={0}  msg={1}", rc, _z.Message));
+							throw new ZlibException($"Deflating:  rc={rc}  msg={_z.Message}");
 						}
 					}
 				}

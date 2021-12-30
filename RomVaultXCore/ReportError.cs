@@ -13,12 +13,12 @@ namespace RVXCore
             try
             {
                 // Create Error Message
-                string message = string.Format("An Application Error has occurred.\r\n\r\nEXCEPTION:\r\nSource: {0}\r\nMessage: {1}\r\n", e.Source, e.Message);
+                string message = $"An Application Error has occurred.\r\n\r\nEXCEPTION:\r\nSource: {e.Source}\r\nMessage: {e.Message}\r\n";
                 if (e.InnerException != null)
                 {
-                    message += string.Format("\r\nINNER EXCEPTION:\r\nSource: {0}\r\nMessage: {1}\r\n", e.InnerException.Source, e.InnerException.Message);
+                    message += $"\r\nINNER EXCEPTION:\r\nSource: {e.InnerException.Source}\r\nMessage: {e.InnerException.Message}\r\n";
                 }
-                message += string.Format("\r\nSTACK TRACE:\r\n{0}", e.StackTrace);
+                message += $"\r\nSTACK TRACE:\r\n{e.StackTrace}";
 
 
                 ErrorForm?.Invoke(message);

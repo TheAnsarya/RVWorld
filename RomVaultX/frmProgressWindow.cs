@@ -150,12 +150,12 @@ namespace RomVaultX
             int range = progressBar.Maximum - progressBar.Minimum;
             int percent = range > 0 ? progressBar.Value * 100 / range : 0;
 
-            Text = _titleRoot + string.Format(" - {0}% complete", percent);
+            Text = _titleRoot + $" - {percent}% complete";
         }
 
         private void UpdateStatusText2()
         {
-            lbl2Prog.Text = progressBar2.Maximum > 0 ? string.Format("{0}/{1}", progressBar2.Value, progressBar2.Maximum) : "";
+            lbl2Prog.Text = progressBar2.Maximum > 0 ? $"{progressBar2.Value}/{progressBar2.Maximum}" : "";
         }
 
         private void BgwRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

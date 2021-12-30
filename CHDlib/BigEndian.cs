@@ -15,6 +15,7 @@ namespace CHDlib {
 		public static short ReadInt16BE(this BinaryReader binRdr) => BitConverter.ToInt16(binRdr.ReadBytesRequired(sizeof(short)).Reverse(), 0);
 
 		public static uint ReadUInt32BE(this BinaryReader binRdr) => BitConverter.ToUInt32(binRdr.ReadBytesRequired(sizeof(uint)).Reverse(), 0);
+
 		public static ulong ReadUInt64BE(this BinaryReader binRdr) => BitConverter.ToUInt64(binRdr.ReadBytesRequired(sizeof(ulong)).Reverse(), 0);
 
 		public static int ReadInt32BE(this BinaryReader binRdr) => BitConverter.ToInt32(binRdr.ReadBytesRequired(sizeof(int)).Reverse(), 0);
@@ -23,7 +24,7 @@ namespace CHDlib {
 			var result = binRdr.ReadBytes(byteCount);
 
 			if (result.Length != byteCount) {
-				throw new EndOfStreamException(string.Format("{0} bytes required from stream, but only {1} returned.", byteCount, result.Length));
+				throw new EndOfStreamException($"{byteCount} bytes required from stream, but only {result.Length} returned.");
 			}
 
 			return result;
