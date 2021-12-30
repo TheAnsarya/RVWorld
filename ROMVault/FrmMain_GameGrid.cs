@@ -218,28 +218,52 @@ namespace ROMVault
                         {
                             case FileType.Zip:
                                 bitmapName = "Zip";
-                                if (tRvDir.ZipStatus == ZipStatus.TrrntZip) { bitmapName += "TZ"; }
+                                if (tRvDir.ZipStatus == ZipStatus.TrrntZip)
+                                {
+                                    bitmapName += "TZ";
+                                }
 
-                                if (tRvDir.GotStatus == GotStatus.Corrupt) { bitmapName += "Corrupt"; }
+                                if (tRvDir.GotStatus == GotStatus.Corrupt)
+                                {
+                                    bitmapName += "Corrupt";
+                                }
 
-                                if (tRvDir.RepStatus == RepStatus.DirMissing) { bitmapName += "Missing"; }
+                                if (tRvDir.RepStatus == RepStatus.DirMissing)
+                                {
+                                    bitmapName += "Missing";
+                                }
 
                                 break;
                             case FileType.SevenZip:
                                 bitmapName = "SevenZip";
-                                if (tRvDir.ZipStatus == ZipStatus.TrrntZip) { bitmapName += "TZ"; }
+                                if (tRvDir.ZipStatus == ZipStatus.TrrntZip)
+                                {
+                                    bitmapName += "TZ";
+                                }
 
-                                if (tRvDir.ZipStatus == ZipStatus.Trrnt7Zip) { bitmapName += "T7Z"; }
+                                if (tRvDir.ZipStatus == ZipStatus.Trrnt7Zip)
+                                {
+                                    bitmapName += "T7Z";
+                                }
 
-                                if (tRvDir.GotStatus == GotStatus.Corrupt) { bitmapName += "Corrupt"; }
+                                if (tRvDir.GotStatus == GotStatus.Corrupt)
+                                {
+                                    bitmapName += "Corrupt";
+                                }
 
-                                if (tRvDir.RepStatus == RepStatus.DirMissing) { bitmapName += "Missing"; }
+                                if (tRvDir.RepStatus == RepStatus.DirMissing)
+                                {
+                                    bitmapName += "Missing";
+                                }
 
                                 break;
                             default:
                                 bitmapName = "Dir";
                                 // hack because DirDirInToSort image doesnt exist.
-                                if (tRvDir.RepStatus == RepStatus.DirMissing) { bitmapName += "Missing"; }
+                                if (tRvDir.RepStatus == RepStatus.DirMissing)
+                                {
+                                    bitmapName += "Missing";
+                                }
 
                                 break;
                         }
@@ -352,8 +376,6 @@ namespace ROMVault
                         $@"WARN: GameGridCellFormatting() unknown column: {GameGrid.Columns[e.ColumnIndex].Name}");
                     break;
             }
-
-
         }
 
         private void GameGridCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
