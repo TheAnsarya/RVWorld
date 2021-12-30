@@ -129,7 +129,7 @@ namespace TrrntZipUI {
 				var pLabel = new Label {
 					Visible = true,
 					Left = 12,
-					Top = 235 + 30 * i,
+					Top = 235 + (30 * i),
 					Width = 225,
 					Height = 15,
 					Text = $"Processor {i + 1}"
@@ -141,7 +141,7 @@ namespace TrrntZipUI {
 				var pProgress = new ProgressBar {
 					Visible = true,
 					Left = 12,
-					Top = 250 + 30 * i,
+					Top = 250 + (30 * i),
 					Width = 225,
 					Height = 12
 				};
@@ -162,8 +162,8 @@ namespace TrrntZipUI {
 				threadProcess.cProcessZip = cpzn;
 			}
 
-			if (Height < 325 + 30 * _threadCount) {
-				Height = 325 + 30 * _threadCount;
+			if (Height < 325 + (30 * _threadCount)) {
+				Height = 325 + (30 * _threadCount);
 			}
 		}
 

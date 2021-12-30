@@ -294,8 +294,8 @@ namespace Compress.Support.Compression.Deflate64 {
 
 						_blockLengthBuffer[_state - InflaterState.UncompressedByte1] = (byte)bits;
 						if (_state == InflaterState.UncompressedByte4) {
-							_blockLength = _blockLengthBuffer[0] + _blockLengthBuffer[1] * 256;
-							var blockLengthComplement = _blockLengthBuffer[2] + _blockLengthBuffer[3] * 256;
+							_blockLength = _blockLengthBuffer[0] + (_blockLengthBuffer[1] * 256);
+							var blockLengthComplement = _blockLengthBuffer[2] + (_blockLengthBuffer[3] * 256);
 
 							// make sure complement matches
 							if ((ushort)_blockLength != (ushort)(~blockLengthComplement)) {

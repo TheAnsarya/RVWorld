@@ -68,7 +68,7 @@ namespace ROMVault
 
         private void AddTextBox(int line, string name, int x, int x1, out Label lBox, out TextBox tBox)
         {
-            int y = 14 + line * 16;
+            int y = 14 + (line * 16);
 
             lBox = new Label
             {
@@ -371,7 +371,7 @@ namespace ROMVault
 
             // TruRip Meta Data
             textWidth = (int)(width * 0.20);
-            text2Left = (int)(width * 0.4 + leftPos);
+            text2Left = (int)((width * 0.4) + leftPos);
             label2Left = text2Left - 78;
             int text3Left = leftPos + width - textWidth;
             int label3Left = text3Left - 78;

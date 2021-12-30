@@ -233,7 +233,7 @@ namespace Compress.SevenZip {
 		}
 
 		public static void WriteUint32Def(BinaryWriter br, uint[] values) {
-			br.WriteEncodedUInt64((ulong)(values.Length * 4 + 2));
+			br.WriteEncodedUInt64((ulong)((values.Length * 4) + 2));
 			br.Write((byte)1);
 			br.Write((byte)0);
 			for (var i = 0; i < values.Length; i++) {

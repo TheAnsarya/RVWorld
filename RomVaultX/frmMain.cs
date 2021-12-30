@@ -189,7 +189,7 @@ namespace RomVaultX {
 
 		#region DAT dsiplay code
 
-		private void splitContainer3_Panel1_Resize(object sender, EventArgs e) => gbDatInfo.Width = splitContainer3.Panel1.Width - gbDatInfo.Left * 2;
+		private void splitContainer3_Panel1_Resize(object sender, EventArgs e) => gbDatInfo.Width = splitContainer3.Panel1.Width - (gbDatInfo.Left * 2);
 
 		private void gbDatInfo_Resize(object sender, EventArgs e) {
 			const int leftPos = 89;

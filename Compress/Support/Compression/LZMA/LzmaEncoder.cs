@@ -232,7 +232,7 @@ namespace Compress.Support.Compression.LZMA {
 
 			public void SetTableSize(uint tableSize) => _tableSize = tableSize;
 
-			public uint GetPrice(uint symbol, uint posState) => _prices[posState * Base.KNumLenSymbols + symbol];
+			public uint GetPrice(uint symbol, uint posState) => _prices[(posState * Base.KNumLenSymbols) + symbol];
 
 			private void UpdateTable(uint posState) {
 				SetPrices(posState, _tableSize, _prices, posState * Base.KNumLenSymbols);
@@ -293,7 +293,7 @@ namespace Compress.Support.Compression.LZMA {
 		private readonly LenPriceTableEncoder _lenEncoder = new();
 		private readonly LenPriceTableEncoder _repMatchLenEncoder = new();
 		private readonly LiteralEncoder _literalEncoder = new();
-		private readonly uint[] _matchDistances = new uint[Base.KMatchMaxLen * 2 + 2];
+		private readonly uint[] _matchDistances = new uint[(Base.KMatchMaxLen * 2) + 2];
 		private uint _numFastBytes = KNumFastBytesDefault;
 		private uint _longestMatchLength;
 		private uint _numDistancePairs;
@@ -1257,7 +1257,7 @@ namespace Compress.Support.Compression.LZMA {
 		private readonly byte[] properties = new byte[KPropSize];
 
 		public void WriteCoderProperties(System.IO.Stream outStream) {
-			properties[0] = (byte)((_posStateBits * 5 + _numLiteralPosStateBits) * 9 + _numLiteralContextBits);
+			properties[0] = (byte)((((_posStateBits * 5) + _numLiteralPosStateBits) * 9) + _numLiteralContextBits);
 			for (var i = 0; i < 4; i++) {
 				properties[1 + i] = (byte)((_dictionarySize >> (8 * i)) & 0xFF);
 			}

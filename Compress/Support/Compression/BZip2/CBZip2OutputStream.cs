@@ -459,7 +459,7 @@ namespace Compress.Support.Compression.BZip2 {
 			}
 
 			/* 20 is just a paranoia constant */
-			allowableBlockSize = BZip2Constants.BaseBlockSize * blockSize100k - 20;
+			allowableBlockSize = (BZip2Constants.BaseBlockSize * blockSize100k) - 20;
 		}
 
 		private void EndBlock() {
@@ -832,7 +832,7 @@ namespace Compress.Support.Compression.BZip2 {
 				for (i = 0; i < 16; i++) {
 					inUse16[i] = false;
 					for (j = 0; j < 16; j++) {
-						if (inUse[i * 16 + j]) {
+						if (inUse[(i * 16) + j]) {
 							inUse16[i] = true;
 						}
 					}
@@ -850,7 +850,7 @@ namespace Compress.Support.Compression.BZip2 {
 				for (i = 0; i < 16; i++) {
 					if (inUse16[i]) {
 						for (j = 0; j < 16; j++) {
-							if (inUse[i * 16 + j]) {
+							if (inUse[(i * 16) + j]) {
 								BsW(1, 1);
 							} else {
 								BsW(1, 0);
@@ -1266,7 +1266,7 @@ namespace Compress.Support.Compression.BZip2 {
 					int vv;
 					var h = 1;
 					do {
-						h = 3 * h + 1;
+						h = (3 * h) + 1;
 					}
 					while (h <= 256);
 					do {

@@ -333,7 +333,7 @@ namespace Compress.Support.Compression.Deflate {
 				n = _stream.Read(header, 0, 2); // 2-byte length field
 				totalBytesRead += n;
 
-				var extraLength = (short)(header[0] + header[1] * 256);
+				var extraLength = (short)(header[0] + (header[1] * 256));
 				var extra = new byte[extraLength];
 				n = _stream.Read(extra, 0, extra.Length);
 				if (n != extraLength) {

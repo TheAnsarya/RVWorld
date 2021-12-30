@@ -433,8 +433,8 @@ namespace Compress.Support.Compression.Deflate {
 								k += 8;
 							}
 
-							t = hufts[(tb[0] + (b & InternalInflateConstants.InflateMask[t])) * 3 + 1];
-							c = hufts[(tb[0] + (b & InternalInflateConstants.InflateMask[t])) * 3 + 2];
+							t = hufts[((tb[0] + (b & InternalInflateConstants.InflateMask[t])) * 3) + 1];
+							c = hufts[((tb[0] + (b & InternalInflateConstants.InflateMask[t])) * 3) + 2];
 
 							if (c < 16) {
 								b >>= t; k -= t;
@@ -825,7 +825,7 @@ namespace Compress.Support.Compression.Deflate {
 						if ((e & 64) == 0) {
 							// next table
 							need = e;
-							tree_index = tindex / 3 + tree[tindex + 2];
+							tree_index = (tindex / 3) + tree[tindex + 2];
 							break;
 						}
 						if ((e & 32) != 0) {
@@ -903,7 +903,7 @@ namespace Compress.Support.Compression.Deflate {
 						if ((e & 64) == 0) {
 							// next table
 							need = e;
-							tree_index = tindex / 3 + tree[tindex + 2];
+							tree_index = (tindex / 3) + tree[tindex + 2];
 							break;
 						}
 						mode = BADCODE; // invalid code

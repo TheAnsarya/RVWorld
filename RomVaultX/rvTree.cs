@@ -34,11 +34,11 @@ namespace RomVaultX {
 
 				pTree.RTree = new Rectangle(0, yPos - 8, nodeDepth * 18, 16);
 				if (pTree.TRow.DatId == null) {
-					pTree.RExpand = new Rectangle(5 + nodeDepth * 18, yPos + 4, 9, 9);
+					pTree.RExpand = new Rectangle(5 + (nodeDepth * 18), yPos + 4, 9, 9);
 				}
 
-				pTree.RIcon = new Rectangle(20 + nodeDepth * 18, yPos, 16, 16);
-				pTree.RText = new Rectangle(36 + nodeDepth * 18, yPos, 500, 16);
+				pTree.RIcon = new Rectangle(20 + (nodeDepth * 18), yPos, 16, 16);
+				pTree.RText = new Rectangle(36 + (nodeDepth * 18), yPos, 500, 16);
 				yPos += 16;
 			}
 			AutoScrollMinSize = new Size(500, yPos);
@@ -101,7 +101,7 @@ namespace RomVaultX {
 
 				var lTree = pTree.TreeBranches;
 				for (var j = 0; j < lTree.Length; j++) {
-					var x = j * 18 - _hScroll;
+					var x = (j * 18) - _hScroll;
 					var cTree = lTree.Substring(j, 1);
 					switch (cTree) {
 						case "│":

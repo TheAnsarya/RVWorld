@@ -73,8 +73,8 @@ namespace Compress.Support.Compression.LZ {
 
 			_cutValue = 16 + (matchMaxLen >> 1);
 
-			var windowReservSize = (historySize + keepAddBufferBefore +
-					matchMaxLen + keepAddBufferAfter) / 2 + 256;
+			var windowReservSize = ((historySize + keepAddBufferBefore +
+					matchMaxLen + keepAddBufferAfter) / 2) + 256;
 
 			base.Create(historySize + keepAddBufferBefore, matchMaxLen + keepAddBufferAfter, windowReservSize);
 

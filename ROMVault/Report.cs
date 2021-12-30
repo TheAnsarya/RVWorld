@@ -444,7 +444,7 @@ namespace ROMVault
 
                             break;
                         case ReportType.PartialMissing:
-                            if (correct > 0 && missing > 0 || fixesNeeded > 0)
+                            if ((correct > 0 && missing > 0) || fixesNeeded > 0)
                             {
                                 _ts.WriteLine(RemoveBase(dat.GetData(RvDat.DatData.DatRootFullName)));
                                 _fileNameLength = 0;
@@ -509,8 +509,8 @@ namespace ROMVault
                 if (f.IsFile)
                 {
                     if (
-                        rt == ReportType.PartialMissing && Partial.Contains(f.RepStatus) ||
-                        rt == ReportType.Fixing && Fixing.Contains(f.RepStatus)
+                        (rt == ReportType.PartialMissing && Partial.Contains(f.RepStatus)) ||
+                        (rt == ReportType.Fixing && Fixing.Contains(f.RepStatus))
                     )
                     {
                         int fileNameLength = f.FileNameInsideGame().Length;
@@ -562,8 +562,8 @@ namespace ROMVault
                 if (f.IsFile)
                 {
                     if (
-                        rt == ReportType.PartialMissing && Partial.Contains(f.RepStatus) ||
-                        rt == ReportType.Fixing && Fixing.Contains(f.RepStatus)
+                        (rt == ReportType.PartialMissing && Partial.Contains(f.RepStatus)) ||
+                        (rt == ReportType.Fixing && Fixing.Contains(f.RepStatus))
                     )
                     {
                         string filename = f.FileNameInsideGame();

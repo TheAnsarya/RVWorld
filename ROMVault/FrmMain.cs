@@ -287,7 +287,7 @@ namespace ROMVault
                 return;
             }
 
-            gbDatInfo.Width = splitDatInfoTree.Panel1.Width - gbDatInfo.Left * 2;
+            gbDatInfo.Width = splitDatInfoTree.Panel1.Width - (gbDatInfo.Left * 2);
         }
 
         private void SplitContainer4_Panel1_Resize(object sender, EventArgs e)
@@ -837,8 +837,8 @@ namespace ROMVault
             childForm.Owner = this;
             childForm.StartPosition = FormStartPosition.Manual;
             childForm.Location = new Point(
-              Location.X + (Width - childForm.Width) / 2,
-              Location.Y + (Height - childForm.Height) / 2
+              Location.X + ((Width - childForm.Width) / 2),
+              Location.Y + ((Height - childForm.Height) / 2)
             );
         }
 

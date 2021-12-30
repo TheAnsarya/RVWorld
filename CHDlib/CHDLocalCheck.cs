@@ -112,7 +112,7 @@ namespace CHDlib {
 			while (sizetoGo > 0) {
 				/* progress */
 				if ((block % 1000) == 0) {
-					progress?.Invoke($"Verifying, {(100 - sizetoGo * 100 / hardDisk.totalbytes):N1}% complete...\r");
+					progress?.Invoke($"Verifying, {(100 - (sizetoGo * 100 / hardDisk.totalbytes)):N1}% complete...\r");
 				}
 
 				/* read the block into the cache */
