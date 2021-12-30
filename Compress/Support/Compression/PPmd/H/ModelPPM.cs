@@ -150,7 +150,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			runLength = initRL;
 			prevSuccess = 0;
 			for (var i = 0; i < 256; i++) {
-				state.Address = addr + i * State.Size;
+				state.Address = addr + (i * State.Size);
 				state.Symbol = i;
 				state.Freq = 1;
 				state.SetSuccessor(0);
@@ -159,13 +159,13 @@ namespace Compress.Support.Compression.PPmd.H {
 			for (var i = 0; i < 128; i++) {
 				for (var k = 0; k < 8; k++) {
 					for (var m = 0; m < 64; m += 8) {
-						binSumm[i][k + m] = BIN_SCALE - InitBinEsc[k] / (i + 2);
+						binSumm[i][k + m] = BIN_SCALE - (InitBinEsc[k] / (i + 2));
 					}
 				}
 			}
 			for (var i = 0; i < 25; i++) {
 				for (var k = 0; k < 16; k++) {
-					SEE2Cont[i][k].Initialize(5 * i + 10);
+					SEE2Cont[i][k].Initialize((5 * i) + 10);
 				}
 			}
 		}
@@ -346,7 +346,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				var cf = p.Freq - 1;
 				var s0 = pc.FreqData.SummFreq - pc.NumStats - cf;
 				// UpState.Freq=1+((2*cf <= s0)?(5*cf > s0):((2*cf+3*s0-1)/(2*s0)));
-				upState.Freq = 1 + ((2 * cf <= s0) ? (5 * cf > s0 ? 1 : 0) : ((2 * cf + 3 * s0 - 1) / (2 * s0)));
+				upState.Freq = 1 + ((2 * cf <= s0) ? (5 * cf > s0 ? 1 : 0) : (((2 * cf) + (3 * s0) - 1) / (2 * s0)));
 			} else {
 				upState.Freq = pc.getOneState().Freq; // UpState.Freq=pc->OneState.Freq;
 			}
@@ -460,7 +460,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					//				int sum = ((2 * ns1 < ns) ? 1 : 0) +
 					//                        2 * ((4 * ((ns1 <= ns) ? 1 : 0)) & ((pc.getFreqData()
 					//								.getSummFreq() <= 8 * ns1) ? 1 : 0));
-					var sum = ((2 * ns1 < ns) ? 1 : 0) + 2 * (((4 * ns1 <= ns) ? 1 : 0) & ((pc.FreqData.SummFreq <= 8 * ns1) ? 1 : 0));
+					var sum = ((2 * ns1 < ns) ? 1 : 0) + (2 * (((4 * ns1 <= ns) ? 1 : 0) & ((pc.FreqData.SummFreq <= 8 * ns1) ? 1 : 0)));
 					pc.FreqData.IncrementSummFreq(sum);
 				} else {
 					p.Address = SubAlloc.allocUnits(1);
@@ -470,7 +470,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					}
 					p.SetValues(pc.getOneState());
 					pc.FreqData.SetStats(p);
-					if (p.Freq < MAX_FREQ / 4 - 1) {
+					if (p.Freq < (MAX_FREQ / 4) - 1) {
 						p.IncrementFreq(p.Freq);
 					} else {
 						p.Freq = MAX_FREQ - 4;
@@ -486,7 +486,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					cf = 4 + (cf >= 9 * sf ? 1 : 0) + (cf >= 12 * sf ? 1 : 0) + (cf >= 15 * sf ? 1 : 0);
 					pc.FreqData.IncrementSummFreq(cf);
 				}
-				p.Address = pc.FreqData.GetStats() + ns1 * State.Size;
+				p.Address = pc.FreqData.GetStats() + (ns1 * State.Size);
 				p.SetSuccessor(successor);
 				p.Symbol = fs.Symbol;
 				p.Freq = cf;

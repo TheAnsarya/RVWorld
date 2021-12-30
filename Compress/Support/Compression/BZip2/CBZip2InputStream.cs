@@ -409,7 +409,7 @@ namespace Compress.Support.Compression.BZip2 {
 				if (inUse16[i]) {
 					for (j = 0; j < 16; j++) {
 						if (BsR(1) == 1) {
-							inUse[i * 16 + j] = true;
+							inUse[(i * 16) + j] = true;
 						}
 					}
 				}

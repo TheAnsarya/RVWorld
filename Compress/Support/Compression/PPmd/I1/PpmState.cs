@@ -50,7 +50,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// Gets or sets the successor.
 		/// </summary>
 		public Model.PpmContext Successor {
-			get => new(Memory[Address + 2] | ((uint)Memory[Address + 3]) << 8 | ((uint)Memory[Address + 4]) << 16 | ((uint)Memory[Address + 5]) << 24, Memory);
+			get => new(Memory[Address + 2] | (((uint)Memory[Address + 3]) << 8) | (((uint)Memory[Address + 4]) << 16) | (((uint)Memory[Address + 5]) << 24), Memory);
 			set {
 				Memory[Address + 2] = (byte)value.Address;
 				Memory[Address + 3] = (byte)(value.Address >> 8);
@@ -65,7 +65,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// </summary>
 		/// <param name="offset"></param>
 		/// <returns></returns>
-		public PpmState this[int offset] => new((uint)(Address + offset * Size), Memory);
+		public PpmState this[int offset] => new((uint)(Address + (offset * Size)), Memory);
 
 		/// <summary>
 		/// Allow a pointer to be implicitly converted to a PPM state.
@@ -81,7 +81,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// <param name="offset"></param>
 		/// <returns></returns>
 		public static PpmState operator +(PpmState state, int offset) {
-			state.Address = (uint)(state.Address + offset * Size);
+			state.Address = (uint)(state.Address + (offset * Size));
 			return state;
 		}
 
@@ -102,7 +102,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// <param name="offset"></param>
 		/// <returns></returns>
 		public static PpmState operator -(PpmState state, int offset) {
-			state.Address = (uint)(state.Address - offset * Size);
+			state.Address = (uint)(state.Address - (offset * Size));
 			return state;
 		}
 

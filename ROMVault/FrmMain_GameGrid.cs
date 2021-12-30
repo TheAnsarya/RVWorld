@@ -98,9 +98,9 @@ namespace ROMVault
                 bool gAllMerged = tDirStat.HasAllMerged();
 
                 bool show = chkBoxShowCorrect.Checked && gCorrect && !gMissing && !gFixes;
-                show = show || chkBoxShowMissing.Checked && gMissing;
-                show = show || chkBoxShowFixed.Checked && gFixes;
-                show = show || chkBoxShowMerged.Checked && gAllMerged;
+                show = show || (chkBoxShowMissing.Checked && gMissing);
+                show = show || (chkBoxShowFixed.Checked && gFixes);
+                show = show || (chkBoxShowMerged.Checked && gAllMerged);
                 show = show || gUnknown;
                 show = show || gInToSort;
                 show = show || tChildDir.GotStatus == GotStatus.Corrupt;
@@ -126,7 +126,7 @@ namespace ROMVault
                         continue;
                     }
 
-                    int len = DigitLength(tDirStat.Get(RepairStatus.DisplayOrder[l])) * 7 + 26;
+                    int len = (DigitLength(tDirStat.Get(RepairStatus.DisplayOrder[l])) * 7) + 26;
                     if (len > _gameGridColumnXPositions[columnIndex])
                     {
                         _gameGridColumnXPositions[columnIndex] = len;

@@ -27,7 +27,7 @@ namespace Compress.Support.Compression.PPmd.H {
 		public const int N1 = 4;
 		public const int N2 = 4;
 		public const int N3 = 4;
-		public static readonly int N4 = (128 + 3 - 1 * N1 - 2 * N2 - 3 * N3) / 4;
+		public static readonly int N4 = (128 + 3 - (1 * N1) - (2 * N2) - (3 * N3)) / 4;
 
 		//UPGRADE_NOTE: Final was removed from the declaration of 'N_INDEXES '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		public static readonly int N_INDEXES = N1 + N2 + N3 + N4;
@@ -126,11 +126,11 @@ namespace Compress.Support.Compression.PPmd.H {
 				return true;
 			}
 			stopSubAllocator();
-			var allocSize = t / FIXED_UNIT_SIZE * UNIT_SIZE + UNIT_SIZE;
+			var allocSize = (t / FIXED_UNIT_SIZE * UNIT_SIZE) + UNIT_SIZE;
 
 			// adding space for freelist (needed for poiters)
 			// 1+ for null pointer
-			var realAllocSize = 1 + allocSize + 4 * N_INDEXES;
+			var realAllocSize = 1 + allocSize + (4 * N_INDEXES);
 			// adding space for an additional memblock
 			tempMemBlockPos = realAllocSize;
 			realAllocSize += RarMemBlock.Size;
@@ -309,7 +309,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			var size2 = FIXED_UNIT_SIZE * (subAllocatorSize / 8 / FIXED_UNIT_SIZE * 7);
 			var realSize2 = size2 / FIXED_UNIT_SIZE * UNIT_SIZE;
 			var size1 = subAllocatorSize - size2;
-			var realSize1 = size1 / FIXED_UNIT_SIZE * UNIT_SIZE + size1 % FIXED_UNIT_SIZE;
+			var realSize1 = (size1 / FIXED_UNIT_SIZE * UNIT_SIZE) + (size1 % FIXED_UNIT_SIZE);
 			hiUnit = heapStart + subAllocatorSize;
 			loUnit = unitsStart = heapStart + realSize1;
 			fakeUnitsStart = heapStart + size1;

@@ -235,7 +235,7 @@ namespace Compress {
 
 		public static int UtcTicksToUnixDateTime(long ticks) => (int)((ticks - EpochTimeToUtcTime) / TicksPerSecond);
 
-		public static long UtcTicksFromUnixDateTime(int linuxSeconds) => linuxSeconds * TicksPerSecond + EpochTimeToUtcTime;
+		public static long UtcTicksFromUnixDateTime(int linuxSeconds) => (linuxSeconds * TicksPerSecond) + EpochTimeToUtcTime;
 
 	}
 }

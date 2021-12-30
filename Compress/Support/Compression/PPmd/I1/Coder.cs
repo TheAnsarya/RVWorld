@@ -1,4 +1,4 @@
-#region Using
+﻿#region Using
 
 using System.IO;
 
@@ -29,7 +29,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		}
 
 		public void RangeEncoderNormalize(Stream stream) {
-			while ((low ^ (low + range)) < RangeTop || range < RangeBottom && ((range = (uint)-low & (RangeBottom - 1)) != 0 || true)) {
+			while ((low ^ (low + range)) < RangeTop || (range < RangeBottom && ((range = (uint)-low & (RangeBottom - 1)) != 0 || true))) {
 				stream.WriteByte((byte)(low >> 24));
 				range <<= 8;
 				low <<= 8;
@@ -63,7 +63,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		}
 
 		public void RangeDecoderNormalize(Stream stream) {
-			while ((low ^ (low + range)) < RangeTop || range < RangeBottom && ((range = (uint)-low & (RangeBottom - 1)) != 0 || true)) {
+			while ((low ^ (low + range)) < RangeTop || (range < RangeBottom && ((range = (uint)-low & (RangeBottom - 1)) != 0 || true))) {
 				code = (code << 8) | (byte)stream.ReadByte();
 				range <<= 8;
 				low <<= 8;

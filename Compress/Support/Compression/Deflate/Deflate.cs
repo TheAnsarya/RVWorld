@@ -178,7 +178,7 @@ namespace Compress.Support.Compression.Deflate {
 
 		private static readonly int MIN_LOOKAHEAD = (MAX_MATCH + MIN_MATCH + 1);
 
-		private static readonly int HEAP_SIZE = (2 * InternalConstants.L_CODES + 1);
+		private static readonly int HEAP_SIZE = (2 * InternalConstants.L_CODES) + 1;
 
 		private static readonly int END_BLOCK = 256;
 
@@ -263,7 +263,7 @@ namespace Compress.Support.Compression.Deflate {
 		internal short[] bl_count = new short[InternalConstants.MAX_BITS + 1];
 
 		// heap used to build the Huffman trees
-		internal int[] heap = new int[2 * InternalConstants.L_CODES + 1];
+		internal int[] heap = new int[(2 * InternalConstants.L_CODES) + 1];
 
 		internal int heap_len;              // number of elements in the heap
 		internal int heap_max;              // element of largest frequency
@@ -272,7 +272,7 @@ namespace Compress.Support.Compression.Deflate {
 		// The same heap array is used to build all trees.
 
 		// Depth of each subtree used as tie breaker for trees of equal frequency
-		internal sbyte[] depth = new sbyte[2 * InternalConstants.L_CODES + 1];
+		internal sbyte[] depth = new sbyte[(2 * InternalConstants.L_CODES) + 1];
 
 		internal int _lengthOffset;                 // index for literals or lengths
 
@@ -318,8 +318,8 @@ namespace Compress.Support.Compression.Deflate {
 
 		internal DeflateManager() {
 			dyn_ltree = new short[HEAP_SIZE * 2];
-			dyn_dtree = new short[(2 * InternalConstants.D_CODES + 1) * 2]; // distance tree
-			bl_tree = new short[(2 * InternalConstants.BL_CODES + 1) * 2]; // Huffman tree for bit lengths
+			dyn_dtree = new short[((2 * InternalConstants.D_CODES) + 1) * 2]; // distance tree
+			bl_tree = new short[((2 * InternalConstants.BL_CODES) + 1) * 2]; // Huffman tree for bit lengths
 		}
 
 		// lm_init
@@ -417,7 +417,7 @@ namespace Compress.Support.Compression.Deflate {
 			int n; // iterates over all tree elements
 			var prevlen = -1; // last emitted length
 			int curlen; // length of current code
-			int nextlen = tree[0 * 2 + 1]; // length of next code
+			int nextlen = tree[(0 * 2) + 1]; // length of next code
 			var count = 0; // repeat count of the current code
 			var max_count = 7; // max repeat count
 			var min_count = 4; // min repeat count
@@ -425,10 +425,10 @@ namespace Compress.Support.Compression.Deflate {
 			if (nextlen == 0) {
 				max_count = 138; min_count = 3;
 			}
-			tree[(max_code + 1) * 2 + 1] = 0x7fff; // guard //??
+			tree[((max_code + 1) * 2) + 1] = 0x7fff; // guard //??
 
 			for (n = 0; n <= max_code; n++) {
-				curlen = nextlen; nextlen = tree[(n + 1) * 2 + 1];
+				curlen = nextlen; nextlen = tree[((n + 1) * 2) + 1];
 				if (++count < max_count && curlen == nextlen) {
 					continue;
 				} else if (count < min_count) {
@@ -474,12 +474,12 @@ namespace Compress.Support.Compression.Deflate {
 			// requires that at least 4 bit length codes be sent. (appnote.txt says
 			// 3 but the actual value used is 4.)
 			for (max_blindex = InternalConstants.BL_CODES - 1; max_blindex >= 3; max_blindex--) {
-				if (bl_tree[Tree.bl_order[max_blindex] * 2 + 1] != 0) {
+				if (bl_tree[(Tree.bl_order[max_blindex] * 2) + 1] != 0) {
 					break;
 				}
 			}
 			// Update opt_len to include the bit length tree and counts
-			opt_len += 3 * (max_blindex + 1) + 5 + 5 + 4;
+			opt_len += (3 * (max_blindex + 1)) + 5 + 5 + 4;
 
 			return max_blindex;
 		}
@@ -494,7 +494,7 @@ namespace Compress.Support.Compression.Deflate {
 			send_bits(dcodes - 1, 5);
 			send_bits(blcodes - 4, 4); // not -3 as stated in appnote.txt
 			for (rank = 0; rank < blcodes; rank++) {
-				send_bits(bl_tree[Tree.bl_order[rank] * 2 + 1], 3);
+				send_bits(bl_tree[(Tree.bl_order[rank] * 2) + 1], 3);
 			}
 
 			send_tree(dyn_ltree, lcodes - 1); // literal tree
@@ -507,7 +507,7 @@ namespace Compress.Support.Compression.Deflate {
 			int n;                           // iterates over all tree elements
 			var prevlen = -1;              // last emitted length
 			int curlen;                      // length of current code
-			int nextlen = tree[0 * 2 + 1]; // length of next code
+			int nextlen = tree[(0 * 2) + 1]; // length of next code
 			var count = 0;               // repeat count of the current code
 			var max_count = 7;               // max repeat count
 			var min_count = 4;               // min repeat count
@@ -517,7 +517,7 @@ namespace Compress.Support.Compression.Deflate {
 			}
 
 			for (n = 0; n <= max_code; n++) {
-				curlen = nextlen; nextlen = tree[(n + 1) * 2 + 1];
+				curlen = nextlen; nextlen = tree[((n + 1) * 2) + 1];
 				if (++count < max_count && curlen == nextlen) {
 					continue;
 				} else if (count < min_count) {
@@ -637,8 +637,8 @@ namespace Compress.Support.Compression.Deflate {
 		// Save the match info and tally the frequency counts. Return true if
 		// the current block must be flushed.
 		internal bool _tr_tally(int dist, int lc) {
-			pending[_distanceOffset + last_lit * 2] = unchecked((byte)((uint)dist >> 8));
-			pending[_distanceOffset + last_lit * 2 + 1] = unchecked((byte)dist);
+			pending[_distanceOffset + (last_lit * 2)] = unchecked((byte)((uint)dist >> 8));
+			pending[_distanceOffset + (last_lit * 2) + 1] = unchecked((byte)dist);
 			pending[_lengthOffset + last_lit] = unchecked((byte)lc);
 			last_lit++;
 
@@ -694,7 +694,7 @@ namespace Compress.Support.Compression.Deflate {
 
 			if (last_lit != 0) {
 				do {
-					var ix = _distanceOffset + lx * 2;
+					var ix = _distanceOffset + (lx * 2);
 					distance = ((pending[ix] << 8) & 0xff00) |
 						(pending[ix + 1] & 0xff);
 					lc = (pending[_lengthOffset + lx]) & 0xff;
@@ -736,7 +736,7 @@ namespace Compress.Support.Compression.Deflate {
 			}
 
 			send_code(END_BLOCK, ltree);
-			last_eob_len = ltree[END_BLOCK * 2 + 1];
+			last_eob_len = ltree[(END_BLOCK * 2) + 1];
 		}
 
 		// Set the data type to ASCII or BINARY, using a crude approximation:

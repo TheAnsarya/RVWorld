@@ -268,7 +268,7 @@ namespace Compress.Support.Compression.PPmd {
 				(byte)(x & 0xff) };
 
 		public static DateTime DosDateToDateTime(ushort iDate, ushort iTime) {
-			var year = iDate / 512 + 1980;
+			var year = (iDate / 512) + 1980;
 			var month = iDate % 512 / 32;
 			var day = iDate % 512 % 32;
 			var hour = iTime / 2048;

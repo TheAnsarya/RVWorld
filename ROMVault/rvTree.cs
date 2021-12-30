@@ -95,11 +95,11 @@ namespace ROMVault
 
             uTree.TreeBranches = pTreeBranches;
 
-            uTree.RTree = new Rectangle(0, _yPos, 1 + nodeDepth * 18, nodeHeight);
-            uTree.RExpand = new Rectangle(5 + nodeDepth * 18, _yPos + 4, 9, 9);
-            uTree.RChecked = new Rectangle(20 + nodeDepth * 18, _yPos + 2, 13, 13);
-            uTree.RIcon = new Rectangle(35 + nodeDepth * 18, _yPos, 16, 16);
-            uTree.RText = new Rectangle(51 + nodeDepth * 18, _yPos, 500, nodeHeight);
+            uTree.RTree = new Rectangle(0, _yPos, 1 + (nodeDepth * 18), nodeHeight);
+            uTree.RExpand = new Rectangle(5 + (nodeDepth * 18), _yPos + 4, 9, 9);
+            uTree.RChecked = new Rectangle(20 + (nodeDepth * 18), _yPos + 2, 13, 13);
+            uTree.RIcon = new Rectangle(35 + (nodeDepth * 18), _yPos, 16, 16);
+            uTree.RText = new Rectangle(51 + (nodeDepth * 18), _yPos, 500, nodeHeight);
 
             pTreeBranches = pTreeBranches.Replace("├", "│");
             pTreeBranches = pTreeBranches.Replace("└", " ");
@@ -218,7 +218,7 @@ namespace ROMVault
                 string lTree = uTree.TreeBranches;
                 for (int j = 0; j < lTree.Length; j++)
                 {
-                    int x = j * 18 - _hScroll;
+                    int x = (j * 18) - _hScroll;
                     string cTree = lTree.Substring(j, 1);
                     switch (cTree)
                     {
@@ -397,7 +397,7 @@ namespace ROMVault
                     {
                         g.DrawString(datList[i], tFont1, textBrush,
                             ((UiTree)pTree.Tree.UiObject).RText.Left + 20 - _hScroll,
-                            ((UiTree)pTree.Tree.UiObject).RText.Top + 14 + i * 12 - _vScroll);
+                            ((UiTree)pTree.Tree.UiObject).RText.Top + 14 + (i * 12) - _vScroll);
                     }
                 }
             }

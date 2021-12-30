@@ -42,7 +42,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// Gets or sets the stamp.
 		/// </summary>
 		public uint Stamp {
-			get => Memory[Address] | ((uint)Memory[Address + 1]) << 8 | ((uint)Memory[Address + 2]) << 16 | ((uint)Memory[Address + 3]) << 24;
+			get => Memory[Address] | (((uint)Memory[Address + 1]) << 8) | (((uint)Memory[Address + 2]) << 16) | (((uint)Memory[Address + 3]) << 24);
 			set {
 				Memory[Address] = (byte)value;
 				Memory[Address + 1] = (byte)(value >> 8);
@@ -55,7 +55,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// Gets or sets the next memory node.
 		/// </summary>
 		public MemoryNode Next {
-			get => new(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
+			get => new(Memory[Address + 4] | (((uint)Memory[Address + 5]) << 8) | (((uint)Memory[Address + 6]) << 16) | (((uint)Memory[Address + 7]) << 24), Memory);
 			set {
 				Memory[Address + 4] = (byte)value.Address;
 				Memory[Address + 5] = (byte)(value.Address >> 8);
@@ -68,7 +68,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// Gets or sets the unit count.
 		/// </summary>
 		public uint UnitCount {
-			get => Memory[Address + 8] | ((uint)Memory[Address + 9]) << 8 | ((uint)Memory[Address + 10]) << 16 | ((uint)Memory[Address + 11]) << 24;
+			get => Memory[Address + 8] | (((uint)Memory[Address + 9]) << 8) | (((uint)Memory[Address + 10]) << 16) | (((uint)Memory[Address + 11]) << 24);
 			set {
 				Memory[Address + 8] = (byte)value;
 				Memory[Address + 9] = (byte)(value >> 8);
@@ -133,7 +133,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// <param name="offset"></param>
 		/// <returns></returns>
 		public static MemoryNode operator +(MemoryNode memoryNode, int offset) {
-			memoryNode.Address = (uint)(memoryNode.Address + offset * Size);
+			memoryNode.Address = (uint)(memoryNode.Address + (offset * Size));
 			return memoryNode;
 		}
 
@@ -155,7 +155,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// <param name="offset"></param>
 		/// <returns></returns>
 		public static MemoryNode operator -(MemoryNode memoryNode, int offset) {
-			memoryNode.Address = (uint)(memoryNode.Address - offset * Size);
+			memoryNode.Address = (uint)(memoryNode.Address - (offset * Size));
 			return memoryNode;
 		}
 

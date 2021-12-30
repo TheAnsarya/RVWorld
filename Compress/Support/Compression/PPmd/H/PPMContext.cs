@@ -208,7 +208,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			var ret = 0;
 			ret += Model.PrevSuccess;
 			ret += Model.getNS2BSIndx()[tempSuffix.NumStats - 1];
-			ret += Model.HiBitsFlag + 2 * Model.getHB2Flag()[rs.Symbol];
+			ret += Model.HiBitsFlag + (2 * Model.getHB2Flag()[rs.Symbol]);
 			ret += ((Utility.URShift(Model.RunLength, 26)) & 0x20);
 			return ret;
 		}

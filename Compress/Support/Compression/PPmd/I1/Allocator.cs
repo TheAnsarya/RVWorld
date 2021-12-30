@@ -12,11 +12,11 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		private const uint UnitSize = 12;
 		private const uint LocalOffset = 4;  // reserve the first four bytes for Pointer.Zero
 		private const uint NodeOffset = LocalOffset + MemoryNode.Size;  // reserve space for a single memory node
-		private const uint HeapOffset = NodeOffset + IndexCount * MemoryNode.Size;  // reserve space for the array of memory nodes
+		private const uint HeapOffset = NodeOffset + (IndexCount * MemoryNode.Size);  // reserve space for the array of memory nodes
 		private const uint N1 = 4;
 		private const uint N2 = 4;
 		private const uint N3 = 4;
-		private const uint N4 = (128 + 3 - 1 * N1 - 2 * N2 - 3 * N3) / 4;
+		private const uint N4 = (128 + 3 - (1 * N1) - (2 * N2) - (3 * N3)) / 4;
 		private const uint IndexCount = N1 + N2 + N3 + N4;
 
 		private static readonly byte[] indexToUnits;
@@ -88,7 +88,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// </summary>
 		public void Initialize() {
 			for (var index = 0; index < IndexCount; index++) {
-				MemoryNodes[index] = new MemoryNode((uint)(NodeOffset + index * MemoryNode.Size), Memory) {
+				MemoryNodes[index] = new MemoryNode((uint)(NodeOffset + (index * MemoryNode.Size)), Memory) {
 					Stamp = 0,
 					Next = MemoryNode.Zero,
 					UnitCount = 0
@@ -261,7 +261,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		public Pointer MoveUnitsUp(Pointer oldPointer, uint unitCount) {
 			uint index = unitsToIndex[unitCount - 1];
 
-			if (oldPointer > BaseUnit + 16 * 1024 || oldPointer > MemoryNodes[index].Next) {
+			if (oldPointer > BaseUnit + (16 * 1024) || oldPointer > MemoryNodes[index].Next) {
 				return oldPointer;
 			}
 
@@ -333,7 +333,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 
 		private void SplitBlock(Pointer pointer, uint oldIndex, uint newIndex) {
 			var unitCountDifference = (uint)(indexToUnits[oldIndex] - indexToUnits[newIndex]);
-			var newPointer = pointer + indexToUnits[newIndex] * UnitSize;
+			var newPointer = pointer + (indexToUnits[newIndex] * UnitSize);
 
 			uint index = unitsToIndex[unitCountDifference - 1];
 			if (indexToUnits[index] != unitCountDifference) {

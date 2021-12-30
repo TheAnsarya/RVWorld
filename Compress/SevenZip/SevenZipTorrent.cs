@@ -101,38 +101,39 @@ namespace Compress.SevenZip {
 				}
 
 				Util.MemSet(buffer, bufferPos + ar, 0, crcsz - ar);
-				Util.MemCrypt(buffer, crcsz * 2 + 8, buffer, bufferPos + ar, t7ZsigSize + 4);
+				Util.MemCrypt(buffer, (crcsz * 2) + 8, buffer, bufferPos + ar, t7ZsigSize + 4);
 			} else {
-				Util.MemCrypt(buffer, crcsz * 2 + 8, buffer, crcsz * 2, t7ZsigSize + 4);
+				Util.MemCrypt(buffer, (crcsz * 2) + 8, buffer, crcsz * 2, t7ZsigSize + 4);
 			}
 
 			foffs = _zipFs.Length;
 			foffs -= t7ZsigSize + 4;
 
 			//memcpy(buffer, crcsz * 2, &foffs, 8);
-			buffer[crcsz * 2 + 0] = (byte)((foffs >> 0) & 0xff);
-			buffer[crcsz * 2 + 1] = (byte)((foffs >> 8) & 0xff);
-			buffer[crcsz * 2 + 2] = (byte)((foffs >> 16) & 0xff);
-			buffer[crcsz * 2 + 3] = (byte)((foffs >> 24) & 0xff);
-			buffer[crcsz * 2 + 4] = (byte)((foffs >> 32) & 0xff);
-			buffer[crcsz * 2 + 5] = (byte)((foffs >> 40) & 0xff);
-			buffer[crcsz * 2 + 6] = (byte)((foffs >> 48) & 0xff);
-			buffer[crcsz * 2 + 7] = (byte)((foffs >> 56) & 0xff);
+			buffer[(crcsz * 2) + 0] = (byte)((foffs >> 0) & 0xff);
+			buffer[(crcsz * 2) + 1] = (byte)((foffs >> 8) & 0xff);
+			buffer[(crcsz * 2) + 2] = (byte)((foffs >> 16) & 0xff);
+			buffer[(crcsz * 2) + 3] = (byte)((foffs >> 24) & 0xff);
+			buffer[(crcsz * 2) + 4] = (byte)((foffs >> 32) & 0xff);
+			const int V = crcsz * 2;
+			buffer[V + 5] = (byte)((foffs >> 40) & 0xff);
+			buffer[(crcsz * 2) + 6] = (byte)((foffs >> 48) & 0xff);
+			buffer[(crcsz * 2) + 7] = (byte)((foffs >> 56) & 0xff);
 
 			if (Util.MemCmp(buffer, 0, kSignature, kSignatureSize)) {
-				t7Zid[16] = buffer[crcsz * 2 + 4 + 8 + 16];
-				if (Util.MemCmp(buffer, crcsz * 2 + 4 + 8, t7Zid, t7ZidSize)) {
-					var inCrc32 = (uint)(buffer[crcsz * 2 + 8 + 0] +
-										   (buffer[crcsz * 2 + 8 + 1] << 8) +
-										   (buffer[crcsz * 2 + 8 + 2] << 16) +
-										   (buffer[crcsz * 2 + 8 + 3] << 24));
+				t7Zid[16] = buffer[(crcsz * 2) + 4 + 8 + 16];
+				if (Util.MemCmp(buffer, (crcsz * 2) + 4 + 8, t7Zid, t7ZidSize)) {
+					var inCrc32 = (uint)(buffer[(crcsz * 2) + 8 + 0] +
+										   (buffer[(crcsz * 2) + 8 + 1] << 8) +
+										   (buffer[(crcsz * 2) + 8 + 2] << 16) +
+										   (buffer[(crcsz * 2) + 8 + 3] << 24));
 
-					buffer[crcsz * 2 + 8 + 0] = 0xff;
-					buffer[crcsz * 2 + 8 + 1] = 0xff;
-					buffer[crcsz * 2 + 8 + 2] = 0xff;
-					buffer[crcsz * 2 + 8 + 3] = 0xff;
+					buffer[(crcsz * 2) + 8 + 0] = 0xff;
+					buffer[(crcsz * 2) + 8 + 1] = 0xff;
+					buffer[(crcsz * 2) + 8 + 2] = 0xff;
+					buffer[(crcsz * 2) + 8 + 3] = 0xff;
 
-					var calcCrc32 = CRC.CalculateDigest(buffer, 0, crcsz * 2 + 8 + t7ZsigSize + 4);
+					var calcCrc32 = CRC.CalculateDigest(buffer, 0, (crcsz * 2) + 8 + t7ZsigSize + 4);
 
 					if (inCrc32 == calcCrc32) {
 						return true;

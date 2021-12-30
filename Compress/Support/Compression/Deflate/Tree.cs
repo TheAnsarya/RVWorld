@@ -1,4 +1,4 @@
-// Tree.cs
+﻿// Tree.cs
 // ------------------------------------------------------------------
 //
 // Copyright (c) 2009 Dino Chiesa and Microsoft Corporation.  
@@ -62,7 +62,7 @@
 
 namespace Compress.Support.Compression.Deflate {
 	internal sealed class Tree {
-		private static readonly int HEAP_SIZE = (2 * InternalConstants.L_CODES + 1);
+		private static readonly int HEAP_SIZE = ((2 * InternalConstants.L_CODES) + 1);
 
 		// extra bits for each length code
 		internal static readonly int[] ExtraLengthBits = new int[]
@@ -201,15 +201,15 @@ namespace Compress.Support.Compression.Deflate {
 
 			// In a first pass, compute the optimal bit lengths (which may
 			// overflow in the case of the bit length tree).
-			tree[s.heap[s.heap_max] * 2 + 1] = 0; // root of the heap
+			tree[(s.heap[s.heap_max] * 2) + 1] = 0; // root of the heap
 
 			for (h = s.heap_max + 1; h < HEAP_SIZE; h++) {
 				n = s.heap[h];
-				bits = tree[tree[n * 2 + 1] * 2 + 1] + 1;
+				bits = tree[(tree[(n * 2) + 1] * 2) + 1] + 1;
 				if (bits > max_length) {
 					bits = max_length; overflow++;
 				}
-				tree[n * 2 + 1] = (short)bits;
+				tree[(n * 2) + 1] = (short)bits;
 				// We overwrite tree[n*2+1] which is no longer needed
 
 				if (n > max_code) {
@@ -225,7 +225,7 @@ namespace Compress.Support.Compression.Deflate {
 				f = tree[n * 2];
 				s.opt_len += f * (bits + xbits);
 				if (stree != null) {
-					s.static_len += f * (stree[n * 2 + 1] + xbits);
+					s.static_len += f * (stree[(n * 2) + 1] + xbits);
 				}
 			}
 			if (overflow == 0) {
@@ -257,9 +257,9 @@ namespace Compress.Support.Compression.Deflate {
 						continue;
 					}
 
-					if (tree[m * 2 + 1] != bits) {
-						s.opt_len = (int)(s.opt_len + (bits - (long)tree[m * 2 + 1]) * tree[m * 2]);
-						tree[m * 2 + 1] = (short)bits;
+					if (tree[(m * 2) + 1] != bits) {
+						s.opt_len = (int)(s.opt_len + ((bits - (long)tree[(m * 2) + 1]) * tree[m * 2]));
+						tree[(m * 2) + 1] = (short)bits;
 					}
 					n--;
 				}
@@ -291,7 +291,7 @@ namespace Compress.Support.Compression.Deflate {
 					s.heap[++s.heap_len] = max_code = n;
 					s.depth[n] = 0;
 				} else {
-					tree[n * 2 + 1] = 0;
+					tree[(n * 2) + 1] = 0;
 				}
 			}
 
@@ -305,7 +305,7 @@ namespace Compress.Support.Compression.Deflate {
 				s.depth[node] = 0;
 				s.opt_len--;
 				if (stree != null) {
-					s.static_len -= stree[node * 2 + 1];
+					s.static_len -= stree[(node * 2) + 1];
 				}
 				// node is 0 or 1 so it does not have extra bits
 			}
@@ -335,7 +335,7 @@ namespace Compress.Support.Compression.Deflate {
 				// Create a new node father of n and m
 				tree[node * 2] = unchecked((short)(tree[n * 2] + tree[m * 2]));
 				s.depth[node] = (sbyte)(System.Math.Max((byte)s.depth[n], (byte)s.depth[m]) + 1);
-				tree[n * 2 + 1] = tree[m * 2 + 1] = (short)node;
+				tree[(n * 2) + 1] = tree[(m * 2) + 1] = (short)node;
 
 				// and insert the new node in the heap
 				s.heap[1] = node++;
@@ -381,7 +381,7 @@ namespace Compress.Support.Compression.Deflate {
 			//Tracev((stderr,"\ngen_codes: max_code %d ", max_code));
 
 			for (n = 0; n <= max_code; n++) {
-				int len = tree[n * 2 + 1];
+				int len = tree[(n * 2) + 1];
 				if (len == 0) {
 					continue;
 				}

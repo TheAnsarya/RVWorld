@@ -314,7 +314,7 @@ namespace RomVaultCore.Scanner {
 			switch (dbChild.FileType) {
 				case FileType.Zip:
 				case FileType.SevenZip:
-					if (dbChild.FileModTimeStamp != fileChild.FileModTimeStamp || EScanLevel == EScanLevel.Level3 || EScanLevel == EScanLevel.Level2 && !Utils.IsDeepScanned(dbChild)) {
+					if (dbChild.FileModTimeStamp != fileChild.FileModTimeStamp || EScanLevel == EScanLevel.Level3 || (EScanLevel == EScanLevel.Level2 && !Utils.IsDeepScanned(dbChild))) {
 						MarkAsMissing(dbChild);
 						dbChild.FileAdd(fileChild, false);
 						CheckADir(dbChild, false);

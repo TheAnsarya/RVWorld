@@ -332,7 +332,7 @@ StopDecoding:
 				}
 
 				for (var index2 = 0; index2 < 8; index2++) {
-					binarySummary[probability, index2] = (ushort)(BinaryScale - InitialBinaryEscapes[index2] / (index1 + 1));
+					binarySummary[probability, index2] = (ushort)(BinaryScale - (InitialBinaryEscapes[index2] / (index1 + 1)));
 				}
 
 				for (var index2 = 8; index2 < 64; index2 += 8) {
@@ -349,7 +349,7 @@ StopDecoding:
 				}
 
 				for (var index2 = 0; index2 < 32; index2++) {
-					see2Contexts[probability, index2].Initialize(2 * index1 + 5);
+					see2Contexts[probability, index2].Initialize((2 * index1) + 5);
 				}
 			}
 		}
@@ -446,7 +446,7 @@ StopDecoding:
 
 						currentContext.Statistics = state;
 					}
-					currentContext.SummaryFrequency += (ushort)((3 * ns1 + 1 < numberStatistics) ? 1 : 0);
+					currentContext.SummaryFrequency += (ushort)(((3 * ns1) + 1 < numberStatistics) ? 1 : 0);
 				} else {
 					state = Allocator.AllocateUnits(1);
 					if (state == PpmState.Zero) {
@@ -455,7 +455,7 @@ StopDecoding:
 
 					Copy(state, currentContext.FirstState);
 					currentContext.Statistics = state;
-					if (state.Frequency < MaximumFrequency / 4 - 1) {
+					if (state.Frequency < (MaximumFrequency / 4) - 1) {
 						state.Frequency += state.Frequency;
 					} else {
 						state.Frequency = (byte)(MaximumFrequency - 4);
@@ -564,7 +564,7 @@ NoLoop:
 				}
 				var cf = (uint)(state.Frequency - 1);
 				var s0 = (uint)(context.SummaryFrequency - context.NumberStatistics - cf);
-				localFrequency = (byte)(1 + ((2 * cf <= s0) ? (uint)((5 * cf > s0) ? 1 : 0) : ((cf + 2 * s0 - 3) / s0)));
+				localFrequency = (byte)(1 + ((2 * cf <= s0) ? (uint)((5 * cf > s0) ? 1 : 0) : ((cf + (2 * s0) - 3) / s0)));
 			} else {
 				localFrequency = context.FirstStateFrequency;
 			}
@@ -693,7 +693,7 @@ LoopEntry:
 			for (; currentContext != minimumContext; currentContext = currentContext.Suffix) {
 				if (currentContext.NumberStatistics == 0) {
 					currentContext.FirstStateFrequency -= (byte)(currentContext.FirstStateFrequency >> 1);
-				} else if ((currentContext.SummaryFrequency += 4) > 128 + 4 * currentContext.NumberStatistics) {
+				} else if ((currentContext.SummaryFrequency += 4) > 128 + (4 * currentContext.NumberStatistics)) {
 					Refresh((uint)((currentContext.NumberStatistics + 2) >> 1), true, currentContext);
 				}
 			}

@@ -51,7 +51,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// Gets or sets the summary frequency.
 			/// </summary>
 			public ushort SummaryFrequency {
-				get => (ushort)(Memory[Address + 2] | Memory[Address + 3] << 8);
+				get => (ushort)(Memory[Address + 2] | (Memory[Address + 3] << 8));
 				set {
 					Memory[Address + 2] = (byte)value;
 					Memory[Address + 3] = (byte)(value >> 8);
@@ -62,7 +62,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// Gets or sets the statistics.
 			/// </summary>
 			public PpmState Statistics {
-				get => new(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
+				get => new(Memory[Address + 4] | (((uint)Memory[Address + 5]) << 8) | (((uint)Memory[Address + 6]) << 16) | (((uint)Memory[Address + 7]) << 24), Memory);
 				set {
 					Memory[Address + 4] = (byte)value.Address;
 					Memory[Address + 5] = (byte)(value.Address >> 8);
@@ -75,7 +75,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// Gets or sets the suffix.
 			/// </summary>
 			public PpmContext Suffix {
-				get => new(Memory[Address + 8] | ((uint)Memory[Address + 9]) << 8 | ((uint)Memory[Address + 10]) << 16 | ((uint)Memory[Address + 11]) << 24, Memory);
+				get => new(Memory[Address + 8] | (((uint)Memory[Address + 9]) << 8) | (((uint)Memory[Address + 10]) << 16) | (((uint)Memory[Address + 11]) << 24), Memory);
 				set {
 					Memory[Address + 8] = (byte)value.Address;
 					Memory[Address + 9] = (byte)(value.Address >> 8);
@@ -136,7 +136,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// information can be obtained using the Successor property on the PPM state provided by the
 			/// </summary>
 			public PpmContext FirstStateSuccessor {
-				get => new(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
+				get => new(Memory[Address + 4] | (((uint)Memory[Address + 5]) << 8) | (((uint)Memory[Address + 6]) << 16) | (((uint)Memory[Address + 7]) << 24), Memory);
 				set {
 					Memory[Address + 4] = (byte)value.Address;
 					Memory[Address + 5] = (byte)(value.Address >> 8);
@@ -159,7 +159,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// <param name="offset"></param>
 			/// <returns></returns>
 			public static PpmContext operator +(PpmContext context, int offset) {
-				context.Address = (uint)(context.Address + offset * Size);
+				context.Address = (uint)(context.Address + (offset * Size));
 				return context;
 			}
 
@@ -170,7 +170,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// <param name="offset"></param>
 			/// <returns></returns>
 			public static PpmContext operator -(PpmContext context, int offset) {
-				context.Address = (uint)(context.Address - offset * Size);
+				context.Address = (uint)(context.Address - (offset * Size));
 				return context;
 			}
 
@@ -549,7 +549,7 @@ SymbolFound:
 					localSymbol = context.Statistics.Symbol;
 					localFrequency = context.Statistics.Frequency;
 					localSuccessor = context.Statistics.Successor;
-					localFrequency = (byte)((2 * localFrequency + escapeFrequency - 1) / escapeFrequency);
+					localFrequency = (byte)(((2 * localFrequency) + escapeFrequency - 1) / escapeFrequency);
 					if (localFrequency > MaximumFrequency / 3) {
 						localFrequency = (byte)(MaximumFrequency / 3);
 					}

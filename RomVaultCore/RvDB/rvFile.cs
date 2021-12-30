@@ -1157,8 +1157,8 @@ namespace RomVaultCore.RvDB {
 
 		public void ChildAdd(RvFile child, int index) {
 			if (
-				FileType == FileType.Dir && child.FileType == FileType.ZipFile ||
-				FileType == FileType.Zip && child.FileType != FileType.ZipFile
+				(FileType == FileType.Dir && child.FileType == FileType.ZipFile) ||
+				(FileType == FileType.Zip && child.FileType != FileType.ZipFile)
 			) {
 				ReportError.SendAndShow("Typing to add a " + child.FileType + " to a " + FileType);
 			}
