@@ -58,92 +58,73 @@ namespace RomVaultX
                 return;
             }
 
-            bgwText bgwT = e.UserState as bgwText;
-            if (bgwT != null)
-            {
-                label.Text = bgwT.Text;
-                return;
-            }
-            bgwSetRange bgwSR = e.UserState as bgwSetRange;
-            if (bgwSR != null)
-            {
-                progressBar.Minimum = 0;
-                progressBar.Maximum = bgwSR.MaxVal >= 0 ? bgwSR.MaxVal : 0;
-                progressBar.Value = 0;
-                UpdateStatusText();
-                return;
-            }
+			if (e.UserState is bgwText bgwT) {
+				label.Text = bgwT.Text;
+				return;
+			}
+			if (e.UserState is bgwSetRange bgwSR) {
+				progressBar.Minimum = 0;
+				progressBar.Maximum = bgwSR.MaxVal >= 0 ? bgwSR.MaxVal : 0;
+				progressBar.Value = 0;
+				UpdateStatusText();
+				return;
+			}
 
 
-            bgwText2 bgwT2 = e.UserState as bgwText2;
-            if (bgwT2 != null)
-            {
-                label2.Text = bgwT2.Text;
-                return;
-            }
+			if (e.UserState is bgwText2 bgwT2) {
+				label2.Text = bgwT2.Text;
+				return;
+			}
 
-            bgwValue2 bgwV2 = e.UserState as bgwValue2;
-            if (bgwV2 != null)
-            {
-                if ((bgwV2.Value >= progressBar2.Minimum) && (bgwV2.Value <= progressBar2.Maximum))
-                {
-                    progressBar2.Value = bgwV2.Value;
-                }
-                UpdateStatusText2();
-                return;
-            }
+			if (e.UserState is bgwValue2 bgwV2) {
+				if ((bgwV2.Value >= progressBar2.Minimum) && (bgwV2.Value <= progressBar2.Maximum)) {
+					progressBar2.Value = bgwV2.Value;
+				}
+				UpdateStatusText2();
+				return;
+			}
 
-            bgwSetRange2 bgwSR2 = e.UserState as bgwSetRange2;
-            if (bgwSR2 != null)
-            {
-                progressBar2.Minimum = 0;
-                progressBar2.Maximum = bgwSR2.MaxVal >= 0 ? bgwSR2.MaxVal : 0;
-                progressBar2.Value = 0;
-                UpdateStatusText2();
-                return;
-            }
-            bgwRange2Visible bgwR2V = e.UserState as bgwRange2Visible;
-            if (bgwR2V != null)
-            {
-                label2.Visible = bgwR2V.Visible;
-                progressBar2.Visible = bgwR2V.Visible;
-                lbl2Prog.Visible = bgwR2V.Visible;
-                return;
-            }
+			if (e.UserState is bgwSetRange2 bgwSR2) {
+				progressBar2.Minimum = 0;
+				progressBar2.Maximum = bgwSR2.MaxVal >= 0 ? bgwSR2.MaxVal : 0;
+				progressBar2.Value = 0;
+				UpdateStatusText2();
+				return;
+			}
+			if (e.UserState is bgwRange2Visible bgwR2V) {
+				label2.Visible = bgwR2V.Visible;
+				progressBar2.Visible = bgwR2V.Visible;
+				lbl2Prog.Visible = bgwR2V.Visible;
+				return;
+			}
 
 
-            bgwText3 bgwT3 = e.UserState as bgwText3;
-            if (bgwT3 != null)
-            {
-                label3.Text = bgwT3.Text;
-                return;
-            }
+			if (e.UserState is bgwText3 bgwT3) {
+				label3.Text = bgwT3.Text;
+				return;
+			}
 
 
-            bgwShowError bgwSDE = e.UserState as bgwShowError;
-            if (bgwSDE != null)
-            {
-                if (!_errorOpen)
-                {
-                    _errorOpen = true;
-                    ClientSize = new Size(498, 292);
-                    MinimumSize = new Size(498, 292);
-                    FormBorderStyle = FormBorderStyle.SizableToolWindow;
-                }
+			if (e.UserState is bgwShowError bgwSDE) {
+				if (!_errorOpen) {
+					_errorOpen = true;
+					ClientSize = new Size(498, 292);
+					MinimumSize = new Size(498, 292);
+					FormBorderStyle = FormBorderStyle.SizableToolWindow;
+				}
 
-                ErrorGrid.Rows.Add();
-                int row = ErrorGrid.Rows.Count - 1;
+				ErrorGrid.Rows.Add();
+				int row = ErrorGrid.Rows.Count - 1;
 
-                ErrorGrid.Rows[row].Cells["CError"].Value = bgwSDE.error;
+				ErrorGrid.Rows[row].Cells["CError"].Value = bgwSDE.error;
 
-                ErrorGrid.Rows[row].Cells["CErrorFile"].Value = bgwSDE.filename;
+				ErrorGrid.Rows[row].Cells["CErrorFile"].Value = bgwSDE.filename;
 
-                if (row >= 0)
-                {
-                    ErrorGrid.FirstDisplayedScrollingRowIndex = row;
-                }
-            }
-        }
+				if (row >= 0) {
+					ErrorGrid.FirstDisplayedScrollingRowIndex = row;
+				}
+			}
+		}
 
         private void UpdateStatusText()
         {
