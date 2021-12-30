@@ -122,13 +122,12 @@ namespace Compress.Support.Compression.BZip2 {
 		private int storedBlockCRC, storedCombinedCRC;
 		private int computedBlockCRC, computedCombinedCRC;
 		private readonly bool decompressConcatenated;
-
-		int i2, count, chPrev, ch2;
-		int i, tPos;
-		int rNToGo = 0;
-		int rTPos = 0;
-		int j2;
-		char z;
+		private int i2, count, chPrev, ch2;
+		private int i, tPos;
+		private int rNToGo = 0;
+		private int rTPos = 0;
+		private int j2;
+		private char z;
 
 		private long position = 0;
 

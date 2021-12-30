@@ -48,7 +48,7 @@ namespace Compress.Support.Compression.Deflate {
 		protected internal CompressionStrategy Strategy = CompressionStrategy.Default;
 
 		// workitem 7159
-		readonly CRC crc;
+		private readonly CRC crc;
 		protected internal string _GzipFileName;
 		protected internal string _GzipComment;
 		protected internal DateTime _GzipMtime;

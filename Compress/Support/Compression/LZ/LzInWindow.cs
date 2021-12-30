@@ -1,18 +1,18 @@
 namespace Compress.Support.Compression.LZ {
 	internal class InWindow {
 		public byte[] _bufferBase = null; // pointer to buffer with data
-		System.IO.Stream _stream;
-		uint _posLimit; // offset (from _buffer) of first byte when new block reading must be done
-		bool _streamEndWasReached; // if (true) then _streamPos shows real end of stream
+		private System.IO.Stream _stream;
+		private uint _posLimit; // offset (from _buffer) of first byte when new block reading must be done
+		private bool _streamEndWasReached; // if (true) then _streamPos shows real end of stream
 
-		uint _pointerToLastSafePosition;
+		private uint _pointerToLastSafePosition;
 
 		public uint _bufferOffset;
 
 		public uint _blockSize; // Size of Allocated memory block
 		public uint _pos; // offset (from _buffer) of curent byte
-		uint _keepSizeBefore; // how many BYTEs must be kept in buffer before _pos
-		uint _keepSizeAfter; // how many BYTEs must be kept buffer after _pos
+		private uint _keepSizeBefore; // how many BYTEs must be kept in buffer before _pos
+		private uint _keepSizeAfter; // how many BYTEs must be kept buffer after _pos
 		public uint _streamPos; // offset (from _buffer) of first not read byte from Stream
 
 		public void MoveBlock() {
@@ -61,7 +61,7 @@ namespace Compress.Support.Compression.LZ {
 			}
 		}
 
-		void Free() => _bufferBase = null;
+		private void Free() => _bufferBase = null;
 
 		public void Create(uint keepSizeBefore, uint keepSizeAfter, uint keepSizeReserv) {
 			_keepSizeBefore = keepSizeBefore;

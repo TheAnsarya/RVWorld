@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 
 namespace CHDlib {
-	class CHDThreadReadBuffer {
+	internal class CHDThreadReadBuffer {
 		private readonly AutoResetEvent _waitEvent;
 		private readonly AutoResetEvent _outEvent;
 		private readonly Thread _tWorker;

@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Compress.Support.Utils {
-	class CRCStream {
+	internal class CRCStream {
 	}
 
 	/// <summary>

@@ -2,8 +2,8 @@
 using Compress.Support.Utils;
 
 namespace unzip {
-	class Program {
-		static void Main(string[] args) {
+	internal class Program {
+		private static void Main(string[] args) {
 			if (args.Length < 1) {
 				Console.WriteLine("Arguments:");
 				Console.WriteLine("RVUnzip.exe source.zip");

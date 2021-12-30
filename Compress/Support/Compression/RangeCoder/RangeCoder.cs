@@ -1,13 +1,12 @@
 namespace Compress.Support.Compression.RangeCoder {
 	internal class Encoder {
 		public const uint kTopValue = (1 << 24);
-
-		System.IO.Stream Stream;
+		private System.IO.Stream Stream;
 
 		public ulong Low;
 		public uint Range;
-		uint _cacheSize;
-		byte _cache;
+		private uint _cacheSize;
+		private byte _cache;
 
 		//long StartPosition;
 

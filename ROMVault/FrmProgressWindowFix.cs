@@ -19,7 +19,7 @@ namespace ROMVault
         private readonly Form _parentForm;
         private int _rowCount;
         private readonly List<string[][]> _reportPages;
-        string[][] pageNow;
+        private string[][] pageNow;
 
         private int _rowDisplay;
         private string[][] _pageDisplay;

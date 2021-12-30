@@ -61,7 +61,7 @@
 // -----------------------------------------------------------------------
 
 namespace Compress.Support.Compression.Deflate {
-	sealed class Tree {
+	internal sealed class Tree {
 		private static readonly int HEAP_SIZE = (2 * InternalConstants.L_CODES + 1);
 
 		// extra bits for each length code

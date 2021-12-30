@@ -2,30 +2,25 @@ using System;
 
 namespace Compress.Support.Compression.LZ {
 	internal class BinTree : InWindow {
-		uint _cyclicBufferPos;
-		uint _cyclicBufferSize = 0;
-		uint _matchMaxLen;
-
-		uint[] _son;
-		uint[] _hash;
-
-		uint _cutValue = 0xFF;
-		uint _hashMask;
-		uint _hashSizeSum = 0;
-
-		bool HASH_ARRAY = true;
-
-		const uint kHash2Size = 1 << 10;
-		const uint kHash3Size = 1 << 16;
-		const uint kBT2HashSize = 1 << 16;
-		const uint kStartMaxLen = 1;
-		const uint kHash3Offset = kHash2Size;
-		const uint kEmptyHashValue = 0;
-		const uint kMaxValForNormalize = ((uint)1 << 31) - 1;
-
-		uint kNumHashDirectBytes = 0;
-		uint kMinMatchCheck = 4;
-		uint kFixHashSize = kHash2Size + kHash3Size;
+		private uint _cyclicBufferPos;
+		private uint _cyclicBufferSize = 0;
+		private uint _matchMaxLen;
+		private uint[] _son;
+		private uint[] _hash;
+		private uint _cutValue = 0xFF;
+		private uint _hashMask;
+		private uint _hashSizeSum = 0;
+		private bool HASH_ARRAY = true;
+		private const uint kHash2Size = 1 << 10;
+		private const uint kHash3Size = 1 << 16;
+		private const uint kBT2HashSize = 1 << 16;
+		private const uint kStartMaxLen = 1;
+		private const uint kHash3Offset = kHash2Size;
+		private const uint kEmptyHashValue = 0;
+		private const uint kMaxValForNormalize = ((uint)1 << 31) - 1;
+		private uint kNumHashDirectBytes = 0;
+		private uint kMinMatchCheck = 4;
+		private uint kFixHashSize = kHash2Size + kHash3Size;
 
 		public void SetType(int numHashBytes) {
 			HASH_ARRAY = (numHashBytes > 2);
@@ -320,7 +315,7 @@ namespace Compress.Support.Compression.LZ {
 			while (--num != 0);
 		}
 
-		void NormalizeLinks(uint[] items, uint numItems, uint subValue) {
+		private void NormalizeLinks(uint[] items, uint numItems, uint subValue) {
 			for (uint i = 0; i < numItems; i++) {
 				var value = items[i];
 				if (value <= subValue) {
@@ -333,7 +328,7 @@ namespace Compress.Support.Compression.LZ {
 			}
 		}
 
-		void Normalize() {
+		private void Normalize() {
 			var subValue = _pos - _cyclicBufferSize;
 			NormalizeLinks(_son, _cyclicBufferSize * 2, subValue);
 			NormalizeLinks(_hash, _hashSizeSum, subValue);

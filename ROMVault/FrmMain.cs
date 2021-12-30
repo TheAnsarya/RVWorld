@@ -908,7 +908,7 @@ namespace ROMVault
             FixFiles();
         }
 
-        FrmProgressWindowFix frmFixFiles;
+        private FrmProgressWindowFix frmFixFiles;
         private void FixFiles()
         {
             if (frmFixFiles != null)

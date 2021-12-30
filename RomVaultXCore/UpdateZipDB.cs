@@ -50,8 +50,7 @@ namespace RVXCore
                             byte[] SHA1 = VarFix.CleanMD5SHA1(drRom["sha1"].ToString(), 40);
                             Debug.WriteLine("    Rom " + RomId + " Name: " + RomName + "  Size: " + size + "  Compressed: " + compressedSize + "  CRC: " + VarFix.ToString(CRC));
 
-                            byte[] localHeader;
-                            memZip.ZipFileAddFake(RomName, fileOffset, size, compressedSize, CRC, out localHeader);
+                            memZip.ZipFileAddFake(RomName, fileOffset, size, compressedSize, CRC, out byte[] localHeader);
 
                             ZipSetLocalFileHeader(RomId, localHeader, fileOffset, compressedSize, SHA1);
 
@@ -61,8 +60,7 @@ namespace RVXCore
                         }
                     }
 
-                    byte[] centeralDir;
-                    memZip.ZipFileCloseFake(fileOffset, out centeralDir);
+                    memZip.ZipFileCloseFake(fileOffset, out byte[] centeralDir);
 
                     if (romCount > 0)
                     {

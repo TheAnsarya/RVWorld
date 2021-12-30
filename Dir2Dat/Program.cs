@@ -12,11 +12,11 @@ namespace Dir2Dat {
 
 	// newver version available for rvdat
 
-	class Program {
+	internal class Program {
 		private static bool testMode;
 		private static bool quick;
 
-		static void Main(string[] args) {
+		private static void Main(string[] args) {
 			var ThisDat = new DatHeader() {
 				BaseDir = new DatDir(DatFileType.Dir)
 			};

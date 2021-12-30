@@ -2,11 +2,10 @@ namespace Compress.Support.Compression.RangeCoder {
 	internal struct BitEncoder {
 		public const int kNumBitModelTotalBits = 11;
 		public const uint kBitModelTotal = (1 << kNumBitModelTotalBits);
-		const int kNumMoveBits = 5;
-		const int kNumMoveReducingBits = 2;
+		private const int kNumMoveBits = 5;
+		private const int kNumMoveReducingBits = 2;
 		public const int kNumBitPriceShiftBits = 6;
-
-		uint Prob;
+		private uint Prob;
 
 		public void Init() => Prob = kBitModelTotal >> 1;
 
@@ -58,9 +57,8 @@ namespace Compress.Support.Compression.RangeCoder {
 	internal struct BitDecoder {
 		public const int kNumBitModelTotalBits = 11;
 		public const uint kBitModelTotal = (1 << kNumBitModelTotalBits);
-		const int kNumMoveBits = 5;
-
-		uint Prob;
+		private const int kNumMoveBits = 5;
+		private uint Prob;
 
 		public void UpdateModel(int numMoveBits, uint symbol) {
 			if (symbol == 0) {

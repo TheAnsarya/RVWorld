@@ -9,7 +9,7 @@ using RomVaultCore.RvDB;
 using RomVaultCore.Scanner;
 
 namespace RomVaultCmd {
-	class Program {
+	internal class Program {
 
 		private static ThreadWorker _thWrk;
 
@@ -18,7 +18,7 @@ namespace RomVaultCmd {
 		private static bool doFindFixes = false;
 		private static bool doFixROMs = false;
 
-		static void Main(string[] args) {
+		private static void Main(string[] args) {
 			if (args.Length == 0) {
 				ShowHelp();
 				return;

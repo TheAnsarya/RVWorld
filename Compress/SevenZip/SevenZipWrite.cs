@@ -111,7 +111,7 @@ namespace Compress.SevenZip {
 			// do nothing here for 7zip
 		}
 
-		UnpackedStreamInfo unpackedStreamInfo;
+		private UnpackedStreamInfo unpackedStreamInfo;
 		public ZipReturn ZipFileOpenWriteStream(bool raw, bool trrntzip, string filename, ulong uncompressedSize, ushort compressionMethod, out Stream stream, TimeStamps dateTime) {
 			// check if we are writing a directory
 			if (uncompressedSize == 0 && filename.Substring(filename.Length - 1, 1) == "/") {

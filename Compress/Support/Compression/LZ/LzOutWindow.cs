@@ -2,13 +2,13 @@ using Compress.Support.Compression.LZMA;
 
 namespace Compress.Support.Compression.LZ {
 	internal class OutWindow {
-		byte[] _buffer = null;
-		int _windowSize = 0;
-		int _pos;
-		int _streamPos;
-		int _pendingLen;
-		int _pendingDist;
-		System.IO.Stream _stream;
+		private byte[] _buffer = null;
+		private int _windowSize = 0;
+		private int _pos;
+		private int _streamPos;
+		private int _pendingLen;
+		private int _pendingDist;
+		private System.IO.Stream _stream;
 
 		public long Total;
 		public long Limit;

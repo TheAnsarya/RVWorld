@@ -2,7 +2,7 @@
 
 namespace Compress.Support.Compression.zStd {
 	internal class zStd : ZstdSharp.DecompressionStream {
-		long pos = 0;
+		private long pos = 0;
 		public zStd(Stream stream, int bufferSize = 0) : base(stream, bufferSize) => pos = 0;
 
 		public override int Read(byte[] buffer, int offset, int count) {

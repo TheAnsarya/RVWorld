@@ -64,7 +64,7 @@
 using System;
 
 namespace Compress.Support.Compression.Deflate {
-	sealed class InflateBlocks {
+	internal sealed class InflateBlocks {
 		private const int MANY = 1440;
 
 		// Table for deflate from PKZIP's appnote.txt.
@@ -680,7 +680,7 @@ namespace Compress.Support.Compression.Deflate {
 			0x00000fff, 0x00001fff, 0x00003fff, 0x00007fff, 0x0000ffff };
 	}
 
-	sealed class InflateCodes {
+	internal sealed class InflateCodes {
 		// waiting for "i:"=input,
 		//             "o:"=output,
 		//             "x:"=nothing

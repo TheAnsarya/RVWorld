@@ -235,25 +235,23 @@ namespace Compress.Support.Compression.BZip2 {
         index of the last char in the block, so
         the block size == last + 1.
         */
-		int last;
+		private int last;
 
 		/*
         index in zptr[] of original string after sorting.
         */
-		int origPtr;
+		private int origPtr;
 
 		/*
         always: in the range 0 .. 9.
         The current block size is 100000 * this number.
         */
-		readonly int blockSize100k;
-
-		bool blockRandomised;
-
-		int bytesOut;
-		int bsBuff;
-		int bsLive;
-		readonly CRC mCrc = new();
+		private readonly int blockSize100k;
+		private bool blockRandomised;
+		private int bytesOut;
+		private int bsBuff;
+		private int bsLive;
+		private readonly CRC mCrc = new();
 
 		private readonly bool[] inUse = new bool[256];
 		private int nInUse;
@@ -395,7 +393,7 @@ namespace Compress.Support.Compression.BZip2 {
 			}
 		}
 
-		bool disposed = false;
+		private bool disposed = false;
 
 		protected override void Dispose(bool disposing) {
 			if (disposing) {
