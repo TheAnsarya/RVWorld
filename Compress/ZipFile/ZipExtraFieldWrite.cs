@@ -45,7 +45,6 @@ namespace Compress.ZipFile {
 				} else {
 					headerRelativeOffsetOfLocalHeader = (uint)relativeOffsetOfLocalHeader;
 				}
-
 			}
 
 			if (eZip64.Count == 0) {
@@ -89,7 +88,6 @@ namespace Compress.ZipFile {
 					flags |= 0x04;
 					eTime.AddRange(BitConverter.GetBytes(CompressUtils.UtcTicksToUnixDateTime((long)cTime)));
 				}
-
 			}
 
 			if (flags == 0) {
@@ -102,6 +100,5 @@ namespace Compress.ZipFile {
 			_extraField.Add(flags);
 			_extraField.AddRange(eTime);
 		}
-
 	}
 }

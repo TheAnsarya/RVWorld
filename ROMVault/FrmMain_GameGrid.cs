@@ -510,7 +510,6 @@ namespace ROMVault
 
                 return retVal;
             }
-
         }
 
         private void GameGridMouseUp(object sender, MouseEventArgs e)
@@ -636,6 +635,5 @@ namespace ROMVault
                 }
             }
         }
-
     }
 }

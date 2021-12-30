@@ -48,6 +48,5 @@ namespace RomVaultCore.FixFile.Util {
 				CheckDeleteFile(parent);
 			}
 		}
-
 	}
 }

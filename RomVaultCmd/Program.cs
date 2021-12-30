@@ -64,7 +64,6 @@ namespace RomVaultCmd {
 							Console.WriteLine("Unknown arg: " + arg);
 							return;
 					}
-
 				} else {
 					Console.WriteLine("Unknown arg: " + arg);
 					return;
@@ -211,6 +210,5 @@ namespace RomVaultCmd {
 				}
 			}
 		}
-
 	}
 }

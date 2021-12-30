@@ -96,6 +96,5 @@ namespace Compress.ZipFile {
 
 			ZipOpen = ZipOpenType.Closed;
 		}
-
 	}
 }

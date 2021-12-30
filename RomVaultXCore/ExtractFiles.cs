@@ -105,11 +105,7 @@ namespace RVXCore
                     zipFs.Close();
                     zipFs.Dispose();
                 }
-
-
             }
-
-
         }
 
         private static DbDataReader ZipSetGetRomsInGame(int GameId)
@@ -117,6 +113,5 @@ namespace RVXCore
             CommandFindRomsInGame.Parameters["GameId"].Value = GameId;
             return CommandFindRomsInGame.ExecuteReader();
         }
-
     }
 }

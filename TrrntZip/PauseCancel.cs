@@ -36,5 +36,4 @@ namespace TrrntZip {
 		public void WaitOne() => mrse.WaitOne();
 
 	}
-
 }

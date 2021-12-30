@@ -139,7 +139,6 @@ namespace RomVaultCore.RvDB {
 					if (testEOF != EndCacheMarker) {
 						ReportError.UnhandledExceptionHandler("Cache is Corrupt, revert to Backup.");
 					}
-
 				}
 			}
 

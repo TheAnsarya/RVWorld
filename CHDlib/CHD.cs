@@ -248,6 +248,5 @@ namespace CHDlib {
 				return hdErr.HDERR_NONE;
 			}
 		}
-
 	}
 }

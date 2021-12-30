@@ -102,7 +102,5 @@ namespace RVXCore.DB
 
             return Convert.ToInt32(res) == 0;
         }
-
-
     }
 }

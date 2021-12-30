@@ -710,6 +710,5 @@ namespace Compress.Support.Compression.Deflate {
 			TotalBytesIn += len;
 			return len;
 		}
-
 	}
 }

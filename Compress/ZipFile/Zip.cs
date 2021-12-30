@@ -84,8 +84,5 @@ namespace Compress.ZipFile {
 		~Zip() {
 			ZipFileClose();
 		}
-
-
-
 	}
 }

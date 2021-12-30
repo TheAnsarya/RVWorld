@@ -445,6 +445,5 @@ namespace RomVaultCore.Scanner {
 				}
 			}
 		}
-
 	}
 }

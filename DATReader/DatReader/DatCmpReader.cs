@@ -47,7 +47,6 @@ namespace DATReader.DatReader {
 						return false;
 					}
 				}
-
 			}
 
 			return true;

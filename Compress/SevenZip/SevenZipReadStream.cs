@@ -173,7 +173,6 @@ namespace Compress.SevenZip {
 			} catch (Exception) {
 				return ZipReturn.ZipErrorGettingDataStream;
 			}
-
 		}
 
 		private Stream CloneStream(Stream s) {
@@ -229,6 +228,5 @@ namespace Compress.SevenZip {
 
 			return ZipReturn.ZipGood;
 		}
-
 	}
 }

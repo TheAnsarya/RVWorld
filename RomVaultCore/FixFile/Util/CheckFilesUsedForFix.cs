@@ -57,9 +57,7 @@ namespace RomVaultCore.FixFile.Util {
 						ReportError.SendAndShow("Unknown repair fixRom type recheck.");
 						break;
 				}
-
 			}
-
 
 			foreach (var checkFile in parentCheckList) {
 				// if this fixRom is already in the fileProcessQueue then skip

@@ -520,9 +520,5 @@ namespace Compress.Support.Compression.Deflate {
 			Reader,
 			Undefined,
 		}
-
-
 	}
-
-
 }

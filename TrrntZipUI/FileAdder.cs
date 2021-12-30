@@ -94,6 +94,5 @@ namespace TrrntZipUI {
 				AddDirectory(t.FullName);
 			}
 		}
-
 	}
 }

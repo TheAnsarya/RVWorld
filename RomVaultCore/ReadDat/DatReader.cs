@@ -180,7 +180,6 @@ namespace RomVaultCore.ReadDat {
 				DatClean.RemoveDupes(dh.BaseDir, !dh.MameXML, mt != MergeType.NonMerged);
 				DatClean.RemoveEmptySets(dh.BaseDir);
 			}
-
 		}
 
 		private static bool isFile(DatRule datRule, DatHeader dh) {

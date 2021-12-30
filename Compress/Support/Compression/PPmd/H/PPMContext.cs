@@ -9,7 +9,6 @@ namespace Compress.Support.Compression.PPmd.H {
 				freqData.SummFreq = value.SummFreq;
 				freqData.SetStats(value.GetStats());
 			}
-
 		}
 		public virtual int NumStats {
 			get {
@@ -25,7 +24,6 @@ namespace Compress.Support.Compression.PPmd.H {
 					Utility.WriteLittleEndian(Memory, Address, (short)value);
 				}
 			}
-
 		}
 
 		//UPGRADE_NOTE: Final was removed from the declaration of 'unionSize '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"

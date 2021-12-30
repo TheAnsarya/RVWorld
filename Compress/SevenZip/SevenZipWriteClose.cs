@@ -184,6 +184,5 @@ namespace Compress.SevenZip {
 			_zipFs.Close();
 			_zipFs.Dispose();
 		}
-
 	}
 }

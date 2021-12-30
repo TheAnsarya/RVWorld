@@ -79,6 +79,5 @@ namespace RomVaultCore.FixFile.Util {
 
 			return false;
 		}
-
 	}
 }

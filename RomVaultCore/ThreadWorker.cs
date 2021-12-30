@@ -43,7 +43,5 @@ namespace RomVaultCore {
 		}
 
 		public void Report(object obj) => wReport?.Invoke(obj);
-
 	}
-
 }

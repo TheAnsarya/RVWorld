@@ -665,7 +665,5 @@ namespace Compress.ZipFile {
 			bw.Write(CRC[0]);
 
 		}
-
 	}
-
 }

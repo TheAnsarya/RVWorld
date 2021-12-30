@@ -30,8 +30,6 @@ namespace RomVaultCore.Utils {
 			}
 
 			return ((ulong)v0).CompareTo((ulong)v1);
-
 		}
-
 	}
 }

@@ -151,7 +151,6 @@ namespace ROMVault
                 splitListArt.Panel2Collapsed = true;
                 splitListArt.Panel2.Hide();
             }
-
         }
 
         private void LoadMameSLPannels(RvFile tGame, string extraPath)
@@ -224,9 +223,7 @@ namespace ROMVault
                 splitListArt.Panel2Collapsed = true;
                 splitListArt.Panel2.Hide();
             }
-
         }
-
 
         private void LoadPannels(RvFile tGame)
         {
@@ -278,9 +275,7 @@ namespace ROMVault
                 splitListArt.Panel2Collapsed = true;
                 splitListArt.Panel2.Hide();
             }
-
         }
-
 
 
         private void HidePannel()

@@ -109,8 +109,6 @@ namespace DATReader.DatClean {
 				SetFile(child);
 				dDir.ChildAdd(child);
 			}
-
 		}
-
 	}
 }

@@ -402,7 +402,6 @@ namespace TrrntZipUI {
 					StopWorking();
 				}
 			}
-
 		}
 
 		private void StatusCallBack(int processId, int percent) => _threads[processId].tProgress = percent;
@@ -450,6 +449,5 @@ namespace TrrntZipUI {
 
 			tGrid.Clear();
 		}
-
 	}
 }

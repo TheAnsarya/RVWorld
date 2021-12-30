@@ -216,8 +216,5 @@ namespace RomVaultCore.RvDB {
 
 			return a.Parent == b.Parent;
 		}
-
-
-
 	}
 }

@@ -22,7 +22,6 @@ namespace DATReader.Utils {
 						return true;
 					}
 				}
-
 			}
 			return false;
 		}

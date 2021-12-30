@@ -254,7 +254,6 @@ namespace RomVaultCore.FixFile {
 						errorMessage = "Cancel";
 						return ReturnCode.Cancel;
 					}
-
 				}
 
 				//if ToSort Zip Made then close the zip and add this new zip to the Database
@@ -385,9 +384,7 @@ namespace RomVaultCore.FixFile {
 				if (toSortCorruptOut != null) {
 					ReportError.UnhandledExceptionHandler($"{toSortCorruptOut.ZipFilename} toSortCorruptOut was left open");
 				}
-
 			}
-
 		}
 
 		private static void CloseZipFile(ref ICompress tempFixZip) {
@@ -408,7 +405,6 @@ namespace RomVaultCore.FixFile {
 				var toSort = toSortGame.Parent;
 				toSort.ChildAdd(toSortGame);
 			}
-
 		}
 
 		private static void CloseToSortCorruptGame(RvFile toSortCorruptGame, ref ICompress toSortCorruptOut) {
@@ -431,6 +427,5 @@ namespace RomVaultCore.FixFile {
 				toSortCorruptOut = null;
 			}
 		}
-
 	}
 }

@@ -194,7 +194,5 @@ namespace Compress.ZipFile {
 			bw.Write(_endOfCentralDir64); // relative offset of the zip64 end of central directory record
 			bw.Write((uint)1); // total number of disks
 		}
-
-
 	}
 }

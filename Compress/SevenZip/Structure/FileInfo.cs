@@ -125,6 +125,5 @@ namespace Compress.SevenZip.Structure {
 			sb.AppendLine("  FileInfo");
 			sb.AppendLine("  ------");
 		}
-
 	}
 }

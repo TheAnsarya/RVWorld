@@ -36,7 +36,6 @@ namespace DATReader.DatClean {
 									crcFound = true;
 									break;
 								}
-
 							}
 							if (!crcFound) {
 								mGame.ChildAdd(device.Child(i));
@@ -71,8 +70,6 @@ namespace DATReader.DatClean {
 			foreach (var deviceChild in childDev) {
 				AddDevice(deviceChild, devices, tDat);
 			}
-
-
 		}
 
 		public static void RemoveDevices(DatDir tDat) {
@@ -97,5 +94,4 @@ namespace DATReader.DatClean {
 			}
 		}
 	}
-
 }

@@ -174,6 +174,5 @@ namespace RomVaultCore.FindFix {
 
 			return t0 == t1;
 		}
-
 	}
 }

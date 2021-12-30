@@ -64,7 +64,6 @@ namespace DATReader.DatReader {
 							return false;
 					}
 				}
-
 			}
 
 			return true;
@@ -368,8 +367,6 @@ namespace DATReader.DatReader {
 				Next = line;
 				return line;
 			}
-
 		}
-
 	}
 }

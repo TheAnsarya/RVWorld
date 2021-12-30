@@ -122,6 +122,5 @@ namespace Compress.SevenZip.Structure {
 			sb.AppendLine($"        NumOutStreams = {NumOutStreams}");
 			sb.AppendLine($"        Properties[] = {Properties.ToArrayString()}");
 		}
-
 	}
 }

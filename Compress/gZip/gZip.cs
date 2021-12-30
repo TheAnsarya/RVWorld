@@ -79,7 +79,6 @@ namespace Compress.gZip {
 				ZipFileClose();
 				return ZipReturn.ZipErrorReadingFile;
 			}
-
 		}
 
 		public ZipReturn ZipFileOpen(Stream inStream) {

@@ -283,10 +283,6 @@ namespace DATReader.DatWriter {
 
 				_sw.Write(@" " + name + @"=""" + ByteToStr(value) + @"""");
 			}
-
-
 		}
-
 	}
-
 }

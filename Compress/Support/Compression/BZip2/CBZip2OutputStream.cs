@@ -861,7 +861,6 @@ namespace Compress.Support.Compression.BZip2 {
 						}
 					}
 				}
-
 			}
 
 			/* Now the selectors. */

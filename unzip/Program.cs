@@ -26,10 +26,8 @@ namespace unzip {
 				Console.WriteLine(e.Message);
 				throw;
 			}
-
 		}
 
 		private static void consoleCallBack(string message) => Console.WriteLine(message);
-
 	}
 }

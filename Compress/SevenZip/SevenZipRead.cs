@@ -154,7 +154,5 @@ namespace Compress.SevenZip {
 				localFiles.Add(lf);
 			}
 		}
-
-
 	}
 }

@@ -741,6 +741,5 @@ namespace RVXCore
             } while (nullcount > 0);
             sqlNullCount.Dispose();
         }
-
     }
 }

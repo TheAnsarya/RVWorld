@@ -31,7 +31,6 @@ namespace Compress.Support.Compression.PPmd.H {
 				range = (range / SubRange.Scale) & UintMask;
 				return (int)((code - low) / (range));
 			}
-
 		}
 
 		private long Char {
@@ -42,7 +41,6 @@ namespace Compress.Support.Compression.PPmd.H {
 
 				return -1;
 			}
-
 		}
 
 		internal SubRange SubRange {

@@ -414,7 +414,5 @@ namespace RomVaultCore.FixFile {
 			totalFixed++;
 			return ReturnCode.Good;
 		}
-
-
 	}
 }

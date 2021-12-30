@@ -398,7 +398,6 @@ namespace ROMVault
 
                 return retVal;
             }
-
         }
 
         private void RomGridMouseUp(object sender, MouseEventArgs e)
@@ -488,6 +487,5 @@ namespace ROMVault
         {
             RomGrid.ClearSelection();
         }
-
     }
 }

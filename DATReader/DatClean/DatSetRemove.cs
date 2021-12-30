@@ -73,16 +73,12 @@ namespace DATReader.DatClean {
 								}
 								r = mGame.ChildCount;
 								t = mGame.ChildCount;
-
 							}
 						}
 					}
 				}
-
 			}
 		}
-
-
 
 		public static bool RemoveEmptySets(DatBase inDat) {
 			if (inDat is DatFile) {
@@ -152,7 +148,6 @@ namespace DATReader.DatClean {
 						}
 					}
 				}
-
 			}
 		}
 
@@ -262,9 +257,5 @@ namespace DATReader.DatClean {
 				}
 			}
 		}
-
-
-
-
 	}
 }

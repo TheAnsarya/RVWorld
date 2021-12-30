@@ -49,6 +49,5 @@ namespace RomVaultCore.Utils {
 
 			return retB;
 		}
-
 	}
 }

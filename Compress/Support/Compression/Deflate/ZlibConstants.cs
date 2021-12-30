@@ -1,4 +1,4 @@
-// ZlibConstants.cs
+﻿// ZlibConstants.cs
 // ------------------------------------------------------------------
 //
 // Copyright (c) 2009 Dino Chiesa and Microsoft Corporation.  
@@ -119,6 +119,4 @@ namespace Compress.Support.Compression.Deflate {
 		/// </summary>
 		public const int WorkingBufferSizeMin = 1024;
 	}
-
 }
-

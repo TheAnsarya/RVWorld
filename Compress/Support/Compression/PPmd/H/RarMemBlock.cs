@@ -1,4 +1,4 @@
-
+﻿
 namespace Compress.Support.Compression.PPmd.H {
 	internal class RarMemBlock : Pointer {
 		public const int size = 12;
@@ -25,7 +25,6 @@ namespace Compress.Support.Compression.PPmd.H {
 					Utility.WriteLittleEndian(Memory, Address, (short)value);
 				}
 			}
-
 		}
 
 		internal void InsertAt(RarMemBlock p) {

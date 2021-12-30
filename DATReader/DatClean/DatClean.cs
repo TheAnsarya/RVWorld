@@ -77,7 +77,6 @@ namespace DATReader.DatClean {
 
 					RemoveDeviceRef(ddir);
 				}
-
 			}
 		}
 

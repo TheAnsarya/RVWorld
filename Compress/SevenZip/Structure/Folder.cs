@@ -357,7 +357,6 @@ namespace Compress.SevenZip.Structure {
 					usi.Report(ref sb);
 				}
 			}
-
 		}
 	}
 }

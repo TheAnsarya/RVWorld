@@ -231,9 +231,6 @@ namespace RomVaultCore {
 		[XmlIgnore]
 		public List<Regex> IgnoreFilesRegex;
 
-
 		public int CompareTo(DatRule obj) => Math.Sign(string.Compare(DirKey, obj.DirKey, StringComparison.Ordinal));
-
 	}
-
 }

@@ -1,4 +1,4 @@
-// Zlib.cs
+﻿// Zlib.cs
 // ------------------------------------------------------------------
 //
 // Copyright (c) 2009-2011 Dino Chiesa and Microsoft Corporation.
@@ -455,5 +455,4 @@ namespace Compress.Support.Compression.Deflate {
 			return (s2 << 16) | s1;
 		}
 	}
-
 }

@@ -54,5 +54,4 @@ namespace CHDlib {
 		public int UseCount;
 		public byte[] BlockCache = null;
 	}
-
 }

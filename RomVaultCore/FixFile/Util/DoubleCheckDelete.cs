@@ -132,6 +132,5 @@ namespace RomVaultCore.FixFile.Util {
 
 			return ReturnCode.Good;
 		}
-
 	}
 }

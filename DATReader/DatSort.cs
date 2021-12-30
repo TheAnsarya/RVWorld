@@ -59,7 +59,6 @@ namespace DATReader {
 			} else {
 				ext = "";
 			}
-
 		}
 
 		public static int Trrnt7ZipStringCompare(string string1, string string2) {

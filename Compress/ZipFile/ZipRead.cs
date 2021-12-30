@@ -209,6 +209,5 @@ namespace Compress.ZipFile {
 				return ZipReturn.ZipErrorReadingFile;
 			}
 		}
-
 	}
 }

@@ -123,7 +123,5 @@ namespace RomVaultCore.FixFile {
 
 			return returnCode;
 		}
-
-
 	}
 }

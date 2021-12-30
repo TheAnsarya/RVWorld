@@ -91,7 +91,5 @@ namespace DATReader.Utils {
 			Next = ret;
 			return ret;
 		}
-
 	}
-
 }

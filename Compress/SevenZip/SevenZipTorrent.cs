@@ -143,6 +143,5 @@ namespace Compress.SevenZip {
 
 			return false;
 		}
-
 	}
 }

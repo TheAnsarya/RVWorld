@@ -310,7 +310,5 @@ namespace Compress.Support.Utils {
 				_innerStream.Close();
 			}
 		}
-
 	}
-
 }

@@ -103,6 +103,5 @@ namespace Compress.ZipFile {
 			_zipFs.Position = (long)_localFiles[fileCount - 1].RelativeOffsetOfLocalHeader;
 			return ZipReturn.ZipGood;
 		}
-
 	}
 }

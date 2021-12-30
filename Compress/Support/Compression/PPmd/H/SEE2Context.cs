@@ -8,7 +8,6 @@ namespace Compress.Support.Compression.PPmd.H {
 				summ -= retVal;
 				return retVal + ((retVal == 0) ? 1 : 0);
 			}
-
 		}
 		public virtual int Count {
 			get => count;

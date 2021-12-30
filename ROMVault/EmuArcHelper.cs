@@ -91,22 +91,18 @@ namespace ROMVault
                     default:
                         return false;
                 }
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 return false;
             }
-
         }
-
 
         public static bool TryLoadImage(this PictureBox pic, RvFile tGame, string filename)
         {
             return pic.LoadImage(tGame, filename + ".png") || pic.LoadImage(tGame, filename + ".jpg");
         }
-
 
         public static bool LoadImage(this PictureBox picBox, RvFile tGame, string filename)
         {
@@ -156,7 +152,6 @@ namespace ROMVault
         {
             txtBox.Text = "";
         }
-
     }
 }
 

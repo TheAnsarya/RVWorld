@@ -229,6 +229,5 @@ namespace RVXCore
             _commandSetTreeExpanded.Parameters["expanded"].Value = expanded;
             _commandSetTreeExpanded.ExecuteNonQuery();
         }
-
     }
 }

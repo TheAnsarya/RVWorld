@@ -365,8 +365,6 @@ namespace TrrntZip {
 			} else {
 				ext = "";
 			}
-
 		}
-
 	}
 }

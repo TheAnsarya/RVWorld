@@ -1031,6 +1031,5 @@ namespace RomVaultX
             RomScanner.DelFiles = withDelete;
             DoScan();
         }
-
     }
 }

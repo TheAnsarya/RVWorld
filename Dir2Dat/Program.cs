@@ -339,7 +339,6 @@ namespace Dir2Dat {
 					}
 				}
 			}
-
 		}
 
 		private static void AddFile(FileInfo f, DatDir thisDir) {

@@ -97,7 +97,6 @@ namespace CHDlib {
 											mapEntry.BlockCache = new byte[bytes];
 											Buffer.BlockCopy(cache, 0, mapEntry.BlockCache, 0, bytes);
 										}
-
 									}
 
 									if ((mapEntry.flags & mapFlags.MAP_ENTRY_FLAG_NO_CRC) == 0) {

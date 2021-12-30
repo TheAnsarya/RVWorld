@@ -204,7 +204,5 @@ namespace DATReader.DatReader {
 
 			return true;
 		}
-
-
 	}
 }

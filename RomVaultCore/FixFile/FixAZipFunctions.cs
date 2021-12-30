@@ -30,7 +30,6 @@ namespace RomVaultCore.FixFile {
 				sourceDir = ts;
 				sourceFile = "";
 			}
-
 		}
 
 		public static ReturnCode MoveToCorrupt(RvFile fixZip, RvFile fixZippedFile, ref RvFile toSortCorruptGame, ref ICompress toSortCorruptOut, int iRom) {
@@ -223,6 +222,5 @@ namespace RomVaultCore.FixFile {
 
 			return ReturnCode.Good;
 		}
-
 	}
 }

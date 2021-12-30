@@ -125,7 +125,5 @@ namespace DATReader.DatClean {
 
 			tRom.DatStatus = DatFileStatus.InDatCollect;
 		}
-
-
 	}
 }

@@ -1739,6 +1739,5 @@ namespace Compress.Support.Compression.Deflate {
 
 			return pendingCount != 0 ? ZlibConstants.Z_OK : ZlibConstants.Z_STREAM_END;
 		}
-
 	}
 }

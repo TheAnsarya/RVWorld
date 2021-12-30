@@ -43,7 +43,6 @@
 				max = first[15];
 			}
 		}
-
 	}
 
 	public class Inflate {
@@ -148,7 +147,6 @@
 				Bits(tree.bitLen[lo - 1]);
 				return tree.num[lo - 1];
 			}
-
 		}
 
 		private void Run(int sym) {

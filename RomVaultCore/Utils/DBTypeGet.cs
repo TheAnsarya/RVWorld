@@ -43,6 +43,5 @@ namespace RomVaultCore.Utils {
 				default: return FileType.File;
 			}
 		}
-
 	}
 }

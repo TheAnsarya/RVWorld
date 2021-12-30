@@ -59,7 +59,5 @@ namespace Compress.ZipFile {
 
 			return ZipReturn.ZipGood;
 		}
-
-
 	}
 }

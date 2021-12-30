@@ -115,7 +115,6 @@ namespace RomVaultCore.FixFile {
 					default:
 						throw new FixAZip.ZipFileException(returnCode, fixZippedFile.FullName + " " + fixZippedFile.RepStatus + " " + returnCode + Environment.NewLine + errorMessage);
 				}
-
 			}
 
 			//Check to see if the files used for fix, can now be set to delete
@@ -130,6 +129,5 @@ namespace RomVaultCore.FixFile {
 			errorMessage = "";
 			return ReturnCode.Good;
 		}
-
 	}
 }

@@ -398,6 +398,5 @@ namespace ROMVault
         {
             cboDirType.Enabled = chkSingleArchive.Checked;
         }
-
     }
 }

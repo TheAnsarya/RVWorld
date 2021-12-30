@@ -325,6 +325,5 @@ namespace RomVaultCore.FindFix {
 
 			return treeType(tfile.Parent);
 		}
-
 	}
 }
