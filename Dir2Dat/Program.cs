@@ -250,8 +250,6 @@ namespace Dir2Dat {
 			ZipDir.DGame.Description = ZipDir.Name;
 			thisDir.ChildAdd(ZipDir);
 
-
-
 			var fs = new FileScan();
 			var fr = fs.Scan(zf1, !quick, !quick);
 			var isTorrentZipDate = true;

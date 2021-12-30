@@ -196,7 +196,6 @@ StopEncoding:
 			Coder.RangeEncoderFlush(target);
 		}
 
-
 		/// <summary>
 		/// Dencode (ie. decompress) a given source stream, writing the decoded result to the target stream.
 		/// </summary>

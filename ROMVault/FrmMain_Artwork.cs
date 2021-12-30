@@ -16,7 +16,6 @@ namespace ROMVault
             tabInfo_Resize(null, new EventArgs());
         }
 
-
         private void tabArtWork_Resize(object sender, EventArgs e)
         {
             int imageWidth = tabArtWork.Width - 20;
@@ -87,7 +86,6 @@ namespace ROMVault
 
             bool storyLoaded = false;
 
-
             if (fExtra.ChildNameSearch(new RvFile(FileType.Zip) { Name = "artpreview.zip" }, out int index) == 0)
             {
                 artLoaded = picArtwork.TryLoadImage(fExtra.Child(index), Path.GetFileNameWithoutExtension(tGame.Name));
@@ -106,7 +104,6 @@ namespace ROMVault
                 logoLoaded = picLogo.TryLoadImage(fExtra.Child(index), Path.GetFileNameWithoutExtension(tGame.Name));
             }
 
-
             if (fExtra.ChildNameSearch(new RvFile(FileType.Zip) { Name = "snap.zip" }, out index) == 0)
             {
                 screenLoaded = picScreenShot.TryLoadImage(fExtra.Child(index), Path.GetFileNameWithoutExtension(tGame.Name));
@@ -124,7 +121,6 @@ namespace ROMVault
             {
                 titleLoaded = picScreenTitle.TryLoadImage(fExtra.Child(index), Path.GetFileNameWithoutExtension(tGame.Name));
             }
-
 
             if (artLoaded || logoLoaded)
             {
@@ -276,7 +272,6 @@ namespace ROMVault
                 splitListArt.Panel2.Hide();
             }
         }
-
 
         private void HidePannel()
         {

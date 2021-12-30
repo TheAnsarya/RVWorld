@@ -1,7 +1,5 @@
 ﻿#region Using
 
-
-
 #endregion
 
 namespace Compress.Support.Compression.PPmd.I1 {

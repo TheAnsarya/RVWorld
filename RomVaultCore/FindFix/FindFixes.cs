@@ -19,7 +19,6 @@ namespace RomVaultCore.FindFix {
 
 				_progressCounter = 0;
 
-
 				var sw = new Stopwatch();
 				sw.Reset();
 				sw.Start();
@@ -34,13 +33,11 @@ namespace RomVaultCore.FindFix {
 				_thWrk.Report(new bgwText("Getting Selected Files"));
 				_thWrk.Report(_progressCounter++);
 
-
 				Debug.WriteLine("Start " + sw.ElapsedMilliseconds);
 				var filesGot = new List<RvFile>();
 				var filesMissing = new List<RvFile>();
 				GetSelectedFiles(DB.DirRoot, true, filesGot, filesMissing);
 				Debug.WriteLine("GetSelected " + sw.ElapsedMilliseconds);
-
 
 				_thWrk.Report(new bgwText("Sorting on CRC"));
 				_thWrk.Report(_progressCounter++);
@@ -155,10 +152,8 @@ namespace RomVaultCore.FindFix {
 		//  then check to see if we have anything else that matches and then either:
 		//  add the rom to an existing set or make a new set.
 
-
 		internal static void MergeGotFiles(RvFile[] gotFilesSortedByCRC, out FileGroup[] fileGroups) {
 			var listFileGroupsOut = new List<FileGroup>();
-
 
 			// insert a zero byte file.
 			var fileZero = MakeFileZero();
@@ -166,7 +161,6 @@ namespace RomVaultCore.FindFix {
 
 			var lstFileWithSameCRC = new List<FileGroup>();
 			var crc = fileZero.CRC;
-
 
 			lstFileWithSameCRC.Add(newFileGroup);
 			listFileGroupsOut.Add(newFileGroup);
@@ -209,15 +203,6 @@ namespace RomVaultCore.FindFix {
 			fileGroups = listFileGroupsOut.ToArray();
 		}
 
-
-
-
-
-
-
-
-
-
 		private static void MergeInMissingFiles(FileGroup[] mergedCRCFamily, FileGroup[] mergedSHA1Family, FileGroup[] mergedMD5Family,
 												FileGroup[] mergedAltCRCFamily, FileGroup[] mergedAltSHA1Family, FileGroup[] mergedAltMD5Family, List<RvFile> missingFiles) {
 			foreach (var f in missingFiles) {
@@ -227,7 +212,6 @@ namespace RomVaultCore.FindFix {
 				if (f.AltSize != null || f.AltCRC != null || f.AltSHA1 != null || f.AltMD5 != null) {
 					throw new InvalidOperationException("Missing files cannot have alt values");
 				}
-
 
 				if (f.HeaderFileType != HeaderFileType.Nothing) {
 
@@ -282,8 +266,6 @@ namespace RomVaultCore.FindFix {
 			}
 		}
 
-
-
 		private static bool FindMissing(RvFile f, Compare comp, FileGroup[] mergedFamily) {
 			var found = FindMatch(mergedFamily, f, comp, FileGroup.FindExactMatch, out var index);
 
@@ -312,7 +294,6 @@ namespace RomVaultCore.FindFix {
 			return true;
 
 		}
-
 
 		internal delegate bool ExactMatch(FileGroup fTest, RvFile file);
 		internal static bool FindMatch(FileGroup[] fileGroups, RvFile file, Compare comp, ExactMatch match, out List<int> listIndex) {
@@ -384,13 +365,6 @@ namespace RomVaultCore.FindFix {
 			return intRes == 0;
 		}
 
-
-
-
-
-
-
-
 		private static RvFile MakeFileZero() {
 			var fileZero = new RvFile(FileType.File) {
 				Name = "ZeroFile",
@@ -407,7 +381,6 @@ namespace RomVaultCore.FindFix {
 			return fileZero;
 		}
 
-
 		internal delegate int Compare(RvFile file, FileGroup fileGroup);
 
 		private static int CompareCRC(RvFile file, FileGroup fileGroup) => ArrByte.ICompare(file.CRC, fileGroup.CRC);
@@ -417,20 +390,17 @@ namespace RomVaultCore.FindFix {
 		private static int CompareAltSHA1(RvFile file, FileGroup fileGroup) => ArrByte.ICompare(file.SHA1, fileGroup.AltSHA1);
 		private static int CompareAltMD5(RvFile file, FileGroup fileGroup) => ArrByte.ICompare(file.MD5, fileGroup.AltMD5);
 
-
 		private static bool FindSHA1(FileGroup fileGroup) => fileGroup.SHA1 != null;
 		private static bool FindMD5(FileGroup fileGroup) => fileGroup.MD5 != null;
 		private static bool FindAltCRC(FileGroup fileGroup) => fileGroup.AltCRC != null;
 		private static bool FindAltSHA1(FileGroup fileGroup) => fileGroup.AltSHA1 != null;
 		private static bool FindAltMD5(FileGroup fileGroup) => fileGroup.AltMD5 != null;
 
-
 		private static int FamilySortSHA1(FileGroup fileGroup1, FileGroup fileGroup2) => ArrByte.ICompare(fileGroup1.SHA1, fileGroup2.SHA1);
 		private static int FamilySortMD5(FileGroup fileGroup1, FileGroup fileGroup2) => ArrByte.ICompare(fileGroup1.MD5, fileGroup2.MD5);
 		private static int FamilySortAltCRC(FileGroup fileGroup1, FileGroup fileGroup2) => ArrByte.ICompare(fileGroup1.AltCRC, fileGroup2.AltCRC);
 		private static int FamilySortAltSHA1(FileGroup fileGroup1, FileGroup fileGroup2) => ArrByte.ICompare(fileGroup1.AltSHA1, fileGroup2.AltSHA1);
 		private static int FamilySortAltMD5(FileGroup fileGroup1, FileGroup fileGroup2) => ArrByte.ICompare(fileGroup1.AltMD5, fileGroup2.AltMD5);
-
 
 	}
 }

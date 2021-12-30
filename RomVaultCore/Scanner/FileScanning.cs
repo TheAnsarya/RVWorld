@@ -32,8 +32,6 @@ namespace RomVaultCore.Scanner {
 				return;
 			}
 
-
-
 			_thWrk.Report(new bgwText("Clearing DB Status"));
 			RepairStatus.ReportStatusReset(DB.DirRoot);
 
@@ -41,7 +39,6 @@ namespace RomVaultCore.Scanner {
 			//Next get a list of all the directories to be scanned
 			var lstDir = new List<RvFile>();
 			DBHelper.GetSelectedDirListStart(ref lstDir, StartAt);
-
 
 			_thWrk.Report(new bgwText("Scanning Dir's"));
 			_thWrk.Report(new bgwSetRange(lstDir.Count));
@@ -65,7 +62,6 @@ namespace RomVaultCore.Scanner {
 
 			_thWrk.Report(new bgwText("Updating Cache"));
 			DB.Write();
-
 
 			_thWrk.Report(new bgwText("File Scan Complete"));
 			_thWrk.Finished = true;
@@ -167,7 +163,6 @@ namespace RomVaultCore.Scanner {
 			// we also recurse into any sub directories.
 			var dbIndex = 0;
 			var fileIndex = 0;
-
 
 			while (dbIndex < dbDir.ChildCount || fileIndex < fileDir.ChildCount) {
 				RvFile dbChild = null;
@@ -418,8 +413,6 @@ namespace RomVaultCore.Scanner {
 				dbIndex++;
 			}
 		}
-
-
 
 		private static void MarkAsMissing(RvFile dbDir) {
 			for (var i = 0; i < dbDir.ChildCount; i++) {

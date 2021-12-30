@@ -59,7 +59,6 @@ namespace RomVaultCore.RvDB {
 			_pChecked = (TreeSelect)br.ReadByte();
 		}
 
-
 		private static FileStream fsl;
 		private static BinaryWriter bwl;
 

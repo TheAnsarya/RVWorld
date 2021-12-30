@@ -7,7 +7,6 @@ using DirectoryInfo = RVIO.DirectoryInfo;
 using FileInfo = RVIO.FileInfo;
 using Path = RVIO.Path;
 
-
 namespace TrrntZipCMD {
 	internal class Program {
 		private static bool _noRecursion;
@@ -163,7 +162,6 @@ namespace TrrntZipCMD {
 				ProcessDir(dir);
 			}
 		}
-
 
 		private static void StatusCallBack(int processID, int percent) => Console.Write($"{percent,3}%");
 

@@ -76,7 +76,6 @@ namespace Compress.SevenZip.Structure {
 			bw.Write((byte)HeaderProperty.kEnd);
 		}
 
-
 		public void Report(ref StringBuilder sb) {
 			sb.AppendLine($"    PackedSize     = {PackedSize}");
 			sb.AppendLine($"    Crc            = {Crc.ToHex()}");

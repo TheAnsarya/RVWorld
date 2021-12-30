@@ -87,7 +87,6 @@ namespace Compress {
 			return true;
 		}
 
-
 		internal static bool ByteArrCompare(byte[] b0, byte[] b1) {
 			if ((b0 == null) || (b1 == null)) {
 				return false;
@@ -105,7 +104,6 @@ namespace Compress {
 
 			return true;
 		}
-
 
 		internal static int TrrntZipStringCompare(string string1, string string2) {
 			var bytes1 = string1.ToCharArray();
@@ -188,7 +186,6 @@ namespace Compress {
 
 			return ret;
 		}
-
 
 		private const long FileTimeToUtcTime = 504911232000000000;
 		private const long EpochTimeToUtcTime = 621355968000000000;

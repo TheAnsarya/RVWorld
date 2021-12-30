@@ -12,7 +12,6 @@
 			return retB;
 		}
 
-
 		public static bool bCompare(byte[] b1, byte[] b2) {
 			if ((b1 == null) || (b2 == null)) {
 				return false;

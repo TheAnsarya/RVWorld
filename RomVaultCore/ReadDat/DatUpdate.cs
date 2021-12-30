@@ -18,7 +18,6 @@ namespace RomVaultCore.ReadDat {
 		private static int _datsProcessed;
 		private static ThreadWorker _thWrk;
 
-
 		private static void ShowDat(string message, string filename) => _thWrk.Report(new bgwShowError(filename, message));
 
 		public static void RetMessage(string filename, string message) => _thWrk.Report(new bgwShowError(filename, message));
@@ -149,7 +148,6 @@ namespace RomVaultCore.ReadDat {
 
 			return true;
 		}
-
 
 		private static void RemoveOldDats(RvFile dbDir, RvFile tmpDir) {
 			// now compare the old and new dats removing any old dats
@@ -289,7 +287,6 @@ namespace RomVaultCore.ReadDat {
 			return tDir.ChildCount == 0 ? EFile.Delete : EFile.Keep;
 		}
 
-
 		private static void UpdateDatList(RvFile dbDir, RvFile tmpDir) {
 			AddNewDats(dbDir, tmpDir);
 			UpdateDirs(dbDir, tmpDir);
@@ -333,7 +330,6 @@ namespace RomVaultCore.ReadDat {
 						_thWrk.Report(_datsProcessed);
 						_thWrk.Report(new bgwText("Dat : " + Path.GetFileNameWithoutExtension(fileDat?.GetData(RvDat.DatData.DatRootFullName))));
 
-
 						Debug.WriteLine("Correct");
 						// Should already be set as correct above
 						if (dbDat != null) {
@@ -348,7 +344,6 @@ namespace RomVaultCore.ReadDat {
 						_datsProcessed++;
 						_thWrk.Report(_datsProcessed);
 						_thWrk.Report(new bgwText("Scanning New Dat : " + Path.GetFileNameWithoutExtension(fileDat?.GetData(RvDat.DatData.DatRootFullName))));
-
 
 						Debug.WriteLine("Adding new DAT");
 						if (LoadNewDat(fileDat, dbDir)) {
@@ -365,7 +360,6 @@ namespace RomVaultCore.ReadDat {
 				}
 			}
 		}
-
 
 		private static bool LoadNewDat(RvDat fileDat, RvFile thisDirectory) {
 			// Read the new Dat File into newDatFile
@@ -443,12 +437,10 @@ namespace RomVaultCore.ReadDat {
 						break;
 					}
 
-
 					var dbDats = new List<RvFile>();
 					var newDats = new List<RvFile>();
 					var dbDatsCount = 1;
 					var newDatsCount = 1;
-
 
 					dbDats.Add(dbChild);
 					newDats.Add(newDatChild);
@@ -546,13 +538,11 @@ namespace RomVaultCore.ReadDat {
 			return false;
 		}
 
-
 		private static void SetMissingStatus(RvFile dbChild) {
 			if (dbChild.FileRemove() == EFile.Delete) {
 				ReportError.SendAndShow("Error is Set Missing Status in DatUpdate");
 				return;
 			}
-
 
 			var ft = dbChild.FileType;
 			if (ft == FileType.Zip || ft == FileType.SevenZip || ft == FileType.Dir) {
@@ -563,7 +553,6 @@ namespace RomVaultCore.ReadDat {
 			}
 		}
 
-
 		private static void UpdateDirs(RvFile dbDir, RvFile fileDir) {
 			var dbIndex = 0;
 			var scanIndex = 0;
@@ -573,7 +562,6 @@ namespace RomVaultCore.ReadDat {
 				Debug.WriteLine("Adding Tree View to " + dbDir.Name);
 				dbDir.Tree = new RvTreeRow();
 			}
-
 
 			Debug.WriteLine("");
 			Debug.WriteLine("Now scanning dirs");
@@ -660,7 +648,6 @@ namespace RomVaultCore.ReadDat {
 				RemoveOldTree(dbDir.Child(i));
 			}
 		}
-
 
 		public static void CheckAllDats(RvFile dbFile, string romVaultPath) {
 			var idx = romVaultPath.LastIndexOf('\\');

@@ -156,7 +156,6 @@ namespace RVIO {
 		}
 	}
 
-
 	public static class Directory {
 		public static bool Exists(string path) => System.IO.Directory.Exists(NameFix.AddLongPathPrefix(path));
 
@@ -257,7 +256,6 @@ namespace RVIO {
 		public static string GetDirectoryName(string path) => System.IO.Path.GetDirectoryName(path);
 	}
 
-
 	public static class FileStream {
 		public static Stream OpenFileRead(string path, out int result) {
 			result = OpenFileRead(path, out Stream stream);
@@ -319,8 +317,6 @@ namespace RVIO {
 
 			return retPath;
 		}
-
-
 
 		internal static string AddLongPathPrefix(string path) {
 			if (Unix.IsUnix) {

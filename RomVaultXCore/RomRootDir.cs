@@ -25,7 +25,6 @@ namespace RVXCore
                 rootDirs[i] = @"RomRoot\" + VarFix.ToString((byte)i);
             }
 
-
             foreach (string rule in rules)
             {
                 if (rule.Length < 6)

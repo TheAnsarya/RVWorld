@@ -21,7 +21,6 @@ namespace RomVaultCore.Utils {
 				}
 			}
 
-
 			if (string.IsNullOrEmpty(checksum)) {
 				return null;
 			}

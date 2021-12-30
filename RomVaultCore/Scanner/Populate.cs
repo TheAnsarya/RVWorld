@@ -112,7 +112,6 @@ namespace RomVaultCore.Scanner {
 
 			var fileDir = new RvFile(FileType.Dir);
 
-
 			var oDir = new DirectoryInfo(fullDir);
 			var oDirs = oDir.GetDirectories();
 			var oFiles = oDir.GetFiles();
@@ -198,7 +197,6 @@ namespace RomVaultCore.Scanner {
 			file.AltCRC = fr[0].AltCRC;
 			file.AltSHA1 = fr[0].AltSHA1;
 			file.AltMD5 = fr[0].AltMD5;
-
 
 			file.FileStatusSet(
 				FileStatus.SizeVerified |

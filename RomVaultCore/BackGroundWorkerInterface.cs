@@ -13,7 +13,6 @@ namespace RomVaultCore {
 		public int Progress { get; }
 	}
 
-
 	public class bgwText {
 		public bgwText(string Text) => this.Text = Text;
 
@@ -32,7 +31,6 @@ namespace RomVaultCore {
 		public string Text { get; }
 	}
 
-
 	public class bgwSetRange {
 		public bgwSetRange(int MaxVal) => this.MaxVal = MaxVal;
 
@@ -45,13 +43,11 @@ namespace RomVaultCore {
 		public int MaxVal { get; }
 	}
 
-
 	public class bgwValue2 {
 		public bgwValue2(int Value) => this.Value = Value;
 
 		public int Value { get; }
 	}
-
 
 	public class bgwRange2Visible {
 		public bgwRange2Visible(bool Visible) => this.Visible = Visible;
@@ -78,7 +74,6 @@ namespace RomVaultCore {
 		public string filename { get; }
 		public string error { get; }
 	}
-
 
 	public class bgwShowFix {
 		public bgwShowFix(string fixDir, string fixZip, string fixFile, ulong? size, string dir, string sourceDir, string sourceZip, string sourceFile) {

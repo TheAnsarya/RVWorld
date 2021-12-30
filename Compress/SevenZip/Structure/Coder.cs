@@ -10,7 +10,6 @@ namespace Compress.SevenZip.Structure {
 		CompStreamOutput
 	}
 
-
 	public class InStreamSourceInfo {
 		public InStreamSource InStreamSource = InStreamSource.Unknown;
 		public ulong InStreamIndex;
@@ -28,7 +27,6 @@ namespace Compress.SevenZip.Structure {
 		LZMA2,
 		ZSTD
 	}
-
 
 	public class Coder {
 		public byte[] Method;
@@ -113,8 +111,6 @@ namespace Compress.SevenZip.Structure {
 				bw.Write(Properties);
 			}
 		}
-
-
 
 		public void Report(ref StringBuilder sb) {
 			sb.AppendLine($"        Method[] = {Method.ToArrayString()}   : {DecoderType}");

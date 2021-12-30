@@ -13,7 +13,6 @@ namespace RomVaultX {
 			Settings.ScanInMemorySize = AppSettings.ReadSetting("ScanInMemorySize");
 			Settings.ScanInDir = AppSettings.ReadSetting("ScanInDir");
 
-
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new frmMain());

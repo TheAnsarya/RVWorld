@@ -48,13 +48,11 @@ namespace ROMVault
         private Label _labelTruripRelatedTo;
         private TextBox _textTruripRelatedTo;
 
-
         private Label _labelTruripYear;
         private TextBox _textTruripYear;
 
         private Label _labelTruripPlayers;
         private TextBox _textTruripPlayers;
-
 
         private Label _labelTruripGenre;
         private TextBox _textTruripGenre;
@@ -62,14 +60,11 @@ namespace ROMVault
         private Label _labelTruripSubGenre;
         private TextBox _textTruripSubGenre;
 
-
         private Label _labelTruripRatings;
         private TextBox _textTruripRatings;
 
         private Label _labelTruripScore;
         private TextBox _textTruripScore;
-
-
 
         private void AddTextBox(int line, string name, int x, int x1, out Label lBox, out TextBox tBox)
         {
@@ -95,7 +90,6 @@ namespace ROMVault
             gbSetInfo.Controls.Add(tBox);
         }
 
-
         private Point SPoint(int x, int y)
         {
             return new Point((int)(x * _scaleFactorX), (int)(y * _scaleFactorY));
@@ -105,8 +99,6 @@ namespace ROMVault
         {
             return new Size((int)(x * _scaleFactorX), (int)(y * _scaleFactorY));
         }
-
-
 
         private void AddGameMetaData()
         {
@@ -139,11 +131,9 @@ namespace ROMVault
             AddTextBox(7, "SubGenre", 206, 284, out _labelTruripSubGenre, out _textTruripSubGenre);
             AddTextBox(7, "Score", 406, 484, out _labelTruripScore, out _textTruripScore);
 
-
             gbSetInfo_Resize(null, new EventArgs());
             UpdateGameMetaData(new RvFile(FileType.Dir));
         }
-
 
         private void UpdateGameMetaData(RvFile tGame)
         {
@@ -212,7 +202,6 @@ namespace ROMVault
                 _textGameTotalRoms.Visible = false;
             }
 
-
             if (tGame.Game != null)
             {
                 if (tGame.Game.GetData(RvGame.GameData.EmuArc) == "yes")
@@ -228,7 +217,6 @@ namespace ROMVault
                     _labelTruripDeveloper.Visible = true;
                     _textTruripDeveloper.Visible = true;
                     _textTruripDeveloper.Text = tGame.Game.GetData(RvGame.GameData.Developer);
-
 
                     _labelTruripTitleId.Visible = true;
                     _textTruripTitleId.Visible = true;
@@ -344,7 +332,6 @@ namespace ROMVault
             }
         }
 
-
         private void gbSetInfo_Resize(object sender, EventArgs e)
         {
             const int leftPos = 84;
@@ -355,7 +342,6 @@ namespace ROMVault
             }
 
             int width = rightPos - leftPos;
-
 
             if (_textGameName == null)
             {
@@ -383,7 +369,6 @@ namespace ROMVault
             _textGameTotalRoms.Left = text2Left;
             _textGameTotalRoms.Width = textWidth;
 
-
             // TruRip Meta Data
             textWidth = (int)(width * 0.20);
             text2Left = (int)(width * 0.4 + leftPos);
@@ -406,7 +391,6 @@ namespace ROMVault
             _labelTruripSubGenre.Left = label2Left;
             _textTruripSubGenre.Left = text2Left;
             _textTruripSubGenre.Width = textWidth;
-
 
             _labelTruripTitleId.Left = label3Left;
             _textTruripTitleId.Left = text3Left;

@@ -10,7 +10,6 @@ namespace DATReader.DatClean {
 		RemoveSubIfNameMatches // <-- invalid and removed
 	}
 
-
 	public static partial class DatClean {
 
 		public static void DirectoryExpand(DatDir dDir) {

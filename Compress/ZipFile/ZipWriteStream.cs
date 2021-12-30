@@ -77,7 +77,6 @@ namespace Compress.ZipFile {
 
 		public void ZipFileAddZeroLengthFile() => ZipLocalFile.LocalFileAddZeroLengthFile(_zipFs);
 
-
 		public ZipReturn ZipFileCloseWriteStream(byte[] crc32) {
 			if (_compressionStream is ZlibBaseStream dfStream) {
 				dfStream.Flush();

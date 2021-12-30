@@ -222,7 +222,6 @@ namespace RVXCore.DB
                 _commandRvGameWrite.Parameters.Add(new SQLiteParameter("MediaCatalogNumber")); //MediaCatalogNumber;        
             }
 
-
             _commandRvGameWrite.Parameters["DatId"].Value = DatId;
             _commandRvGameWrite.Parameters["Name"].Value = Name;
             _commandRvGameWrite.Parameters["Description"].Value = Description;

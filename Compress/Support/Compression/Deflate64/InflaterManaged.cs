@@ -261,7 +261,6 @@ namespace Compress.Support.Compression.Deflate64 {
 			return result;
 		}
 
-
 		// Format of Non-compressed blocks (BTYPE=00):
 		//
 		// Any bits of input up to the next byte boundary are ignored.
@@ -457,7 +456,6 @@ namespace Compress.Support.Compression.Deflate64 {
 
 			return true;
 		}
-
 
 		// Format of the dynamic block header:
 		//      5 Bits: HLIT, # of Literal/Length codes - 257 (257 - 286)

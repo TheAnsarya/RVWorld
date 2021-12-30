@@ -12,7 +12,6 @@ namespace Compress.SevenZip.Structure {
 		public ulong NextHeaderSize;
 		public uint NextHeaderCRC;
 
-
 		private long _crcOffset;
 		public long BaseOffset { get; private set; }
 
@@ -70,7 +69,6 @@ namespace Compress.SevenZip.Structure {
 
 		public void WriteFinal(BinaryWriter bw, ulong headerpos, ulong headerLength, uint headerCRC) {
 			var fileEnd = bw.BaseStream.Position;
-
 
 			byte[] sigHeaderBytes;
 			using (MemoryStream sigHeaderMem = new()) {

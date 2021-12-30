@@ -54,7 +54,6 @@ namespace Compress.ThreadReaders {
 
 		public void Wait() => _outEvent.WaitOne();
 
-
 		public void Finish() {
 			_finished = true;
 			_waitEvent.Set();

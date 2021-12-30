@@ -39,7 +39,6 @@ namespace TrrntZip {
 				return TrrntZipStatus.CorruptZip;
 			}
 
-
 			// the zip file may have found a valid trrntzip header, but we now check that all the file info
 			// is actually valid, and may invalidate it being a valid trrntzip if any problem is found.
 
@@ -72,7 +71,6 @@ namespace TrrntZip {
 
 			var compressionChanged = inputType != outputType;
 
-
 			// if tza is now just 'ValidTrrntzip' the it is fully valid, and nothing needs to be done to it.
 
 			if (((tzs == TrrntZipStatus.ValidTrrntzip) && !compressionChanged && !Program.ForceReZip) || Program.CheckOnly) {
@@ -97,7 +95,6 @@ namespace TrrntZip {
 			var fixedTzs = TorrentZipRebuild.ReZipFiles(zippedFiles, zipFile, _buffer, StatusCallBack, StatusLogCallBack, ThreadId, pc);
 			return fixedTzs;
 		}
-
 
 		private TrrntZipStatus OpenZip(FileInfo fi, out ICompress zipFile) {
 			var ext = Path.GetExtension(fi.Name);

@@ -29,7 +29,6 @@ namespace Compress.Support.Compression.PPmd.H {
 			}
 		}
 
-
 		public virtual void IncrementFreq(int dFreq) => freq = (freq + dFreq) & 0xff;
 
 		public virtual void DecrementFreq(int dFreq) => freq = (freq - dFreq) & 0xff;

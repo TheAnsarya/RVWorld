@@ -131,7 +131,6 @@ namespace DATReader.DatWriter
                         d.Add("name", baseDir.Name);
                         d.Add("type", "dir");
 
-
                         JArray f1 =new JArray();
                         d.Add("objects",f1);
                         writeBase(f1, baseDir, newStyle);

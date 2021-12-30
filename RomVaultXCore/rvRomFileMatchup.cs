@@ -87,7 +87,6 @@ namespace RVXCore
                 _commandFindInRoMsZero.Parameters.Add(new SQLiteParameter("sha1"));
                 _commandFindInRoMsZero.Parameters.Add(new SQLiteParameter("md5"));
 
-
                 _commandFindInRoMs = new SQLiteCommand(@"
                         SELECT
                         (
@@ -416,7 +415,6 @@ namespace RVXCore
                 _commandSHA1.Parameters.Add(new SQLiteParameter("crc"));
                 _commandSHA1.Parameters.Add(new SQLiteParameter("size"));
 
-
                 _commandSHA1Alt = new SQLiteCommand(@"
                        select FileId from FILES
                             WHERE
@@ -433,7 +431,6 @@ namespace RVXCore
                 _commandSHA1Alt.Parameters.Add(new SQLiteParameter("md5"));
                 _commandSHA1Alt.Parameters.Add(new SQLiteParameter("crc"));
                 _commandSHA1Alt.Parameters.Add(new SQLiteParameter("size"));
-
 
                 _commandMD5 = new SQLiteCommand(@"
                        select FileId from FILES
@@ -487,7 +484,6 @@ namespace RVXCore
                 _commandCRCAlt.Parameters.Add(new SQLiteParameter("crc"));
                 _commandCRCAlt.Parameters.Add(new SQLiteParameter("size"));
 
-
                 _commandSize = new SQLiteCommand(@"
                        select FileId from FILES
                             WHERE
@@ -497,7 +493,6 @@ namespace RVXCore
 
                 _commandSize.Parameters.Add(new SQLiteParameter("size"));
             }
-
 
             if (tFile.SHA1 != null)
             {
@@ -591,7 +586,6 @@ namespace RVXCore
 
                 return null;
             }
-
 
             if (tFile.Size != null && tFile.Size == 0)
             {

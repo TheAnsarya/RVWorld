@@ -43,7 +43,6 @@ namespace Compress.ZipFile {
 			Filename = filename;
 		}
 
-
 		internal ZipReturn CentralDirectoryRead(Stream zipFs, ulong offset) {
 			try {
 				using BinaryReader br = new(zipFs, Encoding.UTF8, true);
@@ -55,7 +54,6 @@ namespace Compress.ZipFile {
 				br.ReadUInt16(); // Version Made By
 
 				br.ReadUInt16(); // Version Needed To Extract
-
 
 				GeneralPurposeBitFlag = br.ReadUInt16();
 				_compressionMethod = br.ReadUInt16();
@@ -78,7 +76,6 @@ namespace Compress.ZipFile {
 				br.ReadUInt32(); // externalFileAttributes
 
 				RelativeOffsetOfLocalHeader = br.ReadUInt32();
-
 
 				var bFileName = br.ReadBytes(fileNameLength);
 				Filename = (GeneralPurposeBitFlag & (1 << 11)) == 0
@@ -245,12 +242,10 @@ namespace Compress.ZipFile {
 				var fileNameLength = br.ReadUInt16();
 				var extraFieldLength = br.ReadUInt16();
 
-
 				var bFileName = br.ReadBytes(fileNameLength);
 				localHeader.Filename = (generalPurposeBitFlagLocal & (1 << 11)) == 0
 					? CompressUtils.GetString(bFileName)
 					: Encoding.UTF8.GetString(bFileName, 0, fileNameLength);
-
 
 				if (extraFieldLength > 0) {
 					var extraField = br.ReadBytes(extraFieldLength);
@@ -369,7 +364,6 @@ namespace Compress.ZipFile {
 			}
 		}
 
-
 		private void LocalFileHeaderWrite(Stream zipFs) {
 			using BinaryWriter bw = new(zipFs, Encoding.UTF8, true);
 			ZipExtraFieldWrite zefw = new();
@@ -453,7 +447,6 @@ namespace Compress.ZipFile {
 
 			zipFs.Seek(posNow, SeekOrigin.Begin);
 		}
-
 
 		internal void LocalFileHeaderFake(ulong filePosition, ulong uncompressedSize, ulong compressedSize, byte[] crc32, MemoryStream ms) {
 			using BinaryWriter bw = new(ms, Encoding.UTF8, true);

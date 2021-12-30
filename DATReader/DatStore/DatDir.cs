@@ -81,7 +81,6 @@ namespace DATReader.DatStore {
 			return retval;
 		}
 
-
 		private int ChildNameBinarySearch(DatBase lName, bool useIndex, bool findFirst, out int index) {
 			var intBottom = 0;
 			var intTop = _children.Count;

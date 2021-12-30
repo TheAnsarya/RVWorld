@@ -9,7 +9,6 @@ using RVIO;
 namespace RomVaultCore.FixFile {
 	public static class FixAZipFunctions {
 
-
 		public static ReturnCode OpenTempFizZip(RvFile fixZip, out ICompress tempFixZip, out string errorMessage) {
 			var strPath = fixZip.Parent.FullName;
 			var tempZipFilename = Path.Combine(strPath, "__RomVault.tmp");
@@ -88,7 +87,6 @@ namespace RomVaultCore.FixFile {
 				}
 			}
 
-
 			var fixZipFullName = fixZip.TreeFullName;
 			Report.ReportProgress(new bgwShowFix(Path.GetDirectoryName(fixZipFullName), Path.GetFileName(fixZipFullName), fixZippedFile.Name, fixZippedFile.Size, "Raw-->", "Corrupt", Path.GetFileName(toSortFullName), fixZippedFile.Name));
 
@@ -109,7 +107,6 @@ namespace RomVaultCore.FixFile {
 			fixZippedFile.GotStatus = GotStatus.NotGot; // Changes RepStatus to Deleted
 			return ReturnCode.Good;
 		}
-
 
 		public static ReturnCode OpenOutputZip(RvFile fixZip, string outputZipFilename, out ICompress outputFixZip, out string errorMessage) {
 			outputFixZip = null;
@@ -140,7 +137,6 @@ namespace RomVaultCore.FixFile {
 			return ReturnCode.Good;
 		}
 
-
 		private static ulong GetUncompressedSize(RvFile fixZip) {
 			ulong uncompressedSize = 0;
 			for (var i = 0; i < fixZip.ChildCount; i++) {
@@ -160,7 +156,6 @@ namespace RomVaultCore.FixFile {
 
 			return uncompressedSize;
 		}
-
 
 		public static ReturnCode MoveZipToCorrupt(RvFile fixZip, out string errorMessage) {
 			errorMessage = "";
@@ -205,7 +200,6 @@ namespace RomVaultCore.FixFile {
 				var error = Error.GetLastError();
 				Report.ReportProgress(new bgwShowError(fixZipFullName, "Error Setting File Attributes to Normal. Before Moving To Corrupt. Code " + error));
 			}
-
 
 			File.Move(fixZipFullName, toSortFullName);
 			var toSortCorruptFile = new FileInfo(toSortFullName);

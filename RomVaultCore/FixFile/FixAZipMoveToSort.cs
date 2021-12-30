@@ -61,7 +61,6 @@ namespace RomVaultCore.FixFile {
 				FileStatus.AltMD5FromHeader | FileStatus.AltMD5Verified
 				, fixZippedFile);
 
-
 			ReturnCode returnCode;
 			string errorMessage;
 

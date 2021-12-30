@@ -43,7 +43,6 @@ namespace RomVaultX {
 			}
 			AutoScrollMinSize = new Size(500, yPos);
 
-
 			var lastBranch = "";
 			for (var i = treeCount - 1; i >= 0; i--) {
 				var pTree = _rows[i];
@@ -86,7 +85,6 @@ namespace RomVaultX {
 			var t = new Rectangle(e.ClipRectangle.Left + _hScroll, e.ClipRectangle.Top + _vScroll, e.ClipRectangle.Width, e.ClipRectangle.Height);
 
 			g.FillRectangle(Brushes.White, e.ClipRectangle);
-
 
 			var treeCount = _rows.Count;
 			for (var i = 0; i < treeCount; i++) {
@@ -135,7 +133,6 @@ namespace RomVaultX {
 					icon = 1;
 				}
 
-
 				Bitmap bm;
 				//if (pTree.Dat == null && pTree.DirDatCount != 1) // Directory above DAT's in Tree
 				bm = string.IsNullOrEmpty(pTree.TRow.datName) ?
@@ -170,7 +167,6 @@ namespace RomVaultX {
 				}
 			}
 		}
-
 
 		private static Rectangle RSub(Rectangle r, int h, int v) {
 			var ret = new Rectangle(r.Left - h, r.Top - v, r.Width, r.Height);
@@ -233,8 +229,6 @@ namespace RomVaultX {
 				Setup(RvTreeRow.ReadTreeFromDB());
 			}
 		}
-
-
 
 		#endregion
 	}

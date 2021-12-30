@@ -92,7 +92,6 @@ namespace RVXCore
 
             CommandGetAllGamesWithRoms = new SQLiteCommand(@"SELECT GameId,name FROM game WHERE RomGot>0 AND ZipFileLength is null", DBSqlite.db.Connection);
 
-
             CommandFindRomsInGame = new SQLiteCommand(
                 @"SELECT
                     ROM.RomId, ROM.name, FILES.size, FILES.compressedsize, FILES.crc,FILES.sha1
@@ -114,7 +113,6 @@ namespace RVXCore
             CommandWriteLocalHeaderToRom.Parameters.Add(new SQLiteParameter("localFileSha1"));
             CommandWriteLocalHeaderToRom.Parameters.Add(new SQLiteParameter("localFileCompressedSize"));
             CommandWriteLocalHeaderToRom.Parameters.Add(new SQLiteParameter("RomId"));
-
 
             CommandWriteCentralDirToGame = new SQLiteCommand(
                 @"UPDATE GAME SET 

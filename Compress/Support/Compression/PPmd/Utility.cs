@@ -261,7 +261,6 @@ namespace Compress.Support.Compression.PPmd {
 			} while (source.Read(buffer, 0, buffer.Length) == buffer.Length);
 		}
 
-
 		public static byte[] UInt32ToBigEndianBytes(uint x) => new byte[] {
 				(byte)((x >> 24) & 0xff),
 				(byte)((x >> 16) & 0xff),
@@ -304,7 +303,6 @@ namespace Compress.Support.Compression.PPmd {
 				(dateTime.Value.Day << 16) | (dateTime.Value.Month << 21) | ((dateTime.Value.Year - 1980) << 25));
 		}
 
-
 		public static DateTime DosDateToDateTime(uint iTime) => DosDateToDateTime((ushort)(iTime / 65536),
 									 (ushort)(iTime % 65536));
 
@@ -346,7 +344,6 @@ namespace Compress.Support.Compression.PPmd {
 			}
 			return true;
 		}
-
 
 #if PORTABLE
         public static void CopyTo(this byte[] array, byte[] destination, int index)

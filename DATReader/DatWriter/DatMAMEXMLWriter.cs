@@ -217,8 +217,6 @@ namespace DATReader.DatWriter {
 				}
 			}
 
-
-
 			public void WriteNode(string name, string value) {
 				if (string.IsNullOrWhiteSpace(value)) {
 					return;

@@ -33,10 +33,8 @@ namespace RomVaultCore.RvDB {
 				lstDir.Add(thisDir);
 			}
 
-
 			GetSelectedDirList(ref lstDir, thisDir);
 		}
-
 
 		public static void GetSelectedDirList(ref List<RvFile> lstDir, RvFile thisDir) {
 			for (var i = 0; i < thisDir.ChildCount; i++) {
@@ -57,7 +55,6 @@ namespace RomVaultCore.RvDB {
 				GetSelectedDirList(ref lstDir, tDir);
 			}
 		}
-
 
 		public static int CompareName(RvFile var1, RvFile var2) {
 			var f1 = var1.FileType;
@@ -129,7 +126,6 @@ namespace RomVaultCore.RvDB {
 			return 0;
 		}
 
-
 		// find fix files, if the gotFile has been fully scanned check the SHA1/MD5, if not then just return true as the CRC/Size is all we have to go on.
 		// this means that if the gotfile has not been fully scanned this will return true even with the source and destination SHA1/MD5 possibly different.
 		public static bool CheckIfMissingFileCanBeFixedByGotFile(RvFile missingFile, RvFile gotFile) {
@@ -150,7 +146,6 @@ namespace RomVaultCore.RvDB {
 			return true;
 		}
 
-
 		public static bool CheckIfGotfileAndMatchingFileAreFullMatches(RvFile gotFile, RvFile matchingFile) {
 			if (gotFile.FileStatusIs(FileStatus.SHA1Verified) && matchingFile.FileStatusIs(FileStatus.SHA1Verified) && !ArrByte.BCompare(gotFile.SHA1, matchingFile.SHA1)) {
 				return false;
@@ -162,9 +157,6 @@ namespace RomVaultCore.RvDB {
 
 			return true;
 		}
-
-
-
 
 		public static bool IsZeroLengthFile(RvFile tFile) {
 			var foundOneMatching = false;

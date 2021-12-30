@@ -92,13 +92,11 @@ namespace DATReader.DatClean {
 			}
 		}
 
-
 		/*
          * In the mame Dat:
          * status="nodump" has a size but no CRC
          * status="baddump" has a size and crc
          */
-
 
 		private static void RomCheckCollect(DatFile tRom, bool merge) {
 			if (merge) {

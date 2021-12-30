@@ -26,7 +26,6 @@ namespace RomVaultCore.FixFile {
 					return;
 				}
 
-
 				Report.ReportProgress(new bgwText("Fixing Files"));
 
 				var totalFixes = 0;
@@ -65,7 +64,6 @@ namespace RomVaultCore.FixFile {
 
 				DB.Write();
 				Report.ReportProgress(new bgwText("Complete"));
-
 
 				Report.Set(null);
 			}
@@ -111,7 +109,6 @@ namespace RomVaultCore.FixFile {
 			return count;
 		}
 
-
 		private static ReturnCode FixDir(RvFile dir, bool lastSelected, List<RvFile> fileProcessQueue, ref int totalFixed, ref int reportedFixed, Stopwatch cacheSaveTimer) {
 			//Debug.WriteLine(dir.FullName);
 			var thisSelected = lastSelected;
@@ -154,7 +151,6 @@ namespace RomVaultCore.FixFile {
 			FixFileUtils.CheckDeleteFile(dir);
 			return ReturnCode.Good;
 		}
-
 
 		private static ReturnCode FixBase(RvFile child, bool thisSelected, List<RvFile> fileProcessQueue, ref int totalFixed, ref int reportedFixed, Stopwatch cacheSaveTimer) {
 			// skip any files that have already been deleted
@@ -241,7 +237,6 @@ namespace RomVaultCore.FixFile {
 			}
 			return returnCode;
 		}
-
 
 		private static void CheckDBWrite(Stopwatch cacheSaveTimer) {
 			if (cacheSaveTimer.Elapsed.Minutes > Settings.rvSettings.CacheSaveTimePeriod) {

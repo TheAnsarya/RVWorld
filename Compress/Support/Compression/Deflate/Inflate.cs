@@ -61,7 +61,6 @@
 //
 // -----------------------------------------------------------------------
 
-
 using System;
 
 namespace Compress.Support.Compression.Deflate {
@@ -138,7 +137,6 @@ namespace Compress.Support.Compression.Deflate {
 			return oldCheck;
 		}
 
-
 		internal int Process(int r) {
 			int t; // temporary storage
 			int b; // bit buffer
@@ -157,7 +155,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			q = writeAt;
 			m = q < readAt ? readAt - q - 1 : end - q;
-
 
 			// process input based on current state
 			while (true) {
@@ -354,7 +351,6 @@ namespace Compress.Support.Compression.Deflate {
 
 						b >>= 14;
 						k -= 14;
-
 
 						index = 0;
 						mode = InflateBlockMode.BTREE;
@@ -586,7 +582,6 @@ namespace Compress.Support.Compression.Deflate {
 						writeAt = q;
 						return Flush(r);
 
-
 					default:
 						r = ZlibConstants.Z_STREAM_ERROR;
 
@@ -599,7 +594,6 @@ namespace Compress.Support.Compression.Deflate {
 				}
 			}
 		}
-
 
 		internal void Free() {
 			Reset();
@@ -677,7 +671,6 @@ namespace Compress.Support.Compression.Deflate {
 		}
 	}
 
-
 	internal static class InternalInflateConstants {
 		// And'ing with mask[n] masks the lower n bits
 		internal static readonly int[] InflateMask = new int[] {
@@ -686,7 +679,6 @@ namespace Compress.Support.Compression.Deflate {
 			0x000000ff, 0x000001ff, 0x000003ff, 0x000007ff,
 			0x00000fff, 0x00001fff, 0x00003fff, 0x00007fff, 0x0000ffff };
 	}
-
 
 	sealed class InflateCodes {
 		// waiting for "i:"=input,
@@ -852,7 +844,6 @@ namespace Compress.Support.Compression.Deflate {
 						blocks.writeAt = q;
 						return blocks.Flush(r);
 
-
 					case LENEXT:  // i: getting length extra (have base)
 						j = bitsToGet;
 
@@ -923,7 +914,6 @@ namespace Compress.Support.Compression.Deflate {
 						z.AvailableBytesIn = n; z.TotalBytesIn += p - z.NextIn; z.NextIn = p;
 						blocks.writeAt = q;
 						return blocks.Flush(r);
-
 
 					case DISTEXT:  // i: getting distance extra
 						j = bitsToGet;
@@ -1063,7 +1053,6 @@ namespace Compress.Support.Compression.Deflate {
 				}
 			}
 		}
-
 
 		// Called with number of bytes left to write in window at least 258
 		// (the maximum string length) and number of input bytes available
@@ -1273,7 +1262,6 @@ namespace Compress.Support.Compression.Deflate {
 		}
 	}
 
-
 	internal sealed class InflateManager {
 		// preset dictionary flag in zlib header
 		private const int PRESET_DICT = 0x20;
@@ -1367,7 +1355,6 @@ namespace Compress.Support.Compression.Deflate {
 			return ZlibConstants.Z_OK;
 		}
 
-
 		internal int Inflate(FlushType flush) {
 			int b;
 
@@ -1407,7 +1394,6 @@ namespace Compress.Support.Compression.Deflate {
 						}
 						mode = InflateManagerMode.FLAG;
 						break;
-
 
 					case InflateManagerMode.FLAG:
 						if (_codec.AvailableBytesIn == 0) {
@@ -1468,7 +1454,6 @@ namespace Compress.Support.Compression.Deflate {
 						mode = InflateManagerMode.DICT1;
 						break;
 
-
 					case InflateManagerMode.DICT1:
 						if (_codec.AvailableBytesIn == 0) {
 							return r;
@@ -1481,13 +1466,11 @@ namespace Compress.Support.Compression.Deflate {
 						mode = InflateManagerMode.DICT0;
 						return ZlibConstants.Z_NEED_DICT;
 
-
 					case InflateManagerMode.DICT0:
 						mode = InflateManagerMode.BAD;
 						_codec.Message = "need dictionary";
 						marker = 0; // can try inflateSync
 						return ZlibConstants.Z_STREAM_ERROR;
-
 
 					case InflateManagerMode.BLOCKS:
 						r = blocks.Process(r);
@@ -1579,8 +1562,6 @@ namespace Compress.Support.Compression.Deflate {
 			}
 		}
 
-
-
 		internal int SetDictionary(byte[] dictionary) {
 			var index = 0;
 			var length = dictionary.Length;
@@ -1602,7 +1583,6 @@ namespace Compress.Support.Compression.Deflate {
 			mode = InflateManagerMode.BLOCKS;
 			return ZlibConstants.Z_OK;
 		}
-
 
 		private static readonly byte[] mark = new byte[] { 0, 0, 0xff, 0xff };
 
@@ -1654,7 +1634,6 @@ namespace Compress.Support.Compression.Deflate {
 			mode = InflateManagerMode.BLOCKS;
 			return ZlibConstants.Z_OK;
 		}
-
 
 		// Returns true if inflate is currently at the end of a block generated
 		// by Z_SYNC_FLUSH or Z_FULL_FLUSH. This function is used by one PPP

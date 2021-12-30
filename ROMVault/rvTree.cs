@@ -128,7 +128,6 @@ namespace ROMVault
                 }
             }
 
-
             if (!found && pTree.DirDatCount <= 1)
             {
                 uTree.RExpand = new Rectangle(0, 0, 0, 0);
@@ -250,7 +249,6 @@ namespace ROMVault
                 }
             }
 
-
             if (uTree.RChecked.IntersectsWith(t))
             {
                 switch (pTree.Tree.Checked)
@@ -283,7 +281,6 @@ namespace ROMVault
                     icon = 3;
                 }
 
-
                 Bitmap bm;
                 if (pTree.Dat == null && pTree.DirDatCount == 0) // Directory above DAT's in Tree
                 {
@@ -308,7 +305,6 @@ namespace ROMVault
                     g.DrawImage(bm, RSub(uTree.RIcon, _hScroll, _vScroll));
                 }
             }
-
 
             Rectangle recBackGround = new Rectangle(uTree.RText.X, uTree.RText.Y, Width - uTree.RText.X + _hScroll, uTree.RText.Height);
 
@@ -420,7 +416,6 @@ namespace ROMVault
                 }
             }
         }
-
 
         private static Rectangle RSub(Rectangle r, int h, int v)
         {

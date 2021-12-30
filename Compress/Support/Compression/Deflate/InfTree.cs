@@ -59,7 +59,6 @@
 //
 // -----------------------------------------------------------------------
 
-
 using System;
 
 namespace Compress.Support.Compression.Deflate {

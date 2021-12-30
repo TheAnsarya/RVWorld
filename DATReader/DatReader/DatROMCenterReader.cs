@@ -69,7 +69,6 @@ namespace DATReader.DatReader {
 			return true;
 		}
 
-
 		private static bool LoadCredits(DatFileLoader dfl, DatHeader datHeader, ReportError errorReport) {
 			if (dfl.Next.ToLower() != "[credits]") {
 				errorReport?.Invoke(dfl.Filename, "Looking for [CREDITS] but found " + dfl.Next + " , " + dfl.LineNumber);
@@ -322,7 +321,6 @@ namespace DATReader.DatReader {
 			}
 			return true;
 		}
-
 
 		private static bool splitLine(string s, out string Element, out string Value) {
 			var i = s.IndexOf("=");

@@ -36,7 +36,6 @@ namespace Compress.SevenZip {
 			var header = new byte[12];
 			_zipFs.Read(header, 0, 12);
 
-
 			for (var i = 0; i < 12; i++) {
 				if (header[i] != rv7Zid[i]) {
 					return false;

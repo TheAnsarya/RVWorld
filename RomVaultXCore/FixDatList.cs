@@ -24,7 +24,6 @@ namespace RVXCore
             return ret;
         }
 
-
         public static void extract(string dirName, string datFilename)
         {
             Debug.WriteLine(dirName);
@@ -75,14 +74,12 @@ namespace RVXCore
                 string strSHA1 = sha1 != null ? $" sha1=\"{VarFix.ToString(sha1)}\"" : "";
                 string strMD5 = md5 != null ? $" md5=\"{VarFix.ToString(md5)}\"" : "";
 
-
                 if (matchingcrc.Contains(strCRC))
                 {
                     continue;
                 }
 
                 matchingcrc.Add(strCRC);
-
 
                 string thisFilename = filename + GameName;
                 if (thisFilename != lastname)

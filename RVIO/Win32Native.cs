@@ -12,7 +12,6 @@ namespace RVIO {
 	internal static class Win32Native {
 		private const string KERNEL32 = "kernel32.dll";
 
-
 		[DllImport(KERNEL32, SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false)]
 		[ResourceExposure(ResourceScope.Machine)]
 		internal static extern int GetShortPathName(

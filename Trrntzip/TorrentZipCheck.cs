@@ -21,7 +21,6 @@ namespace TrrntZip {
 		public static TrrntZipStatus CheckZipFiles(ref List<ZippedFile> zippedFiles, int threadId, LogCallback statusLogCallBack) {
 			var tzStatus = TrrntZipStatus.Unknown;
 
-
 			// ***************************** RULE 1 *************************************
 			// Directory separator should be a '/' a '\' is invalid and should be replaced with '/'
 			//
@@ -49,7 +48,6 @@ namespace TrrntZip {
 				}
 			}
 
-
 			// ***************************** RULE 2 *************************************
 			// All Files in a torrentzip should be sorted with a lower case file compare.
 			//
@@ -74,7 +72,6 @@ namespace TrrntZip {
 					}
 				}
 			}
-
 
 			// ***************************** RULE 3 *************************************
 			// Directory marker files are only needed if they are empty directories.
@@ -121,7 +118,6 @@ namespace TrrntZip {
 				}
 			}
 
-
 			// check for repeat files
 			var error4 = false;
 			for (var i = 0; i < zippedFiles.Count - 1; i++) {
@@ -136,7 +132,6 @@ namespace TrrntZip {
 
 			return tzStatus;
 		}
-
 
 		// perform an ascii based lower case string file compare
 		private static int TrrntZipStringCompare(string string1, string string2) {
@@ -174,8 +169,6 @@ namespace TrrntZip {
 			}
 		}
 
-
-
 		public static TrrntZipStatus CheckSevenZipFiles(ref List<ZippedFile> zippedFiles, int threadId, LogCallback statusLogCallBack) {
 			var tzStatus = TrrntZipStatus.Unknown;
 
@@ -205,7 +198,6 @@ namespace TrrntZip {
 					t.Name = new string(bytes);
 				}
 			}
-
 
 			var dirSortTest = new List<ZippedFile>();
 			dirSortTest.AddRange(zippedFiles);
@@ -276,8 +268,6 @@ namespace TrrntZip {
 				}
 			}
 
-
-
 			// ***************************** RULE 2 *************************************
 			// All Files in a torrentzip should be sorted by extention
 			//
@@ -303,7 +293,6 @@ namespace TrrntZip {
 				}
 			}
 
-
 			// check for repeat files
 			var error4 = false;
 			for (var i = 0; i < zippedFiles.Count - 1; i++) {
@@ -316,12 +305,8 @@ namespace TrrntZip {
 				}
 			}
 
-
 			return tzStatus;
 		}
-
-
-
 
 		public static int Trrnt7ZipStringCompare(string string1, string string2) {
 			splitFilename(string1, out var path1, out var name1, out var ext1);
@@ -344,7 +329,6 @@ namespace TrrntZip {
 
 			return 0;
 		}
-
 
 		private static void splitFilename(string filename, out string path, out string name, out string ext) {
 			var dirIndex = filename.LastIndexOf('/');

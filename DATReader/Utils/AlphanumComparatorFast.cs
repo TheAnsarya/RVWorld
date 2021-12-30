@@ -2,7 +2,6 @@
 
 namespace DATReader.Utils {
 
-
 	public static class AlphanumComparatorFast {
 		public static int Compare(string s1, string s2) {
 			if (s1 == null) {

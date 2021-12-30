@@ -42,7 +42,6 @@ namespace ROMVault
         private bool showDatModDate;
         private bool showFileModDate;
 
-
         private void UpdateRomGrid(RvFile tGame)
         {
             if (Settings.IsMono && RomGrid.RowCount > 0)
@@ -282,7 +281,6 @@ namespace ROMVault
             e.CellStyle.ForeColor = _fontColor[(int)tFile.RepStatus];
         }
 
-
         private void RomGridColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (romGrid == null)
@@ -421,8 +419,6 @@ namespace ROMVault
                 fri.ShowDialog();
                 return;
             }
-
-
 
             if (e == null || e.Button != MouseButtons.Right)
             {

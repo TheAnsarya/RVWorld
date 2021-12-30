@@ -224,7 +224,6 @@ namespace ROMVault
                             _ts.WriteLine("\t</header>");
                         }
 
-
                         string gamename = tDir.SuperDatFileName();
                         if (tDir.FileType == FileType.Zip || tDir.FileType == FileType.SevenZip)
                         {
@@ -494,7 +493,6 @@ namespace ROMVault
             int p = name.IndexOf("\\", StringComparison.Ordinal);
             return p > 0 ? name.Substring(p + 1) : name;
         }
-
 
         private static void ReportMissingFindSizes(RvFile dir, RvDat dat, ReportType rt)
         {

@@ -17,7 +17,6 @@ namespace RomVaultCore {
 		DirInToSort,
 		DirCorrupt,
 
-
 		Missing, // a files or directory from a DAT that we do not have
 		Correct, // a files or directory from a DAT that we have
 		NotCollected, // a file from a DAT that is not collected that we do not have (either a merged or bad file.)
@@ -27,7 +26,6 @@ namespace RomVaultCore {
 
 		Corrupt, // either a Zip file that is corrupt, or a Zipped file that is corrupt
 		Ignore, // a file found in the ignore list
-
 
 		// Fix Status:
 		CanBeFixed, // a missing file that can be fixed from another file. (Will be set to correct once it has been corrected)
@@ -48,7 +46,6 @@ namespace RomVaultCore {
 		public static List<RepStatus>[,,] StatusCheck;
 
 		public static RepStatus[] DisplayOrder;
-
 
 		public static void InitStatusCheck() {
 			StatusCheck = new List<RepStatus>
@@ -91,7 +88,6 @@ namespace RomVaultCore {
 			StatusCheck[(int)FileType.SevenZip, (int)DatStatus.NotInDat, (int)GotStatus.Corrupt] = new List<RepStatus> { RepStatus.DirCorrupt };
 			StatusCheck[(int)FileType.SevenZip, (int)DatStatus.NotInDat, (int)GotStatus.FileLocked] = new List<RepStatus> { RepStatus.UnScanned };
 			StatusCheck[(int)FileType.SevenZip, (int)DatStatus.NotInDat, (int)GotStatus.NotGot] = new List<RepStatus> { RepStatus.Deleted };
-
 
 			StatusCheck[(int)FileType.File, (int)DatStatus.InDatBad, (int)GotStatus.FileLocked] = new List<RepStatus> { RepStatus.UnScanned };
 			StatusCheck[(int)FileType.File, (int)DatStatus.InDatBad, (int)GotStatus.NotGot] = new List<RepStatus> { RepStatus.NotCollected };
@@ -141,7 +137,6 @@ namespace RomVaultCore {
 			StatusCheck[(int)FileType.SevenZipFile, (int)DatStatus.NotInDat, (int)GotStatus.Corrupt] = new List<RepStatus> { RepStatus.Corrupt, RepStatus.MoveToCorrupt, RepStatus.Delete };
 			StatusCheck[(int)FileType.SevenZipFile, (int)DatStatus.NotInDat, (int)GotStatus.Got] = new List<RepStatus> { RepStatus.Unknown, RepStatus.Delete, RepStatus.MoveToSort, RepStatus.NeededForFix, RepStatus.Rename };
 			StatusCheck[(int)FileType.SevenZipFile, (int)DatStatus.NotInDat, (int)GotStatus.NotGot] = new List<RepStatus> { RepStatus.Deleted };
-
 
 			DisplayOrder = new[]
 			{
@@ -218,7 +213,6 @@ namespace RomVaultCore {
 
 		public bool HasMissing() => CountMissing() > 0;
 
-
 		public int CountFixesNeeded() => _arrRepStatus[(int)RepStatus.CanBeFixed] +
 				   _arrRepStatus[(int)RepStatus.MoveToSort] +
 				   _arrRepStatus[(int)RepStatus.Delete] +
@@ -260,7 +254,6 @@ namespace RomVaultCore {
 		public int CountUnknown() => _arrRepStatus[(int)RepStatus.Unknown];
 
 		public bool HasUnknown() => CountUnknown() > 0;
-
 
 		public int CountInToSort() => _arrRepStatus[(int)RepStatus.InToSort];
 

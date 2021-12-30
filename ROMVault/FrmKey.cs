@@ -51,7 +51,6 @@ namespace ROMVault
                 RepStatus.MoveToSort,
                 RepStatus.Delete,
 
-
                 RepStatus.Corrupt,
                 RepStatus.UnScanned,
             };

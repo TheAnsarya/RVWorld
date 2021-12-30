@@ -11,7 +11,6 @@ namespace RVXCore
     {
         private static SQLiteCommand CommandReadTree;
 
-
         private static SQLiteCommand _commandGetFirstExpanded;
         public uint DirId;
         public string dirName;
@@ -27,7 +26,6 @@ namespace RVXCore
         public int RomNoDump;
 
         public bool MultiDatDir;
-
 
         public static List<RvTreeRow> ReadTreeFromDB()
         {
@@ -133,7 +131,6 @@ namespace RVXCore
                         multiDatDirFound = thisMultiDatDirFound;
                     }
 
-
                     lastTree = pTree;
                 }
             }
@@ -181,7 +178,6 @@ namespace RVXCore
 
             return Convert.ToInt32(res);
         }
-
 
         private static void UpdateSelectedFromList(List<uint> todo, int value)
         {

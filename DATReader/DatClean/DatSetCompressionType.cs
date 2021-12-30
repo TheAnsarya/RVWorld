@@ -70,7 +70,6 @@ namespace DATReader.DatClean {
 			parents.RemoveAt(parentCount);
 		}
 
-
 		public static void SetFile(DatBase inDat) {
 			if (inDat.Name != null) {
 				inDat.Name = inDat.Name.TrimStart(new[] { ' ' });

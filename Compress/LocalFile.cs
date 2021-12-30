@@ -18,7 +18,6 @@ namespace Compress {
 		public long? CreatedTime { get; internal set; }
 		public long? AccessedTime { get; internal set; }
 
-
 		private LocalFileStatus _status = LocalFileStatus.Nothing;
 		internal void SetStatus(LocalFileStatus lfs, bool set = true) {
 			if (set) {

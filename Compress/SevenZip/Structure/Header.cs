@@ -32,7 +32,6 @@ namespace Compress.SevenZip.Structure {
 			}
 		}
 
-
 		public void WriteHeader(BinaryWriter bw) {
 			bw.Write((byte)HeaderProperty.kHeader);
 			StreamsInfo.Write(bw);

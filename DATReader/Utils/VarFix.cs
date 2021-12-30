@@ -66,13 +66,11 @@ namespace DATReader.Utils {
 				}
 			}
 
-
 			retcrc = new string('0', length) + retcrc;
 			retcrc = retcrc.Substring(retcrc.Length - length);
 
 			return retcrc;
 		}
-
 
 		//CleanMD5SHA1 with a null or empty string will return null
 		public static byte[] CleanMD5SHA1(XmlNode n, int length) => CleanMD5SHA1(n?.InnerText, length);
@@ -89,7 +87,6 @@ namespace DATReader.Utils {
 					checksum = checksum.Substring(2);
 				}
 			}
-
 
 			if (string.IsNullOrEmpty(checksum)) {
 				return null;
@@ -185,7 +182,6 @@ namespace DATReader.Utils {
 		public static string ToLower(XmlNode n) => ToLower(n?.InnerText ?? "");
 
 		public static string ToLower(string name) => name?.ToLower() ?? "";
-
 
 		public static string PCombine(string path1, string path2) {
 			if (string.IsNullOrEmpty(path1)) {

@@ -13,7 +13,6 @@ namespace Compress.SevenZip.Structure {
 		public uint? UnpackCRC;
 		public UnpackedStreamInfo[] UnpackedStreamInfo;
 
-
 		private void ReadFolder(BinaryReader br) {
 			var numCoders = br.ReadEncodedUInt64();
 
@@ -101,7 +100,6 @@ namespace Compress.SevenZip.Structure {
 			return 0;
 		}
 
-
 		public static void ReadUnPackInfo(BinaryReader br, out Folder[] Folders) {
 			Folders = null;
 			for (; ; )
@@ -133,7 +131,6 @@ namespace Compress.SevenZip.Structure {
 
 							continue;
 						}
-
 
 					case HeaderProperty.kCodersUnPackSize: {
 							for (uint i = 0; i < Folders.Length; i++) {
@@ -273,7 +270,6 @@ namespace Compress.SevenZip.Structure {
 				Folders[i].WriteFolder(bw);
 			}
 
-
 			bw.Write((byte)HeaderProperty.kCodersUnPackSize);
 			for (ulong i = 0; i < numFolders; i++) {
 				Folders[i].WriteUnpackedStreamSize(bw);
@@ -323,7 +319,6 @@ namespace Compress.SevenZip.Structure {
 
 			bw.Write((byte)HeaderProperty.kEnd);
 		}
-
 
 		public void Report(ref StringBuilder sb) {
 			if (Coders == null) {

@@ -38,7 +38,6 @@ namespace RomVaultCore.RvDB {
 
 		private readonly List<GameMetaData> _gameMetaData = new List<GameMetaData>();
 
-
 		public bool Equals(RvGame other) {
 			var c = _gameMetaData.Count;
 			if (c != other._gameMetaData.Count) {

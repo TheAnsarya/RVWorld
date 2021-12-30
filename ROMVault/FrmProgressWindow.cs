@@ -61,7 +61,6 @@ namespace ROMVault
             }
         }
 
-
         private void FrmProgressWindowNewShown(object sender, EventArgs e)
         {
             _thWrk.wReport = BgwProgressChanged;
@@ -103,7 +102,6 @@ namespace ROMVault
                 return;
             }
 
-
             if (obj is bgwText2 bgwT2)
             {
                 label2.Text = bgwT2.Text;
@@ -138,7 +136,6 @@ namespace ROMVault
                 return;
             }
 
-
             if (obj is bgwText3 bgwT3)
             {
                 label3.Text = bgwT3.Text;
@@ -168,7 +165,6 @@ namespace ROMVault
                     ErrorGrid.FirstDisplayedScrollingRowIndex = row;
                 }
             }
-
 
             if (obj is bgwShowError bgwSE)
             {
@@ -215,7 +211,6 @@ namespace ROMVault
                 BeginInvoke(new MethodInvoker(BgwRunWorkerCompleted));
                 return;
             }
-
 
             if (_errorOpen)
             {

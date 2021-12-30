@@ -23,7 +23,6 @@ namespace RomVaultCore.RvDB {
 		AltSHA1FromHeader = 1 << 16,
 		AltMD5FromHeader = 1 << 17,
 
-
 		SizeVerified = 1 << 18,
 		CRCVerified = 1 << 19,
 		SHA1Verified = 1 << 20,
@@ -32,7 +31,6 @@ namespace RomVaultCore.RvDB {
 		AltCRCVerified = 1 << 23,
 		AltSHA1Verified = 1 << 24,
 		AltMD5Verified = 1 << 25,
-
 
 		PrimaryToSort = 1 << 30,
 		CacheToSort = 1 << 31

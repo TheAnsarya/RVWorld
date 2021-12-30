@@ -31,8 +31,6 @@ namespace RomVaultCore.ReadDat {
 
 			newDirFromExternal.Dat = newDatFromExternal;
 
-
-
 			var headerFileType = FileHeaderReader.FileHeaderReader.GetFileTypeFromHeader(datHeaderExternal.Header);
 
 			CopyDir(datHeaderExternal.BaseDir, newDirFromExternal, newDatFromExternal, headerFileType, false);
@@ -150,7 +148,6 @@ namespace RomVaultCore.ReadDat {
 				}
 			}
 		}
-
 
 		private static readonly List<FileType> ConvList = new List<FileType>
 		{

@@ -104,7 +104,6 @@ namespace RomVaultCore.FixFile.Util {
 				cleanedName = cleanedName.Replace("/", "-");
 				cleanedName = cleanedName.Replace("\\", "-");
 
-
 				if (cleanedName.Length >= 248) {
 					var mainName = Path.GetFileNameWithoutExtension(cleanedName);
 					var extName = Path.GetExtension(cleanedName);
@@ -136,7 +135,6 @@ namespace RomVaultCore.FixFile.Util {
 					cleanedName = mainName + $"_{tryname}" + extName;
 					outFile.Name = cleanedName;
 				}
-
 
 				outFile.SetStatus(DatStatus.InToSort, GotStatus.Got);
 				outFile.FileStatusSet(

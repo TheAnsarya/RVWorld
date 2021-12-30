@@ -86,7 +86,6 @@
 //
 // -----------------------------------------------------------------------
 
-
 using System.Runtime.InteropServices;
 
 namespace Compress.Support.Compression.Deflate {
@@ -131,7 +130,6 @@ namespace Compress.Support.Compression.Deflate {
 		/// <summary>Signals the end of the compression/decompression stream.</summary>
 		Finish,
 	}
-
 
 	/// <summary>
 	/// The compression level to be used when using a DeflateStream or ZlibStream with CompressionMode.Compress.
@@ -236,7 +234,6 @@ namespace Compress.Support.Compression.Deflate {
 		HuffmanOnly = 2,
 	}
 
-
 	/// <summary>
 	/// An enum to specify the direction of transcoding - whether to compress or decompress.
 	/// </summary>
@@ -250,7 +247,6 @@ namespace Compress.Support.Compression.Deflate {
 		/// </summary>
 		Decompress = 1,
 	}
-
 
 	/// <summary>
 	/// A general purpose exception class for exceptions in the Zlib library.
@@ -273,7 +269,6 @@ namespace Compress.Support.Compression.Deflate {
 			: base(s) {
 		}
 	}
-
 
 	internal class SharedUtils {
 		/// <summary>
@@ -376,8 +371,6 @@ namespace Compress.Support.Compression.Deflate {
 			BitLengths = new StaticTree(null, Tree.extra_blbits, 0, InternalConstants.BL_CODES, InternalConstants.MAX_BL_BITS);
 		}
 	}
-
-
 
 	/// <summary>
 	/// Computes an Adler-32 checksum.

@@ -4,9 +4,7 @@ using RomVaultCore.Utils;
 using File = RVIO.File;
 using FileInfo = RVIO.FileInfo;
 
-
 namespace RomVaultCore.FixFile.Util {
-
 
 	public static partial class FixFileUtils {
 		public static ReturnCode MoveFile(RvFile fileIn, RvFile fileOut, string outFilename, out bool fileMoved, out string error) {

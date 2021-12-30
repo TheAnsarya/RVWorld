@@ -33,7 +33,6 @@ namespace RVXCore.DB
 
         public List<RvGame> Games;
 
-
         public static void CreateTable()
         {
             DBSqlite.db.ExecuteNonQuery(@"
@@ -74,7 +73,6 @@ namespace RVXCore.DB
                 FROM DAT WHERE DatId=@datId ORDER BY Filename", DBSqlite.db.Connection);
                 _commandRvDatRead.Parameters.Add(new SQLiteParameter("datId"));
             }
-
 
             _commandRvDatRead.Parameters["DatID"].Value = datId;
 
@@ -200,7 +198,6 @@ namespace RVXCore.DB
 
             return "-unknown-";
         }
-
 
         public int ChildNameSearch(string lGameName, out int index)
         {

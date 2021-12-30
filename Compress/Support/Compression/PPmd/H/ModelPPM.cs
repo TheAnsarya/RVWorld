@@ -208,7 +208,6 @@ namespace Compress.Support.Compression.PPmd.H {
 			Utility.Fill(charMask, 0);
 		}
 
-
 		public virtual int decodeChar() {
 			// Debug
 			//subAlloc.dumpHeap();

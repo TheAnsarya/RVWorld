@@ -18,7 +18,6 @@ namespace Compress.SevenZip {
 			public ulong StreamOffset;
 		}
 
-
 		private List<SevenZipLocalFile> _localFiles = new();
 
 		private FileInfo _zipFileInfo;
@@ -26,8 +25,6 @@ namespace Compress.SevenZip {
 		private Stream _zipFs;
 
 		private SignatureHeader _signatureHeader;
-
-
 
 		private long _baseOffset;
 
@@ -69,7 +66,6 @@ namespace Compress.SevenZip {
 			ZipOpen = ZipOpenType.Closed;
 		}
 
-
 		public void ZipFileClose() {
 			switch (ZipOpen) {
 				case ZipOpenType.Closed:
@@ -94,7 +90,6 @@ namespace Compress.SevenZip {
 
 			ZipOpen = ZipOpenType.Closed;
 		}
-
 
 		private Header _header;
 

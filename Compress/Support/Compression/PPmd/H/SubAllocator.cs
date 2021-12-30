@@ -120,7 +120,6 @@ namespace Compress.Support.Compression.PPmd.H {
 
 		public virtual int GetAllocatedMemory() => subAllocatorSize;
 
-
 		public virtual bool startSubAllocator(int SASize) {
 			var t = SASize;
 			if (subAllocatorSize == t) {

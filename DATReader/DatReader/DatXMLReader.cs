@@ -68,7 +68,6 @@ namespace DATReader.DatReader {
 				}
 			}
 
-
 			var machineNodeList = doc.DocumentElement.SelectNodes("machine");
 			if (machineNodeList != null) {
 				for (var i = 0; i < machineNodeList.Count; i++) {
@@ -78,7 +77,6 @@ namespace DATReader.DatReader {
 
 			return true;
 		}
-
 
 		private static bool LoadHeaderFromDat(XmlDocument doc, string filename, DatHeader datHeader) {
 			if (doc.DocumentElement == null) {
@@ -145,7 +143,6 @@ namespace DATReader.DatReader {
 
 			return true;
 		}
-
 
 		private static void LoadDirFromDat(DatDir parentDir, XmlNode dirNode) {
 			if (dirNode.Attributes == null) {

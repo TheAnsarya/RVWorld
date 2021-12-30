@@ -57,7 +57,6 @@ namespace Compress.ZipFile {
 			return true;
 		}
 
-
 		public void NtfsTime(long mTime, long aTime, long cTime) {
 			_extraField.AddRange(BitConverter.GetBytes((ushort)0x000a));
 			_extraField.AddRange(BitConverter.GetBytes((ushort)32));  // this block is 32 bytes long
@@ -69,7 +68,6 @@ namespace Compress.ZipFile {
 			_extraField.AddRange(BitConverter.GetBytes(CompressUtils.UtcTicksToNtfsDateTime(aTime)));
 			_extraField.AddRange(BitConverter.GetBytes(CompressUtils.UtcTicksToNtfsDateTime(cTime)));
 		}
-
 
 		public void LinuxTime(long? mTime, long? aTime, long? cTime, bool centralDir) {
 			List<byte> eTime = new();

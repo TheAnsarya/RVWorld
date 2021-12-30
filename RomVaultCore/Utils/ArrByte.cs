@@ -8,7 +8,6 @@ namespace RomVaultCore.Utils {
 			bw.Write(b);
 		}
 
-
 		public static byte[] ReadByteArray(this BinaryReader br) {
 			var len = br.ReadByte();
 			return br.ReadBytes(len);
@@ -31,7 +30,6 @@ namespace RomVaultCore.Utils {
 			Array.Copy(b, index, retB, 0, count);
 			return retB;
 		}
-
 
 		public static bool BCompare(byte[] b1, byte[] b2) {
 			if (b1 == null || b2 == null) {
@@ -68,7 +66,6 @@ namespace RomVaultCore.Utils {
 
 			return true;
 		}
-
 
 		public static int ICompare(byte[] b1, byte[] b2) {
 			var b1Len = b1?.Length ?? 0;

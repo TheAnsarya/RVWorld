@@ -63,7 +63,6 @@ namespace RomVaultCore.RvDB {
 		public RvGame Game; // Game info from DAT
 		public string UiDisplayName;
 
-
 		/******************* RvFile **********************/
 		public FileGroup FileGroup;
 
@@ -87,7 +86,6 @@ namespace RomVaultCore.RvDB {
 
 		/*************************************************/
 
-
 		public RvFile(FileType type) {
 			FileType = type;
 			if (!IsDir) {
@@ -98,7 +96,6 @@ namespace RomVaultCore.RvDB {
 			_children = new List<RvFile>(); // children items of this dir
 			DirStatus = new ReportStatus(); // Counts the status of all children for reporting in the UI
 		}
-
 
 		/// <summary>
 		/// Returns the Full recursive Tree name of this RvFile, This should Recurse back up to
@@ -171,9 +168,6 @@ namespace RomVaultCore.RvDB {
 			return strFullPath;
 		}
 
-
-
-
 		/// <summary>
 		/// Returns the Full recursive Three name for the Dat at this RvFile Level, This should Recurse back up to
 		/// RomVault (not ToSort as there should not be any DAT's in ToSort.)
@@ -194,7 +188,6 @@ namespace RomVaultCore.RvDB {
 
 			return Settings.rvSettings.DatRoot;
 		}
-
 
 		/// <summary>
 		/// This takes the DatTreeFullname from above and replaces the base Datroot directory with the
@@ -235,7 +228,6 @@ namespace RomVaultCore.RvDB {
 			get => _datStatus;
 		}
 
-
 		public GotStatus GotStatus {
 			get => _gotStatus;
 			set {
@@ -243,7 +235,6 @@ namespace RomVaultCore.RvDB {
 				RepStatusReset();
 			}
 		}
-
 
 		public RepStatus RepStatus {
 			get => _repStatus;
@@ -291,7 +282,6 @@ namespace RomVaultCore.RvDB {
 			FileLastAccessTimeStamp = 0x400000,
 			DatLastAccessTimeStamp = 0x800000,
 		}
-
 
 		public void Write(BinaryWriter bw) {
 			var countDirDats = _dirDats?.Count ?? 0;
@@ -382,7 +372,6 @@ namespace RomVaultCore.RvDB {
 #endif
 
 			bw.Write((uint)fFlags);
-
 
 			/************* RvFile ************/
 
@@ -517,7 +506,6 @@ namespace RomVaultCore.RvDB {
 				}
 			}
 
-
 			_datStatus = (DatStatus)br.ReadByte();
 			_gotStatus = (GotStatus)br.ReadByte();
 			RepStatusReset();
@@ -594,7 +582,6 @@ namespace RomVaultCore.RvDB {
 
 			_fileStatus = (FileStatus)br.ReadUInt32();
 		}
-
 
 		public EFile DatRemove() {
 			/************* RvDir ************/
@@ -707,7 +694,6 @@ namespace RomVaultCore.RvDB {
 				}
 			}
 
-
 			// Parent , TimeStamp Should already be correct.
 
 			if (GotStatus == GotStatus.NotGot) {
@@ -730,8 +716,6 @@ namespace RomVaultCore.RvDB {
 
 			Dat = b.Dat;
 		}
-
-
 
 		private EFile TestRemove() {
 			FileModTimeStamp = 0;
@@ -845,7 +829,6 @@ namespace RomVaultCore.RvDB {
 			ReportError.SendAndShow("Unknown File Remove Type");
 			return EFile.Keep;
 		}
-
 
 		private bool TestMatch(RvFile file) {
 			var foundATest = false;
@@ -997,7 +980,6 @@ namespace RomVaultCore.RvDB {
 
 				CHDVersion = file.CHDVersion;
 
-
 				FileStatusSet(
 					FileStatus.HeaderFileTypeFromHeader |
 					FileStatus.SizeFromHeader | FileStatus.CRCFromHeader | FileStatus.SHA1FromHeader | FileStatus.MD5FromHeader | FileStatus.AltSizeFromHeader | FileStatus.AltCRCFromHeader | FileStatus.AltSHA1FromHeader | FileStatus.AltMD5FromHeader |
@@ -1007,7 +989,6 @@ namespace RomVaultCore.RvDB {
 				ZipFileIndex = file.ZipFileIndex;
 				ZipFileHeaderPosition = file.ZipFileHeaderPosition;
 			}
-
 
 			FileModTimeStamp = file.FileModTimeStamp;
 			FileCheckName(file);
@@ -1044,7 +1025,6 @@ namespace RomVaultCore.RvDB {
 			c.ZipFileHeaderPosition = ZipFileHeaderPosition;
 
 			c.CHDVersion = CHDVersion;
-
 
 			c.Name = Name;
 			c.FileName = FileName;
@@ -1109,13 +1089,11 @@ namespace RomVaultCore.RvDB {
 			RepStatus = rs?[0] ?? RepStatus.Error;
 		}
 
-
 		/****************** RvDir ***********************/
 		public bool IsDir => FileType == FileType.Dir || FileType == FileType.Zip || FileType == FileType.SevenZip;
 
 		public int DirDatCount => _dirDats.Count;
 		public int ChildCount => _children?.Count ?? 0;
-
 
 		public RvDat DirDat(int index) => _dirDats[index];
 
@@ -1235,7 +1213,6 @@ namespace RomVaultCore.RvDB {
 			return intRes;
 		}
 
-
 		public bool FindChild(RvFile lName, out int index) {
 			if (ChildNameSearch(lName, out index) != 0) {
 				ReportError.UnhandledExceptionHandler("Could not find self in Parent " + FullName);
@@ -1252,12 +1229,10 @@ namespace RomVaultCore.RvDB {
 			return false;
 		}
 
-
 		private void UpdateRepStatusUpTree(RepStatus rStat, int dir) {
 			DirStatus.UpdateRepStatus(rStat, dir);
 			Parent?.UpdateRepStatusUpTree(rStat, dir);
 		}
-
 
 		private void UpdateRepStatusArrUpTree(RvFile child, int dir) {
 			DirStatus.UpdateRepStatus(child.RepStatus, dir);
@@ -1268,7 +1243,6 @@ namespace RomVaultCore.RvDB {
 			Parent?.UpdateRepStatusArrUpTree(child, dir);
 		}
 
-
 		/****************** RvFile ********************/
 		public bool IsFile => FileType == FileType.File || FileType == FileType.ZipFile || FileType == FileType.SevenZipFile;
 
@@ -1276,11 +1250,9 @@ namespace RomVaultCore.RvDB {
 
 		public void FileStatusSet(FileStatus flag, RvFile copyFrom) => _fileStatus |= flag & copyFrom._fileStatus;
 
-
 		public void FileStatusClear(FileStatus flag) => _fileStatus &= ~flag;
 
 		public bool FileStatusIs(FileStatus flag) => (_fileStatus & flag) == flag;
-
 
 	}
 }

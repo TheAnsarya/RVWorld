@@ -48,7 +48,6 @@ namespace Compress.SevenZip.Structure {
 			bw.Write((byte)HeaderProperty.kEnd);
 		}
 
-
 		public void Report(ref StringBuilder sb) {
 			sb.AppendLine("  StreamsInfo");
 			sb.AppendLine("  -----------");

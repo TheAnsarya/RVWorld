@@ -33,7 +33,6 @@ namespace RVXCore
             _bgw = null;
         }
 
-
         public static void ScanFilesDeep(object sender, DoWorkEventArgs e)
         {
             deep = true;
@@ -52,7 +51,6 @@ namespace RVXCore
             _bgw.ReportProgress(0, new bgwText("Scanning Files Complete"));
             _bgw = null;
         }
-
 
         private static void ScanRomRoot(string directory)
         {

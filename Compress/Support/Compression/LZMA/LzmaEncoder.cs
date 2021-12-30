@@ -414,7 +414,6 @@ namespace Compress.Support.Compression.LZMA {
 			_additionalOffset++;
 		}
 
-
 		void MovePos(uint num) {
 			if (num > 0) {
 				_matchFinder.Skip(num);
@@ -492,7 +491,6 @@ namespace Compress.Support.Compression.LZMA {
 
 		readonly uint[] reps = new uint[Base.kNumRepDistances];
 		readonly uint[] repLens = new uint[Base.kNumRepDistances];
-
 
 		uint GetOptimum(uint position, out uint backRes) {
 			if (_optimumEndIndex != _optimumCurrentIndex) {
@@ -1008,7 +1006,6 @@ namespace Compress.Support.Compression.LZMA {
 
 			_finished = true;
 
-
 			var progressPosValuePrev = nowPos64;
 			if (nowPos64 == 0) {
 				if (_trainSize > 0) {
@@ -1207,7 +1204,6 @@ namespace Compress.Support.Compression.LZMA {
 			nowPos64 = 0;
 		}
 
-
 		public void Code(System.IO.Stream inStream, System.IO.Stream outStream,
 			long inSize, long outSize, ICodeProgress progress) {
 			_needReleaseMFStream = false;
@@ -1324,7 +1320,6 @@ namespace Compress.Support.Compression.LZMA {
 
 			_alignPriceCount = 0;
 		}
-
 
 		static readonly string[] kMatchFinderIDs =
 		{

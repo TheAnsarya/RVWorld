@@ -80,7 +80,6 @@ namespace ROMVault
             Settings.rvSettings.ConvertToTrrntzip = chkTrrntZip.Checked;
             Settings.rvSettings.ConvertToRV7Z = chkrv7Zip.Checked;
 
-
             Settings.WriteConfig(Settings.rvSettings);
             Close();
         }

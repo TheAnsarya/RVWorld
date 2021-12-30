@@ -203,7 +203,6 @@ namespace RVXCore
             Debug.WriteLine("-----------GetFileInformation---------------------------------");
             Debug.WriteLine("Filename : " + fileName);
 
-
             VFile vfile = (VFile)info.Context;
             if (vfile == null)
             {
@@ -264,7 +263,6 @@ namespace RVXCore
 
             return NtStatus.Success;
         }
-
 
         public NtStatus SetFileAttributes(string fileName, FileAttributes attributes, IDokanFileInfo info)
         {
@@ -366,7 +364,6 @@ namespace RVXCore
             return NtStatus.Success;
         }
 
-
         private static long TotalBytes()
         {
             return (long)10 * 1024 * 1024 * 1024 * 1024;
@@ -375,7 +372,6 @@ namespace RVXCore
             //    return Convert.ToInt64(getTotalBytes.ExecuteScalar());
             //}
         }
-
 
         private void copyData(byte[] source, byte[] destination, long sourceOffset, long destinationOffset, long sourceLength, long destinationLength)
         {
@@ -414,7 +410,6 @@ namespace RVXCore
                 destination[destinationStart + i] = source[sourceStart + i];
             }
         }
-
 
         private void copyStream(VFile.VZipFile source, byte[] destination, long sourceOffset, long destinationOffset, long sourceLength, long destinationLength)
         {

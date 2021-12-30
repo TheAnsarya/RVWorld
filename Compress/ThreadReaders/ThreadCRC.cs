@@ -13,7 +13,6 @@ namespace Compress.ThreadReaders {
 		private int _size;
 		private bool _finished;
 
-
 		public ThreadCRC() {
 			crc = new CRC();
 			_waitEvent = new AutoResetEvent(false);

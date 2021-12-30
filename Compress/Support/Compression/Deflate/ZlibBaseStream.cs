@@ -75,7 +75,6 @@ namespace Compress.Support.Compression.Deflate {
 			}
 		}
 
-
 		protected internal bool _wantCompress => (_compressionMode == CompressionMode.Compress);
 
 		private ZlibCodec z {
@@ -94,8 +93,6 @@ namespace Compress.Support.Compression.Deflate {
 			}
 		}
 
-
-
 		private byte[] workingBuffer {
 			get {
 				if (_workingBuffer == null) {
@@ -105,8 +102,6 @@ namespace Compress.Support.Compression.Deflate {
 				return _workingBuffer;
 			}
 		}
-
-
 
 		public override void Write(byte[] buffer, int offset, int count) {
 			// workitem 7159
@@ -153,8 +148,6 @@ namespace Compress.Support.Compression.Deflate {
 			}
 			while (!done);
 		}
-
-
 
 		private void finish() {
 			if (_z == null) {
@@ -254,7 +247,6 @@ namespace Compress.Support.Compression.Deflate {
 			}
 		}
 
-
 		private void end() {
 			if (z == null) {
 				return;
@@ -267,7 +259,6 @@ namespace Compress.Support.Compression.Deflate {
 			}
 			_z = null;
 		}
-
 
 		public override void Close() {
 			if (_stream == null) {
@@ -293,8 +284,6 @@ namespace Compress.Support.Compression.Deflate {
 
 		private bool nomoreinput = false;
 
-
-
 		private string ReadZeroTerminatedString() {
 			var list = new System.Collections.Generic.List<byte>();
 			var done = false;
@@ -316,7 +305,6 @@ namespace Compress.Support.Compression.Deflate {
 		}
 		internal static readonly System.Text.Encoding iso8859dash1 = System.Text.Encoding.GetEncoding("iso-8859-1");
 		internal static readonly System.DateTime _unixEpoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
 
 		private int _ReadAndValidateGzipHeader() {
 			var totalBytesRead = 0;
@@ -368,8 +356,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			return totalBytesRead;
 		}
-
-
 
 		public override int Read(byte[] buffer, int offset, int count) {
 			// According to MS documentation, any implementation of the IO.Stream.Read function must:
@@ -466,7 +452,6 @@ namespace Compress.Support.Compression.Deflate {
 			//while (_z.AvailableBytesOut == count && rc == ZlibConstants.Z_OK);
 			while (_z.AvailableBytesOut > 0 && !nomoreinput && rc == ZlibConstants.Z_OK);
 
-
 			// workitem 8557
 			// is there more room in output?
 			if (_z.AvailableBytesOut > 0) {
@@ -489,7 +474,6 @@ namespace Compress.Support.Compression.Deflate {
 				}
 			}
 
-
 			rc = (count - _z.AvailableBytesOut);
 
 			// calculate CRC after reading
@@ -499,8 +483,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			return rc;
 		}
-
-
 
 		public override bool CanRead => _stream.CanRead;
 

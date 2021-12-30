@@ -32,7 +32,6 @@ namespace Compress.ZipFile {
 
 				_zipFs.Read(buffer, 0, (int)readSize);
 
-
 				for (var i = readSize - 4; i >= 0; i--) {
 					if (buffer[i] != 0x50 || buffer[i + 1] != 0x4b || buffer[i + 2] != 0x05 || buffer[i + 3] != 0x06) {
 						continue;
@@ -44,7 +43,6 @@ namespace Compress.ZipFile {
 			}
 			return ZipReturn.ZipCentralDirError;
 		}
-
 
 		private ZipReturn EndOfCentralDirRead() {
 			using BinaryReader zipBr = new(_zipFs, Encoding.UTF8, true);
@@ -87,7 +85,6 @@ namespace Compress.ZipFile {
 			return ZipReturn.ZipGood;
 		}
 
-
 		private void EndOfCentralDirWrite() {
 			using BinaryWriter bw = new(_zipFs, Encoding.UTF8, true);
 			bw.Write(EndOfCentralDirSignature);
@@ -100,9 +97,6 @@ namespace Compress.ZipFile {
 			bw.Write((ushort)FileComment.Length);
 			bw.Write(FileComment, 0, FileComment.Length);
 		}
-
-
-
 
 		private ZipReturn Zip64EndOfCentralDirRead() {
 			using BinaryReader zipBr = new(_zipFs, Encoding.UTF8, true);
@@ -148,7 +142,6 @@ namespace Compress.ZipFile {
 			return ZipReturn.ZipGood;
 		}
 
-
 		private void Zip64EndOfCentralDirWrite() {
 			using BinaryWriter bw = new(_zipFs, Encoding.UTF8, true);
 			bw.Write(Zip64EndOfCentralDirSignature);
@@ -162,8 +155,6 @@ namespace Compress.ZipFile {
 			bw.Write(_centralDirSize); // size of central directory
 			bw.Write(_centralDirStart); // offset of start of central directory with respect to the starting disk number
 		}
-
-
 
 		private ZipReturn Zip64EndOfCentralDirectoryLocatorRead() {
 			using BinaryReader zipBr = new(_zipFs, Encoding.UTF8, true);

@@ -94,7 +94,6 @@ namespace CHDlib {
 			chdMD5 = hdi.md5;
 			chdSHA1 = hdi.sha1;
 
-
 			if (!deepCheck) {
 				s.Close();
 				s.Dispose();
@@ -138,7 +137,6 @@ namespace CHDlib {
 
 			return res;
 		}
-
 
 		private static readonly uint[] HeaderLengths = new uint[] { 0, 76, 80, 120, 108, 124 };
 		private static readonly byte[] id = { (byte)'M', (byte)'C', (byte)'o', (byte)'m', (byte)'p', (byte)'r', (byte)'H', (byte)'D' };

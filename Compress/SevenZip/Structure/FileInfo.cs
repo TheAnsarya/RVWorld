@@ -85,7 +85,6 @@ namespace Compress.SevenZip.Structure {
 			bw.Write((byte)HeaderProperty.kFilesInfo);
 			bw.WriteEncodedUInt64((ulong)Names.Length);
 
-
 			byte[] namebyte;
 			using (MemoryStream nameMem = new()) {
 				using BinaryWriter nameBw = new(nameMem, Encoding.UTF8, true);

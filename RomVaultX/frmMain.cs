@@ -83,7 +83,6 @@ namespace RomVaultX {
 			}
 		}
 
-
 		private void ToSortScanDir() {
 			RomScanner.RootDir = @"ToSort";
 			RomScanner.DelFiles = true;
@@ -114,13 +113,11 @@ namespace RomVaultX {
 			DatSetSelected(DirTree.Selected);
 		}
 
-
 		private void DirTree_RvSelected(object sender, MouseEventArgs e) {
 			var tr = (UITreeRow)sender;
 			Debug.WriteLine(tr.TRow.dirFullName);
 			updateSelectedTreeRow(tr.TRow);
 		}
-
 
 		private void DatSetSelected(UITreeRow cf) {
 			DirTree.Refresh();
@@ -133,7 +130,6 @@ namespace RomVaultX {
 
 			UpdateGameGrid(cf.TRow.DatId);
 		}
-
 
 		private void chkBoxShowCorrect_CheckedChanged(object sender, EventArgs e) => DatSetSelected(DirTree.Selected);
 
@@ -195,7 +191,6 @@ namespace RomVaultX {
 
 		private void splitContainer3_Panel1_Resize(object sender, EventArgs e) => gbDatInfo.Width = splitContainer3.Panel1.Width - gbDatInfo.Left * 2;
 
-
 		private void gbDatInfo_Resize(object sender, EventArgs e) {
 			const int leftPos = 89;
 			var rightPos = (int)(gbDatInfo.Width / _scaleFactorX) - 15;
@@ -213,7 +208,6 @@ namespace RomVaultX {
 			widthB1 = (int)(widthB1 * _scaleFactorX);
 			leftB2 = (int)(leftB2 * _scaleFactorX);
 			backD = (int)(backD * _scaleFactorX);
-
 
 			lblDITName.Width = width;
 			lblDITDescription.Width = width;
@@ -243,7 +237,6 @@ namespace RomVaultX {
 			lblDITRomsNoDump.Left = leftB2;
 			lblDITRomsNoDump.Width = widthB1;
 		}
-
 
 		private void updateSelectedTreeRow(RvTreeRow tr) {
 			lblDITName.Text = tr.datName;
@@ -364,7 +357,6 @@ namespace RomVaultX {
 			gbSetInfo.Controls.Add(lblSIYear);
 			gbSetInfo.Controls.Add(lblSITYear);
 
-
 			lblSIRomOf = new Label { Location = SPoint(6, 79), Size = SSize(76, 13), Text = "ROM of :", TextAlign = ContentAlignment.TopRight, Visible = false };
 			lblSITRomOf = new Label { Location = SPoint(84, 78), Size = SSize(120, 17), BorderStyle = BorderStyle.FixedSingle, Visible = false };
 			gbSetInfo.Controls.Add(lblSIRomOf);
@@ -387,7 +379,6 @@ namespace RomVaultX {
 			gbSetInfo.Controls.Add(lblSIDeveloper);
 			gbSetInfo.Controls.Add(lblSITDeveloper);
 
-
 			lblSIEdition = new Label { Location = SPoint(6, 79), Size = SSize(76, 13), Text = "Edition :", TextAlign = ContentAlignment.TopRight, Visible = false };
 			lblSITEdition = new Label { Location = SPoint(84, 78), Size = SSize(120, 17), BorderStyle = BorderStyle.FixedSingle, Visible = false };
 			gbSetInfo.Controls.Add(lblSIEdition);
@@ -402,7 +393,6 @@ namespace RomVaultX {
 			lblSITType = new Label { Location = SPoint(484, 78), Size = SSize(120, 17), BorderStyle = BorderStyle.FixedSingle, Visible = false };
 			gbSetInfo.Controls.Add(lblSIType);
 			gbSetInfo.Controls.Add(lblSITType);
-
 
 			lblSIMedia = new Label { Location = SPoint(6, 95), Size = SSize(76, 13), Text = "Media :", TextAlign = ContentAlignment.TopRight, Visible = false };
 			lblSITMedia = new Label { Location = SPoint(84, 94), Size = SSize(120, 17), BorderStyle = BorderStyle.FixedSingle, Visible = false };
@@ -419,7 +409,6 @@ namespace RomVaultX {
 			gbSetInfo.Controls.Add(lblSIPlayers);
 			gbSetInfo.Controls.Add(lblSITPlayers);
 
-
 			lblSIRatings = new Label { Location = SPoint(6, 111), Size = SSize(76, 13), Text = "Ratings :", TextAlign = ContentAlignment.TopRight, Visible = false };
 			lblSITRatings = new Label { Location = SPoint(84, 110), Size = SSize(120, 17), BorderStyle = BorderStyle.FixedSingle, Visible = false };
 			gbSetInfo.Controls.Add(lblSIRatings);
@@ -434,7 +423,6 @@ namespace RomVaultX {
 			lblSITPeripheral = new Label { Location = SPoint(484, 110), Size = SSize(120, 17), BorderStyle = BorderStyle.FixedSingle, Visible = false };
 			gbSetInfo.Controls.Add(lblSIPeripheral);
 			gbSetInfo.Controls.Add(lblSITPeripheral);
-
 
 			lblSIBarCode = new Label { Location = SPoint(6, 127), Size = SSize(76, 13), Text = "Barcode :", TextAlign = ContentAlignment.TopRight, Visible = false };
 			lblSITBarCode = new Label { Location = SPoint(84, 126), Size = SSize(120, 17), BorderStyle = BorderStyle.FixedSingle, Visible = false };
@@ -513,7 +501,6 @@ namespace RomVaultX {
 			lblSITType.Left = leftPos + width - width3;
 			lblSITType.Width = width3;
 
-
 			lblSITMedia.Width = width3;
 
 			lblSILanguage.Left = leftPos + P2 - 78;
@@ -534,14 +521,12 @@ namespace RomVaultX {
 			lblSITPeripheral.Left = leftPos + width - width3;
 			lblSITPeripheral.Width = width3;
 
-
 			lblSITBarCode.Width = width4;
 
 			lblSIMediaCatalogNumber.Left = leftPos + width - width4 - 78;
 			lblSITMediaCatalogNumber.Left = leftPos + width - width4;
 			lblSITMediaCatalogNumber.Width = width4;
 		}
-
 
 		private void UpdateGameGrid(uint? DatId) {
 			_updatingGameGrid = true;
@@ -705,7 +690,6 @@ namespace RomVaultX {
 				lblSITotalRoms.Visible = false;
 				lblSITTotalRoms.Visible = false;
 
-
 				lblSIPublisher.Visible = true;
 				lblSITPublisher.Visible = true;
 				lblSITPublisher.Text = tGame.Publisher;
@@ -781,7 +765,6 @@ namespace RomVaultX {
 				lblSITotalRoms.Visible = true;
 				lblSITTotalRoms.Visible = true;
 
-
 				lblSIPublisher.Visible = false;
 				lblSITPublisher.Visible = false;
 
@@ -821,7 +804,6 @@ namespace RomVaultX {
 				lblSIMediaCatalogNumber.Visible = false;
 				lblSITMediaCatalogNumber.Visible = false;
 			}
-
 
 			UpdateRomGrid(tGame.GameId);
 		}
@@ -889,7 +871,6 @@ namespace RomVaultX {
 		}
 
 		private void RomGrid_SelectionChanged(object sender, EventArgs e) => RomGrid.ClearSelection();
-
 
 		#endregion
 

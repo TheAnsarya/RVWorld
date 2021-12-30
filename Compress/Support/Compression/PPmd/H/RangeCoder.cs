@@ -48,7 +48,6 @@ namespace Compress.Support.Compression.PPmd.H {
 			private set;
 		}
 
-
 		internal long GetCurrentShiftCount(int SHIFT) {
 			range = Utility.URShift(range, SHIFT);
 			return ((code - low) / (range)) & UintMask;

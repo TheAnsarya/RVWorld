@@ -6,7 +6,6 @@ using RomVaultCore.RvDB;
 namespace RomVaultCore.FixFile.Util {
 	public static class FindSourceFile {
 
-
 		public static List<RvFile> GetFixFileList(RvFile fixFile) => fixFile.FileGroup.Files.FindAll(file => file.GotStatus == GotStatus.Got && DBHelper.CheckIfMissingFileCanBeFixedByGotFile(fixFile, file));
 
 		public static RvFile FindSourceToUseForFix(RvFile fixFile, List<RvFile> lstFixRomTable) {

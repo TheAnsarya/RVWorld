@@ -39,9 +39,6 @@ namespace DATReader.DatClean {
 			db.Name = new string(charName);
 		}
 
-
-
-
 		public static void CleanFilenamesFixDupes(DatDir dDir) {
 			var arrDir = dDir.ToArray();
 			var lastName = "";

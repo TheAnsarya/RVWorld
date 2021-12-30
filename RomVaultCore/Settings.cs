@@ -15,7 +15,6 @@ namespace RomVaultCore {
 		Level3
 	}
 
-
 	public enum EFixLevel {
 		Level1,
 		Level2,
@@ -38,7 +37,6 @@ namespace RomVaultCore {
 		RomsOnly,
 		CHDsOnly
 	}
-
 
 	public class Settings {
 		public static Settings rvSettings;

@@ -17,9 +17,7 @@ namespace RomVaultCore.ReadDat {
 	public static class DatReader {
 		private static ThreadWorker _thWrk;
 
-
 		private static void ReadError(string filename, string error) => _thWrk.Report(new bgwShowError(filename, error));
-
 
 		public static DatRule FindDatRule(string datName) {
 			ReportError.LogOut($"FindDatRule: Dat Name is {datName}");
@@ -132,7 +130,6 @@ namespace RomVaultCore.ReadDat {
 				DatClean.RemoveEmptyDirectories(dh.BaseDir);
 
 				DatClean.CleanFilenamesFixDupes(dh.BaseDir); // you may get repeat filenames inside Zip's / 7Z's and they may not be sorted to find them by now.
-
 
 				var newDir = ExternalDatConverter.ConvertFromExternalDat(dh, datFile);
 				return newDir;

@@ -30,11 +30,9 @@ namespace DATReader {
 				myfile.Close();
 			}
 
-
 			if (strLine == null) {
 				return false;
 			}
-
 
 			if (strLine.ToLower().IndexOf("xml", StringComparison.Ordinal) >= 0) {
 				if (!ReadXMLDat(fullname, ErrorReport, out rvDat)) {

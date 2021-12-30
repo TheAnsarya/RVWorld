@@ -131,7 +131,6 @@ namespace Compress.Support.Utils {
 			}
 		}
 
-
 		// This ctor is private - no validation is done here.  This is to allow the use
 		// of a (specific) negative value for the _lengthLimit, to indicate that there
 		// is no length set.  So we validate the length limit in those ctors that use an
@@ -145,7 +144,6 @@ namespace Compress.Support.Utils {
 			_lengthLimit = length;
 			LeaveOpen = leaveOpen;
 		}
-
 
 		/// <summary>
 		///   Gets the total number of bytes run through the CRC32 calculator.
@@ -293,7 +291,6 @@ namespace Compress.Support.Utils {
 		/// </summary>
 		/// <param name="value">N/A</param>
 		public override void SetLength(long value) => throw new NotSupportedException();
-
 
 		void IDisposable.Dispose() => Close();
 

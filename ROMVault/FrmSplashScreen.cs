@@ -25,7 +25,6 @@ namespace ROMVault
 
             label1.Text = $@"Registered to : {UISettings.Username}                      Contact Email : {UISettings.EMail}";
 
-
             _thWrk = new ThreadWorker(StartUpCode) { wReport = BgwProgressChanged, wFinal = BgwRunWorkerCompleted };
         }
 
@@ -35,13 +34,11 @@ namespace ROMVault
             timer1.Start();
         }
 
-
         private static void StartUpCode(ThreadWorker e)
         {
             RepairStatus.InitStatusCheck();
             DB.Read(e);
         }
-
 
         private void BgwProgressChanged(object e)
         {

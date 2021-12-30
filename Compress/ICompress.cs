@@ -17,7 +17,6 @@ namespace Compress {
 		ZipReturn ZipFileOpenWriteStream(bool raw, bool trrntzip, string filename, ulong uncompressedSize, ushort compressionMethod, out Stream stream, TimeStamps dateTime = null);
 		ZipReturn ZipFileCloseReadStream();
 
-
 		ZipStatus ZipStatus { get; }
 
 		string ZipFilename { get; }

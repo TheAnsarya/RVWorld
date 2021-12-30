@@ -66,7 +66,6 @@
 //
 // -----------------------------------------------------------------------
 
-
 using System;
 
 namespace Compress.Support.Compression.Deflate {
@@ -120,7 +119,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			public static Config Lookup(CompressionLevel level) => Table[(int)level];
 
-
 			static Config() => Table = new Config[] {
 					new Config(0, 0, 0, 0, DeflateFlavor.Store),
 					new Config(4, 4, 8, 4, DeflateFlavor.Fast),
@@ -137,7 +135,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			private static readonly Config[] Table;
 		}
-
 
 		private CompressFunc DeflateFunction;
 
@@ -255,7 +252,6 @@ namespace Compress.Support.Compression.Deflate {
 		internal CompressionLevel compressionLevel; // compression level (1..9)
 		internal CompressionStrategy compressionStrategy; // favor or force Huffman coding
 
-
 		internal short[] dyn_ltree;         // literal and length tree
 		internal short[] dyn_dtree;         // distance tree
 		internal short[] bl_tree;           // Huffman tree for bit lengths
@@ -280,7 +276,6 @@ namespace Compress.Support.Compression.Deflate {
 		internal sbyte[] depth = new sbyte[2 * InternalConstants.L_CODES + 1];
 
 		internal int _lengthOffset;                 // index for literals or lengths
-
 
 		// Size of match buffer for literals/lengths.  There are 4 reasons for
 		// limiting lit_bufsize to 64K:
@@ -322,13 +317,11 @@ namespace Compress.Support.Compression.Deflate {
 		// are always zero.
 		internal int bi_valid;
 
-
 		internal DeflateManager() {
 			dyn_ltree = new short[HEAP_SIZE * 2];
 			dyn_dtree = new short[(2 * InternalConstants.D_CODES + 1) * 2]; // distance tree
 			bl_tree = new short[(2 * InternalConstants.BL_CODES + 1) * 2]; // Huffman tree for bit lengths
 		}
-
 
 		// lm_init
 		private void _InitializeLazyMatch() {
@@ -419,7 +412,6 @@ namespace Compress.Support.Compression.Deflate {
 			return (tn2 < tm2 || (tn2 == tm2 && depth[n] <= depth[m]));
 		}
 
-
 		// Scan a literal or distance tree to determine the frequencies of the codes
 		// in the bit length tree.
 		internal void scan_tree(short[] tree, int max_code) {
@@ -492,7 +484,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			return max_blindex;
 		}
-
 
 		// Send the header for a block using dynamic Huffman trees: the counts, the
 		// lengths of the bit length codes, the literal tree and the distance tree.
@@ -606,7 +597,6 @@ namespace Compress.Support.Compression.Deflate {
 					pending[pendingCount++] = (byte)bi_buf;
 					pending[pendingCount++] = (byte)(bi_buf >> 8);
 
-
 					bi_buf = (short)((uint)value >> (Buf_size - bi_valid));
 					bi_valid += len - Buf_size;
 				} else {
@@ -644,7 +634,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			last_eob_len = 7;
 		}
-
 
 		// Save the match info and tally the frequency counts. Return true if
 		// the current block must be flushed.
@@ -695,8 +684,6 @@ namespace Compress.Support.Compression.Deflate {
 			// on 16 bit machines and because stored blocks are restricted to
 			// 64K-1 bytes.
 		}
-
-
 
 		// Send the block data compressed using the given Huffman trees
 		internal void send_compressed_block(short[] ltree, short[] dtree) {
@@ -753,8 +740,6 @@ namespace Compress.Support.Compression.Deflate {
 			last_eob_len = ltree[END_BLOCK * 2 + 1];
 		}
 
-
-
 		// Set the data type to ASCII or BINARY, using a crude approximation:
 		// binary if more than 20% of the bytes are <= 6 or >= 128, ascii otherwise.
 		// IN assertion: the fields freq of dyn_ltree are set and the total of all
@@ -777,8 +762,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			data_type = (sbyte)(bin_freq > (ascii_freq >> 2) ? Z_BINARY : Z_ASCII);
 		}
-
-
 
 		// Flush the bit buffer, keeping at most 7 bits in it.
 		internal void bi_flush() {
@@ -900,7 +883,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			return flush == FlushType.Finish ? BlockState.FinishDone : BlockState.BlockDone;
 		}
-
 
 		// Send a stored block
 		internal void _tr_stored_block(int buf, int stored_len, bool eof) {
@@ -1312,7 +1294,6 @@ namespace Compress.Support.Compression.Deflate {
 			return flush == FlushType.Finish ? BlockState.FinishDone : BlockState.BlockDone;
 		}
 
-
 		internal int longest_match(int cur_match) {
 			var chain_length = config.MaxChainLength; // max hash chain length
 			var scan = strstart;              // current string
@@ -1401,11 +1382,9 @@ namespace Compress.Support.Compression.Deflate {
 			return lookahead;
 		}
 
-
 		private bool Rfc1950BytesEmitted = false;
 
 		internal bool WantRfc1950HeaderBytes { get; set; } = true;
-
 
 		internal int Initialize(ZlibCodec codec, CompressionLevel level) => Initialize(codec, level, ZlibConstants.WindowBitsMax);
 
@@ -1464,7 +1443,6 @@ namespace Compress.Support.Compression.Deflate {
 			return ZlibConstants.Z_OK;
 		}
 
-
 		internal void Reset() {
 			_codec.TotalBytesIn = _codec.TotalBytesOut = 0;
 			_codec.Message = null;
@@ -1484,7 +1462,6 @@ namespace Compress.Support.Compression.Deflate {
 			_InitializeLazyMatch();
 		}
 
-
 		internal int End() {
 			if (status != INIT_STATE && status != BUSY_STATE && status != FINISH_STATE) {
 				return ZlibConstants.Z_STREAM_ERROR;
@@ -1499,7 +1476,6 @@ namespace Compress.Support.Compression.Deflate {
 			return status == BUSY_STATE ? ZlibConstants.Z_DATA_ERROR : ZlibConstants.Z_OK;
 		}
 
-
 		private void SetDeflater() {
 			switch (config.Flavor) {
 				case DeflateFlavor.Store:
@@ -1513,7 +1489,6 @@ namespace Compress.Support.Compression.Deflate {
 					break;
 			}
 		}
-
 
 		internal int SetParams(CompressionLevel level, CompressionStrategy strategy) {
 			var result = ZlibConstants.Z_OK;
@@ -1537,7 +1512,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			return result;
 		}
-
 
 		internal int SetDictionary(byte[] dictionary) {
 			var length = dictionary.Length;
@@ -1576,8 +1550,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			return ZlibConstants.Z_OK;
 		}
-
-
 
 		internal int Deflate(FlushType flush) {
 			int old_flush;

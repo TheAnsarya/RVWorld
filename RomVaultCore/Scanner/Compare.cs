@@ -25,12 +25,10 @@ we also check
 	SHA1=altSHA1
 	MD5=altMD5
 
-
 For FILES (anything that we did not get a CRC from the file.)
 Match on the TimeStamp (as that is all we have from the file.)
 (Also if the filematch in the database has only ever been level 1 scanned and we are now level 2 (or 3) scanning
 then we must not match on the TimeStamp (as that is now not enough)
-
 
 Pass two:
 We could not confirm a match above so we need to deep scan the file and try again.
@@ -135,8 +133,6 @@ namespace RomVaultCore.Scanner {
 			return CompareWithAlt(dbFile, testFile, out MatchedAlt);
 		}
 
-
-
 		public static bool DatMergeCompare(RvFile dbFile, RvFile testFile, out bool altMatch) {
 			altMatch = false;
 			var retv = DBHelper.CompareName(dbFile, testFile);
@@ -160,7 +156,6 @@ namespace RomVaultCore.Scanner {
 
 			return CompareWithAlt(testFile, dbFile, out altMatch);
 		}
-
 
 		private static bool CompareWithAlt(RvFile dbFile, RvFile testFile, out bool altMatch) {
 			if (CompareHash(dbFile, testFile)) {
@@ -196,7 +191,6 @@ namespace RomVaultCore.Scanner {
 				}
 			}
 
-
 			if (dbFile.CRC != null && testFile.CRC != null) {
 				testFound = true;
 				retv = ArrByte.ICompare(dbFile.CRC, testFile.CRC);
@@ -223,7 +217,6 @@ namespace RomVaultCore.Scanner {
 
 			return testFound;
 		}
-
 
 		private static bool CompareAltHash(RvFile dbFile, RvFile testFile) {
 			Debug.WriteLine("ComparingAlt Dat File " + dbFile.TreeFullName);

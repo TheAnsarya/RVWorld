@@ -148,7 +148,6 @@ namespace TrrntZipUI {
 				StatusPanel.Controls.Add(pProgress);
 				threadProcess.threadProgress = pProgress;
 
-
 				var cpzn = new CProcessZip {
 					ThreadId = i,
 					bcCfile = bccFile,
@@ -167,7 +166,6 @@ namespace TrrntZipUI {
 				Height = 325 + 30 * _threadCount;
 			}
 		}
-
 
 		private static void PDragEnter(object sender, DragEventArgs e) {
 			if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
@@ -249,16 +247,12 @@ namespace TrrntZipUI {
 			base.OnFormClosing(e);
 		}
 
-
 		private void picTitle_Click(object sender, EventArgs e) => clickDonate();
 
 		private void picDonate_Click(object sender, EventArgs e) => clickDonate();
 		private void clickDonate() => Process.Start("http://paypal.me/romvault");
 
 		private void picRomVault_Click(object sender, EventArgs e) => Process.Start("http://www.romvault.com");
-
-
-
 
 		private void tbProccessors_ValueChanged(object sender, EventArgs e) {
 			if (UiUpdate) {
@@ -301,7 +295,6 @@ namespace TrrntZipUI {
 			AppSettings.AddUpdateAppSettings("OutZip", cboOutType.SelectedIndex.ToString());
 		}
 
-
 		private static Bitmap GetBitmap(string bitmapName) {
 			var bmObj = rvImages11.ResourceManager.GetObject(bitmapName);
 
@@ -339,13 +332,9 @@ namespace TrrntZipUI {
 			pc.ResetCancel();
 		}
 
-
-
-
 		#region callbacks
 
 		private void UpdateFileCount(int fileCount) => FileCount = fileCount;
-
 
 		private void ProcessFileStartCallback(int processId, int fileId, string filename) {
 			if (InvokeRequired) {
@@ -405,7 +394,6 @@ namespace TrrntZipUI {
 		}
 
 		private void StatusCallBack(int processId, int percent) => _threads[processId].tProgress = percent;
-
 
 		#endregion
 

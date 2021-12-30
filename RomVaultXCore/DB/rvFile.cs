@@ -49,7 +49,6 @@ namespace RVXCore.DB
             DBSqlite.db.Commit();
         }
 
-
         private void RvFileWrite()
         {
             if (_commandRvFileWrite == null)
@@ -85,7 +84,6 @@ namespace RVXCore.DB
             object res = _commandRvFileWrite.ExecuteScalar();
             FileId = Convert.ToUInt32(res);
         }
-
 
         public static bool FilesinDBCheck()
         {

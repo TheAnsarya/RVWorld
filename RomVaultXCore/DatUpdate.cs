@@ -19,7 +19,6 @@ namespace RVXCore
 
         /*********************** dat DB Processing ************************/
 
-
         private static SQLiteCommand _commandCountDaTs;
         private static SQLiteCommand _commandClearfoundDirDATs;
         private static SQLiteCommand CommandFindDat;
@@ -35,7 +34,6 @@ namespace RVXCore
         {
             _bgw?.ReportProgress(0, new bgwShowError(filename, message));
         }
-
 
         public static void UpdateDat(object sender, DoWorkEventArgs e)
         {
@@ -177,11 +175,9 @@ namespace RVXCore
                     rvDat.Path = subPath;
                     rvDat.DatTimeStamp = f.LastWriteTime;
 
-
                     DatSetRemoveUnneededDirs(rvDat);
                     DatSetCheckParentSets(rvDat);
                     DatSetRenameAndRemoveDups(rvDat);
-
 
                     if ((rvDat.MergeType ?? "").ToLower() == "full")
                     {
@@ -203,7 +199,6 @@ namespace RVXCore
                 }
             }
         }
-
 
         private static void DatSetRemoveUnneededDirs(RvDat tDat)
         {
@@ -247,7 +242,6 @@ namespace RVXCore
             }
         }
 
-
         private static void DatSetCheckParentSets(RvDat tDat)
         {
             if (tDat.Games == null)
@@ -273,7 +267,6 @@ namespace RVXCore
                 {
                     // get a list of that ROM Sets parents.
                     RvGame mGame = tDat.Games[g];
-
 
                     List<RvGame> lstParentGames = new List<RvGame>();
                     FindParentSet(mGame, tDat, ref lstParentGames);
@@ -593,17 +586,14 @@ namespace RVXCore
                 tRom.Merge = "(No-Merge) " + tRom.Merge;
             }
 
-
             if (ArrByte.bCompare(tRom.CRC, new byte[] { 0, 0, 0, 0 }) && (tRom.Size == 0))
             {
                 tRom.PutInZip = true;
                 return;
             }
 
-
             tRom.PutInZip = true;
         }
-
 
         private static int DatDBCount()
         {
@@ -621,7 +611,6 @@ namespace RVXCore
             return 0;
         }
 
-
         private static void ClearFoundDATs()
         {
             if (_commandClearfoundDirDATs == null)
@@ -634,7 +623,6 @@ namespace RVXCore
 
             _commandClearfoundDirDATs.ExecuteNonQuery();
         }
-
 
         private static uint? FindDat(string fulldir, string filename, long DatTimeStamp, bool ExtraDir)
         {
@@ -677,7 +665,6 @@ namespace RVXCore
             CommandSetDatFound.Parameters["DatId"].Value = datId;
             CommandSetDatFound.ExecuteNonQuery();
         }
-
 
         private static void RemoveNotFoundDATs()
         {

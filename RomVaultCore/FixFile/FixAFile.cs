@@ -13,7 +13,6 @@ namespace RomVaultCore.FixFile {
 				case RepStatus.Unknown:
 					return ReturnCode.FindFixes;
 
-
 				case RepStatus.UnScanned:
 					return ReturnCode.Good;
 
@@ -21,12 +20,10 @@ namespace RomVaultCore.FixFile {
 					// nothing can be done so moving right along
 					return ReturnCode.Good;
 
-
 				case RepStatus.Correct:
 					// this is correct nothing to be done here
 					FixFileCheckName(fixFile);
 					return ReturnCode.Good;
-
 
 				case RepStatus.NotCollected:
 					// this is correct nothing to be done here
@@ -43,7 +40,6 @@ namespace RomVaultCore.FixFile {
 				case RepStatus.InToSort:
 					// this is correct nothing to be done here
 					return ReturnCode.Good;
-
 
 				case RepStatus.Delete:
 					return FixFileDelete(fixFile, out errorMessage);
@@ -70,7 +66,6 @@ namespace RomVaultCore.FixFile {
 					// this file will be used and mark to be deleted in the CanBeFixed
 					// so nothing to be done to it here
 					return ReturnCode.Good;
-
 
 				default:
 					ReportError.UnhandledExceptionHandler("Unknown fix file type " + fixFile.RepStatus + " Dat Status = " + fixFile.DatStatus + " GotStatus " + fixFile.GotStatus);
@@ -236,7 +231,6 @@ namespace RomVaultCore.FixFile {
 			return ReturnCode.Good;
 		}
 
-
 		private static ReturnCode FixFilePreCheckFixFile(RvFile fixFile, out string errorMessage) {
 			errorMessage = "";
 			var fileName = fixFile.FullName;
@@ -370,7 +364,6 @@ namespace RomVaultCore.FixFile {
 
 			fixFile.FileTestFix(fixingFile);
 
-
 			returnCode = FixFileUtils.MoveFile(fixingFile, fixFile, null, out var fileMoved, out errorMessage);
 			if (returnCode != ReturnCode.Good) {
 				return returnCode;
@@ -406,7 +399,6 @@ namespace RomVaultCore.FixFile {
 					Report.ReportProgress(new bgwShowFixError("Failed"));
 					return returnCode;
 			}
-
 
 			// Check the files that we found that where used to fix this file, and if they not listed as correct files, they can be set to be deleted.
 			FixFileUtils.CheckFilesUsedForFix(fixFiles, fileProcessQueue, true);

@@ -146,7 +146,6 @@ namespace FileHeaderReader {
 			public readonly string HeaderId;
 			public readonly Data Data;
 
-
 			public Detector(HeaderFileType fType, int headerLength, int fileOffset, string headerId, Data data) {
 				FType = fType;
 				HeaderLength = headerLength;

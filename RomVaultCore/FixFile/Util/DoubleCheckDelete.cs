@@ -14,7 +14,6 @@ namespace RomVaultCore.FixFile.Util {
 				return ReturnCode.Good;
 			}
 
-
 			ReportError.LogOut("Double Check deleting file ");
 			ReportError.LogOut(fileDeleting);
 

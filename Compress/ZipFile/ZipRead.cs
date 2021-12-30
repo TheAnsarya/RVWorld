@@ -46,10 +46,8 @@ namespace Compress.ZipFile {
 				return ZipReturn.ZipGood;
 			}
 
-
 			return ZipFileReadHeaders();
 		}
-
 
 		public ZipReturn ZipFileOpen(Stream inStream) {
 			ZipFileClose();
@@ -64,7 +62,6 @@ namespace Compress.ZipFile {
 			return ZipFileReadHeaders();
 		}
 
-
 		private void zipFileCloseRead() {
 			if (_zipFs != null) {
 				_zipFs.Close();
@@ -72,7 +69,6 @@ namespace Compress.ZipFile {
 			}
 			ZipOpen = ZipOpenType.Closed;
 		}
-
 
 		private ZipReturn ZipFileReadHeaders() {
 			try {

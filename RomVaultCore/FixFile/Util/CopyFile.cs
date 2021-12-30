@@ -34,7 +34,6 @@ namespace RomVaultCore.FixFile.Util {
 		Cancel
 	}
 
-
 	public static partial class FixFileUtils {
 		private const int BufferSize = 4096 * 1024;
 		private static byte[] _buffer;
@@ -47,7 +46,6 @@ namespace RomVaultCore.FixFile.Util {
 		// SourceDataStreamCorrupt : This happens when either zlib returns ZlibException, or the CRC does not match the extracted zip.
 		// SourceCheckSumMismatch  : If the extracted files does not match its expected SHA1 or MD5
 		// DestinationCheckSumMismatch : If the extracted files does not match the file to be fixed expected CRC,SHA1 or MD5.
-
 
 		/// <summary>
 		///     Performs the RomVault File Copy, with the source and destination being files or zipped files
@@ -74,7 +72,6 @@ namespace RomVaultCore.FixFile.Util {
 			ThreadMD5 tmd5 = null;
 			ThreadSHA1 tsha1 = null;
 
-
 			ReturnCode retC;
 			error = "";
 
@@ -87,8 +84,6 @@ namespace RomVaultCore.FixFile.Util {
 			ulong streamSize = 0;
 			ushort compressionMethod = 8;
 			bool sourceTrrntzip;
-
-
 
 			var isZeroLengthFile = DBHelper.IsZeroLengthFile(fileOut);
 			if (!isZeroLengthFile) {
@@ -122,7 +117,6 @@ namespace RomVaultCore.FixFile.Util {
 			byte[] bSHA1 = null;
 			if (!isZeroLengthFile) {
 				#region Do Data Tranfer
-
 
 				if (!rawCopy) {
 					tcrc32 = new ThreadCRC();
@@ -182,7 +176,6 @@ namespace RomVaultCore.FixFile.Util {
 					tmd5?.Wait();
 					tsha1?.Wait();
 					sizetogo -= (ulong)sizenow;
-
 
 					if (Report.CancellationPending()) {
 						tcrc32?.Dispose();
@@ -300,7 +293,6 @@ namespace RomVaultCore.FixFile.Util {
 				return retC;
 			}
 
-
 			return ReturnCode.Good;
 		}
 
@@ -387,7 +379,6 @@ namespace RomVaultCore.FixFile.Util {
 
 				var fileNameIn = zZipFileIn.FullNameCase;
 				ZipReturn zr1;
-
 
 				if (zZipFileIn.FileType == FileType.SevenZip) {
 					sourceTrrntzip = false;
@@ -500,12 +491,9 @@ namespace RomVaultCore.FixFile.Util {
 				}
 			}
 
-
 			error = "";
 			return ReturnCode.Good;
 		}
-
-
 
 		private static void CopyZeroLengthFile(RvFile fileOut, ICompress zipFileOut, out byte[] bCRC, out byte[] bMD5, out byte[] bSHA1) {
 			// Zero Length File (Directory in a Zip)
@@ -601,7 +589,6 @@ namespace RomVaultCore.FixFile.Util {
 				fileOut.FileStatusSet(FileStatus.CRCVerified);
 			}
 
-
 			if (bSHA1 != null) {
 				if (fileOut.FileStatusIs(FileStatus.SHA1FromDAT) && fileOut.SHA1 != null && !ArrByte.BCompare(fileOut.SHA1, bSHA1)) {
 
@@ -627,7 +614,6 @@ namespace RomVaultCore.FixFile.Util {
 				fileOut.FileStatusSet(FileStatus.SizeVerified);
 			}
 
-
 			fileOut.GotStatus = fileIn.GotStatus == GotStatus.Corrupt ? GotStatus.Corrupt : GotStatus.Got;
 
 			fileOut.FileStatusSet(FileStatus.SizeVerified);
@@ -638,7 +624,6 @@ namespace RomVaultCore.FixFile.Util {
 			if (fileOut.AltMD5 == null && fileIn.AltMD5 != null) {
 				fileOut.AltMD5 = fileIn.AltMD5;
 			}
-
 
 			fileOut.CHDVersion = fileIn.CHDVersion;
 

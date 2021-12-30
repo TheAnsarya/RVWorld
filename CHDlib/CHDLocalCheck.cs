@@ -11,7 +11,6 @@ namespace CHDlib {
 		private string _result;
 		private hdErr _resultType;
 
-
 		public byte[] cache;
 
 		internal hdErr ChdCheck(Message progress, hard_disk_info hdi, out string result) {
@@ -29,7 +28,6 @@ namespace CHDlib {
 				return hdErr.HDERR_DECOMPRESSION_ERROR;
 			}
 		}
-
 
 		private static hdErr read_sector_map(hard_disk_info info) {
 			info.map = new mapentry[info.totalblocks];
@@ -84,7 +82,6 @@ namespace CHDlib {
 			return hdErr.HDERR_NONE;
 		}
 
-
 		public hdErr hard_disk_verify(hard_disk_info hardDisk, Message progress) {
 			hdErr err;
 			var block = 0;
@@ -97,7 +94,6 @@ namespace CHDlib {
 			if (hardDisk.version >= 5 || hardDisk.compression > 2) {
 				return hdErr.HDERR_UNSUPPORTED;
 			}
-
 
 			err = read_sector_map(hardDisk);
 			if (err != hdErr.HDERR_NONE) {
@@ -139,7 +135,6 @@ namespace CHDlib {
 			var tmp = new byte[0];
 			md5?.TransformFinalBlock(tmp, 0, 0);
 			sha1?.TransformFinalBlock(tmp, 0, 0);
-
 
 			if (hardDisk.md5 != null) {
 				if (!ByteArrCompare(hardDisk.md5, md5.Hash)) {

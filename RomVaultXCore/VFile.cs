@@ -108,7 +108,6 @@ namespace RVXCore
             return vfile;
         }
 
-
         private static VFile FindInDBDir(string filename)
         {
             // try and find this directory in the DIR table
@@ -201,7 +200,6 @@ namespace RVXCore
                 return null;
             }
         }
-
 
         private static int? DirFind(string dirName)
         {
@@ -517,8 +515,6 @@ namespace RVXCore
             return dirs;
         }
 
-
-
         /*
         private static VFile FindInRealRoot(string filename)
         {
@@ -556,7 +552,6 @@ namespace RVXCore
             return null;
         }
         */
-
 
         public bool LoadVFileZipData() // used to get ready to load an actual ZIP file
         {
@@ -598,7 +593,6 @@ namespace RVXCore
                 }
             }
 
-
             // the central directory is now added on to the end of the file list, like is another file with zero bytes of compressed data.
             using (DbCommand getCentralDir = DBSqlite.db.Command(
                 @"select 
@@ -630,10 +624,8 @@ namespace RVXCore
                 }
             }
 
-
             return true;
         }
-
 
         public class VZipFile
         {

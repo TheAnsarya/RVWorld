@@ -60,7 +60,6 @@
 //
 // -----------------------------------------------------------------------
 
-
 namespace Compress.Support.Compression.Deflate {
 	/// <summary>
 	/// A bunch of constants used in the Zlib interface.

@@ -20,7 +20,6 @@ namespace RomVaultCore {
 		public static int vMinor;
 		public static int vBuild;
 
-
 		public static string EMail;
 		public static string Username;
 		public static bool OptOut = true;
@@ -77,15 +76,12 @@ namespace RomVaultCore {
 			}
 		}
 
-
-
 		public static void SendAndShow(string message) {
 			SendErrorMessage(message);
 			Show(message);
 		}
 
 		public static void Show(string text, string caption = "RomVault") => Dialog?.Invoke(text, caption);
-
 
 		private static void SendErrorMessage(string message) {
 			if (OptOut) {
@@ -165,7 +161,6 @@ namespace RomVaultCore {
 			ReportFile(_logStreamWriter, f);
 			_logStreamWriter.Flush();
 		}
-
 
 		public static void Close() {
 			if (_logStreamWriter == null) {

@@ -2,7 +2,6 @@
 using FileInfo = RVIO.FileInfo;
 using FileStream = RVIO.FileStream;
 
-
 namespace Compress.ZipFile {
 
 	public partial class Zip {
@@ -70,7 +69,6 @@ namespace Compress.ZipFile {
 			_zipFileInfo = new FileInfo(_zipFileInfo.FullName);
 			ZipOpen = ZipOpenType.Closed;
 		}
-
 
 		public void ZipFileCloseFailed() {
 			switch (ZipOpen) {

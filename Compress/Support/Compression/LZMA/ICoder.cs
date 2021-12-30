@@ -28,7 +28,6 @@ namespace Compress.Support.Compression.LZMA {
 		void SetProgress(long inSize, long outSize);
 	};
 
-
 	/// <summary>
 	/// Provides the fields that represent properties idenitifiers for compressing.
 	/// </summary>

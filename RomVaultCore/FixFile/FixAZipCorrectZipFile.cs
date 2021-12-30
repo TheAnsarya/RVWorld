@@ -110,8 +110,6 @@ namespace RomVaultCore.FixFile {
 					throw new FixAZip.ZipFileException(returnCode, fixZippedFile.FullName + " " + fixZippedFile.RepStatus + " " + returnCode + " : " + errorMessage);
 			}
 
-
-
 			if (lstFixRomTable != null) {
 				foreach (var f in lstFixRomTable) {
 					var fn = f.TreeFullName;

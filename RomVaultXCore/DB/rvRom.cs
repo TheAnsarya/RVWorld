@@ -57,7 +57,6 @@ namespace RVXCore.DB
                 );");
         }
 
-
         public static List<RvRom> ReadRoms(uint gameId)
         {
             if (_commandRvRomReader == null)
@@ -79,7 +78,6 @@ namespace RVXCore.DB
                 FROM rom LEFT OUTER JOIN files ON files.FileId=rom.FileId WHERE GameId=@GameId ORDER BY RomId", DBSqlite.db.Connection);
                 _commandRvRomReader.Parameters.Add(new SQLiteParameter("GameId"));
             }
-
 
             List<RvRom> roms = new List<RvRom>();
             _commandRvRomReader.Parameters["GameId"].Value = gameId;
@@ -140,7 +138,6 @@ namespace RVXCore.DB
                 _commandRvRomWrite.Parameters.Add(new SQLiteParameter("PutInZip"));
                 _commandRvRomWrite.Parameters.Add(new SQLiteParameter("FileId"));
             }
-
 
             FileId = DatUpdate.NoFilesInDb ? null : RvRomFileMatchup.FindAFile(this);
             _commandRvRomWrite.Parameters["GameId"].Value = GameId;

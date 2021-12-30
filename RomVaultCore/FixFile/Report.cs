@@ -2,7 +2,6 @@
 	public static class Report {
 		private static ThreadWorker _thWrk;
 
-
 		public static bool Set(ThreadWorker thWrk) {
 			_thWrk = thWrk;
 			return _thWrk != null;

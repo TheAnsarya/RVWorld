@@ -5,7 +5,6 @@ namespace Compress.Support.Compression.zStd {
 		long pos = 0;
 		public zStd(Stream stream, int bufferSize = 0) : base(stream, bufferSize) => pos = 0;
 
-
 		public override int Read(byte[] buffer, int offset, int count) {
 			var read = base.Read(buffer, offset, count);
 			pos += read;

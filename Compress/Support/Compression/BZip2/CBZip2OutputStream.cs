@@ -777,7 +777,6 @@ namespace Compress.Support.Compression.BZip2 {
 				Panic();
 			}
 
-
 			/* Compute MTF values for the selectors. */
 			{
 				var pos = new char[BZip2Constants.N_GROUPS];
@@ -1613,7 +1612,6 @@ namespace Compress.Support.Compression.BZip2 {
             */
 			//    szptr = zptr;
 
-
 			szptr = new short[2 * n];
 		}
 
@@ -1638,7 +1636,6 @@ namespace Compress.Support.Compression.BZip2 {
 			for (i = 0; i < nInUse; i++) {
 				yy[i] = (char)i;
 			}
-
 
 			for (i = 0; i <= last; i++) {
 				char ll_i;

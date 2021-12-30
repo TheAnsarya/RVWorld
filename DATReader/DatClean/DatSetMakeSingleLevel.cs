@@ -20,7 +20,6 @@ namespace DATReader.DatClean {
 				rootDirName = tDatHeader.Name;
 			}
 
-
 			// do a pre check to see if removing all the sub-dirs will give any name conflicts
 			if (subDirType == RemoveSubType.RemoveAllIfNoConflicts) {
 				var foundRepeatFilename = false;

@@ -25,7 +25,6 @@ namespace DATReader.DatClean {
 					}
 					devices.RemoveAt(0);
 
-
 					foreach (var device in devices) {
 						for (var i = 0; i < device.ChildCount; i++) {
 							var df0 = (DatFile)device.Child(i);

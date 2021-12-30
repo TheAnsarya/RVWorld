@@ -45,7 +45,6 @@ namespace DATReader.DatReader {
 			return true;
 		}
 
-
 		private static bool LoadHeaderFromDat(DatFileLoader dfl, string filename, DatHeader datHeader, ReportError errorReport) {
 			if (dfl.Next != "(") {
 				errorReport?.Invoke(dfl.Filename, "( not found after DOSCenter, on line " + dfl.LineNumber);
@@ -109,7 +108,6 @@ namespace DATReader.DatReader {
 			return true;
 		}
 
-
 		private static bool LoadGameFromDat(DatFileLoader dfl, DatDir parentDir, ReportError errorReport) {
 			if (dfl.Next != "(") {
 				errorReport?.Invoke(dfl.Filename, "( not found after game, on line " + dfl.LineNumber);
@@ -123,7 +121,6 @@ namespace DATReader.DatReader {
 				errorReport?.Invoke(dfl.Filename, "Name not found as first object in ( ), on line " + dfl.LineNumber);
 				return false;
 			}
-
 
 			var name = dfl.GnRest();
 			var nameLength = name.Length;
@@ -177,7 +174,6 @@ namespace DATReader.DatReader {
 				Name = dfl.GnNameToSize()
 			};
 			dfl.Gn();
-
 
 			while (dfl.Next != ")") {
 				switch (dfl.Next.ToLower()) {

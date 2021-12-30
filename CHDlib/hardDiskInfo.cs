@@ -24,9 +24,6 @@ namespace CHDlib {
 
 		public ulong totalbytes;
 
-
-
-
 		public Stream file;
 
 		public mapentry[] map;
@@ -43,7 +40,6 @@ namespace CHDlib {
 		MAP_ENTRY_TYPE_SELF_HUNK = 0x0004,      /* same as another hunk in this file */
 		MAP_ENTRY_TYPE_PARENT_HUNK = 0x0005     /* same as a hunk in the parent file */
 	}
-
 
 	internal class mapentry {
 		public ulong offset;

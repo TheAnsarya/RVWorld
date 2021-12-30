@@ -135,14 +135,11 @@ namespace RomVaultCmd {
 			}
 		}
 
-
 		private static void StartUpCode(ThreadWorker e) {
 			RepairStatus.InitStatusCheck();
 			Settings.rvSettings = Settings.SetDefaults();
 			DB.Read(e);
 		}
-
-
 
 		private static void BgwProgressChanged(object e) {
 			if (e is int percent) {

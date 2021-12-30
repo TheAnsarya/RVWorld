@@ -78,13 +78,11 @@ namespace RVXCore.Util
                 }
             }
 
-
             retcrc = new string('0', length) + retcrc;
             retcrc = retcrc.Substring(retcrc.Length - length);
 
             return retcrc;
         }
-
 
         //CleanMD5SHA1 with a null or empty string will return null
         public static byte[] CleanMD5SHA1(XmlNode n, int length)
@@ -108,7 +106,6 @@ namespace RVXCore.Util
                     checksum = checksum.Substring(2);
                 }
             }
-
 
             if (string.IsNullOrEmpty(checksum))
             {
@@ -141,7 +138,6 @@ namespace RVXCore.Util
 
             return retB;
         }
-
 
         public static string CleanFullFileName(XmlNode n)
         {
@@ -214,7 +210,6 @@ namespace RVXCore.Util
         {
             return name == null ? "" : name.ToLower();
         }
-
 
         public static string PCombine(string path1, string path2)
         {

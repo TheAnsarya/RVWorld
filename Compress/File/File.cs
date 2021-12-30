@@ -16,7 +16,6 @@ namespace Compress.File {
 
 		public ZipOpenType ZipOpen { get; private set; }
 
-
 		public ZipStatus ZipStatus { get; private set; }
 
 		public int LocalFilesCount() => 1;
@@ -53,7 +52,6 @@ namespace Compress.File {
 			return ZipReturn.ZipGood;
 		}
 
-
 		public void ZipFileClose() {
 			if (ZipOpen == ZipOpenType.Closed) {
 				return;
@@ -81,7 +79,6 @@ namespace Compress.File {
 				ZipOpen = ZipOpenType.Closed;
 			}
 		}
-
 
 		public ZipReturn ZipFileOpen(string newFilename, long timestamp, bool readHeaders) {
 			ZipFileClose();
@@ -122,7 +119,6 @@ namespace Compress.File {
 			return ZipReturn.ZipGood;
 		}
 
-
 		public ZipReturn ZipFileOpen(Stream inStream) {
 			ZipFileClose();
 			ZipStatus = ZipStatus.None;
@@ -133,8 +129,6 @@ namespace Compress.File {
 			//return ZipFileReadHeaders();
 			return ZipReturn.ZipGood;
 		}
-
-
 
 		public void ZipFileAddZeroLengthFile() => throw new NotImplementedException();
 

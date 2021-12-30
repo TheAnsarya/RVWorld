@@ -47,7 +47,6 @@ namespace Compress.SevenZip {
 			return ZipFileReadHeaders();
 		}
 
-
 		public ZipReturn ZipFileOpen(Stream inStream) {
 			ZipFileClose();
 			_zipFileInfo = null;
@@ -56,8 +55,6 @@ namespace Compress.SevenZip {
 			ZipStatus = ZipStatus.None;
 			return ZipFileReadHeaders();
 		}
-
-
 
 		private ZipReturn ZipFileReadHeaders() {
 			try {
@@ -83,7 +80,6 @@ namespace Compress.SevenZip {
 					}
 				}
 
-
 				ZipStatus = ZipStatus.None;
 				ZipStatus |= IsRomVault7Z(_baseOffset, signatureHeader.NextHeaderOffset, signatureHeader.NextHeaderSize, signatureHeader.NextHeaderCRC) ? ZipStatus.TrrntZip : ZipStatus.None;
 
@@ -97,7 +93,6 @@ namespace Compress.SevenZip {
 				return ZipReturn.ZipErrorReadingFile;
 			}
 		}
-
 
 		private void PopulateLocalFiles(out List<SevenZipLocalFile> localFiles) {
 			var emptyFileIndex = 0;

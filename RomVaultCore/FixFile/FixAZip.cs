@@ -56,7 +56,6 @@ namespace RomVaultCore.FixFile {
 				// do nothing here but continue on to process zip.
 			}
 
-
 			// got empty zip that should be deleted
 			//      process zipfile
 			else if (fixZip.GotStatus == GotStatus.Got && fixZip.GotStatus != GotStatus.Corrupt && !fixZip.DirStatus.HasAnyFiles()) {
@@ -79,7 +78,6 @@ namespace RomVaultCore.FixFile {
 			if (!fixZip.DirStatus.HasFixable() && needsTrrntzipped) {
 				Report.ReportProgress(new bgwShowFix(Path.GetDirectoryName(fixZipFullName), Path.GetFileName(fixZipFullName), "", 0, "TrrntZipping", "", "", ""));
 			}
-
 
 			FixFileUtils.CheckCreateDirectories(fixZip.Parent);
 
@@ -188,7 +186,6 @@ namespace RomVaultCore.FixFile {
 							break;
 
 						#endregion
-
 
 						// any files we are just moving from the original zip to the destination zip
 						case RepStatus.Correct:

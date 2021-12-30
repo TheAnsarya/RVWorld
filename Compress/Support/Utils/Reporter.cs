@@ -39,7 +39,6 @@ namespace Compress.Support.Utils {
 			return ret;
 		}
 
-
 		public static string ToHex(this uint? v) => v == null ? "NULL" : ((uint)v).ToString("X8");
 		public static string ToHex(this ulong? v) => v == null ? "NULL" : ((ulong)v).ToString("X8");
 	}

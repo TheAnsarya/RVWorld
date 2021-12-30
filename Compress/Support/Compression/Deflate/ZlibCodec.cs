@@ -63,7 +63,6 @@
 //
 // -----------------------------------------------------------------------
 
-
 using System;
 using System.Runtime.InteropServices;
 using Interop = System.Runtime.InteropServices;
@@ -174,12 +173,10 @@ namespace Compress.Support.Compression.Deflate {
 		/// </remarks>
 		public CompressionStrategy Strategy = CompressionStrategy.Default;
 
-
 		/// <summary>
 		/// The Adler32 checksum on the data transferred through the codec so far. You probably don't need to look at this.
 		/// </summary>
 		public int Adler32 => (int)_Adler32;
-
 
 		/// <summary>
 		/// Create a ZlibCodec.
@@ -354,7 +351,6 @@ namespace Compress.Support.Compression.Deflate {
 			return istate.Inflate(flush);
 		}
 
-
 		/// <summary>
 		/// Ends an inflation session. 
 		/// </summary>
@@ -442,7 +438,6 @@ namespace Compress.Support.Compression.Deflate {
 			return _InternalInitializeDeflate(true);
 		}
 
-
 		/// <summary>
 		/// Initialize the ZlibCodec for deflation operation, using the specified CompressionLevel, 
 		/// and the explicit flag governing whether to emit an RFC1950 header byte pair.
@@ -461,7 +456,6 @@ namespace Compress.Support.Compression.Deflate {
 			CompressLevel = level;
 			return _InternalInitializeDeflate(wantRfc1950Header);
 		}
-
 
 		/// <summary>
 		/// Initialize the ZlibCodec for deflation operation, using the specified CompressionLevel, 
@@ -617,7 +611,6 @@ namespace Compress.Support.Compression.Deflate {
 			dstate.Reset();
 		}
 
-
 		/// <summary>
 		/// Set the CompressionStrategy and CompressionLevel for a deflation session.
 		/// </summary>
@@ -631,7 +624,6 @@ namespace Compress.Support.Compression.Deflate {
 
 			return dstate.SetParams(level, strategy);
 		}
-
 
 		/// <summary>
 		/// Set the dictionary to be used for either Inflation or Deflation.

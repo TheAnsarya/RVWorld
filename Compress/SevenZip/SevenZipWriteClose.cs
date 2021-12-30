@@ -66,7 +66,6 @@ namespace Compress.SevenZip {
 				}
 			}
 
-
 			//StreamsInfo
 
 			_header.StreamsInfo = new StreamsInfo { PackPosition = 0 };
@@ -170,7 +169,6 @@ namespace Compress.SevenZip {
 
 			mainHeaderCRC = CRC.CalculateDigest(newHeaderByte, 0, (uint)newHeaderByte.Length);
 			#endregion
-
 
 			using (BinaryWriter bw = new(_zipFs, Encoding.UTF8, true)) {
 				var headerPosition = (ulong)_zipFs.Position + 32; //tzip header is 32 bytes

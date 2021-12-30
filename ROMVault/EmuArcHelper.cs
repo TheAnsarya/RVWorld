@@ -131,8 +131,6 @@ namespace ROMVault
             picBox.Image = null;
         }
 
-
-
         public static bool LoadText(this RichTextBox txtBox, RvFile tGame, string filename)
         {
             txtBox.ClearText();
@@ -154,5 +152,4 @@ namespace ROMVault
         }
     }
 }
-
 

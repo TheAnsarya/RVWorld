@@ -28,7 +28,6 @@ namespace RVXCore.DB
                 );");
         }
 
-
         public static uint FindOrInsertIntoDir(uint parentDirId, string name, string fullName)
         {
             uint? foundDatId = FindInDir(fullName);
@@ -40,7 +39,6 @@ namespace RVXCore.DB
             SetDirFound((uint)foundDatId);
             return (uint)foundDatId;
         }
-
 
         private static uint? FindInDir(string fullname)
         {
@@ -59,7 +57,6 @@ namespace RVXCore.DB
 
             return (uint?)Convert.ToInt32(resFind);
         }
-
 
         private static void SetDirFound(uint foundDatId)
         {

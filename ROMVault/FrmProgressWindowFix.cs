@@ -27,10 +27,8 @@ namespace ROMVault
 
         private bool _bDone;
 
-
         private ThreadWorker ThWrk;
         private readonly Finished _funcFinished;
-
 
         public FrmProgressWindowFix(Form parentForm, Finished funcFinished)
         {
@@ -52,8 +50,6 @@ namespace ROMVault
             timer1.Enabled = true;
         }
 
-
-
         protected override CreateParams CreateParams
         {
             get
@@ -64,7 +60,6 @@ namespace ROMVault
                 return mdiCp;
             }
         }
-
 
         private void Timer1Tick(object sender, EventArgs e)
         {
@@ -118,8 +113,6 @@ namespace ROMVault
             ThWrk = new ThreadWorker(Fix.PerformFixes) { wReport = BgwProgressChanged, wFinal = BgwRunWorkerCompleted };
             ThWrk.StartAsync();
         }
-
-
 
         private void BgwProgressChanged(object e)
         {

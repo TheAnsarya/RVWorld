@@ -12,7 +12,6 @@ namespace Compress.ZipFile {
 			ZipOpen = ZipOpenType.OpenFakeWrite;
 		}
 
-
 		public void ZipFileCloseFake(ulong fileOffset, out byte[] centralDir) {
 			centralDir = null;
 			if (ZipOpen != ZipOpenType.OpenFakeWrite) {
@@ -24,7 +23,6 @@ namespace Compress.ZipFile {
 			_zipFs = new MemoryStream();
 
 			_centralDirStart = fileOffset;
-
 
 			CrcCalculatorStream crcCs = new(_zipFs, true);
 
@@ -57,7 +55,6 @@ namespace Compress.ZipFile {
 			_zipFs.Dispose();
 			ZipOpen = ZipOpenType.Closed;
 		}
-
 
 		public ZipReturn ZipFileAddFake(string filename, ulong fileOffset, ulong uncompressedSize, ulong compressedSize, byte[] crc32, out byte[] localHeader) {
 			localHeader = null;

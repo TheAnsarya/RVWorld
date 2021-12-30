@@ -27,7 +27,6 @@ namespace RVXCore
                 MergeType = datHeaderExternal.MergeType
             };
 
-
             HeaderFileType headerFileType = FileHeaderReader.FileHeaderReader.GetFileTypeFromHeader(datHeaderExternal.Header);
 
             CopyDir(datHeaderExternal.BaseDir, headerFileType, retDat);

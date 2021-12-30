@@ -37,8 +37,6 @@ namespace ROMVault
             }
         }
 
-
-
         public static bool OptOut
         {
             get

@@ -32,7 +32,6 @@ namespace Compress.ZipFile {
 
 		public ZipOpenType ZipOpen { get; private set; }
 
-
 		public ZipStatus ZipStatus { get; private set; }
 
 		// If writeZipType == trrntzip then it will force a trrntzip file and error out if not.
@@ -59,7 +58,6 @@ namespace Compress.ZipFile {
 					break;
 			}
 		}
-
 
 		/*
         public void BreakTrrntZip(string filename)

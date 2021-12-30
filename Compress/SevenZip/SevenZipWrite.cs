@@ -52,7 +52,6 @@ namespace Compress.SevenZip {
 
 			_baseOffset = _zipFs.Position;
 
-
 			_packedOutStreams = new List<outStreams>();
 
 			_compType = compressOutput;
@@ -112,8 +111,6 @@ namespace Compress.SevenZip {
 			// do nothing here for 7zip
 		}
 
-
-
 		UnpackedStreamInfo unpackedStreamInfo;
 		public ZipReturn ZipFileOpenWriteStream(bool raw, bool trrntzip, string filename, ulong uncompressedSize, ushort compressionMethod, out Stream stream, TimeStamps dateTime) {
 			// check if we are writing a directory
@@ -134,7 +131,6 @@ namespace Compress.SevenZip {
 				stream = null;
 				return ZipReturn.ZipGood;
 			}
-
 
 #if !solid
 
@@ -181,7 +177,6 @@ namespace Compress.SevenZip {
 			return ZipReturn.ZipGood;
 		}
 
-
 		public ZipReturn ZipFileCloseWriteStream(byte[] crc32) {
 			var localFile = _localFiles[_localFiles.Count - 1];
 			localFile.CRC = new[] { crc32[3], crc32[2], crc32[1], crc32[0] };
@@ -204,7 +199,6 @@ namespace Compress.SevenZip {
 
 			return ZipReturn.ZipGood;
 		}
-
 
 		private static readonly int[] DictionarySizes =
 		{
@@ -233,7 +227,6 @@ namespace Compress.SevenZip {
 			0x4000000,
 			0x6000000
 		};
-
 
 		private static int GetDictionarySizeFromUncompressedSize(ulong unCompressedSize) {
 			foreach (var v in DictionarySizes) {

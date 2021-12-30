@@ -63,7 +63,6 @@ namespace CHDlib {
 			_tWorker.Join();
 		}
 
-
 		private const int HDFLAGS_HAS_PARENT = 0x00000001;
 		private const int HDFLAGS_IS_WRITEABLE = 0x00000002;
 		private const int HDCOMPRESSION_ZLIB = 1;

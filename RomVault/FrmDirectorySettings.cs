@@ -35,12 +35,10 @@ namespace ROMVault
             cboMergeType.Items.Add("Merge");
             cboMergeType.Items.Add("NonMerge");
 
-
             cboFilterType.Items.Clear();
             cboFilterType.Items.Add("Roms & CHDs");
             cboFilterType.Items.Add("Roms Only");
             cboFilterType.Items.Add("CHDs Only");
-
 
             cboDirType.Items.Clear();
             cboDirType.Items.Add("Add SubDirs");
@@ -101,7 +99,6 @@ namespace ROMVault
             return new DatRule { DirKey = dLocation, IgnoreFiles = new List<string>() };
         }
 
-
         private void SetDisplay()
         {
             txtDATLocation.Text = _rule.DirKey;
@@ -119,7 +116,6 @@ namespace ROMVault
             chkMultiDatDirOverride.Checked = _rule.MultiDATDirOverride;
             chkUseDescription.Checked = _rule.UseDescriptionAsDirName;
 
-
             chkSingleArchive.Checked = _rule.SingleArchive;
 
             cboDirType.Enabled = chkSingleArchive.Checked;
@@ -132,14 +128,12 @@ namespace ROMVault
             }
         }
 
-
         private void UpdateGrid()
         {
             if (Settings.IsMono && DataGridGames.RowCount > 0)
             {
                 DataGridGames.CurrentCell = DataGridGames[0, 0];
             }
-
 
             DataGridGames.Rows.Clear();
             foreach (DatRule t in Settings.rvSettings.DatRules)
@@ -182,7 +176,6 @@ namespace ROMVault
                 DataGridGames.Rows[j].Selected = false;
             }
         }
-
 
         private void btnClearROMLocation_Click(object sender, EventArgs e)
         {
@@ -231,8 +224,6 @@ namespace ROMVault
             _rule.SubDirType = (RemoveSubType)cboDirType.SelectedIndex;
             _rule.MultiDATDirOverride = chkMultiDatDirOverride.Checked;
             _rule.UseDescriptionAsDirName = chkUseDescription.Checked;
-
-
 
             string strtxt = textBox1.Text;
             strtxt = strtxt.Replace("\r", "");

@@ -18,7 +18,6 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 
-
 /*
  * DatVault   to enable auto DatDownload
  * RomShare   to enable rom share code
@@ -63,7 +62,6 @@ namespace ROMVault
 
         private bool _updatingGameGrid;
 
-
         private FrmKey _fk;
 
         private float _scaleFactorX = 1;
@@ -91,7 +89,6 @@ namespace ROMVault
             dgvType = RomGrid.GetType();
             pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
             pi.SetValue(RomGrid, true, null);
-
 
             _displayColor = new Color[(int)RepStatus.EndValue];
             _fontColor = new Color[(int)RepStatus.EndValue];
@@ -123,7 +120,6 @@ namespace ROMVault
             _displayColor[(int)RepStatus.CorruptCanBeFixed] = CYellow;
             _displayColor[(int)RepStatus.MoveToCorrupt] = CPurple; //Missing
 
-
             _displayColor[(int)RepStatus.Deleted] = CWhite;
 
             for (int i = 0; i < (int)RepStatus.EndValue; i++)
@@ -137,7 +133,6 @@ namespace ROMVault
 
             splitContainer3_Panel1_Resize(new object(), new EventArgs());
             splitContainer4_Panel1_Resize(new object(), new EventArgs());
-
 
             _mnuContext = new ContextMenuStrip();
 
@@ -206,7 +201,6 @@ namespace ROMVault
             mnuMakeDat.Click += MnuMakeDatClick;
             mnuMakeDat2.Click += MnuMakeDat2Click;
 
-
             _mnuContextToSort = new ContextMenuStrip();
 
             ToolStripMenuItem mnuToSortScan1 = new ToolStripMenuItem
@@ -264,7 +258,6 @@ namespace ROMVault
             _mnuToSortSetPrimary.Click += MnuToSortSetPrimary;
             _mnuToSortSetCache.Click += MnuToSortSetCache;
 
-
             chkBoxShowCorrect.Checked = Settings.rvSettings.chkBoxShowCorrect;
             chkBoxShowMissing.Checked = Settings.rvSettings.chkBoxShowMissing;
             chkBoxShowFixed.Checked = Settings.rvSettings.chkBoxShowFixed;
@@ -272,7 +265,6 @@ namespace ROMVault
 
             TabArtworkInitialize();
         }
-
 
         // returns either white or black, depending of quick luminance of the Color " a "
         // called when the _displayColor is finished, in order to populate the _fontColor table.
@@ -346,7 +338,6 @@ namespace ROMVault
         }
         #endregion
 
-
         #region Tree
         private void DirTreeRvChecked(object sender, MouseEventArgs e)
         {
@@ -418,9 +409,7 @@ namespace ROMVault
             return ret;
         }
 
-
         #endregion
-
 
         #region popupMenus
 
@@ -475,7 +464,6 @@ namespace ROMVault
                 return;
             }
 
-
             DatMaker.MakeDatFromDir(_clickedTree, browse.FileName);
         }
 
@@ -500,7 +488,6 @@ namespace ROMVault
 
             DatMaker.MakeDatFromDir(_clickedTree, browse.FileName, false);
         }
-
 
         private void MnuToSortOpen(object sender, EventArgs e)
         {
@@ -570,7 +557,6 @@ namespace ROMVault
 
         #endregion
 
-
         #region TopMenu
 
         private void updateNewDATsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -582,7 +568,6 @@ namespace ROMVault
             DatUpdate.CheckAllDats(DB.DirRoot.Child(0), @"DatRoot\");
             UpdateDats();
         }
-
 
         private void AddToSortToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -610,8 +595,6 @@ namespace ROMVault
             DB.Write();
         }
 
-
-
         private void TsmScanLevel1Click(object sender, EventArgs e)
         {
             ScanRoms(EScanLevel.Level1);
@@ -625,10 +608,6 @@ namespace ROMVault
             ScanRoms(EScanLevel.Level3);
         }
 
-
-
-
-
         private void TsmFindFixesClick(object sender, EventArgs e)
         {
             FindFixs();
@@ -638,10 +617,6 @@ namespace ROMVault
         {
             FixFiles();
         }
-
-
-
-
 
         private void RomVaultSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -674,12 +649,6 @@ namespace ROMVault
             }
         }
 
-
-
-
-
-
-
         private void fixDatReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Report.MakeFixFiles();
@@ -694,9 +663,6 @@ namespace ROMVault
         {
             Report.GenerateFixReport();
         }
-
-
-
 
         private void colorKeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -714,11 +680,7 @@ namespace ROMVault
             fha.Dispose();
         }
 
-
-
-
         #endregion
-
 
         #region sideButtons
         private void BtnUpdateDatsMouseUp(object sender, MouseEventArgs e)
@@ -754,7 +716,6 @@ namespace ROMVault
             Report.MakeFixFiles(null, e.Button == MouseButtons.Left);
         }
         #endregion
-
 
         #region TopRight
 
@@ -798,8 +759,6 @@ namespace ROMVault
             }
         }
 
-
-
         private void BtnClear_Click(object sender, EventArgs e)
         {
             txtFilter.Text = "";
@@ -815,7 +774,6 @@ namespace ROMVault
             txtFilter.Focus();
         }
 
-
         private void picPayPal_Click(object sender, EventArgs e)
         {
             Process.Start("http://paypal.me/romvault");
@@ -828,9 +786,7 @@ namespace ROMVault
 
         #endregion
 
-
         #region coreFunctions
-
 
         private void UpdateDats()
         {
@@ -991,7 +947,6 @@ namespace ROMVault
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
 
-
             _working = false;
             ctrRvTree.Working = false;
             menuStrip1.Enabled = true;
@@ -1025,9 +980,7 @@ namespace ROMVault
             GameGrid.Refresh();
         }
 
-
         #endregion
-
 
         #region DatDisplay
 
@@ -1093,17 +1046,14 @@ namespace ROMVault
             lblDITRomsUnknown.Text = (tDir.DirStatus.CountUnknown() + tDir.DirStatus.CountInToSort()).ToString(CultureInfo.InvariantCulture);
         }
 
-
         private void gbDatInfo_Resize(object sender, EventArgs e)
         {
             const int leftPos = 89;
             int rightPos = (int)(gbDatInfo.Width / _scaleFactorX) - 15;
 
-
             int width = rightPos - leftPos;
             int widthB1 = (int)((double)width * 120 / 340);
             int leftB2 = rightPos - widthB1;
-
 
             int backD = 97;
 
@@ -1111,7 +1061,6 @@ namespace ROMVault
             widthB1 = (int)(widthB1 * _scaleFactorX);
             leftB2 = (int)(leftB2 * _scaleFactorX);
             backD = (int)(backD * _scaleFactorX);
-
 
             lblDITName.Width = width;
             lblDITDescription.Width = width;
@@ -1141,10 +1090,7 @@ namespace ROMVault
             lblDITRomsUnknown.Width = widthB1;
         }
 
-
         #endregion
-
-
 
     }
 }

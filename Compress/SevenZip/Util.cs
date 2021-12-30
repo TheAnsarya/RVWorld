@@ -56,7 +56,6 @@ namespace Compress.SevenZip {
 			}
 		}
 
-
 		public static bool MemCmp(byte[] buffer1, int offset, byte[] buffer2, int len) {
 			for (var i = 0; i < len; i++) {
 				if (buffer1[offset + i] != buffer2[i]) {
@@ -66,7 +65,6 @@ namespace Compress.SevenZip {
 
 			return true;
 		}
-
 
 		public static bool Compare(this byte[] b1, byte[] b2) {
 			if ((b1 == null) || (b2 == null)) {
@@ -85,7 +83,6 @@ namespace Compress.SevenZip {
 
 			return true;
 		}
-
 
 		public static ulong ReadEncodedUInt64(this BinaryReader br) {
 			byte mask = 0x80;
@@ -149,7 +146,6 @@ namespace Compress.SevenZip {
 
 			bw.Write((ushort)0);
 		}
-
 
 		public static void UnPackCRCs(BinaryReader br, ulong numItems, out uint?[] digests) {
 			var digestsDefined = ReadBoolFlagsDefaultTrue(br, numItems);
@@ -227,7 +223,6 @@ namespace Compress.SevenZip {
 			if (allAreDefined == 0) {
 				return ReadBoolFlags(br, numItems);
 			}
-
 
 			var flags = new bool[numItems];
 			for (ulong i = 0; i < numItems; i++) {

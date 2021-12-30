@@ -60,7 +60,6 @@
 //
 // -----------------------------------------------------------------------
 
-
 namespace Compress.Support.Compression.Deflate {
 	sealed class Tree {
 		private static readonly int HEAP_SIZE = (2 * InternalConstants.L_CODES + 1);
@@ -83,7 +82,6 @@ namespace Compress.Support.Compression.Deflate {
 		internal static readonly int[] extra_blbits = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7 };
 
 		internal static readonly sbyte[] bl_order = new sbyte[] { 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15 };
-
 
 		// The lengths of the bit length codes are sent in order of decreasing
 		// probability, to avoid transmitting the lengths for unused bit
@@ -150,20 +148,17 @@ namespace Compress.Support.Compression.Deflate {
 			27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 28
 		};
 
-
 		internal static readonly int[] LengthBase = new int[]
 		{
 			0,   1,  2,  3,  4,  5,  6,   7,   8,  10,  12,  14, 16, 20, 24, 28,
 			32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 0
 		};
 
-
 		internal static readonly int[] DistanceBase = new int[]
 		{
 			0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192,
 			256, 384, 512, 768, 1024, 1536, 2048, 3072, 4096, 6144, 8192, 12288, 16384, 24576
 		};
-
 
 		/// <summary>
 		/// Map from a distance to a distance code.

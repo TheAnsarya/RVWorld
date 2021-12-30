@@ -79,7 +79,6 @@ namespace Compress.SevenZip {
 					_header.StreamsInfo.PackedStreams[packedStreamIndex].PackedStream.Seek(
 						_baseOffset + (long)_header.StreamsInfo.PackedStreams[packedStreamIndex].StreamPosition, SeekOrigin.Begin);
 
-
 					allInputStreams[(int)folder.PackedStreamIndices[i]].InStreamSource = InStreamSource.FileStream;
 					allInputStreams[(int)folder.PackedStreamIndices[i]].InStreamIndex = packedStreamIndex;
 				}

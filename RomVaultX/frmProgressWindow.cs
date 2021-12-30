@@ -33,7 +33,6 @@ namespace RomVaultX {
 			}
 		}
 
-
 		private void FrmProgressWindowNewShown(object sender, EventArgs e) {
 			bgWork.ProgressChanged += BgwProgressChanged;
 			bgWork.RunWorkerCompleted += BgwRunWorkerCompleted;
@@ -60,7 +59,6 @@ namespace RomVaultX {
 				UpdateStatusText();
 				return;
 			}
-
 
 			if (e.UserState is bgwText2 bgwT2) {
 				label2.Text = bgwT2.Text;
@@ -89,12 +87,10 @@ namespace RomVaultX {
 				return;
 			}
 
-
 			if (e.UserState is bgwText3 bgwT3) {
 				label3.Text = bgwT3.Text;
 				return;
 			}
-
 
 			if (e.UserState is bgwShowError bgwSDE) {
 				if (!_errorOpen) {

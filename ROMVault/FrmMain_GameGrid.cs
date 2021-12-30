@@ -21,7 +21,6 @@ namespace ROMVault
         private int gameSortIndex = -1;
         private SortOrder gameSortDir = SortOrder.None;
 
-
         private void ClearGameGrid()
         {
 
@@ -198,7 +197,6 @@ namespace ROMVault
             UpdateGameMetaData(tGame);
             UpdateRomGrid(tGame);
         }
-
 
         private void GameGridCellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
@@ -404,7 +402,6 @@ namespace ROMVault
                 e.CellStyle.BackColor = _displayColor[(int)t1];
                 e.CellStyle.ForeColor = _fontColor[(int)t1];
 
-
                 if (e.ColumnIndex == 0)
                 {
                     e.CellStyle.SelectionBackColor = _displayColor[(int)t1];
@@ -541,15 +538,12 @@ namespace ROMVault
             }
         }
 
-
-
         private void GameGridMouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (_updatingGameGrid)
             {
                 return;
             }
-
 
             if (e.Button == MouseButtons.Right)
             {

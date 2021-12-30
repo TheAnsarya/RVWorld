@@ -20,7 +20,6 @@ namespace RVXCore.DB
 
             string dbMemCacheSize = Settings.DBMemCacheSize;
 
-
             _dbFilename += DBVersion + ".db3";
 
             bool datFound = File.Exists(_dbFilename);
@@ -94,7 +93,6 @@ namespace RVXCore.DB
             datFound = false;
         }
 
-
         public void ExecuteNonQuery(string query, params object[] args)
         {
             using (SQLiteCommand command = new SQLiteCommand(query, Connection))
@@ -118,7 +116,6 @@ namespace RVXCore.DB
                 INSERT INTO VERSION (version) VALUES (@Version);",
                 "version", DBVersion);
 
-
             RvDir.CreateTable();
             RvDat.CreateTable();
             RvGame.CreateTable();
@@ -136,7 +133,6 @@ namespace RVXCore.DB
                 DROP TRIGGER IF EXISTS [FileInsert];
                 ");
 
-
             /*DELETE*/
             ExecuteNonQuery(@"
                 DROP TRIGGER IF EXISTS [FileDelete];
@@ -153,7 +149,6 @@ namespace RVXCore.DB
                         FileId=OLD.FileId;
                 END;
             ");
-
 
             //**** ROM Triggers ****
             //INSERT
@@ -357,7 +352,6 @@ namespace RVXCore.DB
                 DROP INDEX IF EXISTS [ROMGameId];");
         }
 
-
         public void Begin()
         {
             ExecuteNonQuery("BEGIN TRANSACTION");
@@ -367,7 +361,6 @@ namespace RVXCore.DB
         {
             ExecuteNonQuery("COMMIT TRANSACTION");
         }
-
 
         public DbCommand Command(string command)
         {

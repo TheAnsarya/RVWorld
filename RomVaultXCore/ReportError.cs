@@ -21,7 +21,6 @@ namespace RVXCore
 
                 message += $"\r\nSTACK TRACE:\r\n{e.StackTrace}";
 
-
                 ErrorForm?.Invoke(message);
             }
             catch

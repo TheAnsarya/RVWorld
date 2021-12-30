@@ -34,7 +34,6 @@ namespace RomVaultCore.FindFix {
 			sourceFile.FileGroup = this;
 		}
 
-
 		public void MergeFileIntoGroup(RvFile file) {
 			if (Size == null && file.Size != null) {
 				Size = file.Size;
@@ -76,7 +75,6 @@ namespace RomVaultCore.FindFix {
 			file.FileGroup = this;
 		}
 
-
 		public void MergeAltFileIntoGroup(RvFile file) {
 			if (HeaderFT == HeaderFileType.Nothing && FileHeaderReader.FileHeaderReader.AltHeaderFile(file.HeaderFileType)) {
 				HeaderFT = file.HeaderFileType;
@@ -101,7 +99,6 @@ namespace RomVaultCore.FindFix {
 			Files.Add(file);
 			file.FileGroup = this;
 		}
-
 
 		public bool FindExactMatch(RvFile file) {
 			if (!Equal(file.Size, Size)) {

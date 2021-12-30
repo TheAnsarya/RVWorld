@@ -28,14 +28,12 @@ namespace CHDlib {
 			}
 		}
 
-
 		public CRC() => Reset();
 
 		public void Reset() {
 			TotalBytesRead = 0;
 			_crc = 0xffffffffu;
 		}
-
 
 		internal void UpdateCRC(int inCh) => _crc = (_crc >> 8) ^ CRC32Lookup[(byte)_crc ^ ((byte)inCh)];
 

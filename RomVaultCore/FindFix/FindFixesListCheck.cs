@@ -68,7 +68,6 @@ namespace RomVaultCore.FindFix {
 
 			var corruptFiles = new List<RvFile>(); // corrupt files that we do not need, a corrupt file is missing if it is needed
 
-
 			// set the found status of this file
 			foreach (var tFile in files) {
 				switch (tFile.RepStatus) {
@@ -267,7 +266,6 @@ namespace RomVaultCore.FindFix {
 				if (treeType(inToSortFile) == RvTreeRow.TreeSelect.Locked) {
 					continue;
 				}
-
 
 				// now that we know this file is not needed for a fix do a CRC only find against correct files to see if this file can be deleted.
 				foreach (var correctFile in correctFiles) {

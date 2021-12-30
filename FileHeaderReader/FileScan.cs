@@ -5,7 +5,6 @@ using Compress.ThreadReaders;
 
 namespace FileHeaderReader {
 
-
 	/*
     need to do some checking for IsDirectory
 
@@ -19,9 +18,6 @@ namespace FileHeaderReader {
                     _localFiles[index].FileStatus = ZipReturn.ZipGood;
 
     */
-
-
-
 
 	/*
      * logic to understand bool testcrc & bool deepScan
@@ -56,7 +52,6 @@ namespace FileHeaderReader {
 		private const int Buffersize = 4096 * 1024;
 		private byte[] _buffer0;
 		private byte[] _buffer1;
-
 
 		public List<FileResults> Scan(ICompress file, bool testcrc, bool deepScan) {
 			testcrc = testcrc || deepScan;
@@ -105,8 +100,6 @@ namespace FileHeaderReader {
 			return lstFileResults;
 		}
 
-
-
 		private static bool ByteArrCompare(byte[] b0, byte[] b1) {
 			if (b0 == null || b1 == null) {
 				return false;
@@ -152,7 +145,6 @@ namespace FileHeaderReader {
 				}
 
 				fileResults.HeaderFileType = FileHeaderReader.GetType(_buffer0, sizenow, out var actualHeaderSize);
-
 
 				// if the file has no header then just use the main hash checkers.
 				if (fileResults.HeaderFileType == HeaderFileType.Nothing || actualHeaderSize == 0) {
@@ -282,7 +274,6 @@ namespace FileHeaderReader {
 					altMd5?.Trigger(buffer, sizebuffer);
 					altSha1?.Trigger(buffer, sizebuffer);
 
-
 					if (sizeNext > 0) {
 						lbuffer.Wait();
 					}
@@ -305,7 +296,6 @@ namespace FileHeaderReader {
 				altCrc32?.Finish();
 				altMd5?.Finish();
 				altSha1?.Finish();
-
 
 			} catch {
 				lbuffer?.Dispose();
@@ -348,9 +338,6 @@ namespace FileHeaderReader {
 
 			return 0;
 		}
-
-
-
 
 		public class FileResults {
 			public HeaderFileType HeaderFileType;

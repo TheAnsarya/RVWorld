@@ -6,7 +6,6 @@ using FileInfo = RVIO.FileInfo;
 using FileStream = RVIO.FileStream;
 using Path = RVIO.Path;
 
-
 namespace Compress.gZip {
 	public class gZip : ICompress {
 		private FileInfo _zipFileInfo;
@@ -33,7 +32,6 @@ namespace Compress.gZip {
 			};
 			return lf;
 		}
-
 
 		public ZipOpenType ZipOpen { get; private set; }
 
@@ -291,9 +289,7 @@ namespace Compress.gZip {
 					zipBw.Write(ExtraData);
 				}
 
-
 				dataStartPos = zipBw.BaseStream.Position;
-
 
 				_compressionStream = raw
 						   ? _zipFs
@@ -351,7 +347,6 @@ namespace Compress.gZip {
 			ZipOpen = ZipOpenType.OpenWrite;
 			return ZipReturn.ZipGood;
 		}
-
 
 		public ZipReturn ZipFileCloseWriteStream(byte[] crc32) {
 			if (_compressionStream is ZlibBaseStream dfStream) {

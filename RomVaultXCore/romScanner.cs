@@ -29,7 +29,6 @@ namespace RVXCore
         private static ulong _inMemorySize;
         public static bool DelFiles = true;
 
-
         public static void ScanFiles(object sender, DoWorkEventArgs e)
         {
             string sInMemorySize = Settings.ScanInMemorySize;
@@ -93,7 +92,6 @@ namespace RVXCore
                 AltSHA1 = resScan[0].AltSHA1
             };
 
-
             // test if needed.
             FindStatus res = RvRomFileMatchup.FileneededTest(tFile);
 
@@ -118,7 +116,6 @@ namespace RVXCore
                 gz1.ZipFileCloseWriteStream(tFile.CRC);
                 tFile.CompressedSize = gz1.CompressedSize;
                 gz1.ZipFileClose();
-
 
                 tFile.DBWrite();
                 ret = true;
@@ -271,7 +268,6 @@ namespace RVXCore
                 Directory.Delete(directory);
             }
         }
-
 
         private static bool IsDirectoryEmpty(string path)
         {

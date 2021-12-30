@@ -82,11 +82,9 @@ namespace Compress.ZipFile {
 						}
 						break;
 
-
 					/* PKWARE's authenticity verification */
 					case 0x0007: // Not Needed
 						break;
-
 
 					/*
                               -PKWARE Win95/WinNT Extra Field (0x000a):
@@ -136,7 +134,6 @@ namespace Compress.ZipFile {
                               number of 1.0E-07 seconds (1/10th microseconds!) past WinNT "epoch",
                               which is "01-Jan-1601 00:00:00 UTC".
 
-
                               Additional Notes
                               ================
                               WinRar only write this to the central Directory
@@ -163,7 +160,6 @@ namespace Compress.ZipFile {
 						}
 
 						break;
-
 
 					/*
                               -Windows NT Security Descriptor Extra Field (0x4453):
@@ -205,7 +201,6 @@ namespace Compress.ZipFile {
                     */
 					case 0x4453: // Not Needed
 						break;
-
 
 					/*
                              -FWKCS MD5 Extra Field (0x4b46):
@@ -250,7 +245,6 @@ namespace Compress.ZipFile {
                     */
 					case 0x4B46: // Not Needed
 						break;
-
 
 					/*
                              -Extended Timestamp Extra Field:
@@ -334,7 +328,6 @@ namespace Compress.ZipFile {
 
 						break;
 
-
 					/*
                              -Info-ZIP Unix Extra Field (type 1):
                               ==================================
@@ -409,7 +402,6 @@ namespace Compress.ZipFile {
 						Debug.WriteLine("Umodtime = " + new DateTime((long)lf.ModifiedTime));
 						pos += 4;
 						break;
-
 
 					/*
                              -Info-ZIP Unicode Path Extra Field:
@@ -490,7 +482,6 @@ namespace Compress.ZipFile {
 
 						break;
 
-
 					/*
                              -Info-ZIP UNIX Extra Field (type 2):
                               ==================================
@@ -525,7 +516,6 @@ namespace Compress.ZipFile {
                     */
 					case 0x7855: // Not Needed
 						break;
-
 
 					/*
                              -Info-ZIP New Unix Extra Field:
@@ -566,12 +556,9 @@ namespace Compress.ZipFile {
 					case 0x7875: // Not Needed
 						break;
 
-
-
 					/*      UNKNOWN    */
 					case 0xe57a:
 						break;
-
 
 					default:
 						break;

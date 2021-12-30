@@ -190,7 +190,6 @@ namespace DATReader.DatReader {
 			return true;
 		}
 
-
 		private static bool LoadDirFromDat(DatFileLoader dfl, DatDir parentDir, ReportError errorReport) {
 			dfl.Gn();
 			if (dfl.Next != "(") {
@@ -364,12 +363,10 @@ namespace DATReader.DatReader {
 				return false;
 			}
 
-
 			var dRom = new DatFile(DatFileType.UnSet) {
 				Name = dfl.Gn()
 			};
 			dfl.Gn();
-
 
 			while (dfl.Next != ")") {
 				switch (dfl.Next.ToLower()) {
@@ -424,7 +421,6 @@ namespace DATReader.DatReader {
 					case "baddump":
 						dRom.Status = "baddump";
 						break;
-
 
 					default:
 						errorReport?.Invoke(dfl.Filename, "Error: key word '" + dfl.Next + "' not known in rom, on line " + dfl.LineNumber);

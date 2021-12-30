@@ -24,7 +24,6 @@
 
 		public DatFileStatus DatStatus = DatFileStatus.InDatCollect;
 
-
 		protected DatBase(DatFileType type) => DatFileType = type;
 
 		public DatFileType DatFileType;

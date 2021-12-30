@@ -44,7 +44,6 @@ namespace Compress.ZipFile {
 			return zRet;
 		}
 
-
 		public ZipReturn ZipFileCloseReadStream() {
 			if (_compressionStream == null) {
 				return ZipReturn.ZipGood;

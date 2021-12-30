@@ -57,7 +57,6 @@
 		private readonly Tree _dDistCodes = new();
 		private readonly Tree _lenCodes = new();
 
-
 		private Tree _litCodes;
 		private Tree _distCodes;
 		private static readonly byte[] Order = { 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15 };
@@ -126,7 +125,6 @@
 			}
 		}
 
-
 		private int Decode(Tree tree) {
 			unchecked {
 
@@ -170,7 +168,6 @@
 				}
 			}
 		}
-
 
 		private void Stored() {
 			// Uncompressed data block.
