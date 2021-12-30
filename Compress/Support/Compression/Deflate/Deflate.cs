@@ -1403,11 +1403,8 @@ namespace Compress.Support.Compression.Deflate {
 
 
 		private bool Rfc1950BytesEmitted = false;
-		private bool _WantRfc1950HeaderBytes = true;
-		internal bool WantRfc1950HeaderBytes {
-			get => _WantRfc1950HeaderBytes;
-			set => _WantRfc1950HeaderBytes = value;
-		}
+
+		internal bool WantRfc1950HeaderBytes { get; set; } = true;
 
 
 		internal int Initialize(ZlibCodec codec, CompressionLevel level) => Initialize(codec, level, ZlibConstants.WindowBitsMax);

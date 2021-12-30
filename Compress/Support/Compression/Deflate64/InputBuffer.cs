@@ -21,13 +21,12 @@ namespace Compress.Support.Compression.Deflate64 {
 		private int _start;               // start poisition of the buffer
 		private int _end;                 // end position of the buffer
 		private uint _bitBuffer = 0;      // store the bits here, we can quickly shift in this buffer
-		private int _bitsInBuffer = 0;    // number of bits available in bitBuffer
 
 		/// <summary>Total bits available in the input buffer.</summary>
-		public int AvailableBits => _bitsInBuffer;
+		public int AvailableBits { get; private set; } = 0;
 
 		/// <summary>Total bytes available in the input buffer.</summary>
-		public int AvailableBytes => (_end - _start) + (_bitsInBuffer / 8);
+		public int AvailableBytes => (_end - _start) + (AvailableBits / 8);
 
 		/// <summary>Ensure that count bits are in the bit buffer.</summary>
 		/// <param name="count">Can be up to 16.</param>
@@ -36,21 +35,21 @@ namespace Compress.Support.Compression.Deflate64 {
 			Debug.Assert(count is > 0 and <= 16, "count is invalid.");
 
 			// manual inlining to improve perf
-			if (_bitsInBuffer < count) {
+			if (AvailableBits < count) {
 				if (NeedsInput()) {
 					return false;
 				}
 				// insert a byte to bitbuffer
-				_bitBuffer |= (uint)_buffer[_start++] << _bitsInBuffer;
-				_bitsInBuffer += 8;
+				_bitBuffer |= (uint)_buffer[_start++] << AvailableBits;
+				AvailableBits += 8;
 
-				if (_bitsInBuffer < count) {
+				if (AvailableBits < count) {
 					if (NeedsInput()) {
 						return false;
 					}
 					// insert a byte to bitbuffer
-					_bitBuffer |= (uint)_buffer[_start++] << _bitsInBuffer;
-					_bitsInBuffer += 8;
+					_bitBuffer |= (uint)_buffer[_start++] << AvailableBits;
+					AvailableBits += 8;
 				}
 			}
 
@@ -65,20 +64,20 @@ namespace Compress.Support.Compression.Deflate64 {
 		/// see how many bits are available.
 		/// </summary>
 		public uint TryLoad16Bits() {
-			if (_bitsInBuffer < 8) {
+			if (AvailableBits < 8) {
 				if (_start < _end) {
-					_bitBuffer |= (uint)_buffer[_start++] << _bitsInBuffer;
-					_bitsInBuffer += 8;
+					_bitBuffer |= (uint)_buffer[_start++] << AvailableBits;
+					AvailableBits += 8;
 				}
 
 				if (_start < _end) {
-					_bitBuffer |= (uint)_buffer[_start++] << _bitsInBuffer;
-					_bitsInBuffer += 8;
+					_bitBuffer |= (uint)_buffer[_start++] << AvailableBits;
+					AvailableBits += 8;
 				}
-			} else if (_bitsInBuffer < 16) {
+			} else if (AvailableBits < 16) {
 				if (_start < _end) {
-					_bitBuffer |= (uint)_buffer[_start++] << _bitsInBuffer;
-					_bitsInBuffer += 8;
+					_bitBuffer |= (uint)_buffer[_start++] << AvailableBits;
+					AvailableBits += 8;
 				}
 			}
 
@@ -97,7 +96,7 @@ namespace Compress.Support.Compression.Deflate64 {
 
 			var result = (int)(_bitBuffer & GetBitMask(count));
 			_bitBuffer >>= count;
-			_bitsInBuffer -= count;
+			AvailableBits -= count;
 			return result;
 		}
 
@@ -112,14 +111,14 @@ namespace Compress.Support.Compression.Deflate64 {
 			Debug.Assert(offset >= 0);
 			Debug.Assert(length >= 0);
 			Debug.Assert(offset <= output.Length - length);
-			Debug.Assert((_bitsInBuffer % 8) == 0);
+			Debug.Assert((AvailableBits % 8) == 0);
 
 			// Copy the bytes in bitBuffer first.
 			var bytesFromBitBuffer = 0;
-			while (_bitsInBuffer > 0 && length > 0) {
+			while (AvailableBits > 0 && length > 0) {
 				output[offset++] = (byte)_bitBuffer;
 				_bitBuffer >>= 8;
-				_bitsInBuffer -= 8;
+				AvailableBits -= 8;
 				length--;
 				bytesFromBitBuffer++;
 			}
@@ -165,15 +164,15 @@ namespace Compress.Support.Compression.Deflate64 {
 
 		/// <summary>Skip n bits in the buffer.</summary>
 		public void SkipBits(int n) {
-			Debug.Assert(_bitsInBuffer >= n, "No enough bits in the buffer, Did you call EnsureBitsAvailable?");
+			Debug.Assert(AvailableBits >= n, "No enough bits in the buffer, Did you call EnsureBitsAvailable?");
 			_bitBuffer >>= n;
-			_bitsInBuffer -= n;
+			AvailableBits -= n;
 		}
 
 		/// <summary>Skips to the next byte boundary.</summary>
 		public void SkipToByteBoundary() {
-			_bitBuffer >>= (_bitsInBuffer % 8);
-			_bitsInBuffer -= (_bitsInBuffer % 8);
+			_bitBuffer >>= (AvailableBits % 8);
+			AvailableBits -= (AvailableBits % 8);
 		}
 	}
 }

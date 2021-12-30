@@ -22,22 +22,21 @@ namespace Compress.Support.Compression.Deflate64 {
 
 		private readonly byte[] _window = new byte[WINDOW_SIZE]; // The window is 2^18 bytes
 		private int _end;       // this is the position to where we should write next byte
-		private int _bytesUsed; // The number of bytes in the output window which is not consumed.
 
 		/// <summary>Add a byte to output window.</summary>
 		public void Write(byte b) {
-			Debug.Assert(_bytesUsed < WINDOW_SIZE, "Can't add byte when window is full!");
+			Debug.Assert(AvailableBytes < WINDOW_SIZE, "Can't add byte when window is full!");
 			_window[_end++] = b;
 			_end &= WINDOW_MASK;
-			++_bytesUsed;
+			++AvailableBytes;
 		}
 
 		public void WriteLengthDistance(int length, int distance) {
-			Debug.Assert((_bytesUsed + length) <= WINDOW_SIZE, "No Enough space");
+			Debug.Assert((AvailableBytes + length) <= WINDOW_SIZE, "No Enough space");
 
 			// move backwards distance bytes in the output stream,
 			// and copy length bytes from this position to the output stream.
-			_bytesUsed += length;
+			AvailableBytes += length;
 			var copyStart = (_end - distance) & WINDOW_MASK; // start position for coping.
 
 			var border = WINDOW_SIZE - length;
@@ -69,7 +68,7 @@ namespace Compress.Support.Compression.Deflate64 {
 		/// This is used for uncompressed block.
 		/// </summary>
 		public int CopyFrom(InputBuffer input, int length) {
-			length = Math.Min(Math.Min(length, WINDOW_SIZE - _bytesUsed), input.AvailableBytes);
+			length = Math.Min(Math.Min(length, WINDOW_SIZE - AvailableBytes), input.AvailableBytes);
 			int copied;
 
 			// We might need wrap around to copy all bytes.
@@ -87,26 +86,26 @@ namespace Compress.Support.Compression.Deflate64 {
 			}
 
 			_end = (_end + copied) & WINDOW_MASK;
-			_bytesUsed += copied;
+			AvailableBytes += copied;
 			return copied;
 		}
 
 		/// <summary>Free space in output window.</summary>
-		public int FreeBytes => WINDOW_SIZE - _bytesUsed;
+		public int FreeBytes => WINDOW_SIZE - AvailableBytes;
 
 		/// <summary>Bytes not consumed in output window.</summary>
-		public int AvailableBytes => _bytesUsed;
+		public int AvailableBytes { get; private set; }
 
 		/// <summary>Copy the decompressed bytes to output array.</summary>
 		public int CopyTo(byte[] output, int offset, int length) {
 			int copyEnd;
 
-			if (length > _bytesUsed) {
+			if (length > AvailableBytes) {
 				// we can copy all the decompressed bytes out
 				copyEnd = _end;
-				length = _bytesUsed;
+				length = AvailableBytes;
 			} else {
-				copyEnd = (_end - _bytesUsed + length) & WINDOW_MASK; // copy length of bytes
+				copyEnd = (_end - AvailableBytes + length) & WINDOW_MASK; // copy length of bytes
 			}
 
 			var copied = length;
@@ -122,8 +121,8 @@ namespace Compress.Support.Compression.Deflate64 {
 			}
 
 			Array.Copy(_window, copyEnd - length, output, offset, length);
-			_bytesUsed -= copied;
-			Debug.Assert(_bytesUsed >= 0, "check this function and find why we copied more bytes than we have");
+			AvailableBytes -= copied;
+			Debug.Assert(AvailableBytes >= 0, "check this function and find why we copied more bytes than we have");
 			return copied;
 		}
 	}

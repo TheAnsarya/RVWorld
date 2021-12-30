@@ -24,8 +24,6 @@ namespace Compress.Support.Compression.LZMA {
 		private bool uncompressedChunk = false;
 		private bool needDictReset = true;
 		private bool needProps = true;
-		private readonly byte[] props = new byte[5];
-
 		private readonly Encoder encoder;
 
 		public LzmaStream(byte[] properties, Stream inputStream)
@@ -58,7 +56,7 @@ namespace Compress.Support.Compression.LZMA {
 
 				decoder = new Decoder();
 				decoder.SetDecoderProperties(properties);
-				props = properties;
+				Properties = properties;
 
 				availableBytes = outputSize < 0 ? long.MaxValue : outputSize;
 				rangeDecoderLimit = inputSize;
@@ -72,7 +70,7 @@ namespace Compress.Support.Compression.LZMA {
 					needDictReset = false;
 				}
 
-				props = new byte[1];
+				Properties = new byte[1];
 				availableBytes = 0;
 			}
 		}
@@ -94,7 +92,7 @@ namespace Compress.Support.Compression.LZMA {
 			encoder.SetCoderProperties(properties.propIDs, properties.properties);
 			var propStream = new MemoryStream(5);
 			encoder.WriteCoderProperties(propStream);
-			props = propStream.ToArray();
+			Properties = propStream.ToArray();
 
 			encoder.SetStreams(null, outputStream, -1, -1);
 			if (presetDictionary != null) {
@@ -220,16 +218,16 @@ namespace Compress.Support.Compression.LZMA {
 
 				if (control >= 0xC0) {
 					needProps = false;
-					props[0] = (byte)inputStream.ReadByte();
+					Properties[0] = (byte)inputStream.ReadByte();
 					inputPosition++;
 
 					decoder = new Decoder();
-					decoder.SetDecoderProperties(props);
+					decoder.SetDecoderProperties(Properties);
 				} else if (needProps) {
 					throw new DataErrorException();
 				} else if (control >= 0xA0) {
 					decoder = new Decoder();
-					decoder.SetDecoderProperties(props);
+					decoder.SetDecoderProperties(Properties);
 				}
 
 				rangeDecoder.Init(inputStream);
@@ -266,6 +264,6 @@ namespace Compress.Support.Compression.LZMA {
 			}
 		}
 
-		public byte[] Properties => props;
+		public byte[] Properties { get; } = new byte[5];
 	}
 }

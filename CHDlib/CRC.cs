@@ -4,7 +4,6 @@ namespace CHDlib {
 	public class CRC {
 		public static readonly uint[] CRC32Lookup;
 		private uint _crc;
-		private long _totalBytesRead;
 
 		static CRC() {
 			const uint polynomial = 0xEDB88320;
@@ -33,7 +32,7 @@ namespace CHDlib {
 		public CRC() => Reset();
 
 		public void Reset() {
-			_totalBytesRead = 0;
+			TotalBytesRead = 0;
 			_crc = 0xffffffffu;
 		}
 
@@ -41,7 +40,7 @@ namespace CHDlib {
 		internal void UpdateCRC(int inCh) => _crc = (_crc >> 8) ^ CRC32Lookup[(byte)_crc ^ ((byte)inCh)];
 
 		public void SlurpBlock(byte[] block, int offset, int count) {
-			_totalBytesRead += count;
+			TotalBytesRead += count;
 			var crc = _crc;
 
 			for (; (offset & 7) != 0 && count != 0; count--) {
@@ -88,7 +87,7 @@ namespace CHDlib {
 
 		public uint Crc32ResultU => ~_crc;
 
-		public long TotalBytesRead => _totalBytesRead;
+		public long TotalBytesRead { get; private set; }
 
 		public static uint CalculateDigest(byte[] data, uint offset, uint size) {
 			var crc = new CRC();
