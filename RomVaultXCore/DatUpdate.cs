@@ -362,6 +362,7 @@ namespace RVXCore
             {
                 parentName = searchGame.CloneOf;
             }
+
             if (string.IsNullOrEmpty(parentName) || (parentName == searchGame.Name))
             {
                 return;
@@ -411,6 +412,7 @@ namespace RVXCore
                     {
                         tGame.Roms.RemoveAt(r + 1);
                     }
+
                     r--;
                 }
             }
@@ -454,6 +456,7 @@ namespace RVXCore
                         }
                     }
                 }
+
                 if (founderror)
                 {
                     mGame.RomOf = null;
@@ -614,6 +617,7 @@ namespace RVXCore
             {
                 return Convert.ToInt32(res);
             }
+
             return 0;
         }
 

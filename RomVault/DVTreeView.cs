@@ -24,6 +24,7 @@ namespace ROMVault
             {
                 CheckBoxRenderer.DrawCheckBox(g, location, cbState);
             }
+
             return bitmap;
         }
 
@@ -53,6 +54,7 @@ namespace ROMVault
                     return CheckedState.UnChecked;
                 }
             }
+
             bool isChecked = false;
             bool isUnchecked = false;
             foreach (TreeNode node in tNode.Nodes)
@@ -74,6 +76,7 @@ namespace ROMVault
                     isUnchecked = true;
                 }
             }
+
             CheckedState rState;
             if (isChecked && isUnchecked)
             {

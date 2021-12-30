@@ -186,18 +186,21 @@ namespace RomVaultX
                     {
                         _parentForm.Hide();
                     }
+
                     return;
                 case FormWindowState.Maximized:
                     if (!_parentForm.Visible)
                     {
                         _parentForm.Show();
                     }
+
                     return;
                 case FormWindowState.Normal:
                     if (!_parentForm.Visible)
                     {
                         _parentForm.Show();
                     }
+
                     return;
             }
         }

@@ -30,10 +30,12 @@ namespace TrrntZipUI {
 					AddFile(t, ref lstFile);
 				}
 			}
+
 			foreach (var file in lstFile) {
 				var cf = new cFile() { fileId = fileCount++, filename = file };
 				_fileCollection.Add(cf);
 			}
+
 			_updateFileCount?.Invoke(fileCount);
 
 			foreach (var t in _file) {
@@ -41,6 +43,7 @@ namespace TrrntZipUI {
 					AddDirectory(t);
 				}
 			}
+
 			_processFileEndCallBack?.Invoke(-1, 0, TrrntZipStatus.Unknown);
 		}
 
@@ -66,6 +69,7 @@ namespace TrrntZipUI {
 				cf.Add(filename);
 				return;
 			}
+
 			return;
 		}
 
@@ -77,10 +81,12 @@ namespace TrrntZipUI {
 			foreach (var t in fi) {
 				AddFile(t.FullName, ref lstFile);
 			}
+
 			foreach (var file in lstFile) {
 				var cf = new cFile() { fileId = fileCount++, filename = file };
 				_fileCollection.Add(cf);
 			}
+
 			_updateFileCount?.Invoke(fileCount);
 
 			var diChild = di.GetDirectories();

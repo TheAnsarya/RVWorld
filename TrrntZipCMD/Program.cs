@@ -32,6 +32,7 @@ namespace TrrntZipCMD {
 					if (arg.Length < 2) {
 						continue;
 					}
+
 					if (arg[..1] != "-") {
 						continue;
 					}
@@ -88,6 +89,7 @@ namespace TrrntZipCMD {
 					if (arg.Length < 2) {
 						continue;
 					}
+
 					if (arg[..1] == "-") {
 						continue;
 					}

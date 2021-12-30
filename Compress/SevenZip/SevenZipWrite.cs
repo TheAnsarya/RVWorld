@@ -40,6 +40,7 @@ namespace Compress.SevenZip {
 				ZipFileClose();
 				return ZipReturn.ZipErrorOpeningFile;
 			}
+
 			ZipOpen = ZipOpenType.OpenWrite;
 
 			_signatureHeader = new SignatureHeader();
@@ -48,6 +49,7 @@ namespace Compress.SevenZip {
 			using (BinaryWriter bw = new(_zipFs, Encoding.UTF8, true)) {
 				_signatureHeader.Write(bw);
 			}
+
 			_baseOffset = _zipFs.Position;
 
 

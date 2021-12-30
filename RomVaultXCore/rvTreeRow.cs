@@ -88,6 +88,7 @@ namespace RVXCore
                             }
                         }
                     }
+
                     if (!pTree.Expanded)
                     {
                         skipUntil = pTree.dirFullName;
@@ -98,6 +99,7 @@ namespace RVXCore
                         pTree.RomGot = Convert.ToInt32(dr["dirRomGot"]);
                         pTree.RomNoDump = Convert.ToInt32(dr["dirNoDump"]);
                     }
+
                     rows.Add(pTree);
 
                     if (lastTree != null)
@@ -122,6 +124,7 @@ namespace RVXCore
                             rows.Insert(rows.Count - 2, dirTree);
                             lastTree.MultiDatDir = true;
                         }
+
                         if (thisMultiDatDirFound)
                         {
                             pTree.MultiDatDir = true;
@@ -145,6 +148,7 @@ namespace RVXCore
             {
                 return;
             }
+
             value = 1 - value;
 
             List<uint> todo = new List<uint>
@@ -174,6 +178,7 @@ namespace RVXCore
             {
                 return null;
             }
+
             return Convert.ToInt32(res);
         }
 
@@ -200,9 +205,11 @@ namespace RVXCore
                         uint id = Convert.ToUInt32(dr["DirId"]);
                         retList.Add(id);
                     }
+
                     dr.Close();
                 }
             }
+
             return retList;
         }
 
@@ -217,6 +224,7 @@ namespace RVXCore
                 _commandSetTreeExpanded.Parameters.Add(new SQLiteParameter("expanded"));
                 _commandSetTreeExpanded.Parameters.Add(new SQLiteParameter("dirId"));
             }
+
             _commandSetTreeExpanded.Parameters["dirId"].Value = DirId;
             _commandSetTreeExpanded.Parameters["expanded"].Value = expanded;
             _commandSetTreeExpanded.ExecuteNonQuery();

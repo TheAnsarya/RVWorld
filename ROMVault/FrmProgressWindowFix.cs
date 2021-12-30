@@ -169,6 +169,7 @@ namespace ROMVault
                 {
                     progressBar.Value = bgwProg.Progress;
                 }
+
                 UpdateStatusText();
                 return;
             }
@@ -217,6 +218,7 @@ namespace ROMVault
                 {
                     _parentForm.Show();
                 }
+
                 _funcFinished?.Invoke();
                 Close();
             }
@@ -242,18 +244,21 @@ namespace ROMVault
                     {
                         _parentForm.Hide();
                     }
+
                     return;
                 case FormWindowState.Maximized:
                     if (!_parentForm.Visible)
                     {
                         _parentForm.Show();
                     }
+
                     return;
                 case FormWindowState.Normal:
                     if (!_parentForm.Visible)
                     {
                         _parentForm.Show();
                     }
+
                     return;
             }
         }

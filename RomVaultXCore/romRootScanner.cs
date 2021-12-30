@@ -140,9 +140,11 @@ namespace RVXCore
                                 continue;
                             }
                         }
+
                         tFile.DBWrite();
                     }
                 }
+
                 if (_bgw.CancellationPending)
                 {
                     return;
@@ -156,6 +158,7 @@ namespace RVXCore
                 {
                     return;
                 }
+
                 ScanRomRoot(d.FullName);
             }
         }

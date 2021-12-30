@@ -18,6 +18,7 @@ namespace RVXCore
                 {
                     message += $"\r\nINNER EXCEPTION:\r\nSource: {e.InnerException.Source}\r\nMessage: {e.InnerException.Message}\r\n";
                 }
+
                 message += $"\r\nSTACK TRACE:\r\n{e.StackTrace}";
 
 

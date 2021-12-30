@@ -43,8 +43,10 @@ namespace RVXCore.DB
                     };
                     rows.Add(gridRow);
                 }
+
                 dr.Close();
             }
+
             return rows;
         }
 

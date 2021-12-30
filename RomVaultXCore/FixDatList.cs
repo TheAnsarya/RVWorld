@@ -96,9 +96,11 @@ namespace RVXCore
                     _ts.WriteLine($"\t\t<description>{Etxt(thisFilename.Replace('\\', '-').Replace('/', '-'))}</description>");
                     lastname = thisFilename;
                 }
+
                 _ts.WriteLine($"\t\t<rom name=\"{Etxt(RomName)}\"{strSize}{strCRC}{strSHA1}{strMD5} />");
 
             }
+
             if (!string.IsNullOrEmpty(lastname))
             {
                 _ts.WriteLine($"\t</game>");

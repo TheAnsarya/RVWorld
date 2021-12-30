@@ -80,15 +80,19 @@ namespace RomVaultCore.Utils {
 				if (b1Len == p) {
 					return b2Len == p ? 0 : -1;
 				}
+
 				if (b2Len == p) {
 					return 1;
 				}
+
 				if (b1[p] < b2[p]) {
 					return -1;
 				}
+
 				if (b1[p] > b2[p]) {
 					return 1;
 				}
+
 				p++;
 			}
 		}
@@ -102,6 +106,7 @@ namespace RomVaultCore.Utils {
 				var s = i.ToString("X2").ToLower();
 				result[i] = s[0] + ((uint)s[1] << 16);
 			}
+
 			return result;
 		}
 		private static string ByteArrayToHexViaLookup32(byte[] bytes) {
@@ -112,6 +117,7 @@ namespace RomVaultCore.Utils {
 				result[c++] = (char)val;
 				result[c++] = (char)(val >> 16);
 			}
+
 			return new string(result);
 		}
 

@@ -37,11 +37,13 @@ namespace RomVaultX
                 {
                     nodeDepth += 1;
                 }
+
                 pTree.RTree = new Rectangle(0, yPos - 8, nodeDepth * 18, 16);
                 if (pTree.TRow.DatId == null)
                 {
                     pTree.RExpand = new Rectangle(5 + nodeDepth * 18, yPos + 4, 9, 9);
                 }
+
                 pTree.RIcon = new Rectangle(20 + nodeDepth * 18, yPos, 16, 16);
                 pTree.RText = new Rectangle(36 + nodeDepth * 18, yPos, 500, 16);
                 yPos += 16;
@@ -191,6 +193,7 @@ namespace RomVaultX
                         thistxt += ": " + pTree.TRow.datName;
                     }
                 }
+
                 if ((pTree.TRow.RomTotal > 0) || (pTree.TRow.RomGot > 0) || (pTree.TRow.RomNoDump > 0))
                 {
                     thistxt += " ( Have: " + pTree.TRow.RomGot.ToString("#,0") + " / Missing: " + (pTree.TRow.RomTotal - pTree.TRow.RomGot - pTree.TRow.RomNoDump).ToString("#,0") + " )";

@@ -61,6 +61,7 @@ namespace Compress.SevenZip.Structure {
 					psi.Report(ref sb);
 				}
 			}
+
 			if (Folders == null) {
 				sb.AppendLine($"  Folders[] = null");
 			} else {

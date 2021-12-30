@@ -106,9 +106,11 @@ namespace Compress.Support.Compression.BZip2 {
 							heap[zz] = heap[zz >> 1];
 							zz >>= 1;
 						}
+
 						heap[zz] = tmp;
 					}
 				}
+
 				if (!(nHeap < (BZip2Constants.MAX_ALPHA_SIZE + 2))) {
 					Panic();
 				}
@@ -126,18 +128,23 @@ namespace Compress.Support.Compression.BZip2 {
 							if (yy > nHeap) {
 								break;
 							}
+
 							if (yy < nHeap
 								&& weight[heap[yy + 1]] < weight[heap[yy]]) {
 								yy++;
 							}
+
 							if (weight[tmp] < weight[heap[yy]]) {
 								break;
 							}
+
 							heap[zz] = heap[yy];
 							zz = yy;
 						}
+
 						heap[zz] = tmp;
 					}
+
 					n2 = heap[1];
 					heap[1] = heap[nHeap];
 					nHeap--;
@@ -150,18 +157,23 @@ namespace Compress.Support.Compression.BZip2 {
 							if (yy > nHeap) {
 								break;
 							}
+
 							if (yy < nHeap
 								&& weight[heap[yy + 1]] < weight[heap[yy]]) {
 								yy++;
 							}
+
 							if (weight[tmp] < weight[heap[yy]]) {
 								break;
 							}
+
 							heap[zz] = heap[yy];
 							zz = yy;
 						}
+
 						heap[zz] = tmp;
 					}
+
 					nNodes++;
 					parent[n1] = parent[n2] = nNodes;
 
@@ -183,9 +195,11 @@ namespace Compress.Support.Compression.BZip2 {
 							heap[zz] = heap[zz >> 1];
 							zz >>= 1;
 						}
+
 						heap[zz] = tmp;
 					}
 				}
+
 				if (!(nNodes < (BZip2Constants.MAX_ALPHA_SIZE * 2))) {
 					Panic();
 				}
@@ -198,6 +212,7 @@ namespace Compress.Support.Compression.BZip2 {
 						k = parent[k];
 						j++;
 					}
+
 					len[i - 1] = (char)j;
 					if (j > maxLen) {
 						tooLong = true;
@@ -296,9 +311,11 @@ namespace Compress.Support.Compression.BZip2 {
 			if (inBlockSize > 9) {
 				inBlockSize = 9;
 			}
+
 			if (inBlockSize < 1) {
 				inBlockSize = 1;
 			}
+
 			blockSize100k = inBlockSize;
 			AllocateCompressStructures();
 			Initialize();
@@ -337,6 +354,7 @@ namespace Compress.Support.Compression.BZip2 {
 				for (var i = 0; i < runLength; i++) {
 					mCrc.UpdateCRC((char)currentChar);
 				}
+
 				switch (runLength) {
 					case 1:
 						last++;
@@ -405,6 +423,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (runLength > 0) {
 				WriteRun();
 			}
+
 			currentChar = -1;
 			EndBlock();
 			EndCompression();
@@ -540,6 +559,7 @@ namespace Compress.Support.Compression.BZip2 {
 				} catch (IOException e) {
 					throw e;
 				}
+
 				bsBuff <<= 8;
 				bsLive -= 8;
 				bytesOut++;
@@ -554,10 +574,12 @@ namespace Compress.Support.Compression.BZip2 {
 				} catch (IOException e) {
 					throw e;
 				}
+
 				bsBuff <<= 8;
 				bsLive -= 8;
 				bytesOut++;
 			}
+
 			bsBuff |= (v << (32 - bsLive - n));
 			bsLive += n;
 		}
@@ -666,6 +688,7 @@ namespace Compress.Support.Compression.BZip2 {
 					if (gs >= nMTF) {
 						break;
 					}
+
 					ge = gs + BZip2Constants.G_SIZE - 1;
 					if (ge >= nMTF) {
 						ge = nMTF - 1;
@@ -691,6 +714,7 @@ namespace Compress.Support.Compression.BZip2 {
 							cost4 += (short)len[4][icv];
 							cost5 += (short)len[5][icv];
 						}
+
 						cost[0] = cost0;
 						cost[1] = cost1;
 						cost[2] = cost2;
@@ -748,6 +772,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (!(nGroups < 8)) {
 				Panic();
 			}
+
 			if (nSelectors is not (< 32768 and <= (2 + (900000 / BZip2Constants.G_SIZE)))) {
 				Panic();
 			}
@@ -760,6 +785,7 @@ namespace Compress.Support.Compression.BZip2 {
 				for (i = 0; i < nGroups; i++) {
 					pos[i] = (char)i;
 				}
+
 				for (i = 0; i < nSelectors; i++) {
 					ll_i = selector[i];
 					j = 0;
@@ -770,6 +796,7 @@ namespace Compress.Support.Compression.BZip2 {
 						tmp = pos[j];
 						pos[j] = tmp2;
 					}
+
 					pos[0] = tmp;
 					selectorMtf[i] = (char)j;
 				}
@@ -785,16 +812,20 @@ namespace Compress.Support.Compression.BZip2 {
 					if (len[t][i] > maxLen) {
 						maxLen = len[t][i];
 					}
+
 					if (len[t][i] < minLen) {
 						minLen = len[t][i];
 					}
 				}
+
 				if (maxLen > 20) {
 					Panic();
 				}
+
 				if (minLen < 1) {
 					Panic();
 				}
+
 				HbAssignCodes(code[t], len[t], minLen, maxLen, alphaSize);
 			}
 
@@ -841,6 +872,7 @@ namespace Compress.Support.Compression.BZip2 {
 				for (j = 0; j < selectorMtf[i]; j++) {
 					BsW(1, 1);
 				}
+
 				BsW(1, 0);
 			}
 
@@ -855,10 +887,12 @@ namespace Compress.Support.Compression.BZip2 {
 						BsW(2, 2);
 						curr++; /* 10 */
 					}
+
 					while (curr > len[t][i]) {
 						BsW(2, 3);
 						curr--; /* 11 */
 					}
+
 					BsW(1, 0);
 				}
 			}
@@ -871,10 +905,12 @@ namespace Compress.Support.Compression.BZip2 {
 				if (gs >= nMTF) {
 					break;
 				}
+
 				ge = gs + BZip2Constants.G_SIZE - 1;
 				if (ge >= nMTF) {
 					ge = nMTF - 1;
 				}
+
 				for (i = gs; i <= ge; i++) {
 					BsW(len[selector[selCtr]][szptr[i]],
 						code[selector[selCtr]][szptr[i]]);
@@ -883,6 +919,7 @@ namespace Compress.Support.Compression.BZip2 {
 				gs = ge + 1;
 				selCtr++;
 			}
+
 			if (!(selCtr == nSelectors)) {
 				Panic();
 			}
@@ -910,6 +947,7 @@ namespace Compress.Support.Compression.BZip2 {
 			while (incs[hp] < bigN) {
 				hp++;
 			}
+
 			hp--;
 
 			for (; hp >= 0; hp--) {
@@ -921,6 +959,7 @@ namespace Compress.Support.Compression.BZip2 {
 					if (i > hi) {
 						break;
 					}
+
 					v = zptr[i];
 					j = i;
 					while (FullGtU(zptr[j - h] + d, v + d)) {
@@ -930,6 +969,7 @@ namespace Compress.Support.Compression.BZip2 {
 							break;
 						}
 					}
+
 					zptr[j] = v;
 					i++;
 
@@ -937,6 +977,7 @@ namespace Compress.Support.Compression.BZip2 {
 					if (i > hi) {
 						break;
 					}
+
 					v = zptr[i];
 					j = i;
 					while (FullGtU(zptr[j - h] + d, v + d)) {
@@ -946,6 +987,7 @@ namespace Compress.Support.Compression.BZip2 {
 							break;
 						}
 					}
+
 					zptr[j] = v;
 					i++;
 
@@ -953,6 +995,7 @@ namespace Compress.Support.Compression.BZip2 {
 					if (i > hi) {
 						break;
 					}
+
 					v = zptr[i];
 					j = i;
 					while (FullGtU(zptr[j - h] + d, v + d)) {
@@ -962,6 +1005,7 @@ namespace Compress.Support.Compression.BZip2 {
 							break;
 						}
 					}
+
 					zptr[j] = v;
 					i++;
 
@@ -991,14 +1035,17 @@ namespace Compress.Support.Compression.BZip2 {
 				a = b;
 				b = t;
 			}
+
 			if (b > c) {
 				t = b;
 				b = c;
 				c = t;
 			}
+
 			if (a > b) {
 				b = a;
 			}
+
 			return b;
 		}
 
@@ -1038,6 +1085,7 @@ namespace Compress.Support.Compression.BZip2 {
 					if (workDone > workLimit && firstAttempt) {
 						return;
 					}
+
 					continue;
 				}
 
@@ -1053,6 +1101,7 @@ namespace Compress.Support.Compression.BZip2 {
 						if (unLo > unHi) {
 							break;
 						}
+
 						n = block[zptr[unLo] + d + 1] - med;
 						if (n == 0) {
 							var temp = 0;
@@ -1066,12 +1115,15 @@ namespace Compress.Support.Compression.BZip2 {
 						if (n > 0) {
 							break;
 						}
+
 						unLo++;
 					}
+
 					while (true) {
 						if (unLo > unHi) {
 							break;
 						}
+
 						n = block[zptr[unHi] + d + 1] - med;
 						if (n == 0) {
 							var temp = 0;
@@ -1085,11 +1137,14 @@ namespace Compress.Support.Compression.BZip2 {
 						if (n < 0) {
 							break;
 						}
+
 						unHi--;
 					}
+
 					if (unLo > unHi) {
 						break;
 					}
+
 					var tempx = zptr[unLo];
 					zptr[unLo] = zptr[unHi];
 					zptr[unHi] = tempx;
@@ -1148,6 +1203,7 @@ namespace Compress.Support.Compression.BZip2 {
 			for (i = 0; i < BZip2Constants.NUM_OVERSHOOT_BYTES; i++) {
 				block[last + i + 2] = block[(i % (last + 1)) + 1];
 			}
+
 			for (i = 0; i <= last + BZip2Constants.NUM_OVERSHOOT_BYTES; i++) {
 				quadrant[i] = 0;
 			}
@@ -1162,6 +1218,7 @@ namespace Compress.Support.Compression.BZip2 {
 				for (i = 0; i <= last; i++) {
 					zptr[i] = i;
 				}
+
 				firstAttempt = false;
 				workDone = workLimit = 0;
 				SimpleSort(0, last, 0);
@@ -1230,6 +1287,7 @@ namespace Compress.Support.Compression.BZip2 {
 									break;
 								}
 							}
+
 							runningOrder[j] = vv;
 						}
 					} while (h != 1);
@@ -1264,6 +1322,7 @@ namespace Compress.Support.Compression.BZip2 {
 									return;
 								}
 							}
+
 							ftab[sb] |= SETMASK;
 						}
 					}
@@ -1341,6 +1400,7 @@ namespace Compress.Support.Compression.BZip2 {
 						rTPos = 0;
 					}
 				}
+
 				rNToGo--;
 				block[i + 1] ^= (char)((rNToGo == 1) ? 1 : 0);
 				// handle 16 bit signed numbers
@@ -1391,6 +1451,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (c1 != c2) {
 				return (c1 > c2);
 			}
+
 			i1++;
 			i2++;
 
@@ -1399,6 +1460,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (c1 != c2) {
 				return (c1 > c2);
 			}
+
 			i1++;
 			i2++;
 
@@ -1407,6 +1469,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (c1 != c2) {
 				return (c1 > c2);
 			}
+
 			i1++;
 			i2++;
 
@@ -1415,6 +1478,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (c1 != c2) {
 				return (c1 > c2);
 			}
+
 			i1++;
 			i2++;
 
@@ -1423,6 +1487,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (c1 != c2) {
 				return (c1 > c2);
 			}
+
 			i1++;
 			i2++;
 
@@ -1431,6 +1496,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (c1 != c2) {
 				return (c1 > c2);
 			}
+
 			i1++;
 			i2++;
 
@@ -1442,11 +1508,13 @@ namespace Compress.Support.Compression.BZip2 {
 				if (c1 != c2) {
 					return (c1 > c2);
 				}
+
 				s1 = quadrant[i1];
 				s2 = quadrant[i2];
 				if (s1 != s2) {
 					return (s1 > s2);
 				}
+
 				i1++;
 				i2++;
 
@@ -1455,11 +1523,13 @@ namespace Compress.Support.Compression.BZip2 {
 				if (c1 != c2) {
 					return (c1 > c2);
 				}
+
 				s1 = quadrant[i1];
 				s2 = quadrant[i2];
 				if (s1 != s2) {
 					return (s1 > s2);
 				}
+
 				i1++;
 				i2++;
 
@@ -1468,11 +1538,13 @@ namespace Compress.Support.Compression.BZip2 {
 				if (c1 != c2) {
 					return (c1 > c2);
 				}
+
 				s1 = quadrant[i1];
 				s2 = quadrant[i2];
 				if (s1 != s2) {
 					return (s1 > s2);
 				}
+
 				i1++;
 				i2++;
 
@@ -1481,11 +1553,13 @@ namespace Compress.Support.Compression.BZip2 {
 				if (c1 != c2) {
 					return (c1 > c2);
 				}
+
 				s1 = quadrant[i1];
 				s2 = quadrant[i2];
 				if (s1 != s2) {
 					return (s1 > s2);
 				}
+
 				i1++;
 				i2++;
 
@@ -1603,10 +1677,12 @@ namespace Compress.Support.Compression.BZip2 {
 							if (zPend < 2) {
 								break;
 							}
+
 							zPend = (zPend - 2) / 2;
 						};
 						zPend = 0;
 					}
+
 					szptr[wr] = (short)(j + 1);
 					wr++;
 					mtfFreq[j + 1]++;
@@ -1628,9 +1704,11 @@ namespace Compress.Support.Compression.BZip2 {
 							mtfFreq[BZip2Constants.RUNB]++;
 							break;
 					}
+
 					if (zPend < 2) {
 						break;
 					}
+
 					zPend = (zPend - 2) / 2;
 				}
 			}

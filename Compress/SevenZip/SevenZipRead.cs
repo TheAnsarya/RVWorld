@@ -19,11 +19,13 @@ namespace Compress.SevenZip {
 					ZipFileClose();
 					return ZipReturn.ZipErrorFileNotFound;
 				}
+
 				_zipFileInfo = new FileInfo(filename);
 				if ((timestamp != -1) && (_zipFileInfo.LastWriteTime != timestamp)) {
 					ZipFileClose();
 					return ZipReturn.ZipErrorTimeStamp;
 				}
+
 				var errorCode = FileStream.OpenFileRead(filename, out _zipFs);
 				if (errorCode != 0) {
 					ZipFileClose();

@@ -139,6 +139,7 @@ namespace RVXCore.DB
                     RvGameReadFromReader(dr, rvGame);
                     games.Add(rvGame);
                 }
+
                 dr.Close();
             }
 
@@ -303,6 +304,7 @@ namespace RVXCore.DB
                     intBottom = intMid + 1;
                 }
             }
+
             index = intMid;
 
             // if match was found check up the list for the first match

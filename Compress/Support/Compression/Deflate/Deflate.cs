@@ -409,6 +409,7 @@ namespace Compress.Support.Compression.Deflate {
 				// And continue down the tree, setting j to the left son of k
 				j <<= 1;
 			}
+
 			heap[k] = v;
 		}
 
@@ -452,6 +453,7 @@ namespace Compress.Support.Compression.Deflate {
 				} else {
 					bl_tree[InternalConstants.REPZ_11_138 * 2]++;
 				}
+
 				count = 0; prevlen = curlen;
 				if (nextlen == 0) {
 					max_count = 138; min_count = 3;
@@ -504,6 +506,7 @@ namespace Compress.Support.Compression.Deflate {
 			for (rank = 0; rank < blcodes; rank++) {
 				send_bits(bl_tree[Tree.bl_order[rank] * 2 + 1], 3);
 			}
+
 			send_tree(dyn_ltree, lcodes - 1); // literal tree
 			send_tree(dyn_dtree, dcodes - 1); // distance tree
 		}
@@ -638,6 +641,7 @@ namespace Compress.Support.Compression.Deflate {
 				send_code(END_BLOCK, StaticTree.lengthAndLiteralsTreeCodes);
 				bi_flush();
 			}
+
 			last_eob_len = 7;
 		}
 
@@ -725,6 +729,7 @@ namespace Compress.Support.Compression.Deflate {
 							lc -= Tree.LengthBase[code];
 							send_bits(lc, extra);
 						}
+
 						distance--; // dist is now the match distance - 1
 						code = Tree.DistanceCode(distance);
 
@@ -761,12 +766,15 @@ namespace Compress.Support.Compression.Deflate {
 			while (n < 7) {
 				bin_freq += dyn_ltree[n * 2]; n++;
 			}
+
 			while (n < 128) {
 				ascii_freq += dyn_ltree[n * 2]; n++;
 			}
+
 			while (n < InternalConstants.LITERALS) {
 				bin_freq += dyn_ltree[n * 2]; n++;
 			}
+
 			data_type = (sbyte)(bin_freq > (ascii_freq >> 2) ? Z_BINARY : Z_ASCII);
 		}
 
@@ -796,6 +804,7 @@ namespace Compress.Support.Compression.Deflate {
 				//put_byte((byte)bi_buf);
 				pending[pendingCount++] = (byte)bi_buf;
 			}
+
 			bi_buf = 0;
 			bi_valid = 0;
 		}
@@ -1069,6 +1078,7 @@ namespace Compress.Support.Compression.Deflate {
 					if (lookahead < MIN_LOOKAHEAD && flush == FlushType.None) {
 						return BlockState.NeedMore;
 					}
+
 					if (lookahead == 0) {
 						break; // flush the current block
 					}
@@ -1097,6 +1107,7 @@ namespace Compress.Support.Compression.Deflate {
 					}
 					// longest_match() sets match_start
 				}
+
 				if (match_length >= MIN_MATCH) {
 					//        check_match(strstart, match_start, match_length);
 
@@ -1138,6 +1149,7 @@ namespace Compress.Support.Compression.Deflate {
 					lookahead--;
 					strstart++;
 				}
+
 				if (bflush) {
 					flush_block_only(false);
 					if (_codec.AvailableBytesOut == 0) {
@@ -1266,6 +1278,7 @@ namespace Compress.Support.Compression.Deflate {
 					if (bflush) {
 						flush_block_only(false);
 					}
+
 					strstart++;
 					lookahead--;
 					if (_codec.AvailableBytesOut == 0) {
@@ -1285,6 +1298,7 @@ namespace Compress.Support.Compression.Deflate {
 				bflush = _tr_tally(0, window[strstart - 1] & 0xff);
 				match_available = 0;
 			}
+
 			flush_block_only(flush == FlushType.Finish);
 
 			if (_codec.AvailableBytesOut == 0) {
@@ -1562,6 +1576,7 @@ namespace Compress.Support.Compression.Deflate {
 				prev[n & w_mask] = head[ins_h];
 				head[ins_h] = (short)n;
 			}
+
 			return ZlibConstants.Z_OK;
 		}
 
@@ -1576,6 +1591,7 @@ namespace Compress.Support.Compression.Deflate {
 				_codec.Message = _ErrorMessage[ZlibConstants.Z_NEED_DICT - (ZlibConstants.Z_STREAM_ERROR)];
 				throw new ZlibException($"Something is fishy. [{_codec.Message}]");
 			}
+
 			if (_codec.AvailableBytesOut == 0) {
 				_codec.Message = _ErrorMessage[ZlibConstants.Z_NEED_DICT - (ZlibConstants.Z_BUF_ERROR)];
 				throw new ZlibException("OutputBuffer is full (AvailableBytesOut == 0)");

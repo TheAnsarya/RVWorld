@@ -83,6 +83,7 @@ namespace ROMVault
                 {
                     progressBar.Value = e;
                 }
+
                 UpdateStatusText();
                 return;
             }
@@ -92,6 +93,7 @@ namespace ROMVault
                 label.Text = bgwT.Text;
                 return;
             }
+
             if (obj is bgwSetRange bgwSr)
             {
                 progressBar.Minimum = 0;
@@ -114,6 +116,7 @@ namespace ROMVault
                 {
                     progressBar2.Value = bgwV2.Value;
                 }
+
                 UpdateStatusText2();
                 return;
             }
@@ -126,6 +129,7 @@ namespace ROMVault
                 UpdateStatusText2();
                 return;
             }
+
             if (obj is bgwRange2Visible bgwR2V)
             {
                 label2.Visible = bgwR2V.Visible;
@@ -236,6 +240,7 @@ namespace ROMVault
                 {
                     _parentForm.Show();
                 }
+
                 _funcFinished?.Invoke();
                 Close();
             }
@@ -263,18 +268,21 @@ namespace ROMVault
                     {
                         _parentForm.Hide();
                     }
+
                     return;
                 case FormWindowState.Maximized:
                     if (!_parentForm.Visible)
                     {
                         _parentForm.Show();
                     }
+
                     return;
                 case FormWindowState.Normal:
                     if (!_parentForm.Visible)
                     {
                         _parentForm.Show();
                     }
+
                     return;
             }
         }

@@ -111,6 +111,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (temp < 0) {
 				temp = 256 + temp;
 			}
+
 			globalCrc = (globalCrc << 8) ^ CRC.crc32Table[temp];
 		}
 

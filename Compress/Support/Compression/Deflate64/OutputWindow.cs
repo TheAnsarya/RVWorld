@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -120,6 +120,7 @@ namespace Compress.Support.Compression.Deflate64 {
 				offset += tailLen;
 				length = copyEnd;
 			}
+
 			Array.Copy(_window, copyEnd - length, output, offset, length);
 			_bytesUsed -= copied;
 			Debug.Assert(_bytesUsed >= 0, "check this function and find why we copied more bytes than we have");

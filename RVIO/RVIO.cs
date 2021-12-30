@@ -59,7 +59,9 @@ namespace RVIO {
 
 			Length = fi.Length;
 			try { LastWriteTime = fi.LastWriteTimeUtc.Ticks; } catch { LastWriteTime = 0; }
+
 			try { LastAccessTime = fi.LastAccessTimeUtc.Ticks; } catch { LastAccessTime = 0; }
+
 			try { CreationTime = fi.CreationTimeUtc.Ticks; } catch { CreationTime = 0; }
 		}
 	}
@@ -83,7 +85,9 @@ namespace RVIO {
 			}
 
 			try { LastWriteTime = fi.LastWriteTimeUtc.Ticks; } catch { LastWriteTime = 0; }
+
 			try { LastAccessTime = fi.LastAccessTimeUtc.Ticks; } catch { LastAccessTime = 0; }
+
 			try { CreationTime = fi.CreationTimeUtc.Ticks; } catch { CreationTime = 0; }
 		}
 
@@ -104,7 +108,9 @@ namespace RVIO {
 							FullName = Path.Combine(FullName, tDi.Name)
 						};
 						try { lDi.LastWriteTime = tDi.LastWriteTimeUtc.Ticks; } catch { lDi.LastWriteTime = 0; }
+
 						try { lDi.LastAccessTime = tDi.LastAccessTimeUtc.Ticks; } catch { lDi.LastWriteTime = 0; }
+
 						try { lDi.CreationTime = tDi.CreationTimeUtc.Ticks; } catch { lDi.LastWriteTime = 0; }
 
 						dirs.Add(lDi);
@@ -113,6 +119,7 @@ namespace RVIO {
 			} catch {
 
 			}
+
 			return dirs.ToArray();
 		}
 
@@ -134,7 +141,9 @@ namespace RVIO {
 							Length = tDi.Length
 						};
 						try { lFi.LastWriteTime = tDi.LastWriteTimeUtc.Ticks; } catch { lFi.LastWriteTime = 0; }
+
 						try { lFi.LastAccessTime = tDi.LastAccessTimeUtc.Ticks; } catch { lFi.LastWriteTime = 0; }
+
 						try { lFi.CreationTime = tDi.CreationTimeUtc.Ticks; } catch { lFi.LastWriteTime = 0; }
 
 						files.Add(lFi);
@@ -238,6 +247,7 @@ namespace RVIO {
 					return true;
 				}
 			}
+
 			return false;
 		}
 
@@ -346,6 +356,7 @@ namespace RVIO {
 
 				retPath = path1.Substring(0, path1Back + 1) + path2;
 			}
+
 			return retPath;
 
 		}

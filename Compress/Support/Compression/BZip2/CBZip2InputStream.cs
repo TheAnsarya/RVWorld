@@ -147,6 +147,7 @@ namespace Compress.Support.Compression.BZip2 {
 			for (var k = 0; k < n1; ++k) {
 				a[k] = new int[n2];
 			}
+
 			return a;
 		}
 
@@ -155,6 +156,7 @@ namespace Compress.Support.Compression.BZip2 {
 			for (var k = 0; k < n1; ++k) {
 				a[k] = new char[n2];
 			}
+
 			return a;
 		}
 
@@ -185,6 +187,7 @@ namespace Compress.Support.Compression.BZip2 {
 					default:
 						break;
 				}
+
 				return retChar;
 			}
 		}
@@ -196,9 +199,11 @@ namespace Compress.Support.Compression.BZip2 {
 			if (magic0 == -1 && !isFirstStream) {
 				return false;
 			}
+
 			if (magic0 != 'B' || magic1 != 'Z' || magic2 != 'h') {
 				throw new IOException("Not a BZIP2 marked stream");
 			}
+
 			var magic3 = bsStream.ReadByte();
 			if (magic3 is < '1' or > '9') {
 				BsFinishedWithStream();
@@ -308,9 +313,11 @@ namespace Compress.Support.Compression.BZip2 {
 				} catch (IOException) {
 					CompressedStreamEOF();
 				}
+
 				if (thech == '\uffff') {
 					CompressedStreamEOF();
 				}
+
 				zzi = thech;
 				bsBuff = (bsBuff << 8) | (zzi & 0xff);
 				bsLive += 8;
@@ -354,6 +361,7 @@ namespace Compress.Support.Compression.BZip2 {
 			for (i = 0; i < BZip2Constants.MAX_CODE_LEN; i++) {
 				basev[i] = 0;
 			}
+
 			for (i = 0; i < alphaSize; i++) {
 				basev[length[i] + 1]++;
 			}
@@ -365,6 +373,7 @@ namespace Compress.Support.Compression.BZip2 {
 			for (i = 0; i < BZip2Constants.MAX_CODE_LEN; i++) {
 				limit[i] = 0;
 			}
+
 			vec = 0;
 
 			for (i = minLen; i <= maxLen; i++) {
@@ -372,6 +381,7 @@ namespace Compress.Support.Compression.BZip2 {
 				limit[i] = vec - 1;
 				vec <<= 1;
 			}
+
 			for (i = minLen + 1; i <= maxLen; i++) {
 				basev[i] = ((limit[i - 1] + 1) << 1) - basev[i];
 			}
@@ -417,6 +427,7 @@ namespace Compress.Support.Compression.BZip2 {
 				while (BsR(1) == 1) {
 					j++;
 				}
+
 				selectorMtf[i] = (char)j;
 			}
 
@@ -435,6 +446,7 @@ namespace Compress.Support.Compression.BZip2 {
 						pos[v] = pos[v - 1];
 						v--;
 					}
+
 					pos[0] = tmp;
 					selector[i] = tmp;
 				}
@@ -451,6 +463,7 @@ namespace Compress.Support.Compression.BZip2 {
 							curr--;
 						}
 					}
+
 					len[t][i] = (char)curr;
 				}
 			}
@@ -463,10 +476,12 @@ namespace Compress.Support.Compression.BZip2 {
 					if (len[t][i] > maxLen) {
 						maxLen = len[t][i];
 					}
+
 					if (len[t][i] < minLen) {
 						minLen = len[t][i];
 					}
 				}
+
 				HbCreateDecodeTables(limit[t], basev[t], perm[t], len[t], minLen,
 									maxLen, alphaSize);
 				minLens[t] = minLen;
@@ -508,6 +523,7 @@ namespace Compress.Support.Compression.BZip2 {
 					groupNo++;
 					groupPos = BZip2Constants.G_SIZE;
 				}
+
 				groupPos--;
 				zt = selector[groupNo];
 				zn = minLens[zt];
@@ -524,19 +540,24 @@ namespace Compress.Support.Compression.BZip2 {
 								} catch (IOException) {
 									CompressedStreamEOF();
 								}
+
 								if (thech == '\uffff') {
 									CompressedStreamEOF();
 								}
+
 								zzi = thech;
 								bsBuff = (bsBuff << 8) | (zzi & 0xff);
 								bsLive += 8;
 							}
 						}
+
 						zj = (bsBuff >> (bsLive - 1)) & 1;
 						bsLive--;
 					}
+
 					zvec = (zvec << 1) | zj;
 				}
+
 				nextSym = perm[zt][zvec - basev[zt][zn]];
 			}
 
@@ -556,6 +577,7 @@ namespace Compress.Support.Compression.BZip2 {
 						} else if (nextSym == BZip2Constants.RUNB) {
 							s += (1 + 1) * N;
 						}
+
 						N *= 2;
 						{
 							int zt, zn, zvec, zj;
@@ -563,6 +585,7 @@ namespace Compress.Support.Compression.BZip2 {
 								groupNo++;
 								groupPos = BZip2Constants.G_SIZE;
 							}
+
 							groupPos--;
 							zt = selector[groupNo];
 							zn = minLens[zt];
@@ -579,19 +602,24 @@ namespace Compress.Support.Compression.BZip2 {
 											} catch (IOException) {
 												CompressedStreamEOF();
 											}
+
 											if (thech == '\uffff') {
 												CompressedStreamEOF();
 											}
+
 											zzi = thech;
 											bsBuff = (bsBuff << 8) | (zzi & 0xff);
 											bsLive += 8;
 										}
 									}
+
 									zj = (bsBuff >> (bsLive - 1)) & 1;
 									bsLive--;
 								}
+
 								zvec = (zvec << 1) | zj;
 							}
+
 							nextSym = perm[zt][zvec - basev[zt][zn]];
 						}
 					} while (nextSym is BZip2Constants.RUNA or BZip2Constants.RUNB);
@@ -609,6 +637,7 @@ namespace Compress.Support.Compression.BZip2 {
 					if (last >= limitLast) {
 						BlockOverrun();
 					}
+
 					continue;
 				} else {
 					char tmp;
@@ -635,6 +664,7 @@ namespace Compress.Support.Compression.BZip2 {
 						yy[j - 2] = yy[j - 3];
 						yy[j - 3] = yy[j - 4];
 					}
+
 					for (; j > 0; j--) {
 						yy[j] = yy[j - 1];
 					}
@@ -646,6 +676,7 @@ namespace Compress.Support.Compression.BZip2 {
 							groupNo++;
 							groupPos = BZip2Constants.G_SIZE;
 						}
+
 						groupPos--;
 						zt = selector[groupNo];
 						zn = minLens[zt];
@@ -662,18 +693,23 @@ namespace Compress.Support.Compression.BZip2 {
 										} catch (IOException) {
 											CompressedStreamEOF();
 										}
+
 										zzi = thech;
 										bsBuff = (bsBuff << 8) | (zzi & 0xff);
 										bsLive += 8;
 									}
 								}
+
 								zj = (bsBuff >> (bsLive - 1)) & 1;
 								bsLive--;
 							}
+
 							zvec = (zvec << 1) | zj;
 						}
+
 						nextSym = perm[zt][zvec - basev[zt][zn]];
 					}
+
 					continue;
 				}
 			}
@@ -687,6 +723,7 @@ namespace Compress.Support.Compression.BZip2 {
 			for (i = 1; i <= 256; i++) {
 				cftab[i] = unzftab[i - 1];
 			}
+
 			for (i = 1; i <= 256; i++) {
 				cftab[i] += cftab[i - 1];
 			}
@@ -696,6 +733,7 @@ namespace Compress.Support.Compression.BZip2 {
 				tt[cftab[ch]] = i;
 				cftab[ch]++;
 			}
+
 			cftab = null;
 
 			tPos = tt[origPtr];
@@ -725,6 +763,7 @@ namespace Compress.Support.Compression.BZip2 {
 						rTPos = 0;
 					}
 				}
+
 				rNToGo--;
 				ch2 ^= (rNToGo == 1) ? 1 : 0;
 				i2++;
@@ -773,6 +812,7 @@ namespace Compress.Support.Compression.BZip2 {
 							rTPos = 0;
 						}
 					}
+
 					rNToGo--;
 					z ^= (char)((rNToGo == 1) ? 1 : 0);
 					j2 = 0;
@@ -862,6 +902,7 @@ namespace Compress.Support.Compression.BZip2 {
 				buffer[k + offset] = (byte)c;
 				position += 1;
 			}
+
 			return k;
 		}
 
@@ -878,6 +919,7 @@ namespace Compress.Support.Compression.BZip2 {
 
 				position += 1;
 			}
+
 			return offset;
 		}
 

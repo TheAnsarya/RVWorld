@@ -219,15 +219,20 @@ namespace ROMVault
                             case FileType.Zip:
                                 bitmapName = "Zip";
                                 if (tRvDir.ZipStatus == ZipStatus.TrrntZip) { bitmapName += "TZ"; }
+
                                 if (tRvDir.GotStatus == GotStatus.Corrupt) { bitmapName += "Corrupt"; }
+
                                 if (tRvDir.RepStatus == RepStatus.DirMissing) { bitmapName += "Missing"; }
 
                                 break;
                             case FileType.SevenZip:
                                 bitmapName = "SevenZip";
                                 if (tRvDir.ZipStatus == ZipStatus.TrrntZip) { bitmapName += "TZ"; }
+
                                 if (tRvDir.ZipStatus == ZipStatus.Trrnt7Zip) { bitmapName += "T7Z"; }
+
                                 if (tRvDir.GotStatus == GotStatus.Corrupt) { bitmapName += "Corrupt"; }
+
                                 if (tRvDir.RepStatus == RepStatus.DirMissing) { bitmapName += "Missing"; }
 
                                 break;
@@ -255,6 +260,7 @@ namespace ROMVault
                                 Debug.WriteLine("Missing Graphic for " + bitmapName);
                             }
                         }
+
                         e.Value = bmp;
 
                         break;
@@ -381,6 +387,7 @@ namespace ROMVault
                 {
                     e.CellStyle.SelectionBackColor = _displayColor[(int)t1];
                 }
+
                 return;
             }
         }
@@ -537,6 +544,7 @@ namespace ROMVault
                 UpdateDatMetaData(tParent);
                 return;
             }
+
             if (GameGrid.SelectedRows.Count != 1)
             {
                 return;

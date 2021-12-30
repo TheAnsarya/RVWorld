@@ -100,6 +100,7 @@ namespace ROMVault
                                     res.AddRange(game);
                                     gameCount++;
                                 }
+
                                 itemCount = 0;
                             }
                             else if (line.Contains("<description>"))
@@ -192,6 +193,7 @@ namespace ROMVault
                                 test++;
                                 datFilename = Path.Combine(_outdir, "fixDat_" + Path.GetFileNameWithoutExtension(_tDat.GetData(RvDat.DatData.DatRootFullName)) + "(" + test + ").dat");
                             }
+
                             _ts = new StreamWriter(datFilename);
                             _dfn = datFilename;
                             _rpy = 0;
@@ -243,6 +245,7 @@ namespace ROMVault
                         {
                             _rpy++;
                         }
+
                         if (tRom.DatStatus == DatStatus.InDatCollect && tRom.GotStatus != GotStatus.Got && !(tRom.RepStatus == RepStatus.CanBeFixed || tRom.RepStatus == RepStatus.CorruptCanBeFixed))
                         {
                             _ro++;
@@ -309,6 +312,7 @@ namespace ROMVault
                     {
                         nextSelected = d.Tree.Checked == RvTreeRow.TreeSelect.Selected;
                     }
+
                     MakeFixFilesRecurse(d.Child(i), nextSelected, scrubIt);
                 }
             }
@@ -390,6 +394,7 @@ namespace ROMVault
             {
                 return;
             }
+
             if (d.DirDatCount > 0)
             {
                 for (int i = 0; i < d.DirDatCount; i++)
@@ -430,12 +435,14 @@ namespace ROMVault
                             {
                                 _ts.WriteLine(RemoveBase(dat.GetData(RvDat.DatData.DatRootFullName)));
                             }
+
                             break;
                         case ReportType.CompletelyMissing:
                             if (correct == 0 && missing > 0 && fixesNeeded == 0)
                             {
                                 _ts.WriteLine(RemoveBase(dat.GetData(RvDat.DatData.DatRootFullName)));
                             }
+
                             break;
                         case ReportType.PartialMissing:
                             if (correct > 0 && missing > 0 || fixesNeeded > 0)
@@ -450,6 +457,7 @@ namespace ROMVault
                                 ReportDrawBars();
                                 _ts.WriteLine();
                             }
+
                             break;
                         case ReportType.Fixing:
                             if (fixesNeeded > 0)
@@ -464,6 +472,7 @@ namespace ROMVault
                                 ReportDrawBars();
                                 _ts.WriteLine();
                             }
+
                             break;
                     }
                 }
@@ -514,16 +523,19 @@ namespace ROMVault
                         {
                             _fileNameLength = fileNameLength;
                         }
+
                         if (fileSizeLength > _fileSizeLength)
                         {
                             _fileSizeLength = fileSizeLength;
                         }
+
                         if (repStatusLength > _repStatusLength)
                         {
                             _repStatusLength = repStatusLength;
                         }
                     }
                 }
+
                 RvFile d = b;
                 if (d.IsDir)
                 {
@@ -564,6 +576,7 @@ namespace ROMVault
                                       + f.RepStatus + new string(' ', _repStatusLength + 1 - f.RepStatus.ToString().Length) + "|");
                     }
                 }
+
                 RvFile d = b;
                 if (d.IsDir)
                 {

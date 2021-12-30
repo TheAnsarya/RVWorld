@@ -75,6 +75,7 @@ namespace Compress.SevenZip {
 					if (_header.StreamsInfo.PackedStreams[packedStreamIndex].PackedStream == null) {
 						_header.StreamsInfo.PackedStreams[packedStreamIndex].PackedStream = CloneStream(_zipFs);
 					}
+
 					_header.StreamsInfo.PackedStreams[packedStreamIndex].PackedStream.Seek(
 						_baseOffset + (long)_header.StreamsInfo.PackedStreams[packedStreamIndex].StreamPosition, SeekOrigin.Begin);
 
@@ -104,6 +105,7 @@ namespace Compress.SevenZip {
 								if (folder.Coders[coder.InputStreamsSourceInfo[j].InStreamIndex].DecoderStream == null) {
 									break;
 								}
+
 								inputCoders.Add(folder.Coders[coder.InputStreamsSourceInfo[j].InStreamIndex].DecoderStream);
 							} else {
 								// unknown input type so error
@@ -203,12 +205,14 @@ namespace Compress.SevenZip {
 						if (ds == null) {
 							continue;
 						}
+
 						ds.Close();
 						ds.Dispose();
 						c.DecoderStream = null;
 					}
 				}
 			}
+
 			_streamIndex = -1;
 
 			if (_header?.StreamsInfo != null) {
@@ -216,11 +220,13 @@ namespace Compress.SevenZip {
 					if (psi?.PackedStream == null) {
 						continue;
 					}
+
 					psi.PackedStream.Close();
 					psi.PackedStream.Dispose();
 					psi.PackedStream = null;
 				}
 			}
+
 			return ZipReturn.ZipGood;
 		}
 

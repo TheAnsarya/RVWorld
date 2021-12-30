@@ -1,4 +1,4 @@
-/******************************************************
+﻿/******************************************************
  *     ROMVault3 is written by Gordon J.              *
  *     Contact gordon@romvault.com                    *
  *     Copyright 2010                                 *
@@ -364,6 +364,7 @@ namespace ROMVault
                 {
                     DatSetSelected(cf);
                 }
+
                 return;
             }
 
@@ -895,6 +896,7 @@ namespace ROMVault
                 frmScanRoms.FormClosed -= ScanRomsClosed;
                 frmScanRoms.Dispose();
             }
+
             FileScanning.StartAt = StartAt;
             FileScanning.EScanLevel = sd;
             frmScanRoms = new FrmProgressWindow(this, "Scanning Dirs", FileScanning.ScanFiles, Finish);
@@ -915,6 +917,7 @@ namespace ROMVault
                 _multiFixing = false;
                 return;
             }
+
             FindFixs();
         }
 
@@ -926,6 +929,7 @@ namespace ROMVault
                 frmFindFixs.FormClosed -= FindFixsClosed;
                 frmFindFixs.Dispose();
             }
+
             frmFindFixs = new FrmProgressWindow(this, "Finding Fixes", FindFixes.ScanFiles, Finish);
             Start();
             setPos(frmFindFixs);
@@ -944,6 +948,7 @@ namespace ROMVault
                 _multiFixing = false;
                 return;
             }
+
             FixFiles();
         }
 

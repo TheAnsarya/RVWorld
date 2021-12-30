@@ -99,6 +99,7 @@ namespace RVXCore.DB
             {
                 return true;
             }
+
             return Convert.ToInt32(res) == 0;
         }
 

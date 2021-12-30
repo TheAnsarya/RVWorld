@@ -304,6 +304,7 @@ namespace ROMVault
                     }
                 }
             }
+
             Settings.WriteConfig(Settings.rvSettings);
 
             UpdateGrid();
@@ -334,6 +335,7 @@ namespace ROMVault
                     }
                 }
             }
+
             Settings.WriteConfig(Settings.rvSettings);
 
             UpdateGrid();
@@ -350,6 +352,7 @@ namespace ROMVault
             {
                 return;
             }
+
             Text = "Edit Existing Directory / DATs Mapping";
             _rule = (DatRule)DataGridGames.SelectedRows[0].Tag;
             UpdateGrid();

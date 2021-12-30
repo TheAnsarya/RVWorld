@@ -46,23 +46,28 @@ namespace Compress.gZip {
 					ZipFileClose();
 					return ZipReturn.ZipErrorFileNotFound;
 				}
+
 				_zipFileInfo = new FileInfo(newFilename);
 				if (timestamp != -1 && _zipFileInfo.LastWriteTime != timestamp) {
 					ZipFileClose();
 					return ZipReturn.ZipErrorTimeStamp;
 				}
+
 				var errorCode = FileStream.OpenFileRead(newFilename, out _zipFs);
 				if (errorCode != 0) {
 					ZipFileClose();
 					if (errorCode == 32) {
 						return ZipReturn.ZipFileLocked;
 					}
+
 					return ZipReturn.ZipErrorOpeningFile;
 				}
+
 				ZipOpen = ZipOpenType.OpenRead;
 				if (!readHeaders) {
 					return ZipReturn.ZipGood;
 				}
+
 				return ZipFileReadHeaders();
 			} catch (PathTooLongException) {
 				ZipFileClose();
@@ -221,6 +226,7 @@ namespace Compress.gZip {
 							_zipFs.Close();
 							_zipFs.Dispose();
 						}
+
 						ZipOpen = ZipOpenType.Closed;
 						return;
 					}
@@ -230,6 +236,7 @@ namespace Compress.gZip {
 							_zipFs.Close();
 							_zipFs.Dispose();
 						}
+
 						ZipOpen = ZipOpenType.Closed;
 						return;
 					}
@@ -314,6 +321,7 @@ namespace Compress.gZip {
 				dfioStream.Close();
 				dfioStream.Dispose();
 			}
+
 			_compressionStream = null;
 
 			return ZipReturn.ZipGood;
@@ -340,6 +348,7 @@ namespace Compress.gZip {
 				ZipFileClose();
 				return ZipReturn.ZipErrorOpeningFile;
 			}
+
 			ZipOpen = ZipOpenType.OpenWrite;
 			return ZipReturn.ZipGood;
 		}
@@ -399,6 +408,7 @@ namespace Compress.gZip {
 					_zipFs.Close();
 					_zipFs.Dispose();
 				}
+
 				ZipOpen = ZipOpenType.Closed;
 				return;
 			}
@@ -421,6 +431,7 @@ namespace Compress.gZip {
 				if (errorCode == 32) {
 					return ZipReturn.ZipFileLocked;
 				}
+
 				return ZipReturn.ZipErrorOpeningFile;
 			}
 

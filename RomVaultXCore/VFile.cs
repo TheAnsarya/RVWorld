@@ -134,6 +134,7 @@ namespace RVXCore
                     {
                         return null;
                     }
+
                     VFile vDir = new VFile
                     {
                         FileName = filename,
@@ -169,6 +170,7 @@ namespace RVXCore
                 {
                     return null;
                 }
+
                 dirName = testFilename.Substring(0, slashPos);
                 int? dirId = DirFind(dirName);
                 if (dirId == null)
@@ -195,6 +197,7 @@ namespace RVXCore
                         return vFile;
                     }
                 }
+
                 return null;
             }
         }
@@ -224,6 +227,7 @@ namespace RVXCore
                 {
                     return null;
                 }
+
                 return Convert.ToInt32(ret);
             }
         }
@@ -255,6 +259,7 @@ namespace RVXCore
                     {
                         return null;
                     }
+
                     VFile vFile = new VFile
                     {
                         IsDirectory = false,
@@ -297,6 +302,7 @@ namespace RVXCore
                     {
                         return null;
                     }
+
                     VFile vFile = new VFile
                     {
                         IsDirectory = true,

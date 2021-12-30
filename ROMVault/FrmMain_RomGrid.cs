@@ -127,6 +127,7 @@ namespace ROMVault
                 {
                     altFound = (tFile.AltSize != null) || (tFile.AltCRC != null) || (tFile.AltSHA1 != null) || (tFile.AltMD5 != null);
                 }
+
                 showStatus |= !string.IsNullOrWhiteSpace(tFile.Status);
 #if dt
                 showDatModDate |= (tFile.DatModTimeStamp != null);
@@ -242,6 +243,7 @@ namespace ROMVault
                     {
                         e.Value = tFile.FileGroup.Files.Count.ToString();
                     }
+
                     break;
 
             }

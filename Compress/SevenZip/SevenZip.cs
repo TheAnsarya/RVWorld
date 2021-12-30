@@ -52,6 +52,7 @@ namespace Compress.SevenZip {
 						_zipFs.Close();
 						_zipFs.Dispose();
 					}
+
 					break;
 				case ZipOpenType.OpenWrite:
 					_zipFs.Flush();
@@ -79,6 +80,7 @@ namespace Compress.SevenZip {
 						_zipFs.Close();
 						_zipFs.Dispose();
 					}
+
 					ZipOpen = ZipOpenType.Closed;
 					return;
 				case ZipOpenType.OpenWrite:

@@ -155,6 +155,7 @@ namespace RomVaultCmd {
 				Console.WriteLine($"{bgwT.Text}");
 				return;
 			}
+
 			if (e is bgwText2 bgwT2) {
 				Console.WriteLine($"{bgwT2.Text}");
 				return;
@@ -168,15 +169,19 @@ namespace RomVaultCmd {
 			if (e is bgwSetRange2 bgwsr2) {
 				return;
 			}
+
 			if (e is bgwSetRange bgwsr) {
 				return;
 			}
+
 			if (e is bgwRange2Visible bgwr2v) {
 				return;
 			}
+
 			if (e is bgwProgress bgp) {
 				return;
 			}
+
 			if (e is bgwValue2 bgwv2) {
 				return;
 			}
@@ -185,6 +190,7 @@ namespace RomVaultCmd {
 				Console.WriteLine($"Corrupted file {bgSC.filename} {bgSC.zr}");
 				return;
 			}
+
 			if (e is string message) {
 				Console.WriteLine(message);
 				return;

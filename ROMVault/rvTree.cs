@@ -69,6 +69,7 @@ namespace ROMVault
 
                 SetupTree(_lTree.Child(treeCount - 1), "└");
             }
+
             AutoScrollMinSize = new Size(500, _yPos);
             Refresh();
         }
@@ -366,6 +367,7 @@ namespace ROMVault
                 {
                     subtxt = "";
                 }
+
                 if (pTree.FileStatusIs(FileStatus.PrimaryToSort | FileStatus.CacheToSort))
                 {
                     thistxt += " (Primary)";
@@ -482,8 +484,10 @@ namespace ROMVault
                         t.Tree.SetTreeExpanded(true, Working);
                     }
                 }
+
                 t = t.Parent;
             }
+
             SetupInt();
         }
 
@@ -590,6 +594,7 @@ namespace ROMVault
                 pTree.Tree.SetTreeExpanded(!pTree.Tree.TreeExpanded, isWorking);
                 return;
             }
+
             if (!isWorking)
             {
                 RvTreeRow.OpenStream();
@@ -607,6 +612,7 @@ namespace ROMVault
                 SetExpandedRecurse(pTree, !d.Tree.TreeExpanded, isWorking);
                 break;
             }
+
             if (!isWorking)
             {
                 RvTreeRow.CloseStream();

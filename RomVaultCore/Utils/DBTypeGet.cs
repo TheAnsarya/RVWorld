@@ -17,6 +17,7 @@ namespace RomVaultCore.Utils {
 				case FileType.SevenZipFile:
 					return FileType.SevenZip;
 			}
+
 			return FileType.Zip;
 		}
 
@@ -29,6 +30,7 @@ namespace RomVaultCore.Utils {
 				case FileType.SevenZip:
 					return FileType.SevenZipFile;
 			}
+
 			return FileType.Zip;
 		}
 

@@ -10,11 +10,13 @@ namespace RVXCore.Util
             {
                 return null;
             }
+
             byte[] retB = new byte[b.Length];
             for (int i = 0; i < b.Length; i++)
             {
                 retB[i] = b[i];
             }
+
             return retB;
         }
 
@@ -53,18 +55,22 @@ namespace RVXCore.Util
                 {
                     return b2Len == p ? 0 : -1;
                 }
+
                 if (b2Len == p)
                 {
                     return 1;
                 }
+
                 if (b1[p] < b2[p])
                 {
                     return -1;
                 }
+
                 if (b1[p] > b2[p])
                 {
                     return 1;
                 }
+
                 p++;
             }
         }

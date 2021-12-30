@@ -98,6 +98,7 @@ namespace RVXCore.DB
                     Comment = dr["comment"].ToString();
                     MergeType = dr["mergetype"].ToString();
                 }
+
                 dr.Close();
             }
 
@@ -159,6 +160,7 @@ namespace RVXCore.DB
             {
                 return;
             }
+
             DatId = Convert.ToUInt32(res);
 
             if (Games == null)
@@ -191,10 +193,12 @@ namespace RVXCore.DB
             {
                 return Description;
             }
+
             if (!string.IsNullOrWhiteSpace(Name))
             {
                 return Name;
             }
+
             return "-unknown-";
         }
 
@@ -221,6 +225,7 @@ namespace RVXCore.DB
                     intBottom = intMid + 1;
                 }
             }
+
             index = intMid;
 
             // if match was found check up the list for the first match

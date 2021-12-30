@@ -77,6 +77,7 @@ namespace RVXCore
                             CompressUtils.CreateDirForFile(outputFile);
                             int errorCode = FileStream.OpenFileWrite(outputFile, out zipFs);
                         }
+
                         zipFs.Write(localHeader, 0, localHeader.Length);
 
                         gZip GZip = new gZip();

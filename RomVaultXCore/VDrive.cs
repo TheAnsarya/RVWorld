@@ -108,12 +108,14 @@ namespace RVXCore
                             info.Context = vDir;
                             return DokanResult.Success;
                         }
+
                         if (readAccess)
                         {
                             if (!vDir.LoadVFileZipData())
                             {
                                 return DokanResult.Error;
                             }
+
                             info.Context = vDir;
                             return DokanResult.Success;
                         }
@@ -255,6 +257,7 @@ namespace RVXCore
                 {
                     continue;
                 }
+
                 FileInformation fi = (FileInformation)dir;
                 files.Add(fi);
             }

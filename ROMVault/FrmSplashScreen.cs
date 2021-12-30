@@ -57,8 +57,10 @@ namespace ROMVault
                 {
                     progressBar.Value = percent;
                 }
+
                 return;
             }
+
             if (e is bgwSetRange bgwSr)
             {
                 progressBar.Minimum = 0;

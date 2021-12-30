@@ -63,6 +63,7 @@ namespace Compress.SevenZip {
 					return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -97,10 +98,12 @@ namespace Compress.SevenZip {
 					value += highPart << (8 * i);
 					return value;
 				}
+
 				var b = br.ReadByte();
 				value |= (ulong)b << (8 * i);
 				mask >>= 1;
 			}
+
 			return value;
 		}
 
@@ -113,9 +116,11 @@ namespace Compress.SevenZip {
 					firstByte |= (byte)(value >> (8 * i));
 					break;
 				}
+
 				firstByte |= mask;
 				mask >>= 1;
 			}
+
 			bw.Write(firstByte);
 			for (; i > 0; i--) {
 				bw.Write((byte)value);
@@ -131,6 +136,7 @@ namespace Compress.SevenZip {
 				if (c == 0) {
 					return stringBuilder.ToString();
 				}
+
 				stringBuilder.Append(c);
 			}
 		}
@@ -140,6 +146,7 @@ namespace Compress.SevenZip {
 			for (var i = 0; i < chars.Length; i++) {
 				bw.Write((ushort)chars[i]);
 			}
+
 			bw.Write((ushort)0);
 		}
 
@@ -159,6 +166,7 @@ namespace Compress.SevenZip {
 			for (var i = 0; i < digests.Length; i++) {
 				digestsDefined[i] = digests[i] != null;
 			}
+
 			WriteBoolFlagsDefaultTrue(bw, digestsDefined);
 			for (var i = 0; i < digests.Length; i++) {
 				if (digestsDefined[i]) {
@@ -172,10 +180,12 @@ namespace Compress.SevenZip {
 			if (allAreDefined == 0) {
 				return ReadBoolFlags(br, numItems);
 			}
+
 			var flags = new bool[numItems];
 			for (ulong i = 0; i < numItems; i++) {
 				flags[i] = true;
 			}
+
 			return flags;
 		}
 
@@ -189,6 +199,7 @@ namespace Compress.SevenZip {
 				bw.Write((byte)1);
 				return;
 			}
+
 			WriteBoolFlags(bw, bArray);
 		}
 
@@ -207,6 +218,7 @@ namespace Compress.SevenZip {
 
 				mask >>= 1;
 			}
+
 			return flags;
 		}
 
@@ -221,6 +233,7 @@ namespace Compress.SevenZip {
 			for (ulong i = 0; i < numItems; i++) {
 				flags[i] = true;
 			}
+
 			return flags;
 		}
 
@@ -273,6 +286,7 @@ namespace Compress.SevenZip {
 				mask = 0x80;
 				tmpOut = 0;
 			}
+
 			if (mask != 0x80) {
 				bw.Write(tmpOut);
 			}
@@ -282,6 +296,7 @@ namespace Compress.SevenZip {
 			if (crc == null) {
 				return null;
 			}
+
 			var c = (uint)crc;
 
 			var b = new byte[4];
@@ -304,6 +319,7 @@ namespace Compress.SevenZip {
 			if ((b0 == null) || (b1 == null)) {
 				return false;
 			}
+
 			if (b0.Length != b1.Length) {
 				return false;
 			}
@@ -313,6 +329,7 @@ namespace Compress.SevenZip {
 					return false;
 				}
 			}
+
 			return true;
 		}
 	}

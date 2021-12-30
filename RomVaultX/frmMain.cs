@@ -39,6 +39,7 @@ namespace RomVaultX
 
                 driveLetter = AppSettings.ReadSetting("vDriveLetter");
             }
+
             vDriveLetter = driveLetter.ToCharArray()[0];
 
             addGameGrid();
@@ -83,6 +84,7 @@ namespace RomVaultX
             {
                 return;
             }
+
             if (e.Button == MouseButtons.Right)
             {
                 SetScanDir(false);
@@ -250,6 +252,7 @@ namespace RomVaultX
             {
                 rightPos = 600;
             }
+
             int width = rightPos - leftPos;
             int widthB1 = (int)((double)width * 120 / 340);
             int leftB2 = rightPos - widthB1;
@@ -316,6 +319,7 @@ namespace RomVaultX
                 lblDITAuthor.Text = "";
                 lblDITDate.Text = "";
             }
+
             lblDITRomsGot.Text = tr.RomGot.ToString("#,0");
             lblDITRomsMissing.Text = (tr.RomTotal - tr.RomGot - tr.RomNoDump).ToString("#,0");
             lblDITRomsTotal.Text = tr.RomTotal.ToString("#,0");
@@ -531,6 +535,7 @@ namespace RomVaultX
             {
                 rightPos = 750;
             }
+
             int width = rightPos - leftPos;
 
             int widthB1 = (int)((double)width * 120 / 340);
@@ -672,6 +677,7 @@ namespace RomVaultX
                     GameGrid.Rows[iRow].DefaultCellStyle.BackColor = cellColor;
                 }
             }
+
             _updatingGameGrid = false;
             UpdateSelectedGame();
         }
@@ -696,6 +702,7 @@ namespace RomVaultX
                 tGame = new RvGame();
                 tGame.DBRead(GameId);
             }
+
             if (tGame == null)
             {
                 lblSIName.Visible = false;
@@ -966,6 +973,7 @@ namespace RomVaultX
                     RomGrid.Rows[iRow].Cells[6].Style.ForeColor = Color.FromArgb(0, 0, 255);
                     RomGrid.Rows[iRow].Cells[6].Value = VarFix.ToString(rom.FileSHA1);
                 }
+
                 if (rom.MD5 != null)
                 {
                     RomGrid.Rows[iRow].Cells[7].Value = VarFix.ToString(rom.MD5);
@@ -975,6 +983,7 @@ namespace RomVaultX
                     RomGrid.Rows[iRow].Cells[7].Style.ForeColor = Color.FromArgb(0, 0, 255);
                     RomGrid.Rows[iRow].Cells[7].Value = VarFix.ToString(rom.FileMD5);
                 }
+
                 RomGrid.Rows[iRow].Cells[8].Value = rom.Status;
                 RomGrid.Rows[iRow].Cells[9].Value = rom.PutInZip;
 

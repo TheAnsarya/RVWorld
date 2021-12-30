@@ -45,6 +45,7 @@ namespace Compress.SevenZip.Structure {
 								numEmptyFiles++;
 							}
 						}
+
 						continue;
 
 					case HeaderProperty.kEmptyFile:

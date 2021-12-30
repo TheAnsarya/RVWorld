@@ -334,6 +334,7 @@ namespace Compress.SevenZip.Structure {
 					c.Report(ref sb);
 				}
 			}
+
 			if (BindPairs == null) {
 				sb.AppendLine("    BindPairs[] = null");
 			} else {

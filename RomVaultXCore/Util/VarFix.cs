@@ -172,6 +172,7 @@ namespace RVXCore.Util
                     charName[i] = '/';
                 }
             }
+
             return new string(charName);
         }
 
@@ -186,6 +187,7 @@ namespace RVXCore.Util
             {
                 return "";
             }
+
             string retName = name;
             retName = retName.TrimStart();
             retName = retName.TrimEnd('.', ' ');
@@ -199,6 +201,7 @@ namespace RVXCore.Util
                     charName[i] = crep;
                 }
             }
+
             return new string(charName);
         }
 
@@ -219,6 +222,7 @@ namespace RVXCore.Util
             {
                 return path2;
             }
+
             if (string.IsNullOrEmpty(path2))
             {
                 return path1;
@@ -272,6 +276,7 @@ namespace RVXCore.Util
                 {
                     return pos2 == bytes2.Length ? 0 : -1;
                 }
+
                 if (pos2 == bytes2.Length)
                 {
                     return 1;
@@ -284,6 +289,7 @@ namespace RVXCore.Util
                 {
                     byte1 += 0x20;
                 }
+
                 if ((byte2 >= 65) && (byte2 <= 90))
                 {
                     byte2 += 0x20;
@@ -293,6 +299,7 @@ namespace RVXCore.Util
                 {
                     return -1;
                 }
+
                 if (byte1 > byte2)
                 {
                     return 1;

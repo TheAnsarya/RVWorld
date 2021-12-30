@@ -72,6 +72,7 @@ namespace ROMVault
                     AddLabel(new Point(6, i * 46 + eOffset), new Size(538, 20), "LabelProblem", "Problem Statuses");
                     eOffset += 20;
                 }
+
                 PictureBox pictureBox = new PictureBox
                 {
                     BorderStyle = BorderStyle.FixedSingle,

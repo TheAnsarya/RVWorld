@@ -24,6 +24,7 @@ namespace ROMVault
             {
                 sb.AppendLine(v.GotStatus + " | " + v.FullName);
             }
+
             textBox1.Text = sb.ToString();
             return true;
         }

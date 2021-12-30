@@ -111,8 +111,10 @@ namespace RVXCore.DB
 
                     roms.Add(row);
                 }
+
                 dr.Close();
             }
+
             return roms;
         }
 

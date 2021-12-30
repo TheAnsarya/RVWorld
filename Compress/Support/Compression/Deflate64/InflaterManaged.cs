@@ -257,6 +257,7 @@ namespace Compress.Support.Compression.Deflate64 {
 				//else
 				_state = InflaterState.Done;
 			}
+
 			return result;
 		}
 
@@ -379,12 +380,15 @@ namespace Compress.Support.Compression.Deflate64 {
 								if (symbol < 0 || symbol >= S_EXTRA_LENGTH_BITS.Length) {
 									throw new InvalidDataException("Deflate64: invalid data");
 								}
+
 								_extraBits = S_EXTRA_LENGTH_BITS[symbol];
 								Debug.Assert(_extraBits != 0, "We handle other cases separately!");
 							}
+
 							_length = symbol;
 							goto case InflaterState.HaveInitialLength;
 						}
+
 						break;
 
 					case InflaterState.HaveInitialLength:
@@ -398,8 +402,10 @@ namespace Compress.Support.Compression.Deflate64 {
 							if (_length < 0 || _length >= S_LENGTH_BASE.Length) {
 								throw new InvalidDataException("Deflate64: invalid data");
 							}
+
 							_length = S_LENGTH_BASE[_length] + bits;
 						}
+
 						_state = InflaterState.HaveFullLength;
 						goto case InflaterState.HaveFullLength;
 
@@ -432,6 +438,7 @@ namespace Compress.Support.Compression.Deflate64 {
 							if (bits < 0) {
 								return false;
 							}
+
 							offset = S_DISTANCE_BASE_POSITION[_distanceCode] + bits;
 						} else {
 							offset = _distanceCode + 1;
@@ -482,6 +489,7 @@ namespace Compress.Support.Compression.Deflate64 {
 					if (_literalLengthCodeCount < 0) {
 						return false;
 					}
+
 					_literalLengthCodeCount += 257;
 					_state = InflaterState.ReadingNumDistCodes;
 					goto case InflaterState.ReadingNumDistCodes;
@@ -491,6 +499,7 @@ namespace Compress.Support.Compression.Deflate64 {
 					if (_distanceCodeCount < 0) {
 						return false;
 					}
+
 					_distanceCodeCount += 1;
 					_state = InflaterState.ReadingNumCodeLengthCodes;
 					goto case InflaterState.ReadingNumCodeLengthCodes;
@@ -500,6 +509,7 @@ namespace Compress.Support.Compression.Deflate64 {
 					if (_codeLengthCodeCount < 0) {
 						return false;
 					}
+
 					_codeLengthCodeCount += 4;
 					_loopCounter = 0;
 					_state = InflaterState.ReadingCodeLengthCodes;
@@ -511,6 +521,7 @@ namespace Compress.Support.Compression.Deflate64 {
 						if (bits < 0) {
 							return false;
 						}
+
 						_codeLengthTreeCodeLength[S_CODE_ORDER[_loopCounter]] = (byte)bits;
 						++_loopCounter;
 					}
@@ -606,8 +617,10 @@ namespace Compress.Support.Compression.Deflate64 {
 								}
 							}
 						}
+
 						_state = InflaterState.ReadingTreeCodesBefore; // we want to read the next code.
 					}
+
 					break;
 
 				default:

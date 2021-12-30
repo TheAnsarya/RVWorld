@@ -85,6 +85,7 @@ namespace RVXCore
                             //cGame.BarCode
                             //cGame.MediaCatalogNumber
                         }
+
                         retDat?.AddGame(cGame);
                         CopyDir(nDir, headerFileType, null, cGame);
 

@@ -61,12 +61,14 @@ namespace TrrntZipUI {
 			if (!int.TryParse(sval, out var intVal)) {
 				intVal = 2;
 			}
+
 			cboInType.SelectedIndex = intVal;
 
 			sval = AppSettings.ReadSetting("OutZip");
 			if (!int.TryParse(sval, out intVal)) {
 				intVal = 0;
 			}
+
 			cboOutType.SelectedIndex = intVal;
 
 			sval = AppSettings.ReadSetting("Force");
@@ -393,6 +395,7 @@ namespace TrrntZipUI {
 						tGridn.status = trrntZipStatus.ToString();
 						break;
 				}
+
 				tGrid.Add(tGridn);
 
 				if (!scanningForFiles && (fileId + 1) == FileCount) {
@@ -444,6 +447,7 @@ namespace TrrntZipUI {
 					c[1].Value = dg.status;
 				}
 			}
+
 			tGrid.Clear();
 		}
 

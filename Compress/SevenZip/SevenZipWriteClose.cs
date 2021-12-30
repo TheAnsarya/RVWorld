@@ -107,6 +107,7 @@ namespace Compress.SevenZip {
 				_compressStream.Flush();
 				_compressStream.Close();
 			}
+
 			_packedOutStreams[0].packedSize = (ulong)_zipFs.Position - _packedOutStreams[0].packedStart;
 #endif
 			Create7ZStructure();
@@ -166,6 +167,7 @@ namespace Compress.SevenZip {
 				headerMem.Position = 0;
 				headerMem.Read(newHeaderByte, 0, newHeaderByte.Length);
 			}
+
 			mainHeaderCRC = CRC.CalculateDigest(newHeaderByte, 0, (uint)newHeaderByte.Length);
 			#endregion
 
@@ -177,6 +179,7 @@ namespace Compress.SevenZip {
 				_zipFs.Write(newHeaderByte, 0, newHeaderByte.Length);
 				_signatureHeader.WriteFinal(bw, headerPosition, (ulong)newHeaderByte.Length, mainHeaderCRC);
 			}
+
 			_zipFs.Flush();
 			_zipFs.Close();
 			_zipFs.Dispose();

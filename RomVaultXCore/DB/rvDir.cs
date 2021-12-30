@@ -56,6 +56,7 @@ namespace RVXCore.DB
             {
                 return null;
             }
+
             return (uint?)Convert.ToInt32(resFind);
         }
 
@@ -100,6 +101,7 @@ namespace RVXCore.DB
             {
                 return 0;
             }
+
             return Convert.ToUInt32(res);
         }
     }

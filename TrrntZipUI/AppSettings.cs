@@ -23,6 +23,7 @@ namespace TrrntZipUI {
 				} else {
 					settings[key].Value = value;
 				}
+
 				configFile.Save(ConfigurationSaveMode.Modified);
 				ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
 			} catch (ConfigurationErrorsException) {

@@ -67,6 +67,7 @@ namespace RVXCore
             {
                 return false;
             }
+
             int count = Convert.ToInt32(res);
 
             return count > 0;
@@ -129,6 +130,7 @@ namespace RVXCore
                 {
                     return false;
                 }
+
                 int countZero = Convert.ToInt32(resZero);
 
                 return countZero > 0;
@@ -145,6 +147,7 @@ namespace RVXCore
             {
                 return false;
             }
+
             int count = Convert.ToInt32(res);
 
             return count > 0;
@@ -200,6 +203,7 @@ namespace RVXCore
             {
                 return false;
             }
+
             int count = Convert.ToInt32(res);
 
             return count > 0;

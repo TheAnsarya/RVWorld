@@ -55,6 +55,7 @@ namespace Compress.Support.Compression.Deflate64 {
 				// bits for distance tree table and code length tree table
 				_tableBits = 7;
 			}
+
 			_tableMask = (1 << _tableBits) - 1;
 
 			_table = new short[1 << _tableBits];
@@ -95,6 +96,7 @@ namespace Compress.Support.Compression.Deflate64 {
 			for (var i = 0; i < MAX_DIST_TREE_ELEMENTS; i++) {
 				staticDistanceTreeLength[i] = 5;
 			}
+
 			return staticDistanceTreeLength;
 		}
 
@@ -105,6 +107,7 @@ namespace Compress.Support.Compression.Deflate64 {
 			foreach (int codeLength in _codeLengthArray) {
 				bitLengthCount[codeLength]++;
 			}
+
 			bitLengthCount[0] = 0;  // clear count for length 0
 
 			var nextCode = new uint[17];
@@ -123,6 +126,7 @@ namespace Compress.Support.Compression.Deflate64 {
 					nextCode[len]++;
 				}
 			}
+
 			return code;
 		}
 
@@ -209,6 +213,7 @@ namespace Compress.Support.Compression.Deflate64 {
 								// if current bit is 1, set value in the right array
 								array = _right;
 							}
+
 							index = -value; // go to next node
 
 							codeBitMask <<= 1;

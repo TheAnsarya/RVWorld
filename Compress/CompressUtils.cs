@@ -58,6 +58,7 @@ namespace Compress {
 					return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -82,6 +83,7 @@ namespace Compress {
 					return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -90,6 +92,7 @@ namespace Compress {
 			if ((b0 == null) || (b1 == null)) {
 				return false;
 			}
+
 			if (b0.Length != b1.Length) {
 				return false;
 			}
@@ -99,6 +102,7 @@ namespace Compress {
 					return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -115,6 +119,7 @@ namespace Compress {
 				if (pos1 == bytes1.Length) {
 					return pos2 == bytes2.Length ? 0 : -1;
 				}
+
 				if (pos2 == bytes2.Length) {
 					return 1;
 				}
@@ -125,6 +130,7 @@ namespace Compress {
 				if (byte1 is >= 65 and <= 90) {
 					byte1 += 0x20;
 				}
+
 				if (byte2 is >= 65 and <= 90) {
 					byte2 += 0x20;
 				}
@@ -132,6 +138,7 @@ namespace Compress {
 				if (byte1 < byte2) {
 					return -1;
 				}
+
 				if (byte1 > byte2) {
 					return 1;
 				}

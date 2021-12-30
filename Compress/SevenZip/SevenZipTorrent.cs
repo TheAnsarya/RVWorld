@@ -28,6 +28,7 @@ namespace Compress.SevenZip {
 			if (length < 32) {
 				return false;
 			}
+
 			_zipFs.Seek(_baseOffset + (long)testHeaderPos - 32, SeekOrigin.Begin);
 
 			const string sig = "RomVault7Z01";
@@ -81,6 +82,7 @@ namespace Compress.SevenZip {
 			if (ar < crcsz) {
 				Util.MemSet(buffer, bufferPos + ar, 0, crcsz - ar);
 			}
+
 			bufferPos = crcsz;
 
 			var foffs = _zipFs.Length;
@@ -94,9 +96,11 @@ namespace Compress.SevenZip {
 				if (ar >= t7ZsigSize + 4) {
 					ar -= t7ZsigSize + 4;
 				}
+
 				if (ar < kSignatureSize) {
 					ar = kSignatureSize;
 				}
+
 				Util.MemSet(buffer, bufferPos + ar, 0, crcsz - ar);
 				Util.MemCrypt(buffer, crcsz * 2 + 8, buffer, bufferPos + ar, t7ZsigSize + 4);
 			} else {

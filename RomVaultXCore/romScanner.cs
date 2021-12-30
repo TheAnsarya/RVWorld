@@ -127,6 +127,7 @@ namespace RVXCore
             {
                 ret = true;
             }
+
             fStream.ZipFileClose();
 
             if (foundFileType == HeaderFileType.ZIP || foundFileType == HeaderFileType.SevenZip || foundFileType == HeaderFileType.GZ)
@@ -194,6 +195,7 @@ namespace RVXCore
                                 fs.Write(Buffer, 0, sizenow);
                                 sizetogo -= (ulong)sizenow;
                             }
+
                             fs.Close();
 
                             allZipFound &= ScanAFile(file, null, lf.Filename);
@@ -202,6 +204,7 @@ namespace RVXCore
                         }
                         //fz.ZipFileCloseReadStream();
                     }
+
                     fz.ZipFileClose();
                     ret |= allZipFound;
                 }
@@ -251,6 +254,7 @@ namespace RVXCore
                 {
                     return;
                 }
+
                 ScanADirNew(d.FullName);
             }
 
@@ -258,6 +262,7 @@ namespace RVXCore
             {
                 return;
             }
+
             if (IsDirectoryEmpty(directory))
             {
                 System.IO.DirectoryInfo dii = new System.IO.DirectoryInfo(directory);

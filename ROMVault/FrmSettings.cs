@@ -34,6 +34,7 @@ namespace ROMVault
             {
                 textBox1.Text += file + Environment.NewLine;
             }
+
             chkTrrntZip.Checked = Settings.rvSettings.ConvertToTrrntzip;
             chkrv7Zip.Checked = Settings.rvSettings.ConvertToRV7Z;
 
@@ -67,6 +68,7 @@ namespace ROMVault
                     i--;
                 }
             }
+
             Settings.rvSettings.SetRegExRules();
 
             Settings.rvSettings.DetailedFixReporting = chkDetailedReporting.Checked;
