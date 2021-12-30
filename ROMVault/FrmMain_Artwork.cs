@@ -87,9 +87,8 @@ namespace ROMVault
 
             bool storyLoaded = false;
 
-            int index;
 
-            if (fExtra.ChildNameSearch(new RvFile(FileType.Zip) { Name = "artpreview.zip" }, out index) == 0)
+            if (fExtra.ChildNameSearch(new RvFile(FileType.Zip) { Name = "artpreview.zip" }, out int index) == 0)
             {
                 artLoaded = picArtwork.TryLoadImage(fExtra.Child(index), Path.GetFileNameWithoutExtension(tGame.Name));
             }
@@ -183,13 +182,9 @@ namespace ROMVault
 
             bool storyLoaded = false;
 
-            int index;
-
-
-
             string fname = tGame.Parent.Name + "/" + Path.GetFileNameWithoutExtension(tGame.Name);
 
-            if (fExtra.ChildNameSearch(new RvFile(FileType.Zip) { Name = "covers_SL.zip" }, out index) == 0)
+            if (fExtra.ChildNameSearch(new RvFile(FileType.Zip) { Name = "covers_SL.zip" }, out int index) == 0)
             {
                 artLoaded = picArtwork.TryLoadImage(fExtra.Child(index), fname);
             }

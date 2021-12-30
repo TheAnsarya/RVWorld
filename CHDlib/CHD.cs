@@ -68,8 +68,8 @@ namespace CHDlib {
 				return hdErr.HDERR_CANNOT_OPEN_FILE;
 			}
 
-			Stream s;
-			var retval = FileStream.OpenFileRead(filename, out s);
+			var retval = FileStream.OpenFileRead(filename, out
+			Stream s);
 			if (retval != 0) {
 				fileSystemError?.Invoke("File: " + filename + " Error: File Could not be opened.");
 				fileErrorAbort = true;

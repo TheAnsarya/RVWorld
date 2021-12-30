@@ -646,8 +646,7 @@ namespace Compress.Support.Compression.LZMA {
 					return Backward(out backRes, cur);
 				}
 
-				uint newLen;
-				ReadMatchDistances(out newLen, out numDistancePairs);
+				ReadMatchDistances(out var newLen, out numDistancePairs);
 				if (newLen >= _numFastBytes) {
 					_numDistancePairs = numDistancePairs;
 					_longestMatchLength = newLen;
@@ -1029,8 +1028,8 @@ namespace Compress.Support.Compression.LZMA {
 					Flush((uint)nowPos64);
 					return;
 				}
-				uint len, numDistancePairs; // it's not used
-				ReadMatchDistances(out len, out numDistancePairs);
+				// it's not used
+				ReadMatchDistances(out var len, out var numDistancePairs);
 				var posState = (uint)(nowPos64) & _posStateMask;
 				_isMatch[(_state.Index << Base.kNumPosStatesBitsMax) + posState].Encode(_rangeEncoder, 0);
 				_state.UpdateChar();
@@ -1054,8 +1053,7 @@ namespace Compress.Support.Compression.LZMA {
 					return;
 				}
 
-				uint pos;
-				var len = GetOptimum((uint)nowPos64, out pos);
+				var len = GetOptimum((uint)nowPos64, out var pos);
 
 				var posState = ((uint)nowPos64) & _posStateMask;
 				var complexState = (_state.Index << Base.kNumPosStatesBitsMax) + posState;
@@ -1217,10 +1215,7 @@ namespace Compress.Support.Compression.LZMA {
 			try {
 				SetStreams(inStream, outStream, inSize, outSize);
 				while (true) {
-					long processedInSize;
-					long processedOutSize;
-					bool finished;
-					CodeOneBlock(out processedInSize, out processedOutSize, out finished);
+					CodeOneBlock(out var processedInSize, out var processedOutSize, out var finished);
 					if (finished) {
 						return;
 					}
@@ -1239,10 +1234,7 @@ namespace Compress.Support.Compression.LZMA {
 			_processingMode = !final;
 			try {
 				while (true) {
-					long processedInSize;
-					long processedOutSize;
-					bool finished;
-					CodeOneBlock(out processedInSize, out processedOutSize, out finished);
+					CodeOneBlock(out var processedInSize, out var processedOutSize, out var finished);
 					if (finished) {
 						return processedInSize;
 					}

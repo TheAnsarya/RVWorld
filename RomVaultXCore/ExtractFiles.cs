@@ -68,8 +68,7 @@ namespace RVXCore
 
                         Debug.WriteLine("    Rom " + RomId + " Name: " + RomName + "  Size: " + size + "  Compressed: " + compressedSize + "  CRC: " + VarFix.ToString(CRC));
 
-                        byte[] localHeader;
-                        memZip.ZipFileAddFake(RomName, fileOffset, size, compressedSize, CRC, out localHeader);
+                        memZip.ZipFileAddFake(RomName, fileOffset, size, compressedSize, CRC, out byte[] localHeader);
 
                         //ZipSetLocalFileHeader(RomId, localHeader, fileOffset);
                         if (romCount == 0)

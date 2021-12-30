@@ -182,8 +182,7 @@ namespace RVXCore.DB
                 Games = new List<RvGame>();
             }
 
-            int index;
-            ChildNameSearch(rvGame.Name, out index);
+            ChildNameSearch(rvGame.Name, out int index);
             Games.Insert(index, rvGame);
         }
 

@@ -662,7 +662,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			{
 				var s = tempState1.Initialize(Heap);
 				int i;
-				int freqSum, count, hiCnt;
+				int count, hiCnt;
 				SEE2Context see;
 				int num, numMasked = minContext.NumStats;
 				do {
@@ -686,7 +686,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				}
 				while (i != num);
 
-				see = minContext.makeEscFreq(this, numMasked, out freqSum);
+				see = minContext.makeEscFreq(this, numMasked, out var freqSum);
 				freqSum += hiCnt;
 				count = (int)decoder.GetThreshold((uint)freqSum);
 

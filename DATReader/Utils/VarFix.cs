@@ -24,8 +24,7 @@ namespace DATReader.Utils {
 					return Convert.ToUInt64(n.Substring(2), 16);
 				}
 
-				ulong res;
-				if (ulong.TryParse(n, out res)) {
+				if (ulong.TryParse(n, out var res)) {
 					return res;
 				}
 

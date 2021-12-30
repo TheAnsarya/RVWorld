@@ -276,8 +276,7 @@ namespace RVXCore.DB
                 Roms = new List<RvRom>();
             }
 
-            int index;
-            ChildNameSearch(rvRom.Name, out index);
+            ChildNameSearch(rvRom.Name, out int index);
             Roms.Insert(index, rvRom);
             return index;
         }

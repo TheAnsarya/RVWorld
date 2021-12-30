@@ -83,9 +83,7 @@ namespace DATReader.DatReader {
 					return true;
 				}
 
-				string element;
-				string value;
-				if (!splitLine(line, out element, out value)) {
+				if (!splitLine(line, out var element, out var value)) {
 					return false;
 				}
 
@@ -131,9 +129,7 @@ namespace DATReader.DatReader {
 					return true;
 				}
 
-				string element;
-				string value;
-				if (!splitLine(line, out element, out value)) {
+				if (!splitLine(line, out var element, out var value)) {
 					return false;
 				}
 
@@ -171,9 +167,7 @@ namespace DATReader.DatReader {
 					return true;
 				}
 
-				string element;
-				string value;
-				if (!splitLine(line, out element, out value)) {
+				if (!splitLine(line, out var element, out var value)) {
 					return false;
 				}
 
@@ -236,10 +230,9 @@ namespace DATReader.DatReader {
 				var romOf = parts[8];
 				var merge = parts[9];
 
-				int index;
 				DatDir dDir;
 				var searchDir = new DatDir(DatFileType.Dir) { Name = GameName };
-				if (parentDir.ChildNameSearch(searchDir, out index) != 0) {
+				if (parentDir.ChildNameSearch(searchDir, out var index) != 0) {
 					dDir = new DatDir(DatFileType.UnSet) { Name = GameName, DGame = new DatGame() };
 					var dGame = dDir.DGame;
 					dGame.Description = GameDescription;
@@ -301,10 +294,9 @@ namespace DATReader.DatReader {
 				var romOf = parts[8];
 				var merge = parts[9];
 
-				int index;
 				DatDir dDir;
 				var searchDir = new DatDir(DatFileType.Dir) { Name = GameName };
-				if (parentDir.ChildNameSearch(searchDir, out index) != 0) {
+				if (parentDir.ChildNameSearch(searchDir, out var index) != 0) {
 					dDir = new DatDir(DatFileType.UnSet) { Name = GameName, DGame = new DatGame() };
 					var dGame = dDir.DGame;
 					dGame.Description = GameDescription;
