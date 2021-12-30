@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace Compress.Support.Compression.PPmd.H {
@@ -41,12 +41,12 @@ namespace Compress.Support.Compression.PPmd.H {
 		internal void SetValues(State ptr) => Array.Copy(ptr.Memory, ptr.Address, Memory, Address, Size);
 
 		internal State DecrementAddress() {
-			Address = Address - Size;
+			Address -= Size;
 			return this;
 		}
 
 		internal State IncrementAddress() {
-			Address = Address + Size;
+			Address += Size;
 			return this;
 		}
 

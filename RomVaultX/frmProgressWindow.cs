@@ -33,7 +33,7 @@ namespace RomVaultX
             {
                 const int CP_NOCLOSE_BUTTON = 0x200;
                 CreateParams mdiCp = base.CreateParams;
-                mdiCp.ClassStyle = mdiCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                mdiCp.ClassStyle |= CP_NOCLOSE_BUTTON;
                 return mdiCp;
             }
         }

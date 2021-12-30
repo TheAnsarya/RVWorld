@@ -552,11 +552,11 @@ namespace Compress.Support.Compression.BZip2 {
 					var N = 1;
 					do {
 						if (nextSym == BZip2Constants.RUNA) {
-							s = s + (0 + 1) * N;
+							s += (0 + 1) * N;
 						} else if (nextSym == BZip2Constants.RUNB) {
-							s = s + (1 + 1) * N;
+							s += (1 + 1) * N;
 						}
-						N = N * 2;
+						N *= 2;
 						{
 							int zt, zn, zvec, zj;
 							if (groupPos == 0) {

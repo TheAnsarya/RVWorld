@@ -181,7 +181,7 @@ namespace RomVaultCore.FixFile.Util {
 					tcrc32?.Wait();
 					tmd5?.Wait();
 					tsha1?.Wait();
-					sizetogo = sizetogo - (ulong)sizenow;
+					sizetogo -= (ulong)sizenow;
 
 
 					if (Report.CancellationPending()) {

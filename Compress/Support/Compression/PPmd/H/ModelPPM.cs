@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using Decoder = Compress.Support.Compression.RangeCoder.Decoder;
 
@@ -269,9 +269,9 @@ namespace Compress.Support.Compression.PPmd.H {
 
 		public virtual SEE2Context[][] getSEE2Cont() => SEE2Cont;
 
-		public virtual void incEscCount(int dEscCount) => EscCount = EscCount + dEscCount;
+		public virtual void incEscCount(int dEscCount) => EscCount += dEscCount;
 
-		public virtual void incRunLength(int dRunLength) => RunLength = RunLength + dRunLength;
+		public virtual void incRunLength(int dRunLength) => RunLength += dRunLength;
 
 		public virtual int[] getHB2Flag() => HB2Flag;
 
@@ -710,7 +710,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				}
 
 				decoder.Decode((uint)hiCnt, (uint)(freqSum - hiCnt));
-				see.Summ = see.Summ + freqSum;
+				see.Summ += freqSum;
 				do {
 					s.Address = minContext.ps[--i];
 					charMask[s.Symbol] = 0;

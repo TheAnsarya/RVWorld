@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -173,7 +173,7 @@ namespace Compress.Support.Compression.Deflate64 {
 		/// <summary>Skips to the next byte boundary.</summary>
 		public void SkipToByteBoundary() {
 			_bitBuffer >>= (_bitsInBuffer % 8);
-			_bitsInBuffer = _bitsInBuffer - (_bitsInBuffer % 8);
+			_bitsInBuffer -= (_bitsInBuffer % 8);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Text;
 
 namespace Compress.Support.Compression.PPmd.H {
@@ -103,7 +103,7 @@ namespace Compress.Support.Compression.PPmd.H {
 		// uint LowCount, HighCount, scale;
 		private long lowCount, highCount, scale;
 
-		internal void incScale(int dScale) => Scale = Scale + dScale;
+		internal void incScale(int dScale) => Scale += dScale;
 
 		internal long HighCount {
 			get => highCount;

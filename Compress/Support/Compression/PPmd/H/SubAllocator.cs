@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace Compress.Support.Compression.PPmd.H {
@@ -299,7 +299,7 @@ namespace Compress.Support.Compression.PPmd.H {
 
 		public virtual void freeUnits(int ptr, int OldNU) => insertNode(ptr, units2Indx[OldNU - 1]);
 
-		public virtual void decPText(int dPText) => PText = PText - dPText;
+		public virtual void decPText(int dPText) => PText -= dPText;
 
 		public virtual void initSubAllocator() {
 			int i, k;

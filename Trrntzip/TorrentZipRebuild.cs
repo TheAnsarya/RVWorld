@@ -126,7 +126,7 @@ namespace TrrntZip {
 
 						crcCs.Read(buffer, 0, sizenow);
 						writeStream.Write(buffer, 0, sizenow);
-						sizetogo = sizetogo - (ulong)sizenow;
+						sizetogo -= (ulong)sizenow;
 					}
 					writeStream.Flush();
 

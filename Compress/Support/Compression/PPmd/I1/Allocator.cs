@@ -1,4 +1,4 @@
-#region Using
+﻿#region Using
 
 
 
@@ -371,7 +371,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 					memoryNode0 = MemoryNodes[index].Remove();
 					if (memoryNode0.UnitCount != 0) {
 						while ((memoryNode2 = memoryNode0 + memoryNode0.UnitCount).Stamp == uint.MaxValue) {
-							memoryNode0.UnitCount = memoryNode0.UnitCount + memoryNode2.UnitCount;
+							memoryNode0.UnitCount += memoryNode2.UnitCount;
 							memoryNode2.UnitCount = 0;
 						}
 						memoryNode1.Link(memoryNode0);

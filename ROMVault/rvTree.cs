@@ -103,7 +103,7 @@ namespace ROMVault
             pTreeBranches = pTreeBranches.Replace("├", "│");
             pTreeBranches = pTreeBranches.Replace("└", " ");
 
-            _yPos = _yPos + nodeHeight;
+            _yPos += nodeHeight;
 
             bool found = false;
             int last = 0;

@@ -314,7 +314,7 @@ namespace RomVaultCore.FixFile {
 									return ReturnCode.LogicError;
 								}
 								parent.ChildRemove(index);
-								testChild.Name = testChild.Name + ".tmp";
+								testChild.Name += ".tmp";
 								parent.ChildAdd(testChild);
 								break;
 							}

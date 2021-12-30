@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 
 namespace Compress.Support.Compression.PPmd.H {
 	internal class SEE2Context {
@@ -55,7 +55,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			shift &= 0xff;
 		}
 
-		public virtual void incSumm(int dSumm) => Summ = Summ + dSumm;
+		public virtual void incSumm(int dSumm) => Summ += dSumm;
 
 		public override string ToString() {
 			var buffer = new StringBuilder();

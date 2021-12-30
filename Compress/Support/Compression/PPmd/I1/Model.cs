@@ -1,4 +1,4 @@
-#region Using
+﻿#region Using
 
 using System;
 using System.IO;
@@ -708,7 +708,7 @@ LoopEntry:
 				}
 
 				RemoveBinaryContexts(0, maximumContext);
-				method = method + 1;
+				method++;
 				Allocator.GlueCount = 0;
 				orderFall = modelOrder;
 			} else if (method == ModelRestorationMethod.Restart || Allocator.GetMemoryUsed() < (Allocator.AllocatorSize >> 1)) {

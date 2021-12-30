@@ -44,7 +44,7 @@ namespace RomVaultX
                 }
                 pTree.RIcon = new Rectangle(20 + nodeDepth * 18, yPos, 16, 16);
                 pTree.RText = new Rectangle(36 + nodeDepth * 18, yPos, 500, 16);
-                yPos = yPos + 16;
+                yPos += 16;
             }
             AutoScrollMinSize = new Size(500, yPos);
 

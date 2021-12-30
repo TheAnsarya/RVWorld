@@ -925,7 +925,7 @@ namespace Compress.Support.Compression.BZip2 {
 					j = i;
 					while (FullGtU(zptr[j - h] + d, v + d)) {
 						zptr[j] = zptr[j - h];
-						j = j - h;
+						j -= h;
 						if (j <= (lo + h - 1)) {
 							break;
 						}
@@ -941,7 +941,7 @@ namespace Compress.Support.Compression.BZip2 {
 					j = i;
 					while (FullGtU(zptr[j - h] + d, v + d)) {
 						zptr[j] = zptr[j - h];
-						j = j - h;
+						j -= h;
 						if (j <= (lo + h - 1)) {
 							break;
 						}
@@ -957,7 +957,7 @@ namespace Compress.Support.Compression.BZip2 {
 					j = i;
 					while (FullGtU(zptr[j - h] + d, v + d)) {
 						zptr[j] = zptr[j - h];
-						j = j - h;
+						j -= h;
 						if (j <= (lo + h - 1)) {
 							break;
 						}
@@ -1217,7 +1217,7 @@ namespace Compress.Support.Compression.BZip2 {
 					}
 					while (h <= 256);
 					do {
-						h = h / 3;
+						h /= 3;
 						for (i = h; i <= 255; i++) {
 							vv = runningOrder[i];
 							j = i;
@@ -1225,7 +1225,7 @@ namespace Compress.Support.Compression.BZip2 {
 									- ftab[(runningOrder[j - h]) << 8]) >
 								(ftab[((vv) + 1) << 8] - ftab[(vv) << 8])) {
 								runningOrder[j] = runningOrder[j - h];
-								j = j - h;
+								j -= h;
 								if (j <= (h - 1)) {
 									break;
 								}

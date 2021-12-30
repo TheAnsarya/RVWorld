@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 
 namespace Compress.Support.Compression.PPmd.H {
 	internal class PPMContext : Pointer {
@@ -177,7 +177,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				}
 				while (p.Freq == 0);
 				EscFreq += i;
-				NumStats = NumStats - i;
+				NumStats -= i;
 				if (NumStats == 1) {
 					var tmp = new StateRef();
 					temp.Address = freqData.GetStats();
