@@ -144,24 +144,14 @@ namespace Compress.ZipFile {
                99 - AE-x encryption marker (see APPENDIX E)
         */
 
-				switch (_compressionMethod) {
-					case 0: // The file is stored (no compression)
-					case 8: // The file is Deflated
-					case 9: // Enhanced Deflating using Deflate64(tm)
-					case 12: // The file is BZIP2 algorithm. 
-					case 14: // LZMA
-						return ZipReturn.ZipGood;
-
-					case 20:
-					case 93: // Zstandard (zstd) Compression 
-						return ZipReturn.ZipGood;
-
-					case 98: // PPMd version I, Rev 1
-						return ZipReturn.ZipGood;
-
-					default:
-						return ZipReturn.ZipUnsupportedCompression;
-				}
+				return _compressionMethod switch {
+					// The file is stored (no compression)
+					0 or 8 or 9 or 12 or 14 => ZipReturn.ZipGood,
+					20 or 93 => ZipReturn.ZipGood,
+					// PPMd version I, Rev 1
+					98 => ZipReturn.ZipGood,
+					_ => ZipReturn.ZipUnsupportedCompression,
+				};
 			} catch {
 				return ZipReturn.ZipCentralDirError;
 			}
