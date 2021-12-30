@@ -81,7 +81,9 @@ namespace DATReader.DatReader {
 		private static bool LoadHeaderFromDat(XmlDocument doc, string filename, DatHeader datHeader) {
 			if (doc.DocumentElement == null) {
 				return false;
+			
 			}
+
 			var head = doc.DocumentElement.SelectSingleNode("header");
 
 			datHeader.Filename = filename;
@@ -89,6 +91,7 @@ namespace DATReader.DatReader {
 			if (head == null) {
 				return false;
 			}
+
 			datHeader.Name = VarFix.String(head.SelectSingleNode("name"));
 			datHeader.Type = VarFix.String(head.SelectSingleNode("type"));
 			datHeader.RootDir = VarFix.String(head.SelectSingleNode("rootdir"));
@@ -131,6 +134,7 @@ namespace DATReader.DatReader {
 			if (doc.DocumentElement == null) {
 				return false;
 			}
+
 			var head = doc.SelectSingleNode("mame");
 
 			if (head?.Attributes == null) {

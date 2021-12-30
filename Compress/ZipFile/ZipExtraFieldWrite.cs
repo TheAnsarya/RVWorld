@@ -32,6 +32,7 @@ namespace Compress.ZipFile {
 				} else {
 					headerUnCompressedSize = (uint)unCompressedSize;
 				}
+
 				if (compressedSize >= 0xffffffff) {
 					headerCompressedSize = 0xffffffff;
 					eZip64.AddRange(BitConverter.GetBytes(compressedSize));
@@ -81,7 +82,10 @@ namespace Compress.ZipFile {
 				if (aTime != null) {
 					flags |= 0x02;
 					eTime.AddRange(BitConverter.GetBytes(CompressUtils.UtcTicksToUnixDateTime((long)aTime)));
+
 				}
+
+
 				if (cTime != null) {
 					flags |= 0x04;
 					eTime.AddRange(BitConverter.GetBytes(CompressUtils.UtcTicksToUnixDateTime((long)cTime)));

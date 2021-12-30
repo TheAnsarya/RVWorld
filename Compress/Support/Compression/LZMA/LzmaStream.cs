@@ -115,6 +115,7 @@ namespace Compress.Support.Compression.LZMA {
 					position = encoder.Code(null, true);
 				}
 			}
+
 			base.Dispose(disposing);
 		}
 

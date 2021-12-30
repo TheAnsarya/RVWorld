@@ -128,6 +128,7 @@ namespace TrrntZip {
 						writeStream.Write(buffer, 0, sizenow);
 						sizetogo -= (ulong)sizenow;
 					}
+
 					writeStream.Flush();
 
 					crcCs.Close();
@@ -150,6 +151,7 @@ namespace TrrntZip {
 
 					zipFileOut.ZipFileCloseWriteStream(t.ByteCRC);
 				}
+
 				statusCallBack?.Invoke(threadId, 100);
 
 				zipFileOut.ZipFileClose();

@@ -1,4 +1,4 @@
-namespace Compress.Support.Compression.LZ {
+﻿namespace Compress.Support.Compression.LZ {
 	internal class InWindow {
 		public byte[] _bufferBase = null; // pointer to buffer with data
 		private System.IO.Stream _stream;
@@ -54,6 +54,7 @@ namespace Compress.Support.Compression.LZ {
 					_streamEndWasReached = true;
 					return;
 				}
+
 				_streamPos += (uint)numReadBytes;
 				if (_streamPos >= _pos + _keepSizeAfter) {
 					_posLimit = _streamPos - _keepSizeAfter;
@@ -71,7 +72,9 @@ namespace Compress.Support.Compression.LZ {
 				Free();
 				_blockSize = blockSize;
 				_bufferBase = new byte[_blockSize];
+
 			}
+
 			_pointerToLastSafePosition = _blockSize - keepSizeAfter;
 			_streamEndWasReached = false;
 		}

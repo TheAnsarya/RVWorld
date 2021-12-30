@@ -23,6 +23,7 @@ namespace Compress.Support.Compression.zStd {
 							// error connot go backwards
 							return -1;
 						}
+
 						readLen = offset - pos;
 						break;
 					}
@@ -42,7 +43,10 @@ namespace Compress.Support.Compression.zStd {
 				var count = readLen > 4096 ? 4096 : (int)readLen;
 				var read = Read(buffer, 0, count);
 				readLen -= read;
+
 			}
+
+
 			return pos;
 		}
 	}

@@ -94,6 +94,7 @@ namespace RomVaultCore.ReadDat {
 								CheckAttribute(cGame, dGame.RelatedTo, RvGame.GameData.RelatedTo);
 								CheckAttribute(cGame, dGame.Source, RvGame.GameData.Source);
 							}
+
 							nd.Game = cGame;
 						}
 

@@ -75,6 +75,7 @@ namespace RomVaultCore.FixFile.Util {
 							errorMessage = "Deleting " + fileDeleting.FullName + " Correct file not found. Resan for " + fullPathCheckDelete;
 							return ReturnCode.RescanNeeded;
 						}
+
 						var fi = new FileInfo(fullPathCheckDelete);
 						if (fi.LastWriteTime != fileToCheck.Parent.FileModTimeStamp) {
 							errorMessage = "Deleting " + fileDeleting.FullName + " Correct file timestamp not found. Resan for " + fileToCheck.FullName;
@@ -104,7 +105,9 @@ namespace RomVaultCore.FixFile.Util {
 						if (!File.Exists(fullPathCheckDelete)) {
 							errorMessage = "Deleting " + fileDeleting.FullName + " Correct file not found. Resan for " + fullPathCheckDelete;
 							return ReturnCode.RescanNeeded;
+
 						}
+
 						var fi = new FileInfo(fullPathCheckDelete);
 						if (fi.LastWriteTime != fileToCheck.FileModTimeStamp) {
 							errorMessage = "Deleting " + fileDeleting.FullName + " Correct file timestamp not found. Resan for " + fileToCheck.FullName;

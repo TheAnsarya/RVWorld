@@ -292,6 +292,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			if (obj is Pointer pointer) {
 				return pointer.Address == Address;
 			}
+
 			return base.Equals(obj);
 		}
 

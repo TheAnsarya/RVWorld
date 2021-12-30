@@ -25,6 +25,7 @@ namespace DATReader.DatClean {
 					} else {
 						tmpFile = (DatDir)dir.Child(index);
 					}
+
 					dFile.DatFileType = DatFileType.File;
 					tmpFile.ChildAdd(dFile);
 
@@ -32,7 +33,9 @@ namespace DATReader.DatClean {
 					dFile.Name = dFile.Name.Replace("\\", "/");
 					dFile.DatFileType = is7Zip ? DatFileType.File7Zip : DatFileType.FileTorrentZip;
 					parents[parentCount - 1].ChildAdd(dFile);
+
 				}
+
 				return;
 			}
 
@@ -65,8 +68,10 @@ namespace DATReader.DatClean {
 
 			parents.Add(dDir);
 			foreach (var child in children) {
+
 				SetZip(child, is7Zip, parents);
 			}
+
 			parents.RemoveAt(parentCount);
 		}
 

@@ -63,12 +63,16 @@ namespace Compress.Support.Compression.PPmd {
 			if (array.Length == 0) {
 				throw new NullReferenceException();
 			}
+
 			if (fromindex > toindex) {
 				throw new ArgumentException();
+
 			}
+
 			if ((fromindex < 0) || array.Length < toindex) {
 				throw new IndexOutOfRangeException();
 			}
+
 			for (var index = (fromindex > 0) ? fromindex-- : fromindex; index < toindex; index++) {
 				array[index] = val;
 			}
@@ -244,10 +248,12 @@ namespace Compress.Support.Compression.PPmd {
 				if (readCount > advanceAmount) {
 					readCount = (int)advanceAmount;
 				}
+
 				read = source.Read(buffer, 0, readCount);
 				if (read < 0) {
 					break;
 				}
+
 				advanceAmount -= read;
 				if (advanceAmount == 0) {
 					break;
@@ -291,6 +297,7 @@ namespace Compress.Support.Compression.PPmd {
 			} catch {
 				dt = new DateTime();
 			}
+
 			return dt;
 		}
 
@@ -298,6 +305,7 @@ namespace Compress.Support.Compression.PPmd {
 			if (dateTime == null) {
 				return 0;
 			}
+
 			return (uint)(
 				(dateTime.Value.Second / 2) | (dateTime.Value.Minute << 5) | (dateTime.Value.Hour << 11) |
 				(dateTime.Value.Day << 16) | (dateTime.Value.Month << 21) | ((dateTime.Value.Year - 1980) << 25));
@@ -316,6 +324,8 @@ namespace Compress.Support.Compression.PPmd {
 				total += count;
 				destination.Write(array, 0, count);
 			}
+
+
 			return total;
 		}
 
@@ -328,6 +338,7 @@ namespace Compress.Support.Compression.PPmd {
 					return true;
 				}
 			}
+
 			return (total >= buffer.Length);
 		}
 
@@ -337,11 +348,13 @@ namespace Compress.Support.Compression.PPmd {
 			if (source.Length != target.Length) {
 				return false;
 			}
+
 			for (var i = 0; i < source.Length; ++i) {
 				if (source[i] != target[i]) {
 					return false;
 				}
 			}
+
 			return true;
 		}
 

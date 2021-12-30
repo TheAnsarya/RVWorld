@@ -435,16 +435,20 @@ namespace Compress.Support.Compression.Deflate {
 					s1 += buf[index++]; s2 += s1;
 					k -= 16;
 				}
+
 				if (k != 0) {
 					do {
 						s1 += buf[index++];
 						s2 += s1;
 					}
 					while (--k != 0);
+
 				}
+
 				s1 %= BASE;
 				s2 %= BASE;
 			}
+
 			return (s2 << 16) | s1;
 		}
 	}

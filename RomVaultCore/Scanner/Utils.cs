@@ -21,6 +21,8 @@ namespace RomVaultCore.Scanner {
 					return false;
 				}
 			}
+
+
 			return true;
 		}
 	}

@@ -75,21 +75,26 @@ namespace CHDlib {
 				fileErrorAbort = true;
 				return hdErr.HDERR_CANNOT_OPEN_FILE;
 			}
+
 			if (s == null) {
 				fileSystemError?.Invoke("File: " + filename + " Error: File Could not be opened.");
 				fileErrorAbort = true;
 				return hdErr.HDERR_CANNOT_OPEN_FILE;
+
 			}
+
 			if (s.Length < MaxHeader) {
 				s.Close();
 				s.Dispose();
 				return hdErr.HDERR_INVALID_FILE;
 			}
+
 			var hdi = new hard_disk_info();
 			var res = ReadCHDHeader(s, ref hdi);
 			if (res != hdErr.HDERR_NONE) {
 				return res;
 			}
+
 			chdVersion = hdi.version;
 			chdMD5 = hdi.md5;
 			chdSHA1 = hdi.sha1;
@@ -155,6 +160,7 @@ namespace CHDlib {
 				if (HeaderLengths[hardDisk.version] != hardDisk.length) {
 					return hdErr.HDERR_INVALID_DATA;
 				}
+
 				switch (hardDisk.version) {
 					case 1: {
 							hardDisk.flags = br.ReadUInt32BE();

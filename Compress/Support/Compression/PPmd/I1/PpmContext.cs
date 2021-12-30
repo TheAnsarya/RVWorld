@@ -215,6 +215,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 				if (obj is PpmContext context) {
 					return context.Address == Address;
 				}
+
 				return base.Equals(obj);
 			}
 
@@ -288,6 +289,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 					return;
 				}
 			}
+
 			Coder.HighCount = (Coder.LowCount = lowCount) + state.Frequency;
 			Update1(state, context);
 		}
@@ -328,8 +330,10 @@ SymbolFound:
 					currentSymbol = p1[1].Symbol;
 					p1++;
 				} while (characterMask[currentSymbol] == escapeCount);
+
 				lowCount += p1.Frequency;
 			}
+
 			Coder.Scale += lowCount;
 			see2Context.Update();
 			Update2(state, context);
@@ -400,6 +404,7 @@ SymbolFound:
 					return;
 				}
 			}
+
 			Coder.HighCount = highCount;
 			Coder.LowCount = Coder.HighCount - state.Frequency;
 			Update1(state, context);

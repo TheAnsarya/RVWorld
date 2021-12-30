@@ -88,18 +88,22 @@ namespace CHDlib {
 						_result = "Incorrect startup of CHDMan :" + sOut;
 						_resultType = hdErr.HDERR_CANT_VERIFY;
 					}
+
 					break;
 				case 1:
 					if (sOut != "Raw SHA1 verification successful!") {
 						_result = "Raw SHA1 check failed :" + sOut;
 						_resultType = hdErr.HDERR_DECOMPRESSION_ERROR;
+
 					}
+
 					break;
 				case 2:
 					if (sOut != "Overall SHA1 verification successful!") {
 						_result = "Overall SHA1 check failed :" + sOut;
 						_resultType = hdErr.HDERR_DECOMPRESSION_ERROR;
 					}
+
 					break;
 				default:
 					_result = "Unexpected output from chdman :" + sOut;
@@ -123,6 +127,7 @@ namespace CHDlib {
 				if (string.IsNullOrEmpty(sLine)) {
 					continue;
 				}
+
 				_progress?.Invoke(sLine);
 
 				if (_resultType != hdErr.HDERR_NONE) {

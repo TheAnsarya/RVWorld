@@ -14,6 +14,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (Memory != null) {
 				next = Utility.readIntLittleEndian(Memory, Address);
 			}
+
 			return next;
 		}
 

@@ -70,16 +70,21 @@ namespace Compress.ZipFile {
 							lf.UncompressedSize = BitConverter.ToUInt64(extraField, pos);
 							pos += 8;
 						}
+
 						if (compressedSize == 0xffffffff) {
 							compressedSize = BitConverter.ToUInt64(extraField, pos);
 							pos += 8;
+
 						}
+
 						if (centralDir) {
 							if (relativeOffsetOfLocalHeader == 0xffffffff) {
 								relativeOffsetOfLocalHeader = BitConverter.ToUInt64(extraField, pos);
 								pos += 8;
 							}
 						}
+
+
 						break;
 
 					/* PKWARE's authenticity verification */

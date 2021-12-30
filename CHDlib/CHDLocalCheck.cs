@@ -50,6 +50,7 @@ namespace CHDlib {
 									   : mapFlags.MAP_ENTRY_TYPE_COMPRESSED);
 						info.map[i] = me;
 					}
+
 					var selfhunkMap = new Dictionary<ulong, int>();
 					for (var i = 0; i < info.totalblocks; i++) {
 						if (selfhunkMap.TryGetValue(info.map[i].offset, out var index)) {
@@ -193,14 +194,15 @@ namespace CHDlib {
 											Buffer.BlockCopy(cache, 0, mapEntry.BlockCache, 0, bytes);
 										}
 									}
+
 									break;
 								}
 							default: {
 									Console.WriteLine("Unknown compression");
 									return hdErr.HDERR_DECOMPRESSION_ERROR;
-
 								}
 						}
+
 						break;
 					}
 
@@ -247,6 +249,7 @@ namespace CHDlib {
 					return hdErr.HDERR_DECOMPRESSION_ERROR;
 				}
 			}
+
 			return hdErr.HDERR_NONE;
 		}
 
@@ -254,6 +257,7 @@ namespace CHDlib {
 			if ((b0 == null) || (b1 == null)) {
 				return false;
 			}
+
 			if (b0.Length != b1.Length) {
 				return false;
 			}
@@ -263,6 +267,8 @@ namespace CHDlib {
 					return false;
 				}
 			}
+
+
 			return true;
 		}
 	}

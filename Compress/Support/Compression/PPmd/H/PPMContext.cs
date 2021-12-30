@@ -15,6 +15,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				if (Memory != null) {
 					numStats = Utility.readShortLittleEndian(Memory, Address) & 0xffff;
 				}
+
 				return numStats;
 			}
 
@@ -84,7 +85,10 @@ namespace Compress.Support.Compression.PPmd.H {
 		internal int getSuffix() {
 			if (Memory != null) {
 				suffix = Utility.readIntLittleEndian(Memory, Address + 8);
+
 			}
+
+
 			return suffix;
 		}
 
@@ -110,6 +114,8 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (tempPPMContext == null) {
 				tempPPMContext = new PPMContext(null);
 			}
+
+
 			return tempPPMContext.Initialize(Memory);
 		}
 
@@ -122,6 +128,8 @@ namespace Compress.Support.Compression.PPmd.H {
 				pc.setSuffix(this);
 				pStats.SetSuccessor(pc);
 			}
+
+
 			return pc.Address;
 		}
 
@@ -136,6 +144,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				temp.Address = p.Address - State.Size;
 				State.PPMDSwap(p, temp);
 			}
+
 			temp.Address = freqData.GetStats();
 			temp.IncrementFreq(4);
 			freqData.IncrementSummFreq(4);
@@ -193,12 +202,14 @@ namespace Compress.Support.Compression.PPmd.H {
 					return;
 				}
 			}
+
 			EscFreq -= Utility.URShift(EscFreq, 1);
 			freqData.IncrementSummFreq(EscFreq);
 			int n0 = Utility.URShift((OldNS + 1), 1), n1 = Utility.URShift((NumStats + 1), 1);
 			if (n0 != n1) {
 				freqData.SetStats(model.SubAlloc.shrinkUnits(freqData.GetStats(), n0, n1));
 			}
+
 			model.FoundState.Address = freqData.GetStats();
 		}
 
@@ -314,6 +325,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (count >= coder.SubRange.Scale) {
 				return false;
 			}
+
 			pps = 0;
 			p.Address = ps[pps];
 			if (count < hiCnt) {
@@ -321,6 +333,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				while ((hiCnt += p.Freq) <= count) {
 					p.Address = ps[++pps]; // p=*++pps;
 				}
+
 				coder.SubRange.HighCount = hiCnt;
 				coder.SubRange.LowCount = hiCnt - p.Freq;
 				psee2c.update();
@@ -338,6 +351,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				psee2c.incSumm((int)coder.SubRange.Scale);
 				model.NumMasked = NumStats;
 			}
+
 			return (true);
 		}
 
@@ -350,6 +364,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (temp.Freq > ModelPPM.MAX_FREQ) {
 				rescale(model);
 			}
+
 			model.incEscCount(1);
 			model.RunLength = model.InitRL;
 		}
@@ -372,6 +387,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				psee2c = model.DummySEE2Cont;
 				model.Coder.SubRange.Scale = 1;
 			}
+
 			return psee2c;
 		}
 
@@ -394,6 +410,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				psee2c = model.DummySEE2Cont;
 				escFreq = 1;
 			}
+
 			return psee2c;
 		}
 
@@ -409,6 +426,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (count >= coder.SubRange.Scale) {
 				return false;
 			}
+
 			if (count < (HiCnt = p.Freq)) {
 				coder.SubRange.HighCount = HiCnt;
 				model.PrevSuccess = (2 * HiCnt > coder.SubRange.Scale) ? 1 : 0;
@@ -420,6 +438,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				if (HiCnt > ModelPPM.MAX_FREQ) {
 					rescale(model);
 				}
+
 				coder.SubRange.LowCount = 0;
 				return true;
 			} else {
@@ -427,6 +446,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					return (false);
 				}
 			}
+
 			model.PrevSuccess = 0;
 			var numStats = NumStats;
 			i = numStats - 1;
@@ -446,6 +466,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					return (true);
 				}
 			}
+
 			coder.SubRange.LowCount = HiCnt - p.Freq;
 			coder.SubRange.HighCount = HiCnt;
 			update1(model, p.Address);
@@ -473,3 +494,4 @@ namespace Compress.Support.Compression.PPmd.H {
 		static PPMContext() => unionSize = System.Math.Max(FreqData.Size, State.Size);
 	}
 }
+

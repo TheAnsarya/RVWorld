@@ -35,6 +35,7 @@ namespace RomVaultCore.FixFile {
 					var tdir = DB.DirRoot.Child(i);
 					totalFixes += CountFixDir(tdir, tdir.Tree.Checked == RvTreeRow.TreeSelect.Selected);
 				}
+
 				Report.ReportProgress(new bgwSetRange(totalFixes));
 
 				var fileProcessQueue = new List<RvFile>();
@@ -85,7 +86,9 @@ namespace RomVaultCore.FixFile {
 					case FileType.SevenZip:
 						if (!thisSelected) {
 							continue;
+
 						}
+
 						var tZip = child;
 						count += tZip.DirStatus.CountCanBeFixed();
 
@@ -99,13 +102,17 @@ namespace RomVaultCore.FixFile {
 					case FileType.File:
 						if (!thisSelected) {
 							continue;
+
 						}
+
 						if (child.RepStatus == RepStatus.CanBeFixed) {
 							count++;
 						}
+
 						break;
 				}
 			}
+
 			return count;
 		}
 
@@ -132,6 +139,7 @@ namespace RomVaultCore.FixFile {
 					if (returnCode != ReturnCode.Good) {
 						return returnCode;
 					}
+
 					fileProcessQueue.RemoveAt(0);
 
 					if (Report.CancellationPending()) {
@@ -143,6 +151,7 @@ namespace RomVaultCore.FixFile {
 					Report.ReportProgress(new bgwProgress(totalFixed));
 					reportedFixed = totalFixed;
 				}
+
 				if (Report.CancellationPending()) {
 					break;
 				}
@@ -202,6 +211,7 @@ namespace RomVaultCore.FixFile {
 					returnCode = FixAFile.FixFile(child, fileProcessQueue, ref totalFixed, out errorMessage);
 					break;
 			}
+
 			switch (returnCode) {
 				case ReturnCode.Good:
 					// all good, move alone.
@@ -235,6 +245,7 @@ namespace RomVaultCore.FixFile {
 					ReportError.UnhandledExceptionHandler("Unknown result type " + returnCode);
 					break;
 			}
+
 			return returnCode;
 		}
 

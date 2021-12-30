@@ -17,11 +17,13 @@ namespace DATReader.DatReader {
 				if (dfl.EndOfStream()) {
 					return false;
 				}
+
 				if (dfl.Next.ToLower() == "doscenter") {
 					dfl.Gn();
 					if (!LoadHeaderFromDat(dfl, strFilename, datHeader, errorReport)) {
 						return false;
 					}
+
 					dfl.Gn();
 				}
 
@@ -32,6 +34,7 @@ namespace DATReader.DatReader {
 							if (!LoadGameFromDat(dfl, datHeader.BaseDir, errorReport)) {
 								return false;
 							}
+
 							dfl.Gn();
 							break;
 						default:
@@ -50,6 +53,7 @@ namespace DATReader.DatReader {
 				errorReport?.Invoke(dfl.Filename, "( not found after DOSCenter, on line " + dfl.LineNumber);
 				return false;
 			}
+
 			dfl.Gn();
 
 			datHeader.Filename = filename;
@@ -105,6 +109,7 @@ namespace DATReader.DatReader {
 					}
 				}
 			}
+
 			return true;
 		}
 
@@ -113,6 +118,7 @@ namespace DATReader.DatReader {
 				errorReport?.Invoke(dfl.Filename, "( not found after game, on line " + dfl.LineNumber);
 				return false;
 			}
+
 			dfl.Gn();
 
 			var sNext = dfl.Next.ToLower();
@@ -139,6 +145,7 @@ namespace DATReader.DatReader {
 						if (!LoadFileFromDat(dfl, dDir, errorReport)) {
 							return false;
 						}
+
 						dfl.Gn();
 						break;
 					case "rom":
@@ -146,6 +153,7 @@ namespace DATReader.DatReader {
 						if (!LoadFileFromDat(dfl, dDir, errorReport)) {
 							return false;
 						}
+
 						dfl.Gn();
 						break;
 					default:
@@ -154,6 +162,7 @@ namespace DATReader.DatReader {
 						break;
 				}
 			}
+
 			parentDir.ChildAdd(dDir);
 			return true;
 		}
@@ -163,6 +172,7 @@ namespace DATReader.DatReader {
 				errorReport?.Invoke(dfl.Filename, "( not found after file, on line " + dfl.LineNumber);
 				return false;
 			}
+
 			dfl.Gn();
 
 			if (dfl.Next.ToLower() != "name") {

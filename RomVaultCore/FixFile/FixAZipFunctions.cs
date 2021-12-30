@@ -17,6 +17,7 @@ namespace RomVaultCore.FixFile {
 				ReportError.LogOut($"CorrectZipFile: OutputOutput {tempZipFilename} return {returnCode1}");
 				return returnCode1;
 			}
+
 			return ReturnCode.Good;
 		}
 
@@ -164,7 +165,9 @@ namespace RomVaultCore.FixFile {
 			if (!File.Exists(fixZipFullName)) {
 				errorMessage = "File for move to corrupt not found " + fixZip.FullName;
 				return ReturnCode.RescanNeeded;
+
 			}
+
 			var fi = new FileInfo(fixZipFullName);
 			if (fi.LastWriteTime != fixZip.FileModTimeStamp) {
 				errorMessage = "File for move to corrupt timestamp not correct " + fixZip.FullName;

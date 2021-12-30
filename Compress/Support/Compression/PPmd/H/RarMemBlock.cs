@@ -16,6 +16,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				if (Memory != null) {
 					stamp = Utility.readShortLittleEndian(Memory, Address) & 0xffff;
 				}
+
 				return stamp;
 			}
 
@@ -52,6 +53,8 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (Memory != null) {
 				next = Utility.readIntLittleEndian(Memory, Address + 4);
 			}
+
+
 			return next;
 		}
 
@@ -68,6 +71,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (Memory != null) {
 				NU = Utility.readShortLittleEndian(Memory, Address + 2) & 0xffff;
 			}
+
 			return NU;
 		}
 
@@ -82,6 +86,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (Memory != null) {
 				prev = Utility.readIntLittleEndian(Memory, Address + 8);
 			}
+
 			return prev;
 		}
 

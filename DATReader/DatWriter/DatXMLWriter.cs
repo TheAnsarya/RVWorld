@@ -91,6 +91,7 @@ namespace DATReader.DatWriter {
 							sw.WriteItem("cloneof", g.CloneOf);
 							sw.WriteItem("romof", g.RomOf);
 						}
+
 						if (!string.IsNullOrWhiteSpace(g.IsBios) && g.IsBios != "no") {
 							sw.WriteItem("isbios", g.IsBios);
 						}
@@ -144,7 +145,9 @@ namespace DATReader.DatWriter {
 						sw.WriteLine(@"<dir name=""" + Etxt(baseDir.Name) + @""">", 1);
 						writeBase(sw, baseDir, newStyle);
 						sw.WriteLine(@"</dir>", -1);
+
 					}
+
 					continue;
 				}
 
@@ -189,15 +192,20 @@ namespace DATReader.DatWriter {
 			var ret = "";
 			foreach (var c in e) {
 				if (c == '&') { ret += "&amp;"; continue; }
+
 				if (c == '\"') { ret += "&quot;"; continue; }
+
 				if (c == '\'') { ret += "&apos;"; continue; }
+
 				if (c == '<') { ret += "&lt;"; continue; }
+
 				if (c == '>') { ret += "&gt;"; continue; }
 				//if (c == 127) { ret += "&#7f;"; continue; }
 				if (c < ' ') {
 					ret += $"&#{(int)c:X2};";
 					continue;
 				}
+
 				ret += c;
 			}
 
@@ -229,6 +237,7 @@ namespace DATReader.DatWriter {
 
 					_tabString = new string('\t', _tabDepth);
 				}
+
 				_sw.WriteLine(_tabString + value);
 				if (tabDir == 1) {
 					_tabDepth += 1;
@@ -245,6 +254,7 @@ namespace DATReader.DatWriter {
 
 					_tabString = new string('\t', _tabDepth);
 				}
+
 				_sw.WriteLine(value);
 				if (tabDir == 1) {
 					_tabDepth += 1;

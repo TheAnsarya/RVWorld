@@ -28,6 +28,7 @@ namespace RomVaultCore.FixFile.Util {
 						break;
 					}
 				}
+
 				if (foundCanBeFixed) {
 					continue;
 				}
@@ -43,15 +44,19 @@ namespace RomVaultCore.FixFile.Util {
 					case FileType.File:
 						if (fixRom.RepStatus == RepStatus.Delete && !fileProcessQueue.Contains(fixRom)) {
 							fileProcessQueue.Add(fixRom);
+
 						}
+
 						break;
 					case FileType.ZipFile:
 					case FileType.SevenZipFile:
 						// if this is a compressed fixRom and adds its parent to the parentCheckList to see if the parent can now be reprocessed
 						var checkFile = fixRom.Parent;
 						if (!parentCheckList.Contains(checkFile)) {
+
 							parentCheckList.Add(checkFile);
 						}
+
 						break;
 					default:
 						ReportError.SendAndShow("Unknown repair fixRom type recheck.");

@@ -19,6 +19,7 @@ namespace RomVaultCore.FixFile.Util {
 			if (!Directory.Exists(parentDir)) {
 				Directory.CreateDirectory(parentDir);
 			}
+
 			file.GotStatus = GotStatus.Got;
 		}
 	}

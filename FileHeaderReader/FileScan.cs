@@ -96,6 +96,7 @@ namespace FileHeaderReader {
 
 				lstFileResults.Add(fileResults);
 			}
+
 			file.ZipFileCloseReadStream();
 			return lstFileResults;
 		}
@@ -103,7 +104,9 @@ namespace FileHeaderReader {
 		private static bool ByteArrCompare(byte[] b0, byte[] b1) {
 			if (b0 == null || b1 == null) {
 				return false;
+
 			}
+
 			if (b0.Length != b1.Length) {
 				return false;
 			}
@@ -113,6 +116,7 @@ namespace FileHeaderReader {
 					return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -160,6 +164,7 @@ namespace FileHeaderReader {
 						tmd5 = new ThreadMD5();
 						tsha1 = new ThreadSHA1();
 					}
+
 					tcrc32.Trigger(_buffer0, sizenow);
 					tmd5?.Trigger(_buffer0, sizenow);
 					tsha1?.Trigger(_buffer0, sizenow);
@@ -201,6 +206,7 @@ namespace FileHeaderReader {
 						for (var i = 0; i < restSize; i++) {
 							_buffer1[i] = _buffer0[actualHeaderSize + i];
 						}
+
 						tcrc32?.Trigger(_buffer1, restSize);
 						tmd5?.Trigger(_buffer1, restSize);
 						tsha1?.Trigger(_buffer1, restSize);
@@ -277,6 +283,7 @@ namespace FileHeaderReader {
 					if (sizeNext > 0) {
 						lbuffer.Wait();
 					}
+
 					tcrc32?.Wait();
 					tmd5?.Wait();
 					tsha1?.Wait();

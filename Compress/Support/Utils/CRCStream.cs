@@ -206,6 +206,7 @@ namespace Compress.Support.Utils {
 					bytesToRead = (int)bytesRemaining;
 				}
 			}
+
 			var n = _innerStream.Read(buffer, offset, bytesToRead);
 			if (n > 0) {
 				_Crc32.SlurpBlock(buffer, offset, n);

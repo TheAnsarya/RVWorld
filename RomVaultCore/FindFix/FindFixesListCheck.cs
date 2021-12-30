@@ -104,6 +104,7 @@ namespace RomVaultCore.FindFix {
 
 				}
 			}
+
 			allGotFiles.AddRange(correctFiles);
 			allGotFiles.AddRange(unNeededFiles);
 			allGotFiles.AddRange(inToSortFiles);
@@ -133,7 +134,9 @@ namespace RomVaultCore.FindFix {
 
 					missingFile.RepStatus = missingFile.RepStatus == RepStatus.Corrupt ? RepStatus.CorruptCanBeFixed : RepStatus.CanBeFixed;
 					break;
+
 				}
+
 				if (missingFile.RepStatus == RepStatus.Corrupt) {
 					missingFile.RepStatus = RepStatus.MoveToCorrupt;
 				}
@@ -194,6 +197,7 @@ namespace RomVaultCore.FindFix {
 					unNeededFile.RepStatus = RepStatus.NeededForFix;
 					break;
 				}
+
 				if (unNeededFile.RepStatus == RepStatus.NeededForFix) {
 					continue;
 				}
@@ -211,6 +215,7 @@ namespace RomVaultCore.FindFix {
 					unNeededFile.RepStatus = RepStatus.Delete;
 					break;
 				}
+
 				if (unNeededFile.RepStatus == RepStatus.Delete) {
 					continue;
 				}
@@ -224,6 +229,7 @@ namespace RomVaultCore.FindFix {
 					unNeededFile.RepStatus = RepStatus.Delete;
 					break;
 				}
+
 				if (unNeededFile.RepStatus == RepStatus.Delete) {
 					continue;
 				}
@@ -259,6 +265,7 @@ namespace RomVaultCore.FindFix {
 					inToSortFile.RepStatus = RepStatus.NeededForFix;
 					break;
 				}
+
 				if (inToSortFile.RepStatus == RepStatus.NeededForFix) {
 					continue;
 				}

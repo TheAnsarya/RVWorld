@@ -112,6 +112,7 @@ namespace DATReader.DatReader {
 						return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -150,6 +151,7 @@ namespace DATReader.DatReader {
 						return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -190,6 +192,7 @@ namespace DATReader.DatReader {
 						return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -254,6 +257,7 @@ namespace DATReader.DatReader {
 
 				dDir.ChildAdd(dRom);
 			}
+
 			return true;
 		}
 
@@ -319,6 +323,7 @@ namespace DATReader.DatReader {
 
 				dDir.ChildAdd(dRom);
 			}
+
 			return true;
 		}
 
@@ -329,6 +334,7 @@ namespace DATReader.DatReader {
 				Value = null;
 				return false;
 			}
+
 			Element = s.Substring(0, i);
 			Value = s.Substring(i + 1);
 			return true;

@@ -13,6 +13,7 @@ namespace RomVaultCore.Utils {
 				ReportError.SendAndShow("comparing null ulong? ");
 				return -1;
 			}
+
 			return Math.Sign(((ulong)a).CompareTo((ulong)b));
 		}
 

@@ -159,6 +159,7 @@ namespace Dir2Dat {
 					ProcessDir(d, nextDir, newStyle);
 				}
 			}
+
 			var fia = di.GetFiles();
 
 			var fCount = 0;
@@ -207,6 +208,7 @@ namespace Dir2Dat {
 						return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -274,7 +276,9 @@ namespace Dir2Dat {
 				}
 
 				ZipDir.ChildAdd(df);
+
 			}
+
 			zf1.ZipFileClose();
 			if (isTorrentZipDate && ZipDir.DatFileType == DatFileType.DirRVZip) {
 				ZipDir.DatFileType = DatFileType.DirTorrentZip;
@@ -313,6 +317,7 @@ namespace Dir2Dat {
 				};
 				ZipDir.ChildAdd(df);
 			}
+
 			zf1.ZipFileClose();
 		}
 

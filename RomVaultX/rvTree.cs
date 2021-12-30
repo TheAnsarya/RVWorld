@@ -41,6 +41,7 @@ namespace RomVaultX {
 				pTree.RText = new Rectangle(36 + (nodeDepth * 18), yPos, 500, 16);
 				yPos += 16;
 			}
+
 			AutoScrollMinSize = new Size(500, yPos);
 
 			var lastBranch = "";
@@ -65,7 +66,9 @@ namespace RomVaultX {
 
 				pTree.TreeBranches = thisBranch;
 				lastBranch = thisBranch;
+
 			}
+
 			Refresh();
 		}
 
@@ -159,6 +162,8 @@ namespace RomVaultX {
 				if ((pTree.TRow.RomTotal > 0) || (pTree.TRow.RomGot > 0) || (pTree.TRow.RomNoDump > 0)) {
 					thistxt += " ( Have: " + pTree.TRow.RomGot.ToString("#,0") + " / Missing: " + (pTree.TRow.RomTotal - pTree.TRow.RomGot - pTree.TRow.RomNoDump).ToString("#,0") + " )";
 				}
+
+
 				if (Selected == pTree) {
 					g.FillRectangle(new SolidBrush(Color.FromArgb(51, 153, 255)), RSub(recBackGround, _hScroll, _vScroll));
 					g.DrawString(thistxt, new Font("Microsoft Sans Serif", 8), Brushes.White, pTree.RText.Left - _hScroll, pTree.RText.Top + 1 - _vScroll);

@@ -106,6 +106,7 @@ namespace RomVaultCore.RvDB {
 				if (Parent == null) {
 					return Name ?? "";
 				}
+
 				return Path.Combine(Parent.TreeFullName, Name);
 			}
 		}
@@ -178,10 +179,13 @@ namespace RomVaultCore.RvDB {
 		private static string GetDatTreePath(string rootPath) {
 			if (rootPath == "") {
 				return "DatRoot";
+
 			}
+
 			if (rootPath.Substring(0, 6) == "ToSort") {
 				return "Error";
 			}
+
 			if (rootPath.Substring(0, 8) == "RomVault") {
 				return @"DatRoot" + rootPath.Substring(8);
 			}
@@ -199,9 +203,11 @@ namespace RomVaultCore.RvDB {
 			if (rootPath == "") {
 				return Settings.rvSettings.DatRoot;
 			}
+
 			if (rootPath.Substring(0, 6) == "ToSort") {
 				return "Error";
 			}
+
 			if (rootPath.Substring(0, 7) == "DatRoot") {
 				return Settings.rvSettings.DatRoot + rootPath.Substring(7);
 			}
@@ -632,6 +638,7 @@ namespace RomVaultCore.RvDB {
 				Name = FileName;
 				FileName = null;
 			}
+
 			DatStatus = DatStatus.NotInDat;
 #if dt
 			DatModTimeStamp = null;
@@ -785,14 +792,17 @@ namespace RomVaultCore.RvDB {
 					Size = AltSize;
 					FileStatusSet(FileStatus.SizeFromDAT);
 				}
+
 				if (FileStatusIs(FileStatus.AltCRCFromDAT)) {
 					CRC = AltCRC;
 					FileStatusSet(FileStatus.CRCFromDAT);
 				}
+
 				if (FileStatusIs(FileStatus.AltSHA1FromDAT)) {
 					SHA1 = AltSHA1;
 					FileStatusSet(FileStatus.SHA1FromDAT);
 				}
+
 				if (FileStatusIs(FileStatus.AltMD5FromDAT)) {
 					MD5 = AltMD5;
 					FileStatusSet(FileStatus.MD5FromDAT);
@@ -884,6 +894,7 @@ namespace RomVaultCore.RvDB {
 					return false;
 				}
 			}
+
 			if (MD5 != null && file.AltMD5 != null) {
 				foundATest = true;
 				if (!ArrByte.BCompare(MD5, file.AltMD5)) {
@@ -906,6 +917,7 @@ namespace RomVaultCore.RvDB {
 			if (AltSize != null || AltCRC != null || AltSHA1 != null || AltMD5 != null) {
 				//error
 			}
+
 			SetAsAltFile();
 
 		}
@@ -915,14 +927,17 @@ namespace RomVaultCore.RvDB {
 				AltSize = Size;
 				FileStatusSet(FileStatus.AltSizeFromDAT);
 			}
+
 			if (FileStatusIs(FileStatus.CRCFromDAT)) {
 				AltCRC = CRC;
 				FileStatusSet(FileStatus.AltCRCFromDAT);
 			}
+
 			if (FileStatusIs(FileStatus.SHA1FromDAT)) {
 				AltSHA1 = SHA1;
 				FileStatusSet(FileStatus.AltSHA1FromDAT);
 			}
+
 			if (FileStatusIs(FileStatus.MD5FromDAT)) {
 				AltMD5 = MD5;
 				FileStatusSet(FileStatus.AltMD5FromDAT);
@@ -995,6 +1010,7 @@ namespace RomVaultCore.RvDB {
 			if (file.GotStatus == GotStatus.NotGot) {
 				ReportError.SendAndShow("Error setting got to a NotGot File");
 			}
+
 			GotStatus = file.GotStatus;
 		}
 
@@ -1052,6 +1068,7 @@ namespace RomVaultCore.RvDB {
 					return Name;
 				}
 			}
+
 			return Path.Combine(Parent.SuperDatFileName(dat), Name);
 		}
 
@@ -1129,6 +1146,7 @@ namespace RomVaultCore.RvDB {
 					intBottom = intMid + 1;
 				}
 			}
+
 			index = intMid;
 
 			// if match was found check up the list for the first match
@@ -1173,6 +1191,7 @@ namespace RomVaultCore.RvDB {
 			if (_children[index].Parent == this) {
 				_children[index].Parent = null;
 			}
+
 			_children.RemoveAt(index);
 		}
 
@@ -1193,6 +1212,7 @@ namespace RomVaultCore.RvDB {
 					intBottom = intMid + 1;
 				}
 			}
+
 			index = intMid;
 
 			// if match was found check up the list for the first match
@@ -1223,6 +1243,7 @@ namespace RomVaultCore.RvDB {
 				if (_children[index] == lName) {
 					return true;
 				}
+
 				index++;
 			} while (index < _children.Count && DBHelper.CompareName(lName, _children[index]) == 0);
 

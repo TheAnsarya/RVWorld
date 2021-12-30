@@ -16,6 +16,7 @@ namespace Compress.Support.Compression.LZMA {
 					m_LowCoder[posState] = new BitTreeDecoder(Base.KNumLowLenBits);
 					m_MidCoder[posState] = new BitTreeDecoder(Base.KNumMidLenBits);
 				}
+
 				m_NumPosStates = numPosStates;
 			}
 
@@ -24,6 +25,7 @@ namespace Compress.Support.Compression.LZMA {
 				for (uint posState = 0; posState < m_NumPosStates; posState++) {
 					m_LowCoder[posState].Init();
 					m_MidCoder[posState].Init();
+
 				}
 				m_Choice2.Init();
 				m_HighCoder.Init();
@@ -40,6 +42,7 @@ namespace Compress.Support.Compression.LZMA {
 						symbol += Base.KNumMidLenSymbols;
 						symbol += m_HighCoder.Decode(rangeDecoder);
 					}
+
 					return symbol;
 				}
 			}
@@ -185,6 +188,7 @@ namespace Compress.Support.Compression.LZMA {
 					m_IsMatchDecoders[index].Init();
 					m_IsRep0LongDecoders[index].Init();
 				}
+
 				m_IsRepDecoders[i].Init();
 				m_IsRepG0Decoders[i].Init();
 				m_IsRepG1Decoders[i].Init();
@@ -282,11 +286,14 @@ namespace Compress.Support.Compression.LZMA {
 									distance = rep3;
 									rep3 = rep2;
 								}
+
 								rep2 = rep1;
 							}
+
 							rep1 = rep0;
 							rep0 = distance;
 						}
+
 						len = m_RepLenDecoder.Decode(rangeDecoder, posState) + Base.KMatchMinLen;
 						state.UpdateRep();
 					} else {
@@ -311,6 +318,7 @@ namespace Compress.Support.Compression.LZMA {
 							rep0 = posSlot;
 						}
 					}
+
 					if (rep0 >= outWindow.Total || rep0 >= dictionarySizeCheck) {
 						if (rep0 == 0xFFFFFFFF) {
 							return true;
@@ -318,9 +326,11 @@ namespace Compress.Support.Compression.LZMA {
 
 						throw new DataErrorException();
 					}
+
 					outWindow.CopyBlock((int)rep0, (int)len);
 				}
 			}
+
 			return false;
 		}
 

@@ -100,10 +100,12 @@ namespace RomVaultCore.RvDB {
 				if (id == gameMD.Id) {
 					return gameMD.Value;
 				}
+
 				if (id < gameMD.Id) {
 					return "";
 				}
 			}
+
 			return "";
 		}
 
@@ -113,6 +115,7 @@ namespace RomVaultCore.RvDB {
 					_gameMetaData.RemoveAt(i);
 					return;
 				}
+
 				if (id < _gameMetaData[i].Id) {
 					return;
 				}

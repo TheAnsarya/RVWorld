@@ -103,6 +103,7 @@ namespace Compress.Support.Compression.LZ {
 				hs++;
 				hs += kFixHashSize;
 			}
+
 			if (hs != _hashSizeSum) {
 				_hash = new uint[_hashSizeSum = hs];
 			}
@@ -192,6 +193,7 @@ namespace Compress.Support.Compression.LZ {
 					_son[ptr0] = _son[ptr1] = KEmptyHashValue;
 					break;
 				}
+
 				var delta = _pos - curMatch;
 				var cyclicPos = ((delta <= _cyclicBufferPos) ?
 							(_cyclicBufferPos - delta) :
@@ -216,6 +218,7 @@ namespace Compress.Support.Compression.LZ {
 						}
 					}
 				}
+
 				if (_bufferBase[pby1 + len] < _bufferBase[cur + len]) {
 					_son[ptr1] = curMatch;
 					ptr1 = cyclicPos + 1;
@@ -228,6 +231,7 @@ namespace Compress.Support.Compression.LZ {
 					len0 = len;
 				}
 			}
+
 			MovePos();
 			return offset;
 		}
@@ -298,6 +302,7 @@ namespace Compress.Support.Compression.LZ {
 							break;
 						}
 					}
+
 					if (_bufferBase[pby1 + len] < _bufferBase[cur + len]) {
 						_son[ptr1] = curMatch;
 						ptr1 = cyclicPos + 1;
@@ -310,6 +315,7 @@ namespace Compress.Support.Compression.LZ {
 						len0 = len;
 					}
 				}
+
 				MovePos();
 			}
 			while (--num != 0);

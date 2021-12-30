@@ -67,6 +67,7 @@ namespace TrrntZip {
 				default:
 					return TrrntZipStatus.Unknown;
 			}
+
 			var outputType = localOutputType == zipType.archive ? inputType : Program.OutZip;
 
 			var compressionChanged = inputType != outputType;
@@ -137,7 +138,9 @@ namespace TrrntZip {
 						Size = lf.UncompressedSize
 					}
 				);
+
 			}
+
 			return zippedFiles;
 		}
 	}

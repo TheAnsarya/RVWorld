@@ -101,6 +101,7 @@ namespace RomVaultCore.Scanner {
 				thWrk.Report(new bgwShowCorrupt(zr, filename));
 				dbDir.GotStatus = GotStatus.Corrupt;
 			}
+
 			checkZ.ZipFileClose();
 
 			return fileDir;
@@ -133,6 +134,7 @@ namespace RomVaultCore.Scanner {
 					File.Delete(oFile.FullName);
 					continue;
 				}
+
 				var fExt = Path.GetExtension(oFile.Name);
 
 				var ft = DBTypeGet.fromExtention(fExt);
@@ -155,6 +157,7 @@ namespace RomVaultCore.Scanner {
 
 				fileDir.ChildAdd(tFile);
 			}
+
 			return fileDir;
 		}
 
@@ -236,6 +239,8 @@ namespace RomVaultCore.Scanner {
 								file.FileStatusSet(FileStatus.AltMD5Verified);
 							}
 						}
+
+
 						break;
 
 					case hdErr.HDERR_OUT_OF_MEMORY:
@@ -252,6 +257,7 @@ namespace RomVaultCore.Scanner {
 						break;
 				}
 			}
+
 			fileToScan.ZipFileClose();
 
 		}
@@ -264,3 +270,4 @@ namespace RomVaultCore.Scanner {
 		private static void GeneralError(string error) => ReportError.UnhandledExceptionHandler(error);
 	}
 }
+

@@ -38,6 +38,7 @@ namespace Compress.ThreadReaders {
 				if (_finished) {
 					break;
 				}
+
 				_sha1.TransformBlock(_buffer, 0, _size, null, 0);
 				_outEvent.Set();
 			}

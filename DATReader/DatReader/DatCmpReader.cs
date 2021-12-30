@@ -18,12 +18,15 @@ namespace DATReader.DatReader {
 				if (dfl.EndOfStream()) {
 					return false;
 				}
+
 				if (dfl.Next.ToLower() == "clrmamepro" || dfl.Next.ToLower() == "clrmame") {
 					if (!LoadHeaderFromDat(dfl, strFilename, datHeader, errorReport)) {
 						return false;
 					}
+
 					dfl.Gn();
 				}
+
 				if (dfl.Next.ToLower() == "raine") {
 					while (dfl.Next.ToLower() != "emulator") {
 						dfl.Gn();
@@ -32,12 +35,15 @@ namespace DATReader.DatReader {
 					if (!LoadHeaderFromDat(dfl, strFilename, datHeader, errorReport)) {
 						return false;
 					}
+
 					dfl.Gn();
 				}
+
 				if (dfl.Next.ToLower() == "romvault") {
 					if (!LoadHeaderFromDat(dfl, strFilename, datHeader, errorReport)) {
 						return false;
 					}
+
 					dfl.Gn();
 				}
 
@@ -58,22 +64,26 @@ namespace DATReader.DatReader {
 					if (!LoadDirFromDat(dfl, parentDir, errorReport)) {
 						return false;
 					}
+
 					break;
 				case "game":
 				case "machine":
 					if (!LoadGameFromDat(dfl, parentDir, errorReport)) {
 						return false;
 					}
+
 					break;
 				case "resource":
 					if (!LoadGameFromDat(dfl, parentDir, errorReport)) {
 						return false;
 					}
+
 					break;
 				case "emulator":
 					if (!LoadEmulator(dfl, errorReport)) {
 						return false;
 					}
+
 					break;
 				case "#": // comments
 
@@ -83,6 +93,7 @@ namespace DATReader.DatReader {
 					errorReport?.Invoke(dfl.Filename, "Error Keyword " + dfl.Next + " not know in dir, on line " + dfl.LineNumber);
 					break;
 			}
+
 			dfl.Gn();
 			return true;
 		}
@@ -93,6 +104,7 @@ namespace DATReader.DatReader {
 				errorReport?.Invoke(dfl.Filename, "( not found after clrmamepro, on line " + dfl.LineNumber);
 				return false;
 			}
+
 			dfl.Gn();
 
 			datHeader.Filename = filename;
@@ -156,6 +168,7 @@ namespace DATReader.DatReader {
 						errorReport?.Invoke(dfl.Filename, "Error: key word '" + dfl.Next + "' not known in clrmamepro, on line " + dfl.LineNumber);
 						break;
 				}
+
 				dfl.Gn();
 			}
 
@@ -185,8 +198,10 @@ namespace DATReader.DatReader {
 						errorReport?.Invoke(dfl.Filename, "Error: key word '" + dfl.Next + "' not known in emulator, on line " + dfl.LineNumber);
 						break;
 				}
+
 				dfl.Gn();
 			}
+
 			return true;
 		}
 
@@ -202,6 +217,7 @@ namespace DATReader.DatReader {
 				errorReport?.Invoke(dfl.Filename, "Name not found as first object in ( ), on line " + dfl.LineNumber);
 				return false;
 			}
+
 			var dir = new DatDir(DatFileType.UnSet) {
 				Name = dfl.GnRest()
 			};
@@ -215,6 +231,7 @@ namespace DATReader.DatReader {
 					return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -261,6 +278,7 @@ namespace DATReader.DatReader {
 								description = description.Substring(idx1 + 1, idx2 - idx1 - 1);
 							}
 						}
+
 						dGame.Description = description;
 						break;
 
@@ -327,25 +345,30 @@ namespace DATReader.DatReader {
 						if (!LoadRomFromDat(dfl, dDir, errorReport)) {
 							return false;
 						}
+
 						break;
 					case "disk":
 						if (!LoadDiskFromDat(dfl, dDir, errorReport)) {
 							return false;
 						}
+
 						break;
 
 					case "archive":
 						if (!LoadArchiveFromDat(dfl, errorReport)) {
 							return false;
 						}
+
 						break;
 
 					default:
 						errorReport?.Invoke(dfl.Filename, "Error: key word '" + dfl.Next + "' not known in game, on line " + dfl.LineNumber);
 						break;
 				}
+
 				dfl.Gn();
 			}
+
 			parentDir.ChildAdd(dDir);
 			return true;
 		}
@@ -426,6 +449,7 @@ namespace DATReader.DatReader {
 						errorReport?.Invoke(dfl.Filename, "Error: key word '" + dfl.Next + "' not known in rom, on line " + dfl.LineNumber);
 						break;
 				}
+
 				dfl.Gn();
 
 			}
@@ -481,8 +505,10 @@ namespace DATReader.DatReader {
 						errorReport?.Invoke(dfl.Filename, "Error: key word '" + dfl.Next + "' not known in rom, on line " + dfl.LineNumber);
 						break;
 				}
+
 				dfl.Gn();
 			}
+
 			parentDir.ChildAdd(dRom);
 
 			return true;
@@ -506,8 +532,10 @@ namespace DATReader.DatReader {
 						errorReport?.Invoke(dfl.Filename, "Error: key word '" + dfl.Next + "' not know in Archive, on line " + dfl.LineNumber);
 						break;
 				}
+
 				dfl.Gn();
 			}
+
 			return true;
 		}
 	}

@@ -44,6 +44,7 @@ namespace RomVaultCore.FixFile.Util {
 				if (!parent.FindChild(file, out var index)) {
 					ReportError.UnhandledExceptionHandler("Could not find self in delete code " + parent.FullName);
 				}
+
 				parent.ChildRemove(index);
 				CheckDeleteFile(parent);
 			}

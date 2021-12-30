@@ -96,6 +96,7 @@ namespace Compress.Support.Compression.LZMA {
 							state += ((1 + matchBit) << 8);
 							same = (matchBit == bit);
 						}
+
 						m_Encoders[state].Encode(rangeEncoder, bit);
 						context = (context << 1) | bit;
 					}
@@ -117,11 +118,13 @@ namespace Compress.Support.Compression.LZMA {
 							}
 						}
 					}
+
 					for (; i >= 0; i--) {
 						var bit = (uint)(symbol >> i) & 1;
 						price += m_Encoders[context].GetPrice(bit);
 						context = (context << 1) | bit;
 					}
+
 					return price;
 				}
 			}
@@ -177,6 +180,7 @@ namespace Compress.Support.Compression.LZMA {
 					_lowCoder[posState].Init();
 					_midCoder[posState].Init();
 				}
+
 				_highCoder.Init();
 			}
 
@@ -210,6 +214,7 @@ namespace Compress.Support.Compression.LZMA {
 
 					prices[st + i] = a0 + _lowCoder[posState].GetPrice(i);
 				}
+
 				for (; i < Base.KNumLowLenSymbols + Base.KNumMidLenSymbols; i++) {
 					if (i >= numSymbols) {
 						return;
@@ -217,6 +222,7 @@ namespace Compress.Support.Compression.LZMA {
 
 					prices[st + i] = b0 + _midCoder[posState].GetPrice(i - Base.KNumLowLenSymbols);
 				}
+
 				for (; i < numSymbols; i++) {
 					prices[st + i] = b1 + _highCoder.GetPrice(i - Base.KNumLowLenSymbols - Base.KNumMidLenSymbols);
 				}
@@ -332,6 +338,7 @@ namespace Compress.Support.Compression.LZMA {
 				bt.SetType(numHashBytes);
 				_matchFinder = bt;
 			}
+
 			_literalEncoder.Create(_numLiteralPosStateBits, _numLiteralContextBits);
 
 			if (_dictionarySize == _dictionarySizePrev && _numFastBytesPrev == _numFastBytes) {
@@ -366,11 +373,13 @@ namespace Compress.Support.Compression.LZMA {
 					_isMatch[complexState].Init();
 					_isRep0Long[complexState].Init();
 				}
+
 				_isRep[i].Init();
 				_isRepG0[i].Init();
 				_isRepG1[i].Init();
 				_isRepG2[i].Init();
 			}
+
 			_literalEncoder.Init();
 			for (i = 0; i < Base.KNumLenToPosStates; i++) {
 				_posSlotEncoder[i].Init();
@@ -401,6 +410,7 @@ namespace Compress.Support.Compression.LZMA {
 						Base.KMatchMaxLen - lenRes);
 				}
 			}
+
 			_additionalOffset++;
 		}
 
@@ -428,6 +438,7 @@ namespace Compress.Support.Compression.LZMA {
 					price += _isRepG2[state.Index].GetPrice(repIndex - 2);
 				}
 			}
+
 			return price;
 		}
 
@@ -463,6 +474,7 @@ namespace Compress.Support.Compression.LZMA {
 						_optimum[posMem - 1].BackPrev = _optimum[cur].BackPrev2;
 					}
 				}
+
 				var posPrev = posMem;
 				var backCur = backMem;
 
@@ -489,6 +501,7 @@ namespace Compress.Support.Compression.LZMA {
 				_optimumCurrentIndex = _optimum[_optimumCurrentIndex].PosPrev;
 				return lenRes;
 			}
+
 			_optimumCurrentIndex = _optimumEndIndex = 0;
 
 			uint lenMain, numDistancePairs;
@@ -505,6 +518,7 @@ namespace Compress.Support.Compression.LZMA {
 				backRes = 0xFFFFFFFF;
 				return 1;
 			}
+
 			if (numAvailableBytes > Base.KMatchMaxLen) {
 				numAvailableBytes = Base.KMatchMaxLen;
 			}
@@ -518,6 +532,7 @@ namespace Compress.Support.Compression.LZMA {
 					repMaxIndex = i;
 				}
 			}
+
 			if (repLens[repMaxIndex] >= _numFastBytes) {
 				backRes = repMaxIndex;
 				var lenRes = repLens[repMaxIndex];
@@ -617,6 +632,7 @@ namespace Compress.Support.Compression.LZMA {
 						optimum.BackPrev = distance + Base.KNumRepDistances;
 						optimum.Prev1IsChar = false;
 					}
+
 					if (len == _matchDistances[offs]) {
 						offs += 2;
 						if (offs == numDistancePairs) {
@@ -641,6 +657,7 @@ namespace Compress.Support.Compression.LZMA {
 					_longestMatchWasFound = true;
 					return Backward(out backRes, cur);
 				}
+
 				position++;
 				var posPrev = _optimum[cur].PosPrev;
 				Base.State state;
@@ -682,6 +699,7 @@ namespace Compress.Support.Compression.LZMA {
 							state.UpdateMatch();
 						}
 					}
+
 					var opt = _optimum[posPrev];
 					if (pos < Base.KNumRepDistances) {
 						if (pos == 0) {
@@ -712,6 +730,7 @@ namespace Compress.Support.Compression.LZMA {
 						reps[3] = opt.Backs2;
 					}
 				}
+
 				_optimum[cur].State = state;
 				_optimum[cur].Backs0 = reps[0];
 				_optimum[cur].Backs1 = reps[1];
@@ -878,6 +897,7 @@ namespace Compress.Support.Compression.LZMA {
 					_matchDistances[numDistancePairs] = newLen;
 					numDistancePairs += 2;
 				}
+
 				if (newLen >= startLen) {
 					normalMatchPrice = matchPrice + _isRep[state.Index].GetPrice0();
 					while (lenEnd < cur + newLen) {
@@ -938,6 +958,7 @@ namespace Compress.Support.Compression.LZMA {
 									}
 								}
 							}
+
 							offs += 2;
 							if (offs == numDistancePairs) {
 								break;
@@ -1001,16 +1022,19 @@ namespace Compress.Support.Compression.LZMA {
 				if (_trainSize > 0) {
 					for (; _trainSize > 0 && (!_processingMode || !_matchFinder.IsDataStarved); _trainSize--) {
 						_matchFinder.Skip(1);
+
 					}
 
 					if (_trainSize == 0) {
 						_previousByte = _matchFinder.GetIndexByte(-1);
 					}
 				}
+
 				if (_processingMode && _matchFinder.IsDataStarved) {
 					_finished = false;
 					return;
 				}
+
 				if (_matchFinder.GetNumAvailableBytes() == 0) {
 					Flush((uint)nowPos64);
 					return;
@@ -1026,14 +1050,19 @@ namespace Compress.Support.Compression.LZMA {
 				_additionalOffset--;
 				nowPos64++;
 			}
+
 			if (_processingMode && _matchFinder.IsDataStarved) {
 				_finished = false;
 				return;
 			}
+
+
 			if (_matchFinder.GetNumAvailableBytes() == 0) {
 				Flush((uint)nowPos64);
 				return;
 			}
+
+
 			while (true) {
 				if (_processingMode && _matchFinder.IsDataStarved) {
 					_finished = false;
@@ -1077,12 +1106,14 @@ namespace Compress.Support.Compression.LZMA {
 								_isRepG2[_state.Index].Encode(_rangeEncoder, pos - 2);
 							}
 						}
+
 						if (len == 1) {
 							_state.UpdateShortRep();
 						} else {
 							_repMatchLenEncoder.Encode(_rangeEncoder, len - Base.KMatchMinLen, posState);
 							_state.UpdateRep();
 						}
+
 						var distance = _repDistances[pos];
 						if (pos != 0) {
 							for (var i = pos; i >= 1; i--) {
@@ -1114,6 +1145,7 @@ namespace Compress.Support.Compression.LZMA {
 								_alignPriceCount++;
 							}
 						}
+
 						var distance = pos;
 						for (var i = Base.KNumRepDistances - 1; i >= 1; i--) {
 							_repDistances[i] = _repDistances[i - 1];
@@ -1122,8 +1154,10 @@ namespace Compress.Support.Compression.LZMA {
 						_repDistances[0] = distance;
 						_matchPriceCount++;
 					}
+
 					_previousByte = _matchFinder.GetIndexByte((int)(len - 1 - _additionalOffset));
 				}
+
 				_additionalOffset -= len;
 				nowPos64 += len;
 				if (_additionalOffset == 0) {
@@ -1142,6 +1176,7 @@ namespace Compress.Support.Compression.LZMA {
 						_finished = false;
 						return;
 					}
+
 					if (_matchFinder.GetNumAvailableBytes() == 0) {
 						Flush((uint)nowPos64);
 						return;
@@ -1300,6 +1335,7 @@ namespace Compress.Support.Compression.LZMA {
 					_distancesPrices[st2 + i] = _posSlotPrices[st + GetPosSlot(i)] + tempPrices[i];
 				}
 			}
+
 			_matchPriceCount = 0;
 		}
 
@@ -1370,6 +1406,7 @@ namespace Compress.Support.Compression.LZMA {
 								_dictionarySizePrev = 0xFFFFFFFF;
 								_matchFinder = null;
 							}
+
 							break;
 						}
 					case CoderPropID.DictionarySize: {

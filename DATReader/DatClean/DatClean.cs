@@ -49,6 +49,8 @@ namespace DATReader.DatClean {
 							continue;
 						}
 					}
+
+
 					dDir.ChildAdd(db);
 				}
 

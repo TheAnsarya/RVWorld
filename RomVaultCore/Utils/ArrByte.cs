@@ -17,6 +17,7 @@ namespace RomVaultCore.Utils {
 			if (b == null) {
 				return null;
 			}
+
 			var retB = new byte[b.Length];
 			Array.Copy(b, 0, retB, 0, b.Length);
 			return retB;
@@ -26,6 +27,7 @@ namespace RomVaultCore.Utils {
 			if (b == null) {
 				return null;
 			}
+
 			var retB = new byte[count];
 			Array.Copy(b, index, retB, 0, count);
 			return retB;

@@ -69,17 +69,21 @@ namespace RomVaultCore.ReadDat {
 			if (aDir == null) {
 				return false;
 			}
+
 			for (var i = 0; i < aDir.ChildCount; i++) {
 				var item = aDir.Child(i);
 				if (!item.IsDir) {
 					continue;
+
 				}
+
 				for (var j = 0; j < item.ChildCount; j++) {
 					if (item.Child(j).Name.ToLower().EndsWith(".chd")) {
 						return true;
 					}
 				}
 			}
+
 			return false;
 		}
 
@@ -102,6 +106,7 @@ namespace RomVaultCore.ReadDat {
 						if (file.IsFile) {
 							WriteLine(indent + "\t<rom name=\"" + clean(file.Name) + "\" size=\"" + file.Size + "\" crc=\"" + file.CRC.ToHexString() + "\" md5=\"" + file.MD5.ToHexString() + "\" sha1=\"" + file.SHA1.ToHexString() + "\"/>");
 						}
+
 						var aDir = item.Child(j);
 						if (aDir.IsDir) {
 							var dName = aDir.Name;
@@ -111,6 +116,7 @@ namespace RomVaultCore.ReadDat {
 							}
 						}
 					}
+
 					WriteLine(indent + "</game>");
 				}
 				// only recurse when grandchildren are not CHDs
@@ -135,6 +141,7 @@ namespace RomVaultCore.ReadDat {
 					}
 				}
 			}
+
 			return retVal;
 		}
 
@@ -145,6 +152,7 @@ namespace RomVaultCore.ReadDat {
 			for (var j = 2; j < lst.Count; j++) {
 				WriteLine(lst[j]);
 			}
+
 			WriteLine(indent + "</game>");
 		}
 
@@ -174,6 +182,7 @@ namespace RomVaultCore.ReadDat {
 						}
 					}
 				}
+
 				if (item.FileType == FileType.Zip || item.FileType == FileType.SevenZip) {
 					WriteLine(indent + "<game name=\"" + Path.GetFileNameWithoutExtension(clean(item.Name)) + "\">");
 					var desc = item.Game == null ? item.Name : item.Game.GetData(RvGame.GameData.Description);
@@ -191,6 +200,7 @@ namespace RomVaultCore.ReadDat {
 						for (var j = 2; j < disks.Count; j++) {
 							WriteLine(disks[j]);
 						}
+
 						disks.Clear();
 					}
 

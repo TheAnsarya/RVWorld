@@ -195,6 +195,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			if (obj is MemoryNode memoryNode) {
 				return memoryNode.Address == Address;
 			}
+
 			return base.Equals(obj);
 		}
 

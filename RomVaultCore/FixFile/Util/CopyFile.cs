@@ -62,6 +62,7 @@ namespace RomVaultCore.FixFile.Util {
 			if (zipFileOut == null && filenameOut == null) {
 				throw new Exception("Error in CopyFile: Both Outputs are null");
 			}
+
 			if (zipFileOut != null && filenameOut != null) {
 				throw new Exception("Error in CopyFile: Both Outputs are set");
 			}
@@ -171,7 +172,9 @@ namespace RomVaultCore.FixFile.Util {
 					} catch (Exception e) {
 						error = "Error writing out file. " + Environment.NewLine + e.Message;
 						return ReturnCode.FileSystemError;
+
 					}
+
 					tcrc32?.Wait();
 					tmd5?.Wait();
 					tsha1?.Wait();
@@ -188,6 +191,7 @@ namespace RomVaultCore.FixFile.Util {
 								error = "Error Closing " + zr + " Stream :" + zipFileIn.ZipFilename;
 								return ReturnCode.FileSystemError;
 							}
+
 							zipFileIn.ZipFileClose();
 						} else {
 							readStream.Close();
@@ -206,6 +210,7 @@ namespace RomVaultCore.FixFile.Util {
 						return ReturnCode.Cancel;
 					}
 				}
+
 				writeStream.Flush();
 
 				#endregion
@@ -231,7 +236,9 @@ namespace RomVaultCore.FixFile.Util {
 					bCRC = fileIn.CRC.Copy();
 					if (fileIn.FileStatusIs(FileStatus.MD5Verified)) {
 						bMD5 = fileIn.MD5.Copy();
+
 					}
+
 					if (fileIn.FileStatusIs(FileStatus.SHA1Verified)) {
 						bSHA1 = fileIn.SHA1.Copy();
 					}
@@ -247,6 +254,7 @@ namespace RomVaultCore.FixFile.Util {
 						error = "Error Closing " + zr + " Stream :" + zipFileIn.ZipFilename;
 						return ReturnCode.FileSystemError;
 					}
+
 					zipFileIn.ZipFileClose();
 				} else {
 					readStream.Close();
@@ -266,6 +274,7 @@ namespace RomVaultCore.FixFile.Util {
 					error = "Error Closing Stream " + zr;
 					return ReturnCode.FileSystemError;
 				}
+
 				fileOut.ZipFileIndex = zipFileOut.LocalFilesCount() - 1;
 				fileOut.ZipFileHeaderPosition = zipFileOut.GetLocalFile(fileOut.ZipFileIndex).LocalHead;
 				fileOut.FileModTimeStamp = 629870671200000000;
@@ -352,12 +361,14 @@ namespace RomVaultCore.FixFile.Util {
 					return ReturnCode.LogicError;
 				}
 			}
+
 			if (fileOut.FileStatusIs(FileStatus.MD5FromDAT) && fileIn.FileStatusIs(FileStatus.MD5Verified)) {
 				if (fileIn.MD5 != null && fileOut.MD5 != null && !ArrByte.BCompare(fileIn.MD5, fileOut.MD5)) {
 					error = "Source and destination SHA1 does not match. Logic Error.";
 					return ReturnCode.LogicError;
 				}
 			}
+
 			error = "";
 			return ReturnCode.Good;
 		}
@@ -423,20 +434,24 @@ namespace RomVaultCore.FixFile.Util {
 					error = "Rescan needed, File Not Found :" + fileNameIn;
 					return ReturnCode.RescanNeeded;
 				}
+
 				var fileInInfo = new FileInfo(fileNameIn);
 				if (fileInInfo.LastWriteTime != fileIn.FileModTimeStamp) {
 					error = "Rescan needed, File Changed :" + fileNameIn;
 					return ReturnCode.RescanNeeded;
 				}
+
 				var errorCode = FileStream.OpenFileRead(fileNameIn, out readStream);
 				if (errorCode != 0) {
 					error = new Win32Exception(errorCode).Message + ". " + fileNameIn;
 					return ReturnCode.FileSystemError;
 				}
+
 				if (fileIn.Size == null) {
 					error = "Null File Size found in Fixing File :" + fileNameIn;
 					return ReturnCode.LogicError;
 				}
+
 				streamSize = (ulong)fileIn.Size;
 				if ((ulong)readStream.Length != streamSize) {
 					error = "Rescan needed, File Length Changed :" + fileNameIn;
@@ -469,6 +484,7 @@ namespace RomVaultCore.FixFile.Util {
 					error = "Null File Size found in Fixing File :" + fileIn.FullName;
 					return ReturnCode.LogicError;
 				}
+
 				TimeStamps ts = null;
 				if (dateTime != null) {
 					ts = new TimeStamps { ModTime = dateTime };
@@ -484,6 +500,7 @@ namespace RomVaultCore.FixFile.Util {
 					error = "Rescan needed, File Changed :" + filenameOut;
 					return ReturnCode.RescanNeeded;
 				}
+
 				var errorCode = FileStream.OpenFileWrite(filenameOut, out writeStream);
 				if (errorCode != 0) {
 					error = new Win32Exception(errorCode).Message + ". " + filenameOut;
@@ -500,6 +517,7 @@ namespace RomVaultCore.FixFile.Util {
 			if (fileOut.FileType == FileType.ZipFile || fileOut.FileType == FileType.SevenZipFile) {
 				zipFileOut.ZipFileAddZeroLengthFile();
 			}
+
 			bCRC = VarFix.CleanMD5SHA1("00000000", 8);
 			bMD5 = VarFix.CleanMD5SHA1("d41d8cd98f00b204e9800998ecf8427e", 32);
 			bSHA1 = VarFix.CleanMD5SHA1("da39a3ee5e6b4b0d3255bfef95601890afd80709", 40);
@@ -605,6 +623,7 @@ namespace RomVaultCore.FixFile.Util {
 					error = "MD5 checksum error. Level 2 scan your files";
 					return ReturnCode.DestinationCheckSumMismatch;
 				}
+
 				fileOut.MD5 = bMD5;
 				fileOut.FileStatusSet(FileStatus.MD5Verified);
 			}
@@ -621,6 +640,7 @@ namespace RomVaultCore.FixFile.Util {
 			if (fileOut.AltSHA1 == null && fileIn.AltSHA1 != null) {
 				fileOut.AltSHA1 = fileIn.AltSHA1;
 			}
+
 			if (fileOut.AltMD5 == null && fileIn.AltMD5 != null) {
 				fileOut.AltMD5 = fileIn.AltMD5;
 			}

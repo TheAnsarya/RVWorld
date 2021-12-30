@@ -115,6 +115,7 @@ namespace RomVaultCore {
 					r.SubDirType = RemoveSubType.RemoveSubIfSingleFiles;
 				}
 			}
+
 			ret.DatRules.Sort();
 
 			ret.SetRegExRules();
@@ -179,7 +180,9 @@ namespace RomVaultCore {
 			if (!File.Exists(configPath)) {
 				Console.WriteLine($"{configPath} not Found");
 				return null;
+
 			}
+
 			Console.WriteLine($"Reading {configPath}");
 			var strXml = System.IO.File.ReadAllText(configPath);
 

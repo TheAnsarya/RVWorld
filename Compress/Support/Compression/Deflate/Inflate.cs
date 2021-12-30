@@ -177,6 +177,7 @@ namespace Compress.Support.Compression.Deflate {
 							b |= (_codec.InputBuffer[p++] & 0xff) << k;
 							k += 8;
 						}
+
 						t = b & 7;
 						last = t & 1;
 
@@ -216,6 +217,8 @@ namespace Compress.Support.Compression.Deflate {
 								writeAt = q;
 								return Flush(r);
 						}
+
+
 						break;
 
 					case InflateBlockMode.LENS:
@@ -231,6 +234,7 @@ namespace Compress.Support.Compression.Deflate {
 								writeAt = q;
 								return Flush(r);
 							}
+
 							;
 							n--;
 							b |= (_codec.InputBuffer[p++] & 0xff) << k;
@@ -249,6 +253,7 @@ namespace Compress.Support.Compression.Deflate {
 							writeAt = q;
 							return Flush(r);
 						}
+
 						left = (b & 0xffff);
 						b = k = 0; // dump bits
 						mode = left != 0 ? InflateBlockMode.STORED : (last != 0 ? InflateBlockMode.DRY : InflateBlockMode.TYPE);
@@ -268,6 +273,7 @@ namespace Compress.Support.Compression.Deflate {
 							if (q == end && readAt != 0) {
 								q = 0; m = q < readAt ? readAt - q - 1 : end - q;
 							}
+
 							if (m == 0) {
 								writeAt = q;
 								r = Flush(r);
@@ -275,6 +281,7 @@ namespace Compress.Support.Compression.Deflate {
 								if (q == end && readAt != 0) {
 									q = 0; m = q < readAt ? readAt - q - 1 : end - q;
 								}
+
 								if (m == 0) {
 									bitb = b; bitk = k;
 									_codec.AvailableBytesIn = n;
@@ -285,6 +292,7 @@ namespace Compress.Support.Compression.Deflate {
 								}
 							}
 						}
+
 						r = ZlibConstants.Z_OK;
 
 						t = left;
@@ -338,6 +346,7 @@ namespace Compress.Support.Compression.Deflate {
 							writeAt = q;
 							return Flush(r);
 						}
+
 						t = 258 + (t & 0x1f) + ((t >> 5) & 0x1f);
 						if (blens == null || blens.Length < t) {
 							blens = new int[t];
@@ -506,6 +515,7 @@ namespace Compress.Support.Compression.Deflate {
 									blens = null;
 									mode = InflateBlockMode.BAD;
 								}
+
 								r = t;
 
 								bitb = b; bitk = k;
@@ -515,8 +525,10 @@ namespace Compress.Support.Compression.Deflate {
 								writeAt = q;
 								return Flush(r);
 							}
+
 							codes.Init(bl[0], bd[0], hufts, tl[0], hufts, td[0]);
 						}
+
 						mode = InflateBlockMode.CODES;
 						goto case InflateBlockMode.CODES;
 
@@ -544,6 +556,7 @@ namespace Compress.Support.Compression.Deflate {
 							mode = InflateBlockMode.TYPE;
 							break;
 						}
+
 						mode = InflateBlockMode.DRY;
 						goto case InflateBlockMode.DRY;
 
@@ -559,6 +572,7 @@ namespace Compress.Support.Compression.Deflate {
 							writeAt = q;
 							return Flush(r);
 						}
+
 						mode = InflateBlockMode.DONE;
 						goto case InflateBlockMode.DONE;
 
@@ -776,6 +790,7 @@ namespace Compress.Support.Compression.Deflate {
 								break;
 							}
 						}
+
 						need = lbits;
 						tree = ltree;
 						tree_index = ltree_index;
@@ -797,6 +812,7 @@ namespace Compress.Support.Compression.Deflate {
 								blocks.writeAt = q;
 								return blocks.Flush(r);
 							}
+
 							n--;
 							b |= (z.InputBuffer[p++] & 0xff) << k;
 							k += 8;
@@ -815,6 +831,7 @@ namespace Compress.Support.Compression.Deflate {
 							mode = LIT;
 							break;
 						}
+
 						if ((e & 16) != 0) {
 							// length
 							bitsToGet = e & 15;
@@ -822,17 +839,20 @@ namespace Compress.Support.Compression.Deflate {
 							mode = LENEXT;
 							break;
 						}
+
 						if ((e & 64) == 0) {
 							// next table
 							need = e;
 							tree_index = (tindex / 3) + tree[tindex + 2];
 							break;
 						}
+
 						if ((e & 32) != 0) {
 							// end of block
 							mode = WASH;
 							break;
 						}
+
 						mode = BADCODE; // invalid code
 						z.Message = "invalid literal/length code";
 						r = ZlibConstants.Z_DATA_ERROR;
@@ -856,6 +876,7 @@ namespace Compress.Support.Compression.Deflate {
 								blocks.writeAt = q;
 								return blocks.Flush(r);
 							}
+
 							n--; b |= (z.InputBuffer[p++] & 0xff) << k;
 							k += 8;
 						}
@@ -883,6 +904,7 @@ namespace Compress.Support.Compression.Deflate {
 								blocks.writeAt = q;
 								return blocks.Flush(r);
 							}
+
 							n--; b |= (z.InputBuffer[p++] & 0xff) << k;
 							k += 8;
 						}
@@ -900,12 +922,14 @@ namespace Compress.Support.Compression.Deflate {
 							mode = DISTEXT;
 							break;
 						}
+
 						if ((e & 64) == 0) {
 							// next table
 							need = e;
 							tree_index = (tindex / 3) + tree[tindex + 2];
 							break;
 						}
+
 						mode = BADCODE; // invalid code
 						z.Message = "invalid distance code";
 						r = ZlibConstants.Z_DATA_ERROR;
@@ -927,6 +951,7 @@ namespace Compress.Support.Compression.Deflate {
 								blocks.writeAt = q;
 								return blocks.Flush(r);
 							}
+
 							n--; b |= (z.InputBuffer[p++] & 0xff) << k;
 							k += 8;
 						}
@@ -945,11 +970,13 @@ namespace Compress.Support.Compression.Deflate {
 							// modulo window size-"while" instead
 							f += blocks.end; // of "if" handles invalid distances
 						}
+
 						while (len != 0) {
 							if (m == 0) {
 								if (q == blocks.end && blocks.readAt != 0) {
 									q = 0; m = q < blocks.readAt ? blocks.readAt - q - 1 : blocks.end - q;
 								}
+
 								if (m == 0) {
 									blocks.writeAt = q; r = blocks.Flush(r);
 									q = blocks.writeAt; m = q < blocks.readAt ? blocks.readAt - q - 1 : blocks.end - q;
@@ -977,6 +1004,7 @@ namespace Compress.Support.Compression.Deflate {
 
 							len--;
 						}
+
 						mode = START;
 						break;
 
@@ -985,6 +1013,7 @@ namespace Compress.Support.Compression.Deflate {
 							if (q == blocks.end && blocks.readAt != 0) {
 								q = 0; m = q < blocks.readAt ? blocks.readAt - q - 1 : blocks.end - q;
 							}
+
 							if (m == 0) {
 								blocks.writeAt = q; r = blocks.Flush(r);
 								q = blocks.writeAt; m = q < blocks.readAt ? blocks.readAt - q - 1 : blocks.end - q;
@@ -992,6 +1021,7 @@ namespace Compress.Support.Compression.Deflate {
 								if (q == blocks.end && blocks.readAt != 0) {
 									q = 0; m = q < blocks.readAt ? blocks.readAt - q - 1 : blocks.end - q;
 								}
+
 								if (m == 0) {
 									blocks.bitb = b; blocks.bitk = k;
 									z.AvailableBytesIn = n; z.TotalBytesIn += p - z.NextIn; z.NextIn = p;
@@ -1000,6 +1030,7 @@ namespace Compress.Support.Compression.Deflate {
 								}
 							}
 						}
+
 						r = ZlibConstants.Z_OK;
 
 						blocks.window[q++] = (byte)lit; m--;
@@ -1024,6 +1055,7 @@ namespace Compress.Support.Compression.Deflate {
 							blocks.writeAt = q;
 							return blocks.Flush(r);
 						}
+
 						mode = END;
 						goto case END;
 
@@ -1107,6 +1139,7 @@ namespace Compress.Support.Compression.Deflate {
 					m--;
 					continue;
 				}
+
 				do {
 
 					b >>= (tp[tp_index_t_3 + 1]); k -= (tp[tp_index_t_3 + 1]);
@@ -1181,6 +1214,7 @@ namespace Compress.Support.Compression.Deflate {
 											Array.Copy(s.window, r, s.window, q, e);
 											q += e; r += e; e = 0;
 										}
+
 										r = 0; // copy rest from start of window
 									}
 								}
@@ -1195,6 +1229,7 @@ namespace Compress.Support.Compression.Deflate {
 									Array.Copy(s.window, r, s.window, q, c);
 									q += c; r += c; c = 0;
 								}
+
 								break;
 							} else if ((e & 64) == 0) {
 								t += tp[tp_index_t_3 + 2];
@@ -1344,6 +1379,7 @@ namespace Compress.Support.Compression.Deflate {
 
 				//return ZlibConstants.Z_STREAM_ERROR;
 			}
+
 			wbits = w;
 
 			blocks = new InflateBlocks(codec,
@@ -1386,12 +1422,14 @@ namespace Compress.Support.Compression.Deflate {
 							marker = 5; // can't try inflateSync
 							break;
 						}
+
 						if ((method >> 4) + 8 > wbits) {
 							mode = InflateManagerMode.BAD;
 							_codec.Message = $"invalid window size ({(method >> 4) + 8})";
 							marker = 5; // can't try inflateSync
 							break;
 						}
+
 						mode = InflateManagerMode.FLAG;
 						break;
 
@@ -1494,6 +1532,7 @@ namespace Compress.Support.Compression.Deflate {
 							mode = InflateManagerMode.DONE;
 							return ZlibConstants.Z_STREAM_END;
 						}
+
 						mode = InflateManagerMode.CHECK4;
 						break;
 
@@ -1546,6 +1585,7 @@ namespace Compress.Support.Compression.Deflate {
 							marker = 5; // can't try inflateSync
 							break;
 						}
+
 						mode = InflateManagerMode.DONE;
 						return ZlibConstants.Z_STREAM_END;
 
@@ -1579,6 +1619,7 @@ namespace Compress.Support.Compression.Deflate {
 				length = (1 << wbits) - 1;
 				index = dictionary.Length - length;
 			}
+
 			blocks.SetDictionary(dictionary, index, length);
 			mode = InflateManagerMode.BLOCKS;
 			return ZlibConstants.Z_OK;
@@ -1597,6 +1638,8 @@ namespace Compress.Support.Compression.Deflate {
 				mode = InflateManagerMode.BAD;
 				marker = 0;
 			}
+
+
 			if ((n = _codec.AvailableBytesIn) == 0) {
 				return ZlibConstants.Z_BUF_ERROR;
 			}
@@ -1613,6 +1656,7 @@ namespace Compress.Support.Compression.Deflate {
 				} else {
 					m = 4 - m;
 				}
+
 				p++; n--;
 			}
 
@@ -1626,6 +1670,7 @@ namespace Compress.Support.Compression.Deflate {
 			if (m != 4) {
 				return ZlibConstants.Z_DATA_ERROR;
 			}
+
 			r = _codec.TotalBytesIn;
 			w = _codec.TotalBytesOut;
 			Reset();

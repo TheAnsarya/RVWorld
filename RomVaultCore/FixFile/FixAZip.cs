@@ -23,6 +23,7 @@ namespace RomVaultCore.FixFile {
 			if (fixZip.DirStatus.HasUnknown()) {
 				return ReturnCode.FindFixes; // Error
 			}
+
 			var needsTrrntzipped = fixZip.ZipStatus != ZipStatus.TrrntZip && fixZip.GotStatus == GotStatus.Got && fixZip.DatStatus == DatStatus.InDatCollect && Settings.rvSettings.ConvertToTrrntzip;
 
 			// file corrupt and not in tosort
@@ -114,6 +115,7 @@ namespace RomVaultCore.FixFile {
 						notThereCount++;
 					}
 				}
+
 				ReportError.LogOut($"MoveToSortCount {moveToSortCount} , DeleteCount {deleteCount} , NotThereCount {notThereCount}");
 				ReportError.LogOut("");
 			}
@@ -199,6 +201,7 @@ namespace RomVaultCore.FixFile {
 									CloseToSortCorruptGame(toSortGame, ref toSortZipOut);
 									return returnCode;
 								}
+
 								break;
 							}
 
@@ -211,6 +214,7 @@ namespace RomVaultCore.FixFile {
 									CloseToSortCorruptGame(toSortGame, ref toSortZipOut);
 									return returnCode;
 								}
+
 								break;
 							}
 
@@ -222,6 +226,7 @@ namespace RomVaultCore.FixFile {
 									CloseToSortCorruptGame(toSortGame, ref toSortZipOut);
 									return returnCode;
 								}
+
 								break;
 							}
 
@@ -233,6 +238,7 @@ namespace RomVaultCore.FixFile {
 								CloseToSortCorruptGame(toSortGame, ref toSortZipOut);
 								return returnCode;
 							}
+
 							break;
 
 						default:
@@ -375,9 +381,11 @@ namespace RomVaultCore.FixFile {
 				if (tempFixZip != null) {
 					ReportError.UnhandledExceptionHandler($"{tempFixZip.ZipFilename} tempZipOut was left open, ZipFile= {fixZipFullName} , fileRepStatus= {fileRepStatus} , returnCode= {returnCode}");
 				}
+
 				if (toSortZipOut != null) {
 					ReportError.UnhandledExceptionHandler($"{toSortZipOut.ZipFilename} toSortZipOut was left open");
 				}
+
 				if (toSortCorruptOut != null) {
 					ReportError.UnhandledExceptionHandler($"{toSortCorruptOut.ZipFilename} toSortCorruptOut was left open");
 				}

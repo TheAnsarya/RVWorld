@@ -36,6 +36,7 @@ namespace DATReader.DatClean {
 					charName[i] = '-';
 				}
 			}
+
 			db.Name = new string(charName);
 		}
 

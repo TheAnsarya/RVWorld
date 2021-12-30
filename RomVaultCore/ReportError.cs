@@ -31,6 +31,7 @@ namespace RomVaultCore {
 				if (e.Exception.InnerException != null) {
 					message += $"\r\nINNER EXCEPTION:\r\nSource: {e.Exception.InnerException.Source}\r\nMessage: {e.Exception.InnerException.Message}\r\n";
 				}
+
 				message += $"\r\nSTACK TRACE:\r\n{e.Exception.StackTrace}";
 
 				SendErrorMessage(message);
@@ -50,7 +51,9 @@ namespace RomVaultCore {
 				var message = $"An Application Error has occurred.\r\n\r\nEXCEPTION:\r\nSource: {e.Source}\r\nMessage: {e.Message}\r\n";
 				if (e.InnerException != null) {
 					message += $"\r\nINNER EXCEPTION:\r\nSource: {e.InnerException.Source}\r\nMessage: {e.InnerException.Message}\r\n";
+
 				}
+
 				message += $"\r\nSTACK TRACE:\r\n{e.StackTrace}";
 
 				SendErrorMessage(message);
@@ -135,7 +138,9 @@ namespace RomVaultCore {
 			for (var i = 0; i < files.Count; i++) {
 				var f = files[i];
 				ReportFile(_logStreamWriter, f);
+
 			}
+
 			_logStreamWriter.Flush();
 		}
 

@@ -209,6 +209,7 @@ namespace Compress.Support.Compression.Deflate {
 				if (bits > max_length) {
 					bits = max_length; overflow++;
 				}
+
 				tree[(n * 2) + 1] = (short)bits;
 				// We overwrite tree[n*2+1] which is no longer needed
 
@@ -228,6 +229,7 @@ namespace Compress.Support.Compression.Deflate {
 					s.static_len += f * (stree[(n * 2) + 1] + xbits);
 				}
 			}
+
 			if (overflow == 0) {
 				return;
 			}
@@ -261,6 +263,7 @@ namespace Compress.Support.Compression.Deflate {
 						s.opt_len = (int)(s.opt_len + ((bits - (long)tree[(m * 2) + 1]) * tree[m * 2]));
 						tree[(m * 2) + 1] = (short)bits;
 					}
+
 					n--;
 				}
 			}
@@ -309,6 +312,7 @@ namespace Compress.Support.Compression.Deflate {
 				}
 				// node is 0 or 1 so it does not have extra bits
 			}
+
 			this.max_code = max_code;
 
 			// The elements heap[heap_len/2+1 .. heap_len] are leaves of the tree,

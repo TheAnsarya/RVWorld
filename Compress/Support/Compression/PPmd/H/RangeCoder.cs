@@ -73,6 +73,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					range = (-low & (BOT - 1)) & UintMask;
 					c2 = false;
 				}
+
 				code = ((code << 8) | Char) & UintMask;
 				range = (range << 8) & UintMask;
 				low = (low << 8) & UintMask;

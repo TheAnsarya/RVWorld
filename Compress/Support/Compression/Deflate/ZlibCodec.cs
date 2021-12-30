@@ -697,6 +697,7 @@ namespace Compress.Support.Compression.Deflate {
 			if (dstate.WantRfc1950HeaderBytes) {
 				_Adler32 = Adler.Adler32(_Adler32, InputBuffer, NextIn, len);
 			}
+
 			Array.Copy(InputBuffer, NextIn, buf, start, len);
 			NextIn += len;
 			TotalBytesIn += len;

@@ -40,11 +40,13 @@ namespace CHDlib {
 				if (_finished) {
 					break;
 				}
+
 				try {
 					SizeRead = read_block_into_cache(_block, _buffer, ref _crc);
 				} catch (Exception) {
 					errorState = true;
 				}
+
 				_outEvent.Set();
 			}
 		}
@@ -110,6 +112,7 @@ namespace CHDlib {
 
 								}
 						}
+
 						break;
 					}
 
@@ -137,6 +140,7 @@ namespace CHDlib {
 						for (var i = 8; i < _hd.blocksize; i++) {
 							cache[i] = cache[i - 8];
 						}
+
 						if ((mapEntry.flags & mapFlags.MAP_ENTRY_FLAG_NO_CRC) == 0) {
 							_crc = BitConverter.GetBytes(mapEntry.crc);
 						}
@@ -156,6 +160,7 @@ namespace CHDlib {
 					return hdErr.HDERR_DECOMPRESSION_ERROR;
 
 			}
+
 			return hdErr.HDERR_NONE;
 		}
 	}

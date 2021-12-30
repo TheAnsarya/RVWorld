@@ -102,6 +102,7 @@ namespace RomVaultCore.FixFile {
 					var error = Error.GetLastError();
 					Report.ReportProgress(new bgwShowError(filename, "Error Setting File Attributes to Normal. Before Delete. Code " + error));
 				}
+
 				File.Delete(filename);
 			}
 			// here we just deleted a file so also delete it from the DB,
@@ -247,7 +248,9 @@ namespace RomVaultCore.FixFile {
 			if (parent.ChildNameSearch(fixFile, out var index) != 0) {
 				ReportError.Show("Logic error trying to find the file we are fixing " + fileName);
 				return ReturnCode.LogicError;
+
 			}
+
 			testList.Add(parent.Child(index++));
 
 			// now loop to see if there are any more files with the same name. (This is a case insensative compare)                        
@@ -280,6 +283,7 @@ namespace RomVaultCore.FixFile {
 								if (ret != ReturnCode.Good) {
 									return ret;
 								}
+
 								break;
 							}
 						case RepStatus.MoveToSort: {
@@ -287,6 +291,7 @@ namespace RomVaultCore.FixFile {
 								if (ret != ReturnCode.Good) {
 									return ret;
 								}
+
 								break;
 							}
 						case RepStatus.MoveToCorrupt: {
@@ -294,6 +299,7 @@ namespace RomVaultCore.FixFile {
 								if (ret != ReturnCode.Good) {
 									return ret;
 								}
+
 								break;
 							}
 						case RepStatus.NeededForFix:
@@ -307,6 +313,7 @@ namespace RomVaultCore.FixFile {
 									ReportError.Show("Unknown file status in Matching File found of " + testFile.RepStatus);
 									return ReturnCode.LogicError;
 								}
+
 								parent.ChildRemove(index);
 								testChild.Name += ".tmp";
 								parent.ChildAdd(testChild);
@@ -325,6 +332,7 @@ namespace RomVaultCore.FixFile {
 					return ReturnCode.LogicError;
 				}
 			}
+
 			return ReturnCode.Good;
 		}
 

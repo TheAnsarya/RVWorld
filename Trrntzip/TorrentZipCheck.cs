@@ -35,6 +35,7 @@ namespace TrrntZip {
 					if (bytes[j] != 92) {
 						continue;
 					}
+
 					fixDir = true;
 					bytes[j] = (char)47;
 					tzStatus |= TrrntZipStatus.BadDirectorySeparator;
@@ -43,6 +44,7 @@ namespace TrrntZip {
 						statusLogCallBack?.Invoke(threadId, "Incorrect directory separator found");
 					}
 				}
+
 				if (fixDir) {
 					t.Name = new string(bytes);
 				}
@@ -146,6 +148,7 @@ namespace TrrntZip {
 				if (pos1 == bytes1.Length) {
 					return pos2 == bytes2.Length ? 0 : -1;
 				}
+
 				if (pos2 == bytes2.Length) {
 					return 1;
 				}
@@ -156,6 +159,7 @@ namespace TrrntZip {
 				if ((byte1 >= 65) && (byte1 <= 90)) {
 					byte1 += 0x20;
 				}
+
 				if ((byte2 >= 65) && (byte2 <= 90)) {
 					byte2 += 0x20;
 				}
@@ -163,6 +167,7 @@ namespace TrrntZip {
 				if (byte1 < byte2) {
 					return -1;
 				}
+
 				if (byte1 > byte2) {
 					return 1;
 				}
@@ -186,6 +191,7 @@ namespace TrrntZip {
 					if (bytes[j] != 92) {
 						continue;
 					}
+
 					fixDir = true;
 					bytes[j] = (char)47;
 					tzStatus |= TrrntZipStatus.BadDirectorySeparator;
@@ -194,6 +200,7 @@ namespace TrrntZip {
 						statusLogCallBack?.Invoke(threadId, "Incorrect directory separator found");
 					}
 				}
+
 				if (fixDir) {
 					t.Name = new string(bytes);
 				}
@@ -257,6 +264,7 @@ namespace TrrntZip {
 							k--;
 						}
 					}
+
 					dirSortTest.RemoveAt(i);
 					tzStatus |= TrrntZipStatus.ExtraDirectoryEnteries;
 					if (!error3 && Program.VerboseLogging) {

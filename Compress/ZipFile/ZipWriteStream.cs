@@ -83,6 +83,7 @@ namespace Compress.ZipFile {
 				dfStream.Close();
 				dfStream.Dispose();
 			}
+
 			_compressionStream = null;
 
 			return _localFiles[_localFiles.Count - 1].LocalFileCloseWriteStream(_zipFs, crc32);

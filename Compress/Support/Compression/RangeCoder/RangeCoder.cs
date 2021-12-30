@@ -52,6 +52,7 @@
 				while (--_cacheSize != 0);
 				_cache = (byte)(((uint)Low) >> 24);
 			}
+
 			_cacheSize++;
 			Low = ((uint)Low) << 8;
 		}
@@ -77,7 +78,9 @@
 			} else {
 				Low += newBound;
 				Range -= newBound;
+
 			}
+
 			while (Range < KTopValue) {
 				Range <<= 8;
 				ShiftLow();
@@ -162,6 +165,8 @@
 					Total++;
 				}
 			}
+
+
 			Range = range;
 			Code = code;
 			return result;
@@ -178,6 +183,7 @@
 				Code -= newBound;
 				Range -= newBound;
 			}
+
 			Normalize();
 			return symbol;
 		}

@@ -8,6 +8,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			for (var i = 0; i < 25; i++) {
 				SEE2Cont[i] = new SEE2Context[16];
 			}
+
 			for (var i2 = 0; i2 < 128; i2++) {
 				binSumm[i2] = new int[64];
 			}
@@ -163,6 +164,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					}
 				}
 			}
+
 			for (var i = 0; i < 25; i++) {
 				for (var k = 0; k < 16; k++) {
 					SEE2Cont[i][k].Initialize((5 * i) + 10);
@@ -181,12 +183,15 @@ namespace Compress.Support.Compression.PPmd.H {
 			for (var j = 0; j < 9; j++) {
 				NS2BSIndx[2 + j] = 4;
 			}
+
 			for (var j = 0; j < 256 - 11; j++) {
 				NS2BSIndx[11 + j] = 6;
 			}
+
 			for (i = 0; i < 3; i++) {
 				NS2Indx[i] = i;
 			}
+
 			for (m = i, k = 1, Step = 1; i < 256; i++) {
 				NS2Indx[i] = m;
 				if ((--k) == 0) {
@@ -194,12 +199,15 @@ namespace Compress.Support.Compression.PPmd.H {
 					m++;
 				}
 			}
+
 			for (var j = 0; j < 0x40; j++) {
 				HB2Flag[j] = 0;
 			}
+
 			for (var j = 0; j < 0x100 - 0x40; j++) {
 				HB2Flag[0x40 + j] = 0x08;
 			}
+
 			dummySEE2Cont.Shift = PERIOD_BITS;
 		}
 
@@ -220,12 +228,14 @@ namespace Compress.Support.Compression.PPmd.H {
 				if (minContext.FreqData.GetStats() <= SubAlloc.PText || minContext.FreqData.GetStats() > SubAlloc.HeapEnd) {
 					return (-1);
 				}
+
 				if (!minContext.decodeSymbol1(this)) {
 					return (-1);
 				}
 			} else {
 				minContext.decodeBinSymbol(this);
 			}
+
 			Coder.Decode();
 			while (FoundState.Address == 0) {
 				Coder.AriDecNormalize();
@@ -240,8 +250,10 @@ namespace Compress.Support.Compression.PPmd.H {
 				if (!minContext.decodeSymbol2(this)) {
 					return (-1);
 				}
+
 				Coder.Decode();
 			}
+
 			var Symbol = FoundState.Symbol;
 			if ((orderFall == 0) && FoundState.GetSuccessor() > SubAlloc.PText) {
 				// MinContext=MaxContext=FoundState->Successor;
@@ -255,6 +267,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					clearMask();
 				}
 			}
+
 			Coder.AriDecNormalize(); // ARI_DEC_NORMALIZE(Coder.code,Coder.low,Coder.range,Coder.UnpackRead);
 			return (Symbol);
 		}
@@ -294,6 +307,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					noLoop = true;
 				}
 			}
+
 			if (!noLoop) {
 				var loopEntry = false;
 				if (p1.Address != 0) {
@@ -301,6 +315,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					pc.Address = pc.getSuffix(); // =pc->Suffix;
 					loopEntry = true;
 				}
+
 				do {
 					if (!loopEntry) {
 						pc.Address = pc.getSuffix(); // pc=pc->Suffix;
@@ -316,18 +331,22 @@ namespace Compress.Support.Compression.PPmd.H {
 							p.Address = pc.getOneState().Address; // p=&(pc->OneState);
 						}
 					} // LOOP_ENTRY:
+
 					loopEntry = false;
 					if (p.GetSuccessor() != upBranch.Address) {
 						pc.Address = p.GetSuccessor(); // =p->Successor;
 						break;
 					}
+
 					ps[pps++] = p.Address;
 				}
 				while (pc.getSuffix() != 0);
 			} // NO_LOOP:
+
 			if (pps == 0) {
 				return pc.Address;
 			}
+
 			upState.Symbol = Heap[upBranch.Address]; // UpState.Symbol=*(byte*)
 													 // UpBranch;
 													 // UpState.Successor=(PPM_CONTEXT*) (((byte*) UpBranch)+1);
@@ -336,13 +355,16 @@ namespace Compress.Support.Compression.PPmd.H {
 				if (pc.Address <= SubAlloc.PText) {
 					return (0);
 				}
+
 				p.Address = pc.FreqData.GetStats();
 				if (p.Symbol != upState.Symbol) {
 					do {
 						p.IncrementAddress();
 					}
 					while (p.Symbol != upState.Symbol);
+
 				}
+
 				var cf = p.Freq - 1;
 				var s0 = pc.FreqData.SummFreq - pc.NumStats - cf;
 				// UpState.Freq=1+((2*cf <= s0)?(5*cf > s0):((2*cf+3*s0-1)/(2*s0)));
@@ -350,6 +372,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			} else {
 				upState.Freq = pc.getOneState().Freq; // UpState.Freq=pc->OneState.Freq;
 			}
+
 			do {
 				// pc = pc->createChild(this,*--pps,UpState);
 				tempState.Address = ps[--pps];
@@ -394,6 +417,7 @@ namespace Compress.Support.Compression.PPmd.H {
 							p.DecrementAddress();
 						}
 					}
+
 					if (p.Freq < MAX_FREQ - 9) {
 						p.IncrementFreq(2);
 						pc.FreqData.IncrementSummFreq(2);
@@ -405,6 +429,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					}
 				}
 			}
+
 			if (orderFall == 0) {
 				FoundState.SetSuccessor(createSuccessors(true, p));
 				minContext.Address = FoundState.GetSuccessor();
@@ -412,9 +437,12 @@ namespace Compress.Support.Compression.PPmd.H {
 				if (minContext.Address == 0) {
 					updateModelRestart();
 					return;
+				
 				}
+
 				return;
 			}
+
 			SubAlloc.Heap[SubAlloc.PText] = (byte)fs.Symbol;
 			SubAlloc.incPText();
 			successor.Address = SubAlloc.PText;
@@ -432,6 +460,7 @@ namespace Compress.Support.Compression.PPmd.H {
 						return;
 					}
 				}
+
 				if (--orderFall == 0) {
 					successor.Address = fs.GetSuccessor();
 					if (maxContext.Address != minContext.Address) {
@@ -468,6 +497,7 @@ namespace Compress.Support.Compression.PPmd.H {
 						updateModelRestart();
 						return;
 					}
+
 					p.SetValues(pc.getOneState());
 					pc.FreqData.SetStats(p);
 					if (p.Freq < (MAX_FREQ / 4) - 1) {
@@ -475,8 +505,10 @@ namespace Compress.Support.Compression.PPmd.H {
 					} else {
 						p.Freq = MAX_FREQ - 4;
 					}
+
 					pc.FreqData.SummFreq = (p.Freq + initEsc + (ns > 3 ? 1 : 0));
 				}
+
 				cf = 2 * fs.Freq * (pc.FreqData.SummFreq + 6);
 				sf = s0 + pc.FreqData.SummFreq;
 				if (cf < 6 * sf) {
@@ -486,6 +518,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					cf = 4 + (cf >= 9 * sf ? 1 : 0) + (cf >= 12 * sf ? 1 : 0) + (cf >= 15 * sf ? 1 : 0);
 					pc.FreqData.IncrementSummFreq(cf);
 				}
+
 				p.Address = pc.FreqData.GetStats() + (ns1 * State.Size);
 				p.SetSuccessor(successor);
 				p.Symbol = fs.Symbol;
@@ -550,6 +583,8 @@ namespace Compress.Support.Compression.PPmd.H {
 				SubAlloc.stopSubAllocator();
 				return (false);
 			}
+
+
 			SubAlloc.startSubAllocator(maxMemory);
 			minContext = new PPMContext(Heap);
 			//medContext = new PPMContext(Heap);
@@ -561,6 +596,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					SEE2Cont[i][j] = new SEE2Context();
 				}
 			}
+
 			startModelRare(maxOrder);
 
 			return (minContext.Address != 0);
@@ -590,6 +626,8 @@ namespace Compress.Support.Compression.PPmd.H {
 					nextContext();
 					return symbol;
 				}
+
+
 				prevSuccess = 0;
 				i = minContext.NumStats - 1;
 				do {
@@ -639,6 +677,8 @@ namespace Compress.Support.Compression.PPmd.H {
 					nextContext();
 					return symbol;
 				}
+
+
 				bs = (bs - minContext.getMean(bs, PERIOD_BITS, 2)) & 0xFFFF;
 				binSumm[off1][off2] = bs;
 				initEsc = PPMContext.ExpEscape[Utility.URShift(bs, 10)];
@@ -650,6 +690,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				charMask[rs.Symbol] = 0;
 				prevSuccess = 0;
 			}
+
 			for (; ; )
 			{
 				var s = tempState1.Initialize(Heap);
@@ -696,7 +737,9 @@ namespace Compress.Support.Compression.PPmd.H {
 					minContext.update2(this, s.Address);
 					updateModel();
 					return symbol;
+
 				}
+
 				if (count >= freqSum) {
 					return -2;
 				}

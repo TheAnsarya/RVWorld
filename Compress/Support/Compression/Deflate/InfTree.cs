@@ -160,15 +160,18 @@ namespace Compress.Support.Compression.Deflate {
 			if (l < j) {
 				l = j;
 			}
+
 			for (i = BMAX; i != 0; i--) {
 				if (c[i] != 0) {
 					break;
 				}
 			}
+
 			g = i; // maximum code length
 			if (l > i) {
 				l = i;
 			}
+
 			m[0] = l;
 
 			// Adjust last length count to fill out codes, if needed
@@ -177,9 +180,11 @@ namespace Compress.Support.Compression.Deflate {
 					return Z_DATA_ERROR;
 				}
 			}
+
 			if ((y -= c[i]) < 0) {
 				return Z_DATA_ERROR;
 			}
+
 			c[i] += y;
 
 			// Generate starting offsets into the value table for each length
@@ -198,6 +203,7 @@ namespace Compress.Support.Compression.Deflate {
 				if ((j = b[bindex + p]) != 0) {
 					v[x[j]++] = i;
 				}
+
 				p++;
 			}
 			while (++i < n);
@@ -240,6 +246,7 @@ namespace Compress.Support.Compression.Deflate {
 								}
 							}
 						}
+
 						z = 1 << j; // table entries for j-bit table
 
 						// allocate new table
@@ -247,6 +254,7 @@ namespace Compress.Support.Compression.Deflate {
 							// (note: doesn't matter for fixed)
 							return Z_DATA_ERROR; // overflow of MANY
 						}
+
 						u[h] = q = hn[0]; // DEBUG
 						hn[0] += z;
 
@@ -285,6 +293,7 @@ namespace Compress.Support.Compression.Deflate {
 					for (j = 1 << (k - 1); (i & j) != 0; j = SharedUtils.URShift(j, 1)) {
 						i ^= j;
 					}
+
 					i ^= j;
 
 					// backup over finished tables
@@ -312,6 +321,8 @@ namespace Compress.Support.Compression.Deflate {
 				z.Message = "incomplete dynamic bit lengths tree";
 				result = Z_DATA_ERROR;
 			}
+
+
 			return result;
 		}
 
@@ -329,6 +340,7 @@ namespace Compress.Support.Compression.Deflate {
 					z.Message = "incomplete literal/length tree";
 					result = Z_DATA_ERROR;
 				}
+
 				return result;
 			}
 
@@ -346,6 +358,7 @@ namespace Compress.Support.Compression.Deflate {
 					z.Message = "empty distance tree with lengths";
 					result = Z_DATA_ERROR;
 				}
+
 				return result;
 			}
 
@@ -372,6 +385,7 @@ namespace Compress.Support.Compression.Deflate {
 				if (v.Length < vsize) {
 					v = new int[vsize];
 				}
+
 				Array.Clear(v, 0, vsize);
 				Array.Clear(c, 0, BMAX + 1);
 				r[0] = 0; r[1] = 0; r[2] = 0;

@@ -100,6 +100,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				p += U2B(i = indx2Units[i]);
 				uDiff -= i;
 			}
+
 			insertNode(p, units2Indx[uDiff - 1]);
 		}
 
@@ -124,7 +125,9 @@ namespace Compress.Support.Compression.PPmd.H {
 			var t = SASize;
 			if (subAllocatorSize == t) {
 				return true;
+
 			}
+
 			stopSubAllocator();
 			var allocSize = (t / FIXED_UNIT_SIZE * UNIT_SIZE) + UNIT_SIZE;
 
@@ -170,6 +173,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (loUnit != hiUnit) {
 				heap[loUnit] = 0;
 			}
+
 			for (i = 0, s0.SetPrev(s0), s0.SetNext(s0); i < N_INDEXES; i++) {
 				while (freeList[i].GetNext() != 0) {
 					p.Address = removeNode(i); // =(RAR_MEM_BLK*)RemoveNode(i);
@@ -178,6 +182,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					p.SetNU(indx2Units[i]); // p->NU=Indx2Units[i];
 				}
 			}
+
 			for (p.Address = s0.GetNext(); p.Address != s0.Address; p.Address = p.GetNext()) {
 				// while ((p1=MBPtr(p,p->NU))->Stamp == 0xFFFF && int(p->NU)+p1->NU
 				// < 0x10000)
@@ -196,10 +201,12 @@ namespace Compress.Support.Compression.PPmd.H {
 				for (p.Remove(), sz = p.GetNU(); sz > 128; sz -= 128, p.Address = MBPtr(p.Address, 128)) {
 					insertNode(p.Address, N_INDEXES - 1);
 				}
+
 				if (indx2Units[i = units2Indx[sz - 1]] != sz) {
 					k = sz - indx2Units[--i];
 					insertNode(MBPtr(p.Address, sz - k), k - 1);
 				}
+
 				insertNode(p.Address, i);
 				p.Address = s0.GetNext();
 			}
@@ -213,6 +220,7 @@ namespace Compress.Support.Compression.PPmd.H {
 					return removeNode(indx);
 				}
 			}
+
 			var i = indx;
 			do {
 				if (++i == N_INDEXES) {
@@ -224,6 +232,7 @@ namespace Compress.Support.Compression.PPmd.H {
 						unitsStart -= i;
 						return unitsStart;
 					}
+
 					return (0);
 				}
 			}
@@ -238,11 +247,13 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (freeList[indx].GetNext() != 0) {
 				return removeNode(indx);
 			}
+
 			var retVal = loUnit;
 			loUnit += U2B(indx2Units[indx]);
 			if (loUnit <= hiUnit) {
 				return retVal;
 			}
+
 			loUnit -= U2B(indx2Units[indx]);
 			return allocUnitsRare(indx);
 		}
@@ -255,6 +266,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (freeList[0].GetNext() != 0) {
 				return removeNode(0);
 			}
+
 			return allocUnitsRare(0);
 		}
 
@@ -264,12 +276,14 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (i0 == i1) {
 				return oldPtr;
 			}
+
 			var ptr = allocUnits(OldNU + 1);
 			if (ptr != 0) {
 				// memcpy(ptr,OldPtr,U2B(OldNU));
 				Array.Copy(heap, oldPtr, heap, ptr, U2B(OldNU));
 				insertNode(oldPtr, i0);
 			}
+
 			return ptr;
 		}
 
@@ -281,6 +295,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			if (i0 == i1) {
 				return oldPtr;
 			}
+
 			if (freeList[i1].GetNext() != 0) {
 				var ptr = removeNode(i1);
 				// memcpy(ptr,OldPtr,U2B(NewNU));
@@ -318,12 +333,15 @@ namespace Compress.Support.Compression.PPmd.H {
 			for (i = 0, k = 1; i < N1; i++, k += 1) {
 				indx2Units[i] = k & 0xff;
 			}
+
 			for (k++; i < N1 + N2; i++, k += 2) {
 				indx2Units[i] = k & 0xff;
 			}
+
 			for (k++; i < N1 + N2 + N3; i++, k += 3) {
 				indx2Units[i] = k & 0xff;
 			}
+
 			for (k++; i < (N1 + N2 + N3 + N4); i++, k += 4) {
 				indx2Units[i] = k & 0xff;
 			}

@@ -32,6 +32,7 @@ namespace Compress.Support.Filters {
 				Read(seekBuffer, 0, (int)get);
 				seekToGo -= get;
 			}
+
 			return _position;
 		}
 

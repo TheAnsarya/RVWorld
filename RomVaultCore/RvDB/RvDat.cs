@@ -122,10 +122,12 @@ namespace RomVaultCore.RvDB {
 				if (id == gameMD.Id) {
 					return gameMD.Value;
 				}
+
 				if (id < gameMD.Id) {
 					return "";
 				}
 			}
+
 			return "";
 		}
 

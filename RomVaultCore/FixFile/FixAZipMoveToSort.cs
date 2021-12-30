@@ -104,6 +104,7 @@ namespace RomVaultCore.FixFile {
 				default:
 					throw new FixAZip.ZipFileException(returnCode, fixZippedFile.FullName + " " + fixZippedFile.RepStatus + " " + returnCode + Environment.NewLine + errorMessage);
 			}
+
 			fixZippedFile.GotStatus = GotStatus.NotGot; // Changes RepStatus to Deleted
 
 			fixZippedFile.FileGroup.Files.Add(toSortRom);

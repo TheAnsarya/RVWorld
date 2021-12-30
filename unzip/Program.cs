@@ -10,6 +10,7 @@ namespace unzip {
 				Console.WriteLine("RVUnzip.exe source.zip -d destination");
 				return;
 			}
+
 			var filename = args[0].Replace("\"", "");
 			var outDir = "";
 			if (args.Length == 3) {
@@ -17,8 +18,11 @@ namespace unzip {
 					Console.WriteLine("Unknown command line option.");
 					return;
 				}
+
 				outDir = args[2].Replace("\"", "");
+
 			}
+
 			try {
 				var extract = new ArchiveExtract(consoleCallBack);
 				extract.FullExtract(filename, outDir);

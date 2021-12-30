@@ -64,6 +64,7 @@ namespace RomVaultCore.FixFile {
 						ReportError.LogOut($"DecompressSource7Zip: OutputOutput {fixZip.FileName} return {returnCode1}");
 						return returnCode1;
 					}
+
 					lstFixRomTable = FindSourceFile.GetFixFileList(fixZippedFile);
 					fileIn = FindSourceFile.FindSourceToUseForFix(fixZippedFile, lstFixRomTable);
 				}
@@ -124,6 +125,7 @@ namespace RomVaultCore.FixFile {
 					filesUserForFix.Add(fn, f);
 				}
 			}
+
 			totalFixed++;
 
 			errorMessage = "";

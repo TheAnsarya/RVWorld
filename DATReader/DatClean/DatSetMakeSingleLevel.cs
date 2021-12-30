@@ -39,6 +39,7 @@ namespace DATReader.DatClean {
 							subDirType = RemoveSubType.KeepAllSubDirs;
 							break;
 						}
+
 						rootTest.ChildAdd(rom);
 					}
 
@@ -75,7 +76,9 @@ namespace DATReader.DatClean {
 						}
 					} else if (subDirType == RemoveSubType.KeepAllSubDirs) {
 						rom.Name = dirName + "\\" + rom.Name;
+
 					}
+
 					root.ChildAdd(rom);
 				}
 			}

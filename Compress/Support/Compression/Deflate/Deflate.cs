@@ -425,6 +425,7 @@ namespace Compress.Support.Compression.Deflate {
 			if (nextlen == 0) {
 				max_count = 138; min_count = 3;
 			}
+
 			tree[((max_code + 1) * 2) + 1] = 0x7fff; // guard //??
 
 			for (n = 0; n <= max_code; n++) {
@@ -529,6 +530,7 @@ namespace Compress.Support.Compression.Deflate {
 					if (curlen != prevlen) {
 						send_code(curlen, bl_tree); count--;
 					}
+
 					send_code(InternalConstants.REP_3_6, bl_tree);
 					send_bits(count - 3, 2);
 				} else if (count <= 10) {
@@ -538,6 +540,7 @@ namespace Compress.Support.Compression.Deflate {
 					send_code(InternalConstants.REPZ_11_138, bl_tree);
 					send_bits(count - 11, 7);
 				}
+
 				count = 0; prevlen = curlen;
 				if (nextlen == 0) {
 					max_count = 138; min_count = 3;
@@ -1147,6 +1150,7 @@ namespace Compress.Support.Compression.Deflate {
 					return BlockState.NeedMore;
 				}
 			}
+
 			return flush == FlushType.Finish ? BlockState.FinishDone : BlockState.BlockDone;
 		}
 
@@ -1530,6 +1534,7 @@ namespace Compress.Support.Compression.Deflate {
 				length = w_size - MIN_LOOKAHEAD;
 				index = dictionary.Length - length; // use the tail of the dictionary
 			}
+
 			Array.Copy(dictionary, index, window, 0, length);
 			strstart = length;
 			block_start = length;
@@ -1597,6 +1602,7 @@ namespace Compress.Support.Compression.Deflate {
 					pending[pendingCount++] = (byte)((_codec._Adler32 & 0x0000FF00) >> 8);
 					pending[pendingCount++] = (byte)(_codec._Adler32 & 0x000000FF);
 				}
+
 				_codec._Adler32 = Adler.Adler32(0, null, 0, 0);
 			}
 
@@ -1646,10 +1652,12 @@ namespace Compress.Support.Compression.Deflate {
 				if (bstate is BlockState.FinishStarted or BlockState.FinishDone) {
 					status = FINISH_STATE;
 				}
+
 				if (bstate is BlockState.NeedMore or BlockState.FinishStarted) {
 					if (_codec.AvailableBytesOut == 0) {
 						last_flush = -1; // avoid BUF_ERROR next call, see above
 					}
+
 					return ZlibConstants.Z_OK;
 					// If flush != Z_NO_FLUSH && avail_out == 0, the next call
 					// of deflate should use the same flush parameter to make sure
@@ -1674,6 +1682,7 @@ namespace Compress.Support.Compression.Deflate {
 							}
 						}
 					}
+
 					_codec.flush_pending();
 					if (_codec.AvailableBytesOut == 0) {
 						last_flush = -1; // avoid BUF_ERROR at next call, see above

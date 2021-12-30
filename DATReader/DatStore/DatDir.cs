@@ -62,6 +62,7 @@ namespace DATReader.DatStore {
 						_childrenNameIndex[j]--;
 					}
 				}
+
 				return;
 			}
 		}
@@ -98,6 +99,7 @@ namespace DATReader.DatStore {
 					intBottom = intMid + 1;
 				}
 			}
+
 			index = intMid;
 
 			if (intRes == 0) {
@@ -173,6 +175,7 @@ namespace DATReader.DatStore {
 					throw new InvalidOperationException("Invalid directory compare type " + DatFileType);
 
 			}
+
 			return lName.DatFileType.CompareTo(dBase.DatFileType);
 		}
 	}

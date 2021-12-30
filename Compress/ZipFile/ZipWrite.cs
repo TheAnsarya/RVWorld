@@ -26,6 +26,7 @@ namespace Compress.ZipFile {
 				ZipFileClose();
 				return ZipReturn.ZipErrorOpeningFile;
 			}
+
 			ZipOpen = ZipOpenType.OpenWrite;
 			return ZipReturn.ZipGood;
 		}
@@ -59,7 +60,9 @@ namespace Compress.ZipFile {
 				_endOfCentralDir64 = (ulong)_zipFs.Position;
 				Zip64EndOfCentralDirWrite();
 				Zip64EndOfCentralDirectoryLocatorWrite();
+
 			}
+
 			EndOfCentralDirWrite();
 
 			_zipFs.SetLength(_zipFs.Position);
@@ -79,6 +82,7 @@ namespace Compress.ZipFile {
 						_zipFs.Close();
 						_zipFs.Dispose();
 					}
+
 					break;
 				case ZipOpenType.OpenWrite:
 					_zipFs.Flush();

@@ -217,6 +217,7 @@ namespace RomVaultCore.Scanner {
 							dbs.Add(dbDir.Child(dbIndex + dbsCount));
 							dbsCount += 1;
 						}
+
 						while (fileIndex + filesCount < fileDir.ChildCount && DBHelper.CompareName(fileChild, fileDir.Child(fileIndex + filesCount)) == 0) {
 							files.Add(fileDir.Child(fileIndex + filesCount));
 							filesCount += 1;
@@ -274,6 +275,7 @@ namespace RomVaultCore.Scanner {
 								dbIndex++;
 								continue;
 							}
+
 							DBFileNotFound(dbs[indexdb], dbDir, ref dbIndex);
 						}
 
@@ -281,6 +283,7 @@ namespace RomVaultCore.Scanner {
 							if (files[indexfile].SearchFound) {
 								continue;
 							}
+
 							if (NewFileFound(files[indexfile], dbDir, dbIndex)) {
 								dbIndex++;
 							}
@@ -303,6 +306,7 @@ namespace RomVaultCore.Scanner {
 				if (_fileErrorAbort) {
 					return;
 				}
+
 				if (enableCancel && !DBTypeGet.isCompressedDir(ft) && _thWrk.CancellationPending) {
 					return;
 				}
@@ -323,6 +327,7 @@ namespace RomVaultCore.Scanner {
 					  {
 						dbChild.FileCheckName(fileChild);
 					}
+
 					break;
 				case FileType.Dir:
 					var tDir = dbChild;
@@ -330,9 +335,11 @@ namespace RomVaultCore.Scanner {
 					{
 						CheckADir(tDir, true);
 					}
+
 					if (_fileErrorAbort) {
 						return;
 					}
+
 					dbChild.FileAdd(fileChild, false);
 					break;
 				case FileType.File:
@@ -372,6 +379,7 @@ namespace RomVaultCore.Scanner {
 							Populate.FromAFile(fileChild, dbDir.FullNameCase, EScanLevel, _thWrk, ref _fileErrorAbort);
 						}
 					}
+
 					dbDir.ChildAdd(fileChild, dbIndex);
 					return true;
 				case FileType.ZipFile:
@@ -408,8 +416,10 @@ namespace RomVaultCore.Scanner {
 						if (tDir.Tree == null) {
 							MarkAsMissing(tDir);
 						}
+
 						break;
 				}
+
 				dbIndex++;
 			}
 		}
@@ -433,6 +443,7 @@ namespace RomVaultCore.Scanner {
 							if (tDir.Tree == null) {
 								MarkAsMissing(tDir);
 							}
+
 							break;
 					}
 				}

@@ -48,6 +48,7 @@ namespace RomVaultCore.ReadDat {
 				longest = dirKeyLen;
 				use = s;
 			}
+
 			if (use == null) {
 				ReportError.LogOut("Use is Null");
 			} else {

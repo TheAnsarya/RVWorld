@@ -223,6 +223,7 @@ namespace RomVaultCore.ReadDat {
 					dbChild = lDir.Child(dbIndex);
 					res = -1;
 				}
+
 				switch (res) {
 					case 0:
 						// found a matching directory in DatRoot So recurse back into it
@@ -238,7 +239,9 @@ namespace RomVaultCore.ReadDat {
 					case -1:
 						if (dbChild?.FileType == FileType.Dir && dbChild.Dat == null) {
 							RemoveOldDats(dbChild, new RvFile(FileType.Dir));
+
 						}
+
 						dbIndex++;
 						break;
 				}
@@ -276,9 +279,11 @@ namespace RomVaultCore.ReadDat {
 				if (RemoveOldDatsCleanUpFiles(tDir.Child(i)) == EFile.Keep) {
 					continue;
 				}
+
 				tDir.ChildRemove(i);
 				i--;
 			}
+
 			if ((ft == FileType.Zip || ft == FileType.SevenZip) && dbDir.GotStatus == GotStatus.Corrupt) {
 				return EFile.Keep;
 			}
@@ -349,6 +354,7 @@ namespace RomVaultCore.ReadDat {
 						if (LoadNewDat(fileDat, dbDir)) {
 							dbIndex++;
 						}
+
 						scanIndex++;
 						break;
 
@@ -370,6 +376,7 @@ namespace RomVaultCore.ReadDat {
 				ReportError.Show("Error reading Dat " + fileDat.GetData(RvDat.DatData.DatRootFullName));
 				return false;
 			}
+
 			if (newDatFile.ChildCount == 0) {
 				return false;
 			}
@@ -449,6 +456,7 @@ namespace RomVaultCore.ReadDat {
 						dbDats.Add(dbDat.Child(dbIndex + dbDatsCount));
 						dbDatsCount += 1;
 					}
+
 					while (newIndex + newDatsCount < newDat.ChildCount && DBHelper.CompareName(newDatChild, newDat.Child(newIndex + newDatsCount)) == 0) {
 						newDats.Add(newDat.Child(newIndex + newDatsCount));
 						newDatsCount += 1;
@@ -528,6 +536,7 @@ namespace RomVaultCore.ReadDat {
 
 						dbIndex++;
 					}
+
 					newIndex++;
 				}
 
@@ -535,6 +544,7 @@ namespace RomVaultCore.ReadDat {
 					dbIndex++;
 				}
 			}
+
 			return false;
 		}
 
@@ -584,6 +594,7 @@ namespace RomVaultCore.ReadDat {
 					dbChild = dbDir.Child(dbIndex);
 					res = -1;
 				}
+
 				switch (res) {
 					case 0:
 						// found a matching directory in DatRoot So recurse back into it
@@ -601,6 +612,7 @@ namespace RomVaultCore.ReadDat {
 										dbChild.FileName = null; // if it does undo the BadCase Flag
 									}
 								}
+
 								dbChild.Name = fileChild.Name; // Set the db Name to match the DatRoot Name.
 							}
 						} else {

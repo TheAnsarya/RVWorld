@@ -49,6 +49,7 @@ namespace Compress.Support.Compression.PPmd.H {
 				summ += summ;
 				count = (3 << shift++);
 			}
+
 			summ &= 0xffff;
 			count &= 0xff;
 			shift &= 0xff;

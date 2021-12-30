@@ -384,6 +384,7 @@ StopDecoding:
 							state--;
 						}
 					}
+
 					cf = (uint)((state.Frequency < MaximumFrequency - 9) ? 2 : 0);
 					state.Frequency += (byte)cf;
 					context.SummaryFrequency += (byte)cf;
@@ -445,7 +446,9 @@ StopDecoding:
 						}
 
 						currentContext.Statistics = state;
+
 					}
+
 					currentContext.SummaryFrequency += (ushort)(((3 * ns1) + 1 < numberStatistics) ? 1 : 0);
 				} else {
 					state = Allocator.AllocateUnits(1);
@@ -524,6 +527,7 @@ RestartModel:
 							state++;
 						} while (temporary != symbol);
 					}
+
 					temporary = (byte)((state.Frequency < MaximumFrequency - 9) ? 1 : 0);
 					state.Frequency += temporary;
 					context.SummaryFrequency += temporary;
@@ -537,6 +541,7 @@ LoopEntry:
 					context = state.Successor;
 					break;
 				}
+
 				states[stateIndex++] = state;
 			} while (context.Suffix != PpmContext.Zero);
 
@@ -562,6 +567,7 @@ NoLoop:
 						state++;
 					} while (temporary != symbol);
 				}
+
 				var cf = (uint)(state.Frequency - 1);
 				var s0 = (uint)(context.SummaryFrequency - context.NumberStatistics - cf);
 				localFrequency = (byte)(1 + ((2 * cf <= s0) ? (uint)((5 * cf > s0) ? 1 : 0) : ((cf + (2 * s0) - 3) / s0)));
@@ -621,6 +627,7 @@ NoLoop:
 						Allocator.Text = Allocator.Heap + 1;
 						orderFall = 1;
 					}
+
 					return context;
 				}
 
@@ -633,6 +640,7 @@ NoLoop:
 							state++;
 						} while (temporary != symbol);
 					}
+
 					temporary = (byte)((state.Frequency < MaximumFrequency - 9) ? 2 : 0);
 					state.Frequency += temporary;
 					context.SummaryFrequency += temporary;

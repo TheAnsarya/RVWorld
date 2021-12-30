@@ -41,13 +41,17 @@ namespace RomVaultCore.RvDB {
 				if (thisDir.DatStatus != DatStatus.InDatCollect) {
 					continue;
 				}
+
 				var tDir = thisDir.Child(i);
 				if (!tDir.IsDir) {
 					continue;
+
 				}
+
 				if (tDir.Tree == null) {
 					continue;
 				}
+
 				if (tDir.Tree.Checked != RvTreeRow.TreeSelect.UnSelected) {
 					lstDir.Add(tDir);
 				}
@@ -64,15 +68,18 @@ namespace RomVaultCore.RvDB {
 				if (f1 != f2) {
 					ReportError.SendAndShow("Incompatible Compare type");
 				}
+
 				res = Math.Sign(DatSort.TrrntZipStringCompare(var1.Name, var2.Name));
 				return res != 0
 					? res
 					: Math.Sign(string.Compare(var1.Name, var2.Name, StringComparison.Ordinal));
 			}
+
 			if (f1 == FileType.SevenZipFile || f2 == FileType.SevenZipFile) {
 				if (f1 != f2) {
 					ReportError.SendAndShow("Incompatible Compare type");
 				}
+
 				return Math.Sign(DatSort.Trrnt7ZipStringCompare(var1.Name, var2.Name));
 			}
 
@@ -118,6 +125,7 @@ namespace RomVaultCore.RvDB {
 			if (retv != 0) {
 				return retv;
 			}
+
 			retv = Math.Sign(var1.SubDirType.CompareTo(var2.SubDirType));
 			if (retv != 0) {
 				return retv;
@@ -164,6 +172,7 @@ namespace RomVaultCore.RvDB {
 				if (!ArrByte.BCompare(tFile.MD5, ZeroByteMD5)) {
 					return false;
 				}
+
 				foundOneMatching = true;
 			}
 
@@ -171,6 +180,7 @@ namespace RomVaultCore.RvDB {
 				if (!ArrByte.BCompare(tFile.SHA1, ZeroByteSHA1)) {
 					return false;
 				}
+
 				foundOneMatching = true;
 			}
 
@@ -178,6 +188,7 @@ namespace RomVaultCore.RvDB {
 				if (!ArrByte.BCompare(tFile.CRC, ZeroByteCRC)) {
 					return false;
 				}
+
 				foundOneMatching = true;
 			}
 
@@ -185,6 +196,7 @@ namespace RomVaultCore.RvDB {
 				if (tFile.Size != 0) {
 					return false;
 				}
+
 				foundOneMatching = true;
 			}
 
@@ -202,6 +214,7 @@ namespace RomVaultCore.RvDB {
 			if (a.Parent == null) {
 				return false;
 			}
+
 			if (b.Parent == null) {
 				return false;
 			}

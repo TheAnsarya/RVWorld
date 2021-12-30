@@ -84,6 +84,7 @@ namespace RomVaultCore.FixFile {
 					if (originalStatus == RepStatus.NeededForFix) {
 						fixZippedFile.RepStatus = RepStatus.NeededForFix;
 					}
+
 					break;
 				case ReturnCode.SourceDataStreamCorrupt: {
 						ReportError.LogOut($"CorrectZipFile: Source Data Stream Corrupt /  CRC Error");

@@ -20,26 +20,35 @@ namespace Compress.ZipFile {
 					ZipFileClose();
 					return ZipReturn.ZipErrorFileNotFound;
 				}
+
 				_zipFileInfo = new FileInfo(newFilename);
 				if (timestamp != -1 && _zipFileInfo.LastWriteTime != timestamp) {
 					ZipFileClose();
 					return ZipReturn.ZipErrorTimeStamp;
+
 				}
+
 				var errorCode = FileStream.OpenFileRead(newFilename, out _zipFs);
 				if (errorCode != 0) {
 					ZipFileClose();
 					if (errorCode == 32) {
+
 						return ZipReturn.ZipFileLocked;
+
 					}
+
 					return ZipReturn.ZipErrorOpeningFile;
 				}
 			} catch (PathTooLongException) {
 				ZipFileClose();
 				return ZipReturn.ZipFileNameToLong;
 			} catch (IOException) {
+
 				ZipFileClose();
 				return ZipReturn.ZipErrorOpeningFile;
 			}
+
+
 			ZipOpen = ZipOpenType.OpenRead;
 
 			if (!readHeaders) {
@@ -63,10 +72,12 @@ namespace Compress.ZipFile {
 		}
 
 		private void zipFileCloseRead() {
+
 			if (_zipFs != null) {
 				_zipFs.Close();
 				_zipFs.Dispose();
 			}
+
 			ZipOpen = ZipOpenType.Closed;
 		}
 
@@ -147,6 +158,7 @@ namespace Compress.ZipFile {
 						ZipFileClose();
 						return zRet;
 					}
+
 					_zip64 |= lc.GetStatus(LocalFileStatus.Zip64);
 					_localFiles.Add(lc);
 				}
@@ -157,6 +169,8 @@ namespace Compress.ZipFile {
 						ZipFileClose();
 						return zRet;
 					}
+
+
 					trrntzip &= _localFiles[i].GetStatus(LocalFileStatus.TrrntZip);
 				}
 
@@ -165,7 +179,9 @@ namespace Compress.ZipFile {
 					for (var i = 0; i < _localFilesCount - 1; i++) {
 						if (CompressUtils.TrrntZipStringCompare(_localFiles[i].Filename, _localFiles[i + 1].Filename) < 0) {
 							continue;
+
 						}
+
 						trrntzip = false;
 						break;
 					}
@@ -185,6 +201,7 @@ namespace Compress.ZipFile {
 						if (filename1.Length <= filename0.Length) {
 							continue;
 						}
+
 						if (CompressUtils.TrrntZipStringCompare(filename0, filename1.Substring(0, filename0.Length)) != 0) {
 							continue;
 						}

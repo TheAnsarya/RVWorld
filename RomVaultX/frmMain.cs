@@ -887,6 +887,8 @@ namespace RomVaultX {
 			if (result != DialogResult.OK) {
 				return;
 			}
+
+
 			RomScanner.RootDir = sortDir.SelectedPath;
 			RomScanner.DelFiles = withDelete;
 			DoScan();

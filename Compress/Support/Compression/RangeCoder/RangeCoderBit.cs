@@ -29,6 +29,7 @@
 				encoder.Range -= newBound;
 				Prob -= (Prob) >> KNumMoveBits;
 			}
+
 			if (encoder.Range < Encoder.KTopValue) {
 				encoder.Range <<= 8;
 				encoder.ShiftLow();
@@ -79,7 +80,10 @@
 					rangeDecoder.Code = (rangeDecoder.Code << 8) | (byte)rangeDecoder.Stream.ReadByte();
 					rangeDecoder.Range <<= 8;
 					rangeDecoder.Total++;
+
 				}
+
+
 				return 0;
 			} else {
 				rangeDecoder.Range -= newBound;
@@ -90,6 +94,8 @@
 					rangeDecoder.Range <<= 8;
 					rangeDecoder.Total++;
 				}
+
+
 				return 1;
 			}
 		}

@@ -165,6 +165,7 @@ namespace DATReader.Utils {
 			if (string.IsNullOrEmpty(name)) {
 				return "";
 			}
+
 			var retName = name;
 			retName = retName.TrimStart();
 			retName = retName.TrimEnd('.', ' ');
@@ -176,6 +177,7 @@ namespace DATReader.Utils {
 					charName[i] = crep;
 				}
 			}
+
 			return new string(charName);
 		}
 
@@ -187,6 +189,7 @@ namespace DATReader.Utils {
 			if (string.IsNullOrEmpty(path1)) {
 				return path2;
 			}
+
 			if (string.IsNullOrEmpty(path2)) {
 				return path1;
 			}
@@ -233,6 +236,7 @@ namespace DATReader.Utils {
 				if (pos1 == bytes1.Length) {
 					return pos2 == bytes2.Length ? 0 : -1;
 				}
+
 				if (pos2 == bytes2.Length) {
 					return 1;
 				}
@@ -243,6 +247,7 @@ namespace DATReader.Utils {
 				if ((byte1 >= 65) && (byte1 <= 90)) {
 					byte1 += 0x20;
 				}
+
 				if ((byte2 >= 65) && (byte2 <= 90)) {
 					byte2 += 0x20;
 				}
@@ -250,6 +255,7 @@ namespace DATReader.Utils {
 				if (byte1 < byte2) {
 					return -1;
 				}
+
 				if (byte1 > byte2) {
 					return 1;
 				}

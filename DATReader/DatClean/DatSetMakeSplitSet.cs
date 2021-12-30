@@ -80,6 +80,7 @@ namespace DATReader.DatClean {
 									found = true;
 									break;
 								}
+
 								if (found) {
 									break;
 								}
@@ -102,7 +103,9 @@ namespace DATReader.DatClean {
 			if (merge) {
 				if (string.IsNullOrEmpty(tRom.Merge)) {
 					tRom.Merge = "(Auto Merged)";
+
 				}
+
 				tRom.DatStatus = DatFileStatus.InDatMerged;
 				return;
 			}

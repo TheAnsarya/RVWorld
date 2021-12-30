@@ -372,6 +372,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 							memoryNode0.UnitCount += memoryNode2.UnitCount;
 							memoryNode2.UnitCount = 0;
 						}
+
 						memoryNode1.Link(memoryNode0);
 						memoryNode1 = memoryNode0;
 					}

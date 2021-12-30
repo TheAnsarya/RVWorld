@@ -41,6 +41,7 @@ namespace Compress.ZipFile {
 					return ZipReturn.ZipGood;
 				}
 			}
+
 			return ZipReturn.ZipCentralDirError;
 		}
 
@@ -77,7 +78,9 @@ namespace Compress.ZipFile {
 
 			if (_zipFs.Position != _zipFs.Length) {
 				ZipStatus |= ZipStatus.ExtraData;
+
 			}
+
 			if (offset != 0) {
 				ZipStatus |= ZipStatus.ExtraData;
 			}

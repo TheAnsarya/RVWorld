@@ -89,6 +89,7 @@ namespace Compress.Support.Compression.Deflate {
 						_z.InitializeDeflate(_level, wantRfc1950Header);
 					}
 				}
+
 				return _z;
 			}
 		}
@@ -257,6 +258,7 @@ namespace Compress.Support.Compression.Deflate {
 			} else {
 				_z.EndInflate();
 			}
+
 			_z = null;
 		}
 
@@ -342,6 +344,7 @@ namespace Compress.Support.Compression.Deflate {
 
 				totalBytesRead += n;
 			}
+
 			if ((header[3] & 0x08) == 0x08) {
 				_GzipFileName = ReadZeroTerminatedString();
 			}

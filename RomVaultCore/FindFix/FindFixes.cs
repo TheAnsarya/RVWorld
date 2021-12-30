@@ -228,6 +228,7 @@ namespace RomVaultCore.FindFix {
 							continue;
 						}
 					}
+
 					if (f.MD5 != null) {
 						var found = FindMissingOnAlt(f, CompareAltMD5, mergedAltMD5Family);
 						if (found) {
@@ -242,12 +243,14 @@ namespace RomVaultCore.FindFix {
 						continue;
 					}
 				}
+
 				if (f.SHA1 != null) {
 					var found = FindMissing(f, CompareSHA1, mergedSHA1Family);
 					if (found) {
 						continue;
 					}
 				}
+
 				if (f.MD5 != null) {
 					var found = FindMissing(f, CompareMD5, mergedMD5Family);
 					if (found) {
@@ -314,6 +317,7 @@ namespace RomVaultCore.FindFix {
 					intBottom = intMid + 1;
 				}
 			}
+
 			var index = intMid;
 
 			listIndex = new List<int>();
@@ -346,6 +350,7 @@ namespace RomVaultCore.FindFix {
 					if (match(ff, file)) {
 						listIndex.Add(index);
 					}
+
 					index++;
 				}
 
@@ -359,6 +364,7 @@ namespace RomVaultCore.FindFix {
 				if (intRes > 0) {
 					index++;
 				}
+
 				listIndex.Add(index);
 			}
 

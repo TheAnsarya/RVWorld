@@ -86,6 +86,7 @@ namespace RomVaultCore.RvDB {
 						Thread.Sleep(50);
 					}
 				}
+
 				File.Move(Settings.rvSettings.CacheFile, bname);
 				while (File.Exists(Settings.rvSettings.CacheFile)) {
 					Thread.Sleep(50);
@@ -102,6 +103,7 @@ namespace RomVaultCore.RvDB {
 				ThWrk = null;
 				return;
 			}
+
 			DirRoot = new RvFile(FileType.Dir);
 			using (var fs = new FileStream(Settings.rvSettings.CacheFile, FileMode.Open, FileAccess.Read)) {
 				if (fs.Length < 4) {

@@ -157,6 +157,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			if (obj is PpmState state) {
 				return state.Address == Address;
 			}
+
 			return base.Equals(obj);
 		}
 

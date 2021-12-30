@@ -116,6 +116,7 @@
 				_bits |= _bIn[_indexIn++] << _count;
 				_count += 8;
 			}
+
 			return v;
 		}
 

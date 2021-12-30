@@ -67,9 +67,12 @@ namespace DATReader.Utils {
 				if ((_line.TrimStart().Length > 1) && (_line.TrimStart().Substring(0, 1) == @"#")) {
 					_line = "";
 				}
+
 				if ((_line.TrimStart().Length > 1) && (_line.TrimStart().Substring(0, 1) == @";")) {
 					_line = "";
+
 				}
+
 				_line = _line.Trim() + " ";
 			}
 

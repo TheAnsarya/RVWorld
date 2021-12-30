@@ -22,6 +22,7 @@ namespace RomVaultCore.FixFile.Util {
 				error = "Single File";
 				return ReturnCode.Good;
 			}
+
 			var buffer = new byte[BufferSize];
 
 			var cacheDir = DB.RvFileCache();
@@ -45,6 +46,7 @@ namespace RomVaultCore.FixFile.Util {
 				nameDirIndex++;
 				outDir.Name = db7zFile.Name + ".cache (" + nameDirIndex + ")";
 			}
+
 			cacheDir.ChildAdd(outDir);
 			Directory.CreateDirectory(outDir.FullName);
 
@@ -76,6 +78,7 @@ namespace RomVaultCore.FixFile.Util {
 						extract = false;
 					}
 				}
+
 				if (!extract) {
 					continue;
 				}
@@ -210,11 +213,14 @@ namespace RomVaultCore.FixFile.Util {
 						error = "Error writing out file. " + Environment.NewLine + e.Message;
 						return ReturnCode.FileSystemError;
 					}
+
 					tcrc32.Wait();
 					tmd5?.Wait();
 					tsha1?.Wait();
 					sizetogo -= (ulong)sizenow;
 				}
+
+
 				writeStream.Flush();
 				writeStream.Close();
 				writeStream.Dispose();
@@ -239,11 +245,13 @@ namespace RomVaultCore.FixFile.Util {
 					error = "Error found in cache extract CRC";
 					return ReturnCode.SourceCheckSumMismatch;
 				}
+
 				if (bMD5 != null && thisFile.MD5 != null && !ArrByte.BCompare(bMD5, thisFile.MD5)) {
 					// error in file.
 					error = "Error found in cache extract MD5";
 					return ReturnCode.SourceCheckSumMismatch;
 				}
+
 				if (bSHA1 != null && thisFile.SHA1 != null && !ArrByte.BCompare(bSHA1, thisFile.SHA1)) {
 					// error in file.
 					error = "Error found in cache extract SHA1";
