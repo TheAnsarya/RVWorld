@@ -1393,8 +1393,8 @@ namespace Compress.Support.Compression.LZMA {
 								throw new InvalidParamException();
 							};
 							var dictionarySize = (int)prop;
-							if (dictionarySize is < (int)(uint)(1 << Base.kDicLogSizeMin) or
-								> (int)(uint)(1 << kDicLogSizeMaxCompress)) {
+							if (dictionarySize is < (1 << Base.kDicLogSizeMin) or
+								> (1 << kDicLogSizeMaxCompress)) {
 								throw new InvalidParamException();
 							}
 
@@ -1415,7 +1415,7 @@ namespace Compress.Support.Compression.LZMA {
 							}
 
 							var v = (int)prop;
-							if (v is < 0 or > (int)(uint)Base.kNumPosStatesBitsEncodingMax) {
+							if (v is < 0 or > Base.kNumPosStatesBitsEncodingMax) {
 								throw new InvalidParamException();
 							}
 

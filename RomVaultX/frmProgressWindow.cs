@@ -1,62 +1,53 @@
-﻿using RVXCore;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using RVXCore;
 
-namespace RomVaultX
-{
-    public partial class FrmProgressWindow : Form
-    {
-        private readonly string _titleRoot;
-        private readonly Form _parentForm;
-        private bool _errorOpen;
-        private bool _bDone;
+namespace RomVaultX {
+	public partial class FrmProgressWindow : Form {
+		private readonly string _titleRoot;
+		private readonly Form _parentForm;
+		private bool _errorOpen;
+		private bool _bDone;
 
-        public FrmProgressWindow(Form parentForm, string titleRoot, DoWorkEventHandler function)
-        {
-            _parentForm = parentForm;
-            _titleRoot = titleRoot;
-            InitializeComponent();
+		public FrmProgressWindow(Form parentForm, string titleRoot, DoWorkEventHandler function) {
+			_parentForm = parentForm;
+			_titleRoot = titleRoot;
+			InitializeComponent();
 
-            ClientSize = new Size(498, 131);
+			ClientSize = new Size(498, 131);
 
-            _titleRoot = titleRoot;
+			_titleRoot = titleRoot;
 
-            bgWork.DoWork += function;
-        }
+			bgWork.DoWork += function;
+		}
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                const int CP_NOCLOSE_BUTTON = 0x200;
-                var mdiCp = base.CreateParams;
-                mdiCp.ClassStyle |= CP_NOCLOSE_BUTTON;
-                return mdiCp;
-            }
-        }
+		protected override CreateParams CreateParams {
+			get {
+				const int CP_NOCLOSE_BUTTON = 0x200;
+				var mdiCp = base.CreateParams;
+				mdiCp.ClassStyle |= CP_NOCLOSE_BUTTON;
+				return mdiCp;
+			}
+		}
 
 
-        private void FrmProgressWindowNewShown(object sender, EventArgs e)
-        {
-            bgWork.ProgressChanged += BgwProgressChanged;
-            bgWork.RunWorkerCompleted += BgwRunWorkerCompleted;
-            bgWork.RunWorkerAsync(SynchronizationContext.Current);
-        }
+		private void FrmProgressWindowNewShown(object sender, EventArgs e) {
+			bgWork.ProgressChanged += BgwProgressChanged;
+			bgWork.RunWorkerCompleted += BgwRunWorkerCompleted;
+			bgWork.RunWorkerAsync(SynchronizationContext.Current);
+		}
 
-        private void BgwProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            if (e.UserState == null)
-            {
-                if ((e.ProgressPercentage >= progressBar.Minimum) && (e.ProgressPercentage <= progressBar.Maximum))
-                {
-                    progressBar.Value = e.ProgressPercentage;
-                }
-                UpdateStatusText();
-                return;
-            }
+		private void BgwProgressChanged(object sender, ProgressChangedEventArgs e) {
+			if (e.UserState == null) {
+				if ((e.ProgressPercentage >= progressBar.Minimum) && (e.ProgressPercentage <= progressBar.Maximum)) {
+					progressBar.Value = e.ProgressPercentage;
+				}
+				UpdateStatusText();
+				return;
+			}
 
 			if (e.UserState is bgwText bgwT) {
 				label.Text = bgwT.Text;
@@ -126,92 +117,69 @@ namespace RomVaultX
 			}
 		}
 
-        private void UpdateStatusText()
-        {
-            var range = progressBar.Maximum - progressBar.Minimum;
-            var percent = range > 0 ? progressBar.Value * 100 / range : 0;
+		private void UpdateStatusText() {
+			var range = progressBar.Maximum - progressBar.Minimum;
+			var percent = range > 0 ? progressBar.Value * 100 / range : 0;
 
-            Text = _titleRoot + $" - {percent}% complete";
-        }
+			Text = _titleRoot + $" - {percent}% complete";
+		}
 
-        private void UpdateStatusText2()
-        {
-            lbl2Prog.Text = progressBar2.Maximum > 0 ? $"{progressBar2.Value}/{progressBar2.Maximum}" : "";
-        }
+		private void UpdateStatusText2() => lbl2Prog.Text = progressBar2.Maximum > 0 ? $"{progressBar2.Value}/{progressBar2.Maximum}" : "";
 
-        private void BgwRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (_errorOpen)
-            {
-                cancelButton.Text = "Close";
-                cancelButton.Enabled = true;
-                _bDone = true;
-            }
-            else
-            {
-                _parentForm.Show();
-                Close();
-            }
-        }
+		private void BgwRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+			if (_errorOpen) {
+				cancelButton.Text = "Close";
+				cancelButton.Enabled = true;
+				_bDone = true;
+			} else {
+				_parentForm.Show();
+				Close();
+			}
+		}
 
-        private void CancelButtonClick(object sender, EventArgs e)
-        {
-            if (_bDone)
-            {
-                if (!_parentForm.Visible)
-                {
-                    _parentForm.Show();
-                }
-                Close();
-            }
-            else
-            {
-                cancelButton.Text = "Cancelling";
-                cancelButton.Enabled = false;
-                bgWork.CancelAsync();
-            }
-        }
+		private void CancelButtonClick(object sender, EventArgs e) {
+			if (_bDone) {
+				if (!_parentForm.Visible) {
+					_parentForm.Show();
+				}
+				Close();
+			} else {
+				cancelButton.Text = "Cancelling";
+				cancelButton.Enabled = false;
+				bgWork.CancelAsync();
+			}
+		}
 
-        private void ErrorGridSelectionChanged(object sender, EventArgs e)
-        {
-            ErrorGrid.ClearSelection();
-        }
+		private void ErrorGridSelectionChanged(object sender, EventArgs e) => ErrorGrid.ClearSelection();
 
-        private void FrmProgressWindow_Resize(object sender, EventArgs e)
-        {
-            switch (WindowState)
-            {
-                case FormWindowState.Minimized:
-                    if (_parentForm.Visible)
-                    {
-                        _parentForm.Hide();
-                    }
+		private void FrmProgressWindow_Resize(object sender, EventArgs e) {
+			switch (WindowState) {
+				case FormWindowState.Minimized:
+					if (_parentForm.Visible) {
+						_parentForm.Hide();
+					}
 
-                    return;
-                case FormWindowState.Maximized:
-                    if (!_parentForm.Visible)
-                    {
-                        _parentForm.Show();
-                    }
+					return;
+				case FormWindowState.Maximized:
+					if (!_parentForm.Visible) {
+						_parentForm.Show();
+					}
 
-                    return;
-                case FormWindowState.Normal:
-                    if (!_parentForm.Visible)
-                    {
-                        _parentForm.Show();
-                    }
+					return;
+				case FormWindowState.Normal:
+					if (!_parentForm.Visible) {
+						_parentForm.Show();
+					}
 
-                    return;
-            }
-        }
+					return;
+			}
+		}
 
-        private void Complete(object sender, RunWorkerCompletedEventArgs e)
-        {
-            var er = e.Error;
-            if (er != null)
-            {
-                MessageBox.Show(e.Error.ToString(), "RomVault", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-    }
+		private void Complete(object sender, RunWorkerCompletedEventArgs e) {
+			var er = e.Error;
+			if (er != null) {
+				MessageBox.Show(e.Error.ToString(), "RomVault", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+	}
 }
