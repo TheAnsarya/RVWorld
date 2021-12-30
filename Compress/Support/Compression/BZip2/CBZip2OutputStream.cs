@@ -748,7 +748,7 @@ namespace Compress.Support.Compression.BZip2 {
 			if (!(nGroups < 8)) {
 				Panic();
 			}
-			if (!(nSelectors < 32768 && nSelectors <= (2 + (900000 / BZip2Constants.G_SIZE)))) {
+			if (nSelectors is not (< 32768 and <= (2 + (900000 / BZip2Constants.G_SIZE)))) {
 				Panic();
 			}
 

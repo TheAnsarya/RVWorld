@@ -1164,7 +1164,7 @@ namespace Compress.Support.Compression.Deflate {
 									// offset before dest
 									//  just copy
 									r = q - d;
-									if (q - r > 0 && 2 > (q - r)) {
+									if (q - r is > 0 and < 2) {
 										s.window[q++] = s.window[r++]; // minimum count is three,
 										s.window[q++] = s.window[r++]; // so unroll loop a little
 										c -= 2;
@@ -1356,7 +1356,7 @@ namespace Compress.Support.Compression.Deflate {
 			//}
 
 			// set window size
-			if (w < 8 || w > 15) {
+			if (w is < 8 or > 15) {
 				End();
 				throw new ZlibException("Bad window size.");
 

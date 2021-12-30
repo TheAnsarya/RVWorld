@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -43,7 +43,7 @@ namespace Compress.Support.Compression.Deflate64 {
 		/// </summary>
 		private void InitializeInflater(Stream stream, ZipCompressionMethod method = ZipCompressionMethod.Deflate) {
 			Debug.Assert(stream != null);
-			Debug.Assert(method == ZipCompressionMethod.Deflate || method == ZipCompressionMethod.Deflate64);
+			Debug.Assert(method is ZipCompressionMethod.Deflate or ZipCompressionMethod.Deflate64);
 			if (!stream.CanRead) {
 				throw new ArgumentException("Deflate64: input stream is not readable", nameof(stream));
 			}

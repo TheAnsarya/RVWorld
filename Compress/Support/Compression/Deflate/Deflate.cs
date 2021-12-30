@@ -1407,7 +1407,7 @@ namespace Compress.Support.Compression.Deflate {
 			_codec.Message = null;
 
 			// validation
-			if (windowBits < 9 || windowBits > 15) {
+			if (windowBits is < 9 or > 15) {
 				throw new ZlibException("windowBits must be in the range 9..15.");
 			}
 
@@ -1659,10 +1659,10 @@ namespace Compress.Support.Compression.Deflate {
 			if (_codec.AvailableBytesIn != 0 || lookahead != 0 || (flush != FlushType.None && status != FINISH_STATE)) {
 				var bstate = DeflateFunction(flush);
 
-				if (bstate == BlockState.FinishStarted || bstate == BlockState.FinishDone) {
+				if (bstate is BlockState.FinishStarted or BlockState.FinishDone) {
 					status = FINISH_STATE;
 				}
-				if (bstate == BlockState.NeedMore || bstate == BlockState.FinishStarted) {
+				if (bstate is BlockState.NeedMore or BlockState.FinishStarted) {
 					if (_codec.AvailableBytesOut == 0) {
 						last_flush = -1; // avoid BUF_ERROR next call, see above
 					}

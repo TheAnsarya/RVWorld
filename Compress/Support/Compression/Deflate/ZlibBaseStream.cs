@@ -137,7 +137,7 @@ namespace Compress.Support.Compression.Deflate {
 				var rc = (_wantCompress)
 					? _z.Deflate(_flushMode)
 					: _z.Inflate(_flushMode);
-				if (rc != ZlibConstants.Z_OK && rc != ZlibConstants.Z_STREAM_END) {
+				if (rc is not ZlibConstants.Z_OK and not ZlibConstants.Z_STREAM_END) {
 					throw new ZlibException((_wantCompress ? "de" : "in") + "flating: " + _z.Message);
 				}
 
@@ -171,7 +171,7 @@ namespace Compress.Support.Compression.Deflate {
 						? _z.Deflate(FlushType.Finish)
 						: _z.Inflate(FlushType.Finish);
 
-					if (rc != ZlibConstants.Z_STREAM_END && rc != ZlibConstants.Z_OK) {
+					if (rc is not ZlibConstants.Z_STREAM_END and not ZlibConstants.Z_OK) {
 						var verb = (_wantCompress ? "de" : "in") + "flating";
 						if (_z.Message == null) {
 							throw new ZlibException($"{verb}: (rc = {rc})");
@@ -455,7 +455,7 @@ namespace Compress.Support.Compression.Deflate {
 					return 0;
 				}
 
-				if (rc != ZlibConstants.Z_OK && rc != ZlibConstants.Z_STREAM_END) {
+				if (rc is not ZlibConstants.Z_OK and not ZlibConstants.Z_STREAM_END) {
 					throw new ZlibException($"{(_wantCompress ? "de" : "in")}flating:  rc={rc}  msg={_z.Message}");
 				}
 
@@ -482,7 +482,7 @@ namespace Compress.Support.Compression.Deflate {
 						// try to complete the read
 						rc = _z.Deflate(FlushType.Finish);
 
-						if (rc != ZlibConstants.Z_OK && rc != ZlibConstants.Z_STREAM_END) {
+						if (rc is not ZlibConstants.Z_OK and not ZlibConstants.Z_STREAM_END) {
 							throw new ZlibException($"Deflating:  rc={rc}  msg={_z.Message}");
 						}
 					}

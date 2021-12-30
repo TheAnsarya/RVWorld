@@ -200,7 +200,7 @@ namespace Compress.Support.Compression.LZMA {
 				return;
 			}
 
-			if (control >= 0xE0 || control == 0x01) {
+			if (control is >= 0xE0 or 0x01) {
 				needProps = true;
 				needDictReset = false;
 				outWindow.Reset();

@@ -122,10 +122,10 @@ namespace Compress {
 				int byte1 = bytes1[pos1++];
 				int byte2 = bytes2[pos2++];
 
-				if (byte1 >= 65 && byte1 <= 90) {
+				if (byte1 is >= 65 and <= 90) {
 					byte1 += 0x20;
 				}
-				if (byte2 >= 65 && byte2 <= 90) {
+				if (byte2 is >= 65 and <= 90) {
 					byte2 += 0x20;
 				}
 

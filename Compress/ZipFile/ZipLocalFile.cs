@@ -106,7 +106,7 @@ namespace Compress.ZipFile {
 
 				if (Filename.Length > 0) {
 					var lastChar = Filename[Filename.Length - 1];
-					IsDirectory = (lastChar == '/' || lastChar == '\\');
+					IsDirectory = (lastChar is '/' or '\\');
 					if (IsDirectory && UncompressedSize > 0) {
 						SetStatus(LocalFileStatus.DirectoryLengthError);
 					}

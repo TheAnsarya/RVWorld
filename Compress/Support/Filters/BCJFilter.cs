@@ -10,7 +10,7 @@ namespace Compress.Support.Filters {
 
 		public BCJFilter(bool isEncoder, Stream baseStream) : base(isEncoder, baseStream, 5) => pos = 5;
 
-		private static bool test86MSByte(byte b) => b == 0x00 || b == 0xFF;
+		private static bool test86MSByte(byte b) => b is 0x00 or 0xFF;
 
 		protected override int Transform(byte[] buffer, int offset, int count) {
 			var prevPos = offset - 1;

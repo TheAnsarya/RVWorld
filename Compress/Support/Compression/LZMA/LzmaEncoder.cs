@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Compress.Support.Compression.RangeCoder;
 
 namespace Compress.Support.Compression.LZMA {
@@ -1355,12 +1355,12 @@ namespace Compress.Support.Compression.LZMA {
 				var prop = properties[i];
 				switch (propIDs[i]) {
 					case CoderPropID.NumFastBytes: {
-							if (!(prop is int)) {
+							if (prop is not int) {
 								throw new InvalidParamException();
 							}
 
 							var numFastBytes = (int)prop;
-							if (numFastBytes < 5 || numFastBytes > Base.kMatchMaxLen) {
+							if (numFastBytes is < 5 or > (int)Base.kMatchMaxLen) {
 								throw new InvalidParamException();
 							}
 
@@ -1378,7 +1378,7 @@ namespace Compress.Support.Compression.LZMA {
 							break;
 						}
 					case CoderPropID.MatchFinder: {
-							if (!(prop is string)) {
+							if (prop is not string) {
 								throw new InvalidParamException();
 							}
 
@@ -1397,12 +1397,12 @@ namespace Compress.Support.Compression.LZMA {
 						}
 					case CoderPropID.DictionarySize: {
 							const int kDicLogSizeMaxCompress = 30;
-							if (!(prop is int)) {
+							if (prop is not int) {
 								throw new InvalidParamException();
 							};
 							var dictionarySize = (int)prop;
-							if (dictionarySize < (uint)(1 << Base.kDicLogSizeMin) ||
-								dictionarySize > (uint)(1 << kDicLogSizeMaxCompress)) {
+							if (dictionarySize is < (int)(uint)(1 << Base.kDicLogSizeMin) or
+								> (int)(uint)(1 << kDicLogSizeMaxCompress)) {
 								throw new InvalidParamException();
 							}
 
@@ -1418,12 +1418,12 @@ namespace Compress.Support.Compression.LZMA {
 							break;
 						}
 					case CoderPropID.PosStateBits: {
-							if (!(prop is int)) {
+							if (prop is not int) {
 								throw new InvalidParamException();
 							}
 
 							var v = (int)prop;
-							if (v < 0 || v > (uint)Base.kNumPosStatesBitsEncodingMax) {
+							if (v is < 0 or > (int)(uint)Base.kNumPosStatesBitsEncodingMax) {
 								throw new InvalidParamException();
 							}
 
@@ -1432,12 +1432,12 @@ namespace Compress.Support.Compression.LZMA {
 							break;
 						}
 					case CoderPropID.LitPosBits: {
-							if (!(prop is int)) {
+							if (prop is not int) {
 								throw new InvalidParamException();
 							}
 
 							var v = (int)prop;
-							if (v < 0 || v > Base.kNumLitPosStatesBitsEncodingMax) {
+							if (v is < 0 or > (int)Base.kNumLitPosStatesBitsEncodingMax) {
 								throw new InvalidParamException();
 							}
 
@@ -1445,19 +1445,19 @@ namespace Compress.Support.Compression.LZMA {
 							break;
 						}
 					case CoderPropID.LitContextBits: {
-							if (!(prop is int)) {
+							if (prop is not int) {
 								throw new InvalidParamException();
 							}
 
 							var v = (int)prop;
-							if (v < 0 || v > Base.kNumLitContextBitsMax) {
+							if (v is < 0 or > (int)Base.kNumLitContextBitsMax) {
 								throw new InvalidParamException();
 							};
 							_numLiteralContextBits = v;
 							break;
 						}
 					case CoderPropID.EndMarker: {
-							if (!(prop is bool)) {
+							if (prop is not bool) {
 								throw new InvalidParamException();
 							}
 

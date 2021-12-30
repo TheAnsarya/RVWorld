@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -42,9 +42,9 @@ namespace Compress.Support.Compression.Deflate64 {
 
 		public HuffmanTree(byte[] codeLengths) {
 			Debug.Assert(
-				codeLengths.Length == MAX_LITERAL_TREE_ELEMENTS ||
-				codeLengths.Length == MAX_DIST_TREE_ELEMENTS ||
-				codeLengths.Length == NUMBER_OF_CODE_LENGTH_TREE_ELEMENTS,
+				codeLengths.Length is MAX_LITERAL_TREE_ELEMENTS or
+				MAX_DIST_TREE_ELEMENTS or
+				NUMBER_OF_CODE_LENGTH_TREE_ELEMENTS,
 				"we only expect three kinds of Length here");
 			_codeLengthArray = codeLengths;
 

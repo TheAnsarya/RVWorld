@@ -200,7 +200,7 @@ namespace Compress.Support.Compression.BZip2 {
 				throw new IOException("Not a BZIP2 marked stream");
 			}
 			var magic3 = bsStream.ReadByte();
-			if (magic3 < '1' || magic3 > '9') {
+			if (magic3 is < '1' or > '9') {
 				BsFinishedWithStream();
 				streamEnd = true;
 				return false;
@@ -546,7 +546,7 @@ namespace Compress.Support.Compression.BZip2 {
 					break;
 				}
 
-				if (nextSym == BZip2Constants.RUNA || nextSym == BZip2Constants.RUNB) {
+				if (nextSym is BZip2Constants.RUNA or BZip2Constants.RUNB) {
 					char ch;
 					var s = -1;
 					var N = 1;
@@ -594,7 +594,7 @@ namespace Compress.Support.Compression.BZip2 {
 							}
 							nextSym = perm[zt][zvec - basev[zt][zn]];
 						}
-					} while (nextSym == BZip2Constants.RUNA || nextSym == BZip2Constants.RUNB);
+					} while (nextSym is BZip2Constants.RUNA or BZip2Constants.RUNB);
 
 					s++;
 					ch = seqToUnseq[yy[0]];
