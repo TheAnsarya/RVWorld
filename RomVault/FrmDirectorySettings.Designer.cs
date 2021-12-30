@@ -235,7 +235,7 @@
             this.chkSingleArchive.TabIndex = 35;
             this.chkSingleArchive.Text = "Single Archive";
             this.chkSingleArchive.UseVisualStyleBackColor = true;
-            this.chkSingleArchive.CheckedChanged += new System.EventHandler(this.chkSingleArchive_CheckedChanged);
+            this.chkSingleArchive.CheckedChanged += new System.EventHandler(this.ChkSingleArchive_CheckedChanged);
             // 
             // label3
             // 
@@ -319,7 +319,7 @@
             this.btnClearROMLocation.Size = new System.Drawing.Size(33, 29);
             this.btnClearROMLocation.TabIndex = 38;
             this.btnClearROMLocation.UseVisualStyleBackColor = true;
-            this.btnClearROMLocation.Click += new System.EventHandler(this.btnClearROMLocation_Click);
+            this.btnClearROMLocation.Click += new System.EventHandler(this.BtnClearROMLocation_Click);
             // 
             // btnSetROMLocation
             // 

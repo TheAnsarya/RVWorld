@@ -1,10 +1,10 @@
-using System.Text;
+﻿using System.Text;
 
 namespace Compress.Support.Compression.PPmd.H {
 	internal class RarNode : Pointer {
 		private int next; //rarnode pointer
 
-		public const int size = 4;
+		public const int Size = 4;
 
 		public RarNode(byte[] Memory)
 			: base(Memory) {
@@ -32,7 +32,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			buffer.Append("\n  Address=");
 			buffer.Append(Address);
 			buffer.Append("\n  size=");
-			buffer.Append(size);
+			buffer.Append(Size);
 			buffer.Append("\n  next=");
 			buffer.Append(GetNext());
 			buffer.Append("\n]");

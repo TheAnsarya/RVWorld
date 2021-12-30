@@ -269,62 +269,62 @@ namespace RVXCore.DB
         {
             if (bgw != null)
             {
-                bgw.ReportProgress(0, new bgwRange2Visible(true));
-                bgw.ReportProgress(0, new bgwSetRange2(6));
+                bgw.ReportProgress(0, new BgwRange2Visible(true));
+                bgw.ReportProgress(0, new BgwSetRange2(6));
             }
 
             if (bgw != null)
             {
-                bgw.ReportProgress(0, new bgwValue2(0));
-                bgw.ReportProgress(0, new bgwText2("Creating Index ROM-SHA1"));
+                bgw.ReportProgress(0, new BgwValue2(0));
+                bgw.ReportProgress(0, new BgwText2("Creating Index ROM-SHA1"));
             }
 
             ExecuteNonQuery(@"CREATE INDEX IF NOT EXISTS [ROMSHA1Index]   ON [ROM]   ([sha1]        ASC);");
 
             if (bgw != null)
             {
-                bgw.ReportProgress(0, new bgwValue2(1));
-                bgw.ReportProgress(0, new bgwText2("Creating Index ROM-MD5"));
+                bgw.ReportProgress(0, new BgwValue2(1));
+                bgw.ReportProgress(0, new BgwText2("Creating Index ROM-MD5"));
             }
 
             ExecuteNonQuery(@"CREATE INDEX IF NOT EXISTS [ROMMD5Index]    ON [ROM]   ([md5]         ASC); ");
 
             if (bgw != null)
             {
-                bgw.ReportProgress(0, new bgwValue2(2));
-                bgw.ReportProgress(0, new bgwText2("Creating Index ROM-CRC"));
+                bgw.ReportProgress(0, new BgwValue2(2));
+                bgw.ReportProgress(0, new BgwText2("Creating Index ROM-CRC"));
             }
 
             ExecuteNonQuery(@"CREATE INDEX IF NOT EXISTS [ROMCRCIndex]    ON [ROM]   ([crc]         ASC); ");
 
             if (bgw != null)
             {
-                bgw.ReportProgress(0, new bgwValue2(3));
-                bgw.ReportProgress(0, new bgwText2("Creating Index ROM-Size"));
+                bgw.ReportProgress(0, new BgwValue2(3));
+                bgw.ReportProgress(0, new BgwText2("Creating Index ROM-Size"));
             }
 
             ExecuteNonQuery(@"CREATE INDEX IF NOT EXISTS [ROMSizeIndex]   ON [ROM]   ([size]        ASC); ");
 
             if (bgw != null)
             {
-                bgw.ReportProgress(0, new bgwValue2(4));
-                bgw.ReportProgress(0, new bgwText2("Creating Index ROM-FileId"));
+                bgw.ReportProgress(0, new BgwValue2(4));
+                bgw.ReportProgress(0, new BgwText2("Creating Index ROM-FileId"));
             }
 
             ExecuteNonQuery(@"CREATE INDEX IF NOT EXISTS [ROMFileIdIndex] ON [ROM]   ([FileId]      ASC); ");
 
             if (bgw != null)
             {
-                bgw.ReportProgress(0, new bgwValue2(5));
-                bgw.ReportProgress(0, new bgwText2("Creating Index ROM-GameId-Name"));
+                bgw.ReportProgress(0, new BgwValue2(5));
+                bgw.ReportProgress(0, new BgwText2("Creating Index ROM-GameId-Name"));
             }
 
             ExecuteNonQuery(@"CREATE INDEX IF NOT EXISTS [ROMGameId]      ON [ROM]   ([GameId]      ASC,[name] ASC);");
 
             if (bgw != null)
             {
-                bgw.ReportProgress(0, new bgwValue2(6));
-                bgw.ReportProgress(0, new bgwText2("Indexing Complete"));
+                bgw.ReportProgress(0, new BgwValue2(6));
+                bgw.ReportProgress(0, new BgwText2("Indexing Complete"));
             }
 
             ExecuteNonQuery(@"CREATE INDEX IF NOT EXISTS [GameDatId]      ON [GAME]  ([DatId]       ASC,[name] ASC);");

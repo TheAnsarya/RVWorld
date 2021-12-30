@@ -492,7 +492,7 @@ namespace Compress.Support.Compression.BZip2 {
 			int i, j, nextSym, limitLast;
 			int EOB, groupNo, groupPos;
 
-			limitLast = BZip2Constants.baseBlockSize * blockSize100k;
+			limitLast = BZip2Constants.BaseBlockSize * blockSize100k;
 			origPtr = BsGetIntVS(24);
 
 			RecvDecodingTables();
@@ -882,7 +882,7 @@ namespace Compress.Support.Compression.BZip2 {
 				return;
 			}
 
-			var n = BZip2Constants.baseBlockSize * newSize100k;
+			var n = BZip2Constants.BaseBlockSize * newSize100k;
 			ll8 = new char[n];
 			tt = new int[n];
 		}

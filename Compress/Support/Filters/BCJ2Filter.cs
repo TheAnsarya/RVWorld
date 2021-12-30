@@ -18,12 +18,12 @@ namespace Compress.Support.Filters {
 		private uint range, code;
 		private byte prevByte = 0;
 
-		private const int kNumTopBits = 24;
-		private const int kTopValue = 1 << kNumTopBits;
+		private const int KNumTopBits = 24;
+		private const int KTopValue = 1 << KNumTopBits;
 
-		private const int kNumBitModelTotalBits = 11;
-		private const int kBitModelTotal = 1 << kNumBitModelTotalBits;
-		private const int kNumMoveBits = 5;
+		private const int KNumBitModelTotalBits = 11;
+		private const int KBitModelTotal = 1 << KNumBitModelTotalBits;
+		private const int KNumMoveBits = 5;
 
 		private static bool IsJ(byte b0, byte b1) => (b1 & 0xFE) == 0xE8 || IsJcc(b0, b1);
 
@@ -37,7 +37,7 @@ namespace Compress.Support.Filters {
 
 			int i;
 			for (i = 0; i < p.Length; i++) {
-				p[i] = kBitModelTotal >> 1;
+				p[i] = KBitModelTotal >> 1;
 			}
 
 			code = 0;
@@ -100,11 +100,11 @@ namespace Compress.Support.Filters {
 						prob = 257;
 					}
 
-					var bound = (range >> kNumBitModelTotalBits) * p[prob];
+					var bound = (range >> KNumBitModelTotalBits) * p[prob];
 					if (code < bound) {
 						range = bound;
-						p[prob] += (ushort)((kBitModelTotal - p[prob]) >> kNumMoveBits);
-						if (range < kTopValue) {
+						p[prob] += (ushort)((KBitModelTotal - p[prob]) >> KNumMoveBits);
+						if (range < KTopValue) {
 							range <<= 8;
 							code = (code << 8) | (byte)control.ReadByte();
 						}
@@ -112,8 +112,8 @@ namespace Compress.Support.Filters {
 					} else {
 						range -= bound;
 						code -= bound;
-						p[prob] -= (ushort)(p[prob] >> kNumMoveBits);
-						if (range < kTopValue) {
+						p[prob] -= (ushort)(p[prob] >> KNumMoveBits);
+						if (range < KTopValue) {
 							range <<= 8;
 							code = (code << 8) | (byte)control.ReadByte();
 						}

@@ -27,7 +27,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			set => summ = value & 0xffff;
 
 		}
-		public const int size = 4;
+		public const int Size = 4;
 
 		// ushort Summ;
 		private int summ;
@@ -60,7 +60,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			var buffer = new StringBuilder();
 			buffer.Append("SEE2Context[");
 			buffer.Append("\n  size=");
-			buffer.Append(size);
+			buffer.Append(Size);
 			buffer.Append("\n  summ=");
 			buffer.Append(summ);
 			buffer.Append("\n  shift=");

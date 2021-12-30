@@ -23,7 +23,7 @@ namespace RVXCore
         public static string romRoot = @"RomRoot";
 
         private static VDrive di;
-        public static void startVDrive(char vDriveLetter)
+        public static void StartVDrive(char vDriveLetter)
         {
             Dokan.Unmount(vDriveLetter);
             di = new VDrive();
@@ -180,8 +180,8 @@ namespace RVXCore
 
             foreach (VFile.VZipFile gf in vfile.Files)
             {
-                copyData(gf.LocalHeader, buffer, gf.LocalHeaderOffset, offset, gf.LocalHeaderLength, bytesRead);
-                copyStream(gf, buffer, gf.CompressedDataOffset, offset, gf.CompressedDataLength, bytesRead);
+                CopyData(gf.LocalHeader, buffer, gf.LocalHeaderOffset, offset, gf.LocalHeaderLength, bytesRead);
+                CopyStream(gf, buffer, gf.CompressedDataOffset, offset, gf.CompressedDataLength, bytesRead);
             }
 
             return NtStatus.Success;
@@ -373,7 +373,7 @@ namespace RVXCore
             //}
         }
 
-        private void copyData(byte[] source, byte[] destination, long sourceOffset, long destinationOffset, long sourceLength, long destinationLength)
+        private void CopyData(byte[] source, byte[] destination, long sourceOffset, long destinationOffset, long sourceLength, long destinationLength)
         {
             // this is where to start reading in the source array
             long sourceStart;
@@ -411,7 +411,7 @@ namespace RVXCore
             }
         }
 
-        private void copyStream(VFile.VZipFile source, byte[] destination, long sourceOffset, long destinationOffset, long sourceLength, long destinationLength)
+        private void CopyStream(VFile.VZipFile source, byte[] destination, long sourceOffset, long destinationOffset, long sourceLength, long destinationLength)
         {
             // this is where to start reading in the source array
             long sourceStart;

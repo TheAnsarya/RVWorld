@@ -245,7 +245,7 @@ namespace ROMVault
             {
                 if (uTree.RExpand.IntersectsWith(t))
                 {
-                    g.DrawImage(pTree.Tree.TreeExpanded ? rvImages.ExpandBoxMinus : rvImages.ExpandBoxPlus, RSub(uTree.RExpand, _hScroll, _vScroll));
+                    g.DrawImage(pTree.Tree.TreeExpanded ? RvImages.ExpandBoxMinus : RvImages.ExpandBoxPlus, RSub(uTree.RExpand, _hScroll, _vScroll));
                 }
             }
 
@@ -254,13 +254,13 @@ namespace ROMVault
                 switch (pTree.Tree.Checked)
                 {
                     case RvTreeRow.TreeSelect.Locked:
-                        g.DrawImage(rvImages.TickBoxLocked, RSub(uTree.RChecked, _hScroll, _vScroll));
+                        g.DrawImage(RvImages.TickBoxLocked, RSub(uTree.RChecked, _hScroll, _vScroll));
                         break;
                     case RvTreeRow.TreeSelect.UnSelected:
-                        g.DrawImage(rvImages.TickBoxUnTicked, RSub(uTree.RChecked, _hScroll, _vScroll));
+                        g.DrawImage(RvImages.TickBoxUnTicked, RSub(uTree.RChecked, _hScroll, _vScroll));
                         break;
                     case RvTreeRow.TreeSelect.Selected:
-                        g.DrawImage(rvImages.TickBoxTicked, RSub(uTree.RChecked, _hScroll, _vScroll));
+                        g.DrawImage(RvImages.TickBoxTicked, RSub(uTree.RChecked, _hScroll, _vScroll));
                         break;
                 }
             }
@@ -284,15 +284,15 @@ namespace ROMVault
                 Bitmap bm;
                 if (pTree.Dat == null && pTree.DirDatCount == 0) // Directory above DAT's in Tree
                 {
-                    bm = rvImages.GetBitmap("DirectoryTree" + icon);
+                    bm = RvImages.GetBitmap("DirectoryTree" + icon);
                 }
                 else if (pTree.Dat == null && pTree.DirDatCount >= 1) // Directory that contains DAT's
                 {
-                    bm = rvImages.GetBitmap("Tree" + icon);
+                    bm = RvImages.GetBitmap("Tree" + icon);
                 }
                 else if (pTree.Dat != null && pTree.DirDatCount == 0) // Directories made by a DAT
                 {
-                    bm = rvImages.GetBitmap("Tree" + icon);
+                    bm = RvImages.GetBitmap("Tree" + icon);
                 }
                 else
                 {

@@ -49,7 +49,7 @@ namespace RVXCore
             ScanADirNew(RootDir);
 
             DatUpdate.UpdateGotTotal();
-            _bgw?.ReportProgress(0, new bgwText("Scanning Files Complete"));
+            _bgw?.ReportProgress(0, new BgwText("Scanning Files Complete"));
             _bgw = null;
         }
 
@@ -97,13 +97,13 @@ namespace RVXCore
 
             if (res == FindStatus.FileNeededInArchive)
             {
-                _bgw?.ReportProgress(0, new bgwShowError(displayFilename, "found"));
+                _bgw?.ReportProgress(0, new BgwShowError(displayFilename, "found"));
                 Debug.WriteLine("Reading file as " + tFile.SHA1);
                 string outfile = RomRootDir.Getfilename(tFile.SHA1);
 
                 gZip gz1 = new gZip();
                 gz1.ZipFileCreate(outfile);
-                gz1.ExtraData = gZipExtraData.SetExtraData(tFile);
+                gz1.ExtraData = GZipExtraData.SetExtraData(tFile);
                 gz1.ZipFileOpenWriteStream(false, true, "", tFile.Size, 8, out Stream write, null);
 
                 fStream.ZipFileOpenReadStream(0, out Stream s, out ulong _);
@@ -216,13 +216,13 @@ namespace RVXCore
 
         private static void ScanADirNew(string directory)
         {
-            _bgw.ReportProgress(0, new bgwText("Scanning Dir : " + directory));
+            _bgw.ReportProgress(0, new BgwText("Scanning Dir : " + directory));
             DirectoryInfo di = new DirectoryInfo(directory);
 
             FileInfo[] fi = di.GetFiles();
 
-            _bgw.ReportProgress(0, new bgwRange2Visible(true));
-            _bgw.ReportProgress(0, new bgwSetRange2(fi.Length));
+            _bgw.ReportProgress(0, new BgwRange2Visible(true));
+            _bgw.ReportProgress(0, new BgwSetRange2(fi.Length));
 
             for (int j = 0; j < fi.Length; j++)
             {
@@ -232,8 +232,8 @@ namespace RVXCore
                 }
 
                 FileInfo f = fi[j];
-                _bgw.ReportProgress(0, new bgwValue2(j + 1));
-                _bgw.ReportProgress(0, new bgwText2(f.Name));
+                _bgw.ReportProgress(0, new BgwValue2(j + 1));
+                _bgw.ReportProgress(0, new BgwText2(f.Name));
 
                 bool fileFound = ScanAFile(f.FullName, null, f.Name);
 

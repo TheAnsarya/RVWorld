@@ -1,7 +1,7 @@
 ﻿
 namespace Compress.Support.Compression.PPmd.H {
 	internal class RarMemBlock : Pointer {
-		public const int size = 12;
+		public const int Size = 12;
 
 		private int stamp, NU;
 

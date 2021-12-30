@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace Compress.Support.Compression.LZ {
 	internal class BinTree : InWindow {
@@ -11,23 +11,23 @@ namespace Compress.Support.Compression.LZ {
 		private uint _hashMask;
 		private uint _hashSizeSum = 0;
 		private bool HASH_ARRAY = true;
-		private const uint kHash2Size = 1 << 10;
-		private const uint kHash3Size = 1 << 16;
-		private const uint kBT2HashSize = 1 << 16;
-		private const uint kStartMaxLen = 1;
-		private const uint kHash3Offset = kHash2Size;
-		private const uint kEmptyHashValue = 0;
-		private const uint kMaxValForNormalize = ((uint)1 << 31) - 1;
+		private const uint KHash2Size = 1 << 10;
+		private const uint KHash3Size = 1 << 16;
+		private const uint KBT2HashSize = 1 << 16;
+		private const uint KStartMaxLen = 1;
+		private const uint KHash3Offset = KHash2Size;
+		private const uint KEmptyHashValue = 0;
+		private const uint KMaxValForNormalize = ((uint)1 << 31) - 1;
 		private uint kNumHashDirectBytes = 0;
 		private uint kMinMatchCheck = 4;
-		private uint kFixHashSize = kHash2Size + kHash3Size;
+		private uint kFixHashSize = KHash2Size + KHash3Size;
 
 		public void SetType(int numHashBytes) {
 			HASH_ARRAY = (numHashBytes > 2);
 			if (HASH_ARRAY) {
 				kNumHashDirectBytes = 0;
 				kMinMatchCheck = 4;
-				kFixHashSize = kHash2Size + kHash3Size;
+				kFixHashSize = KHash2Size + KHash3Size;
 			} else {
 				kNumHashDirectBytes = 2;
 				kMinMatchCheck = 2 + 1;
@@ -41,7 +41,7 @@ namespace Compress.Support.Compression.LZ {
 		public new void Init() {
 			base.Init();
 			for (uint i = 0; i < _hashSizeSum; i++) {
-				_hash[i] = kEmptyHashValue;
+				_hash[i] = KEmptyHashValue;
 			}
 
 			_cyclicBufferPos = 0;
@@ -54,7 +54,7 @@ namespace Compress.Support.Compression.LZ {
 			}
 
 			base.MovePos();
-			if (_pos == kMaxValForNormalize) {
+			if (_pos == KMaxValForNormalize) {
 				Normalize();
 			}
 		}
@@ -67,7 +67,7 @@ namespace Compress.Support.Compression.LZ {
 
 		public void Create(uint historySize, uint keepAddBufferBefore,
 				uint matchMaxLen, uint keepAddBufferAfter) {
-			if (historySize > kMaxValForNormalize - 256) {
+			if (historySize > KMaxValForNormalize - 256) {
 				throw new Exception();
 			}
 
@@ -85,7 +85,7 @@ namespace Compress.Support.Compression.LZ {
 				_son = new uint[(_cyclicBufferSize = cyclicBufferSize) * 2];
 			}
 
-			var hs = kBT2HashSize;
+			var hs = KBT2HashSize;
 
 			if (HASH_ARRAY) {
 				hs = historySize - 1;
@@ -123,14 +123,14 @@ namespace Compress.Support.Compression.LZ {
 			uint offset = 0;
 			var matchMinPos = (_pos > _cyclicBufferSize) ? (_pos - _cyclicBufferSize) : 0;
 			var cur = _bufferOffset + _pos;
-			var maxLen = kStartMaxLen; // to avoid items for len < hashSize;
+			var maxLen = KStartMaxLen; // to avoid items for len < hashSize;
 			uint hashValue, hash2Value = 0, hash3Value = 0;
 
 			if (HASH_ARRAY) {
 				var temp = Utils.CRC.CRC32Lookup[_bufferBase[cur]] ^ _bufferBase[cur + 1];
-				hash2Value = temp & (kHash2Size - 1);
+				hash2Value = temp & (KHash2Size - 1);
 				temp ^= ((uint)(_bufferBase[cur + 2]) << 8);
-				hash3Value = temp & (kHash3Size - 1);
+				hash3Value = temp & (KHash3Size - 1);
 				hashValue = (temp ^ (Utils.CRC.CRC32Lookup[_bufferBase[cur + 3]] << 5)) & _hashMask;
 			} else {
 				hashValue = _bufferBase[cur] ^ ((uint)(_bufferBase[cur + 1]) << 8);
@@ -139,9 +139,9 @@ namespace Compress.Support.Compression.LZ {
 			var curMatch = _hash[kFixHashSize + hashValue];
 			if (HASH_ARRAY) {
 				var curMatch2 = _hash[hash2Value];
-				var curMatch3 = _hash[kHash3Offset + hash3Value];
+				var curMatch3 = _hash[KHash3Offset + hash3Value];
 				_hash[hash2Value] = _pos;
-				_hash[kHash3Offset + hash3Value] = _pos;
+				_hash[KHash3Offset + hash3Value] = _pos;
 				if (curMatch2 > matchMinPos) {
 					if (_bufferBase[_bufferOffset + curMatch2] == _bufferBase[cur]) {
 						distances[offset++] = maxLen = 2;
@@ -163,7 +163,7 @@ namespace Compress.Support.Compression.LZ {
 
 				if (offset != 0 && curMatch2 == curMatch) {
 					offset -= 2;
-					maxLen = kStartMaxLen;
+					maxLen = KStartMaxLen;
 				}
 			}
 
@@ -189,7 +189,7 @@ namespace Compress.Support.Compression.LZ {
 
 			while (true) {
 				if (curMatch <= matchMinPos || count-- == 0) {
-					_son[ptr0] = _son[ptr1] = kEmptyHashValue;
+					_son[ptr0] = _son[ptr1] = KEmptyHashValue;
 					break;
 				}
 				var delta = _pos - curMatch;
@@ -252,11 +252,11 @@ namespace Compress.Support.Compression.LZ {
 
 				if (HASH_ARRAY) {
 					var temp = Utils.CRC.CRC32Lookup[_bufferBase[cur]] ^ _bufferBase[cur + 1];
-					var hash2Value = temp & (kHash2Size - 1);
+					var hash2Value = temp & (KHash2Size - 1);
 					_hash[hash2Value] = _pos;
 					temp ^= ((uint)(_bufferBase[cur + 2]) << 8);
-					var hash3Value = temp & (kHash3Size - 1);
-					_hash[kHash3Offset + hash3Value] = _pos;
+					var hash3Value = temp & (KHash3Size - 1);
+					_hash[KHash3Offset + hash3Value] = _pos;
 					hashValue = (temp ^ (Utils.CRC.CRC32Lookup[_bufferBase[cur + 3]] << 5)) & _hashMask;
 				} else {
 					hashValue = _bufferBase[cur] ^ ((uint)(_bufferBase[cur + 1]) << 8);
@@ -274,7 +274,7 @@ namespace Compress.Support.Compression.LZ {
 				var count = _cutValue;
 				while (true) {
 					if (curMatch <= matchMinPos || count-- == 0) {
-						_son[ptr0] = _son[ptr1] = kEmptyHashValue;
+						_son[ptr0] = _son[ptr1] = KEmptyHashValue;
 						break;
 					}
 
@@ -319,7 +319,7 @@ namespace Compress.Support.Compression.LZ {
 			for (uint i = 0; i < numItems; i++) {
 				var value = items[i];
 				if (value <= subValue) {
-					value = kEmptyHashValue;
+					value = KEmptyHashValue;
 				} else {
 					value -= subValue;
 				}

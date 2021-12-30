@@ -1,6 +1,6 @@
-namespace Compress.Support.Compression.RangeCoder {
+﻿namespace Compress.Support.Compression.RangeCoder {
 	internal class Encoder {
-		public const uint kTopValue = (1 << 24);
+		public const uint KTopValue = (1 << 24);
 		private System.IO.Stream Stream;
 
 		public ulong Low;
@@ -36,7 +36,7 @@ namespace Compress.Support.Compression.RangeCoder {
 		public void Encode(uint start, uint size, uint total) {
 			Low += start * (Range /= total);
 			Range *= size;
-			while (Range < kTopValue) {
+			while (Range < KTopValue) {
 				Range <<= 8;
 				ShiftLow();
 			}
@@ -63,7 +63,7 @@ namespace Compress.Support.Compression.RangeCoder {
 					Low += Range;
 				}
 
-				if (Range < kTopValue) {
+				if (Range < KTopValue) {
 					Range <<= 8;
 					ShiftLow();
 				}
@@ -78,7 +78,7 @@ namespace Compress.Support.Compression.RangeCoder {
 				Low += newBound;
 				Range -= newBound;
 			}
-			while (Range < kTopValue) {
+			while (Range < KTopValue) {
 				Range <<= 8;
 				ShiftLow();
 			}
@@ -88,7 +88,7 @@ namespace Compress.Support.Compression.RangeCoder {
 	}
 
 	internal class Decoder {
-		public const uint kTopValue = (1 << 24);
+		public const uint KTopValue = (1 << 24);
 		public uint Range;
 		public uint Code = 0;
 		// public Buffer.InBuffer Stream = new Buffer.InBuffer(1 << 16);
@@ -115,7 +115,7 @@ namespace Compress.Support.Compression.RangeCoder {
 		public void CloseStream() => Stream.Dispose();
 
 		public void Normalize() {
-			while (Range < kTopValue) {
+			while (Range < KTopValue) {
 				Code = (Code << 8) | (byte)Stream.ReadByte();
 				Range <<= 8;
 				Total++;
@@ -123,7 +123,7 @@ namespace Compress.Support.Compression.RangeCoder {
 		}
 
 		public void Normalize2() {
-			if (Range < kTopValue) {
+			if (Range < KTopValue) {
 				Code = (Code << 8) | (byte)Stream.ReadByte();
 				Range <<= 8;
 				Total++;
@@ -156,7 +156,7 @@ namespace Compress.Support.Compression.RangeCoder {
 				code -= range & (t - 1);
 				result = (result << 1) | (1 - t);
 
-				if (range < kTopValue) {
+				if (range < KTopValue) {
 					code = (code << 8) | (byte)Stream.ReadByte();
 					range <<= 8;
 					Total++;

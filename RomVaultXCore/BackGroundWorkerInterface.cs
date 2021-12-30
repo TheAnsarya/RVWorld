@@ -1,8 +1,8 @@
 ﻿namespace RVXCore
 {
-    public class bgwText
+    public class BgwText
     {
-        public bgwText(string Text)
+        public BgwText(string Text)
         {
             this.Text = Text;
         }
@@ -10,9 +10,9 @@
         public string Text { get; private set; }
     }
 
-    public class bgwText2
+    public class BgwText2
     {
-        public bgwText2(string Text)
+        public BgwText2(string Text)
         {
             this.Text = Text;
         }
@@ -20,9 +20,9 @@
         public string Text { get; private set; }
     }
 
-    public class bgwText3
+    public class BgwText3
     {
-        public bgwText3(string Text)
+        public BgwText3(string Text)
         {
             this.Text = Text;
         }
@@ -30,9 +30,9 @@
         public string Text { get; private set; }
     }
 
-    public class bgwSetRange
+    public class BgwSetRange
     {
-        public bgwSetRange(int MaxVal)
+        public BgwSetRange(int MaxVal)
         {
             this.MaxVal = MaxVal;
         }
@@ -40,9 +40,9 @@
         public int MaxVal { get; private set; }
     }
 
-    public class bgwSetRange2
+    public class BgwSetRange2
     {
-        public bgwSetRange2(int MaxVal)
+        public BgwSetRange2(int MaxVal)
         {
             this.MaxVal = MaxVal;
         }
@@ -50,9 +50,9 @@
         public int MaxVal { get; private set; }
     }
 
-    public class bgwValue2
+    public class BgwValue2
     {
-        public bgwValue2(int Value)
+        public BgwValue2(int Value)
         {
             this.Value = Value;
         }
@@ -60,9 +60,9 @@
         public int Value { get; private set; }
     }
 
-    public class bgwRange2Visible
+    public class BgwRange2Visible
     {
-        public bgwRange2Visible(bool Visible)
+        public BgwRange2Visible(bool Visible)
         {
             this.Visible = Visible;
         }
@@ -70,21 +70,21 @@
         public bool Visible { get; private set; }
     }
 
-    public class bgwShowError
+    public class BgwShowError
     {
-        public bgwShowError(string filename, string error)
+        public BgwShowError(string filename, string error)
         {
-            this.error = error;
-            this.filename = filename;
+            this.Error = error;
+            this.Filename = filename;
         }
 
-        public string filename { get; private set; }
-        public string error { get; private set; }
+        public string Filename { get; private set; }
+        public string Error { get; private set; }
     }
 
-    public class bgwShowFix
+    public class BgwShowFix
     {
-        public bgwShowFix(string fixDir, string fixZip, string fixFile, ulong? size, string dir, string sourceDir, string sourceZip, string sourceFile)
+        public BgwShowFix(string fixDir, string fixZip, string fixFile, ulong? size, string dir, string sourceDir, string sourceZip, string sourceFile)
         {
             FixDir = fixDir;
             FixZip = fixZip;
@@ -106,9 +106,9 @@
         public string SourceFile { get; private set; }
     }
 
-    public class bgwShowFixError
+    public class BgwShowFixError
     {
-        public bgwShowFixError(string FixError)
+        public BgwShowFixError(string FixError)
         {
             this.FixError = FixError;
         }

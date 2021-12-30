@@ -98,7 +98,7 @@ namespace RomVaultX {
 		}
 
 		private void quickReScanToolStripMenuItem_Click(object sender, EventArgs e) {
-			var progress = new FrmProgressWindow(this, "Scanning RomRoot Files", romRootScanner.ScanFiles);
+			var progress = new FrmProgressWindow(this, "Scanning RomRoot Files", RomRootScanner.ScanFiles);
 			progress.ShowDialog(this);
 			progress.Dispose();
 			DirTree.Setup(RvTreeRow.ReadTreeFromDB());
@@ -106,7 +106,7 @@ namespace RomVaultX {
 		}
 
 		private void deepReScanToolStripMenuItem_Click(object sender, EventArgs e) {
-			var progress = new FrmProgressWindow(this, "Scanning RomRoot Files", romRootScanner.ScanFilesDeep);
+			var progress = new FrmProgressWindow(this, "Scanning RomRoot Files", RomRootScanner.ScanFilesDeep);
 			progress.ShowDialog(this);
 			progress.Dispose();
 			DirTree.Setup(RvTreeRow.ReadTreeFromDB());
@@ -143,7 +143,7 @@ namespace RomVaultX {
 			MessageBox.Show("Zip Header Database Update Complete");
 		}
 
-		private void startVDriveToolStripMenuItem_Click(object sender, EventArgs e) => VDrive.startVDrive(vDriveLetter);
+		private void startVDriveToolStripMenuItem_Click(object sender, EventArgs e) => VDrive.StartVDrive(vDriveLetter);
 
 		private void closeVDriveToolStripMenuItem_Click(object sender, EventArgs e) => VDrive.UnMount(vDriveLetter);
 
@@ -160,7 +160,7 @@ namespace RomVaultX {
 
 				var outPath = folderBrowserDialog1.SelectedPath;
 
-				ExtractFiles.extract(DirTree.Selected.TRow.dirFullName, outPath);
+				ExtractFiles.Extract(DirTree.Selected.TRow.dirFullName, outPath);
 			}
 		}
 
@@ -178,7 +178,7 @@ namespace RomVaultX {
 					return;
 				}
 
-				FixDatList.extract(DirTree.Selected.TRow.dirFullName, outPath);
+				FixDatList.Extract(DirTree.Selected.TRow.dirFullName, outPath);
 			}
 		}
 
@@ -537,7 +537,7 @@ namespace RomVaultX {
 				return;
 			}
 
-			var rows = rvGameGridRow.ReadGames((int)DatId);
+			var rows = RvGameGridRow.ReadGames((int)DatId);
 
 			foreach (var row in rows) {
 				var gCorrect = row.HasCorrect();

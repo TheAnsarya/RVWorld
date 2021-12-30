@@ -19,13 +19,13 @@ namespace ROMVault
             lblVersion.Text = "Version " + Program.StrVersion;
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void Label1_Click(object sender, EventArgs e)
         {
             string url = "http://www.romvault.com/";
             Process.Start(url);
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void PictureBox2_Click(object sender, EventArgs e)
         {
             Process.Start("http://paypal.me/romvault");
         }

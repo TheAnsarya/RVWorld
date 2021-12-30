@@ -131,7 +131,7 @@ namespace ROMVault
             AddTextBox(7, "SubGenre", 206, 284, out _labelTruripSubGenre, out _textTruripSubGenre);
             AddTextBox(7, "Score", 406, 484, out _labelTruripScore, out _textTruripScore);
 
-            gbSetInfo_Resize(null, new EventArgs());
+            GbSetInfo_Resize(null, new EventArgs());
             UpdateGameMetaData(new RvFile(FileType.Dir));
         }
 
@@ -332,7 +332,7 @@ namespace ROMVault
             }
         }
 
-        private void gbSetInfo_Resize(object sender, EventArgs e)
+        private void GbSetInfo_Resize(object sender, EventArgs e)
         {
             const int leftPos = 84;
             int rightPos = gbSetInfo.Width - 15;

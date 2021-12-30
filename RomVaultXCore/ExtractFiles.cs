@@ -16,7 +16,7 @@ namespace RVXCore
     {
         private static SQLiteCommand CommandFindRomsInGame;
 
-        public static void extract(string dirName, string outPath)
+        public static void Extract(string dirName, string outPath)
         {
             if (CommandFindRomsInGame == null)
             {

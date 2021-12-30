@@ -13,7 +13,7 @@ using Path = RVIO.Path;
 
 namespace RVXCore
 {
-    public static class romRootScanner
+    public static class RomRootScanner
     {
         private static bool deep;
         private static BackgroundWorker _bgw;
@@ -29,7 +29,7 @@ namespace RVXCore
             }
 
             DatUpdate.UpdateGotTotal();
-            _bgw.ReportProgress(0, new bgwText("Scanning Files Complete"));
+            _bgw.ReportProgress(0, new BgwText("Scanning Files Complete"));
             _bgw = null;
         }
 
@@ -48,19 +48,19 @@ namespace RVXCore
             }
 
             DatUpdate.UpdateGotTotal();
-            _bgw.ReportProgress(0, new bgwText("Scanning Files Complete"));
+            _bgw.ReportProgress(0, new BgwText("Scanning Files Complete"));
             _bgw = null;
         }
 
         private static void ScanRomRoot(string directory)
         {
-            _bgw.ReportProgress(0, new bgwText("Scanning Dir : " + directory));
+            _bgw.ReportProgress(0, new BgwText("Scanning Dir : " + directory));
             DirectoryInfo di = new DirectoryInfo(directory);
 
             FileInfo[] fi = di.GetFiles();
 
-            _bgw.ReportProgress(0, new bgwRange2Visible(true));
-            _bgw.ReportProgress(0, new bgwSetRange2(fi.Count()));
+            _bgw.ReportProgress(0, new BgwRange2Visible(true));
+            _bgw.ReportProgress(0, new BgwSetRange2(fi.Count()));
 
             for (int j = 0; j < fi.Count(); j++)
             {
@@ -70,8 +70,8 @@ namespace RVXCore
                 }
 
                 FileInfo f = fi[j];
-                _bgw.ReportProgress(0, new bgwValue2(j));
-                _bgw.ReportProgress(0, new bgwText2(f.Name));
+                _bgw.ReportProgress(0, new BgwValue2(j));
+                _bgw.ReportProgress(0, new BgwText2(f.Name));
                 string ext = Path.GetExtension(f.Name);
 
                 if (ext.ToLower() == ".gz")
@@ -80,7 +80,7 @@ namespace RVXCore
                     ZipReturn errorcode = gZipTest.ZipFileOpen(f.FullName);
                     if (errorcode != ZipReturn.ZipGood)
                     {
-                        _bgw.ReportProgress(0, new bgwShowError(f.FullName, "gz File corrupt"));
+                        _bgw.ReportProgress(0, new BgwShowError(f.FullName, "gz File corrupt"));
                         if (!Directory.Exists("corrupt"))
                         {
                             Directory.CreateDirectory("corrupt");
@@ -90,10 +90,10 @@ namespace RVXCore
                         continue;
                     }
 
-                    RvFile tFile = gZipExtraData.fromGZip(f.FullName, gZipTest.ExtraData, gZipTest.CompressedSize);
+                    RvFile tFile = GZipExtraData.FromGZip(f.FullName, gZipTest.ExtraData, gZipTest.CompressedSize);
                     gZipTest.ZipFileClose();
 
-                    FindStatus res = fileneededTest(tFile);
+                    FindStatus res = FileneededTest(tFile);
 
                     if (res != FindStatus.FoundFileInArchive)
                     {
@@ -116,7 +116,7 @@ namespace RVXCore
                             catch
                             {
                                 gZipTest.ZipFileClose();
-                                _bgw.ReportProgress(0, new bgwShowError(f.FullName, "gz Crashed Compression"));
+                                _bgw.ReportProgress(0, new BgwShowError(f.FullName, "gz Crashed Compression"));
                                 if (!Directory.Exists("corrupt"))
                                 {
                                     Directory.CreateDirectory("corrupt");
@@ -128,7 +128,7 @@ namespace RVXCore
 
                             if (errorcode != ZipReturn.ZipGood)
                             {
-                                _bgw.ReportProgress(0, new bgwShowError(f.FullName, "gz File corrupt"));
+                                _bgw.ReportProgress(0, new BgwShowError(f.FullName, "gz File corrupt"));
                                 if (!Directory.Exists("corrupt"))
                                 {
                                     Directory.CreateDirectory("corrupt");
@@ -161,7 +161,7 @@ namespace RVXCore
             }
         }
 
-        private static FindStatus fileneededTest(RvFile tFile)
+        private static FindStatus FileneededTest(RvFile tFile)
         {
             // first check to see if we already have it in the file table
             bool inFileDB = RvRomFileMatchup.FindInFiles(tFile); // returns true if found in File table

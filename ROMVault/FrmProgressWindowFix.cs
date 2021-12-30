@@ -75,7 +75,7 @@ namespace ROMVault
             dataGridView1.FirstDisplayedScrollingRowIndex = tmpRowCount - 1;
         }
 
-        private void dataGridView1_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        private void DataGridView1_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             int pageIndex = e.RowIndex / 1000;
             int rowIndex = e.RowIndex % 1000;
@@ -88,7 +88,7 @@ namespace ROMVault
 
             e.Value = _pageDisplay[rowIndex][e.ColumnIndex];
         }
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void DataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             int pageIndex = e.RowIndex / 1000;
             int rowIndex = e.RowIndex % 1000;

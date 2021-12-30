@@ -131,8 +131,8 @@ namespace ROMVault
 
             ctrRvTree.Setup(ref DB.DirRoot);
 
-            splitContainer3_Panel1_Resize(new object(), new EventArgs());
-            splitContainer4_Panel1_Resize(new object(), new EventArgs());
+            SplitContainer3_Panel1_Resize(new object(), new EventArgs());
+            SplitContainer4_Panel1_Resize(new object(), new EventArgs());
 
             _mnuContext = new ContextMenuStrip();
 
@@ -279,7 +279,7 @@ namespace ROMVault
             set => base.Text = value;
         }
 
-        private void splitContainer3_Panel1_Resize(object sender, EventArgs e)
+        private void SplitContainer3_Panel1_Resize(object sender, EventArgs e)
         {
             // fixes a rendering issue in mono
             if (splitDatInfoTree.Panel1.Width == 0)
@@ -290,7 +290,7 @@ namespace ROMVault
             gbDatInfo.Width = splitDatInfoTree.Panel1.Width - gbDatInfo.Left * 2;
         }
 
-        private void splitContainer4_Panel1_Resize(object sender, EventArgs e)
+        private void SplitContainer4_Panel1_Resize(object sender, EventArgs e)
         {
             // fixes a rendering issue in mono
             if (splitGameInfoLists.Panel1.Width == 0)
@@ -559,11 +559,11 @@ namespace ROMVault
 
         #region TopMenu
 
-        private void updateNewDATsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateNewDATsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateDats();
         }
-        private void updateAllDATsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateAllDATsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DatUpdate.CheckAllDats(DB.DirRoot.Child(0), @"DatRoot\");
             UpdateDats();
@@ -649,22 +649,22 @@ namespace ROMVault
             }
         }
 
-        private void fixDatReportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FixDatReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Report.MakeFixFiles();
         }
 
-        private void fullReportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FullReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Report.GenerateReport();
         }
 
-        private void fixReportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FixReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Report.GenerateFixReport();
         }
 
-        private void colorKeyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ColorKeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_fk == null || _fk.IsDisposed)
             {
@@ -774,12 +774,12 @@ namespace ROMVault
             txtFilter.Focus();
         }
 
-        private void picPayPal_Click(object sender, EventArgs e)
+        private void PicPayPal_Click(object sender, EventArgs e)
         {
             Process.Start("http://paypal.me/romvault");
         }
 
-        private void picPatreon_Click(object sender, EventArgs e)
+        private void PicPatreon_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.patreon.com/romvault");
         }
@@ -832,7 +832,7 @@ namespace ROMVault
             DatSetSelected(selected);
         }
 
-        private void setPos(Form childForm)
+        private void SetPos(Form childForm)
         {
             childForm.Owner = this;
             childForm.StartPosition = FormStartPosition.Manual;
@@ -857,7 +857,7 @@ namespace ROMVault
             FileScanning.EScanLevel = sd;
             frmScanRoms = new FrmProgressWindow(this, "Scanning Dirs", FileScanning.ScanFiles, Finish);
             Start();
-            setPos(frmScanRoms);
+            SetPos(frmScanRoms);
             frmScanRoms.FormClosed += ScanRomsClosed;
             frmScanRoms.Show();
         }
@@ -888,7 +888,7 @@ namespace ROMVault
 
             frmFindFixs = new FrmProgressWindow(this, "Finding Fixes", FindFixes.ScanFiles, Finish);
             Start();
-            setPos(frmFindFixs);
+            SetPos(frmFindFixs);
             frmFindFixs.FormClosed += FindFixsClosed;
             frmFindFixs.Show();
         }
@@ -918,7 +918,7 @@ namespace ROMVault
 
             frmFixFiles = new FrmProgressWindowFix(this, Finish);
             Start();
-            setPos(frmFixFiles);
+            SetPos(frmFixFiles);
             frmFixFiles.Show();
 
             _multiFixing = false;
@@ -967,7 +967,7 @@ namespace ROMVault
             DatSetSelected(ctrRvTree.Selected);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
 
             ctrRvTree.Refresh();
@@ -1046,7 +1046,7 @@ namespace ROMVault
             lblDITRomsUnknown.Text = (tDir.DirStatus.CountUnknown() + tDir.DirStatus.CountInToSort()).ToString(CultureInfo.InvariantCulture);
         }
 
-        private void gbDatInfo_Resize(object sender, EventArgs e)
+        private void GbDatInfo_Resize(object sender, EventArgs e)
         {
             const int leftPos = 89;
             int rightPos = (int)(gbDatInfo.Width / _scaleFactorX) - 15;

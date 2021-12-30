@@ -6,15 +6,15 @@ namespace Compress.Support.Compression.LZMA {
 		private class LenDecoder {
 			private BitDecoder m_Choice = new();
 			private BitDecoder m_Choice2 = new();
-			private readonly BitTreeDecoder[] m_LowCoder = new BitTreeDecoder[Base.kNumPosStatesMax];
-			private readonly BitTreeDecoder[] m_MidCoder = new BitTreeDecoder[Base.kNumPosStatesMax];
-			private readonly BitTreeDecoder m_HighCoder = new(Base.kNumHighLenBits);
+			private readonly BitTreeDecoder[] m_LowCoder = new BitTreeDecoder[Base.KNumPosStatesMax];
+			private readonly BitTreeDecoder[] m_MidCoder = new BitTreeDecoder[Base.KNumPosStatesMax];
+			private readonly BitTreeDecoder m_HighCoder = new(Base.KNumHighLenBits);
 			private uint m_NumPosStates = 0;
 
 			public void Create(uint numPosStates) {
 				for (var posState = m_NumPosStates; posState < numPosStates; posState++) {
-					m_LowCoder[posState] = new BitTreeDecoder(Base.kNumLowLenBits);
-					m_MidCoder[posState] = new BitTreeDecoder(Base.kNumMidLenBits);
+					m_LowCoder[posState] = new BitTreeDecoder(Base.KNumLowLenBits);
+					m_MidCoder[posState] = new BitTreeDecoder(Base.KNumMidLenBits);
 				}
 				m_NumPosStates = numPosStates;
 			}
@@ -33,11 +33,11 @@ namespace Compress.Support.Compression.LZMA {
 				if (m_Choice.Decode(rangeDecoder) == 0) {
 					return m_LowCoder[posState].Decode(rangeDecoder);
 				} else {
-					var symbol = Base.kNumLowLenSymbols;
+					var symbol = Base.KNumLowLenSymbols;
 					if (m_Choice2.Decode(rangeDecoder) == 0) {
 						symbol += m_MidCoder[posState].Decode(rangeDecoder);
 					} else {
-						symbol += Base.kNumMidLenSymbols;
+						symbol += Base.KNumMidLenSymbols;
 						symbol += m_HighCoder.Decode(rangeDecoder);
 					}
 					return symbol;
@@ -120,15 +120,15 @@ namespace Compress.Support.Compression.LZMA {
 		};
 
 		private LZ.OutWindow m_OutWindow;
-		private readonly BitDecoder[] m_IsMatchDecoders = new BitDecoder[Base.kNumStates << Base.kNumPosStatesBitsMax];
-		private readonly BitDecoder[] m_IsRepDecoders = new BitDecoder[Base.kNumStates];
-		private readonly BitDecoder[] m_IsRepG0Decoders = new BitDecoder[Base.kNumStates];
-		private readonly BitDecoder[] m_IsRepG1Decoders = new BitDecoder[Base.kNumStates];
-		private readonly BitDecoder[] m_IsRepG2Decoders = new BitDecoder[Base.kNumStates];
-		private readonly BitDecoder[] m_IsRep0LongDecoders = new BitDecoder[Base.kNumStates << Base.kNumPosStatesBitsMax];
-		private readonly BitTreeDecoder[] m_PosSlotDecoder = new BitTreeDecoder[Base.kNumLenToPosStates];
-		private readonly BitDecoder[] m_PosDecoders = new BitDecoder[Base.kNumFullDistances - Base.kEndPosModelIndex];
-		private readonly BitTreeDecoder m_PosAlignDecoder = new(Base.kNumAlignBits);
+		private readonly BitDecoder[] m_IsMatchDecoders = new BitDecoder[Base.KNumStates << Base.KNumPosStatesBitsMax];
+		private readonly BitDecoder[] m_IsRepDecoders = new BitDecoder[Base.KNumStates];
+		private readonly BitDecoder[] m_IsRepG0Decoders = new BitDecoder[Base.KNumStates];
+		private readonly BitDecoder[] m_IsRepG1Decoders = new BitDecoder[Base.KNumStates];
+		private readonly BitDecoder[] m_IsRepG2Decoders = new BitDecoder[Base.KNumStates];
+		private readonly BitDecoder[] m_IsRep0LongDecoders = new BitDecoder[Base.KNumStates << Base.KNumPosStatesBitsMax];
+		private readonly BitTreeDecoder[] m_PosSlotDecoder = new BitTreeDecoder[Base.KNumLenToPosStates];
+		private readonly BitDecoder[] m_PosDecoders = new BitDecoder[Base.KNumFullDistances - Base.KEndPosModelIndex];
+		private readonly BitTreeDecoder m_PosAlignDecoder = new(Base.KNumAlignBits);
 		private readonly LenDecoder m_LenDecoder = new();
 		private readonly LenDecoder m_RepLenDecoder = new();
 		private readonly LiteralDecoder m_LiteralDecoder = new();
@@ -139,8 +139,8 @@ namespace Compress.Support.Compression.LZMA {
 
 		public Decoder() {
 			m_DictionarySize = -1;
-			for (var i = 0; i < Base.kNumLenToPosStates; i++) {
-				m_PosSlotDecoder[i] = new BitTreeDecoder(Base.kNumPosSlotBits);
+			for (var i = 0; i < Base.KNumLenToPosStates; i++) {
+				m_PosSlotDecoder[i] = new BitTreeDecoder(Base.KNumPosSlotBits);
 			}
 		}
 
@@ -167,7 +167,7 @@ namespace Compress.Support.Compression.LZMA {
 		}
 
 		private void SetPosBitsProperties(int pb) {
-			if (pb > Base.kNumPosStatesBitsMax) {
+			if (pb > Base.KNumPosStatesBitsMax) {
 				throw new InvalidParamException();
 			}
 
@@ -179,9 +179,9 @@ namespace Compress.Support.Compression.LZMA {
 
 		private void Init() {
 			uint i;
-			for (i = 0; i < Base.kNumStates; i++) {
+			for (i = 0; i < Base.KNumStates; i++) {
 				for (uint j = 0; j <= m_PosStateMask; j++) {
-					var index = (i << Base.kNumPosStatesBitsMax) + j;
+					var index = (i << Base.KNumPosStatesBitsMax) + j;
 					m_IsMatchDecoders[index].Init();
 					m_IsRep0LongDecoders[index].Init();
 				}
@@ -192,11 +192,11 @@ namespace Compress.Support.Compression.LZMA {
 			}
 
 			m_LiteralDecoder.Init();
-			for (i = 0; i < Base.kNumLenToPosStates; i++) {
+			for (i = 0; i < Base.KNumLenToPosStates; i++) {
 				m_PosSlotDecoder[i].Init();
 			}
 			// m_PosSpecDecoder.Init();
-			for (i = 0; i < Base.kNumFullDistances - Base.kEndPosModelIndex; i++) {
+			for (i = 0; i < Base.KNumFullDistances - Base.KEndPosModelIndex; i++) {
 				m_PosDecoders[i].Init();
 			}
 
@@ -250,7 +250,7 @@ namespace Compress.Support.Compression.LZMA {
 
 			while (outWindow.HasSpace) {
 				var posState = (uint)outWindow.Total & m_PosStateMask;
-				if (m_IsMatchDecoders[(state.Index << Base.kNumPosStatesBitsMax) + posState].Decode(rangeDecoder) == 0) {
+				if (m_IsMatchDecoders[(state.Index << Base.KNumPosStatesBitsMax) + posState].Decode(rangeDecoder) == 0) {
 					byte b;
 					var prevByte = outWindow.GetByte(0);
 					if (!state.IsCharState()) {
@@ -266,7 +266,7 @@ namespace Compress.Support.Compression.LZMA {
 					uint len;
 					if (m_IsRepDecoders[state.Index].Decode(rangeDecoder) == 1) {
 						if (m_IsRepG0Decoders[state.Index].Decode(rangeDecoder) == 0) {
-							if (m_IsRep0LongDecoders[(state.Index << Base.kNumPosStatesBitsMax) + posState].Decode(rangeDecoder) == 0) {
+							if (m_IsRep0LongDecoders[(state.Index << Base.KNumPosStatesBitsMax) + posState].Decode(rangeDecoder) == 0) {
 								state.UpdateShortRep();
 								outWindow.PutByte(outWindow.GetByte((int)rep0));
 								continue;
@@ -287,24 +287,24 @@ namespace Compress.Support.Compression.LZMA {
 							rep1 = rep0;
 							rep0 = distance;
 						}
-						len = m_RepLenDecoder.Decode(rangeDecoder, posState) + Base.kMatchMinLen;
+						len = m_RepLenDecoder.Decode(rangeDecoder, posState) + Base.KMatchMinLen;
 						state.UpdateRep();
 					} else {
 						rep3 = rep2;
 						rep2 = rep1;
 						rep1 = rep0;
-						len = Base.kMatchMinLen + m_LenDecoder.Decode(rangeDecoder, posState);
+						len = Base.KMatchMinLen + m_LenDecoder.Decode(rangeDecoder, posState);
 						state.UpdateMatch();
 						var posSlot = m_PosSlotDecoder[Base.GetLenToPosState(len)].Decode(rangeDecoder);
-						if (posSlot >= Base.kStartPosModelIndex) {
+						if (posSlot >= Base.KStartPosModelIndex) {
 							var numDirectBits = (int)((posSlot >> 1) - 1);
 							rep0 = ((2 | (posSlot & 1)) << numDirectBits);
-							if (posSlot < Base.kEndPosModelIndex) {
+							if (posSlot < Base.KEndPosModelIndex) {
 								rep0 += BitTreeDecoder.ReverseDecode(m_PosDecoders,
 										rep0 - posSlot - 1, rangeDecoder, numDirectBits);
 							} else {
 								rep0 += (rangeDecoder.DecodeDirectBits(
-									numDirectBits - Base.kNumAlignBits) << Base.kNumAlignBits);
+									numDirectBits - Base.KNumAlignBits) << Base.KNumAlignBits);
 								rep0 += m_PosAlignDecoder.ReverseDecode(rangeDecoder);
 							}
 						} else {
@@ -333,7 +333,7 @@ namespace Compress.Support.Compression.LZMA {
 			var remainder = properties[0] / 9;
 			var lp = remainder % 5;
 			var pb = remainder / 5;
-			if (pb > Base.kNumPosStatesBitsMax) {
+			if (pb > Base.KNumPosStatesBitsMax) {
 				throw new InvalidParamException();
 			}
 

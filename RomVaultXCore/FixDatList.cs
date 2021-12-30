@@ -24,7 +24,7 @@ namespace RVXCore
             return ret;
         }
 
-        public static void extract(string dirName, string datFilename)
+        public static void Extract(string dirName, string datFilename)
         {
             Debug.WriteLine(dirName);
 

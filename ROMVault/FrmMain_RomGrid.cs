@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace ROMVault
 {
-    public enum eRomGrid
+    public enum ERomGrid
     {
         Got = 0,
         Rom = 1,
@@ -68,14 +68,14 @@ namespace ROMVault
             AddDir(tGame, "", ref fileList);
             romGrid = fileList.ToArray();
 
-            RomGrid.Columns[(int)eRomGrid.AltSize].Visible = altFound;
-            RomGrid.Columns[(int)eRomGrid.AltCRC32].Visible = altFound;
-            RomGrid.Columns[(int)eRomGrid.AltSHA1].Visible = altFound;
-            RomGrid.Columns[(int)eRomGrid.AltMD5].Visible = altFound;
+            RomGrid.Columns[(int)ERomGrid.AltSize].Visible = altFound;
+            RomGrid.Columns[(int)ERomGrid.AltCRC32].Visible = altFound;
+            RomGrid.Columns[(int)ERomGrid.AltSHA1].Visible = altFound;
+            RomGrid.Columns[(int)ERomGrid.AltMD5].Visible = altFound;
 
-            RomGrid.Columns[(int)eRomGrid.Status].Visible = showStatus;
-            RomGrid.Columns[(int)eRomGrid.DateModDat].Visible = showDatModDate;
-            RomGrid.Columns[(int)eRomGrid.DateModFile].Visible = showFileModDate;
+            RomGrid.Columns[(int)ERomGrid.Status].Visible = showStatus;
+            RomGrid.Columns[(int)ERomGrid.DateModDat].Visible = showDatModDate;
+            RomGrid.Columns[(int)ERomGrid.DateModFile].Visible = showFileModDate;
 
             RomGrid.RowCount = romGrid.Length;
         }
@@ -140,13 +140,13 @@ namespace ROMVault
         private void RomGridCellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             RvFile tFile = romGrid[e.RowIndex];
-            switch ((eRomGrid)e.ColumnIndex)
+            switch ((ERomGrid)e.ColumnIndex)
             {
-                case eRomGrid.Got:
+                case ERomGrid.Got:
                     Bitmap bmp = new Bitmap(54, 18);
                     Graphics g = Graphics.FromImage(bmp);
                     string bitmapName = "R_" + tFile.DatStatus + "_" + tFile.RepStatus;
-                    Bitmap romIcon = rvImages.GetBitmap(bitmapName);
+                    Bitmap romIcon = RvImages.GetBitmap(bitmapName);
                     if (romIcon != null)
                     {
                         g.DrawImage(romIcon, 0, 0, 54, 18);
@@ -159,7 +159,7 @@ namespace ROMVault
 
                     g.Dispose();
                     break;
-                case eRomGrid.Rom:
+                case ERomGrid.Rom:
                     string fname = tFile.UiDisplayName;
                     if (!string.IsNullOrEmpty(tFile.FileName))
                     {
@@ -179,37 +179,37 @@ namespace ROMVault
                     e.Value = fname;
 
                     break;
-                case eRomGrid.Merge:
+                case ERomGrid.Merge:
                     e.Value = tFile.Merge;
                     break;
-                case eRomGrid.Size:
+                case ERomGrid.Size:
                     e.Value = SetCell(tFile.Size.ToString(), tFile, FileStatus.SizeFromDAT, FileStatus.SizeFromHeader, FileStatus.SizeVerified);
                     break;
-                case eRomGrid.CRC32:
+                case ERomGrid.CRC32:
                     e.Value = SetCell(tFile.CRC.ToHexString(), tFile, FileStatus.CRCFromDAT, FileStatus.CRCFromHeader, FileStatus.CRCVerified);
                     break;
-                case eRomGrid.SHA1:
+                case ERomGrid.SHA1:
                     e.Value = SetCell(tFile.SHA1.ToHexString(), tFile, FileStatus.SHA1FromDAT, FileStatus.SHA1FromHeader, FileStatus.SHA1Verified);
                     break;
-                case eRomGrid.MD5:
+                case ERomGrid.MD5:
                     e.Value = SetCell(tFile.MD5.ToHexString(), tFile, FileStatus.MD5FromDAT, FileStatus.MD5FromHeader, FileStatus.MD5Verified);
                     break;
-                case eRomGrid.AltSize:
+                case ERomGrid.AltSize:
                     e.Value = SetCell(tFile.AltSize.ToString(), tFile, FileStatus.AltSizeFromDAT, FileStatus.AltSizeFromHeader, FileStatus.AltSizeVerified);
                     break;
-                case eRomGrid.AltCRC32:
+                case ERomGrid.AltCRC32:
                     e.Value = SetCell(tFile.AltCRC.ToHexString(), tFile, FileStatus.AltCRCFromDAT, FileStatus.AltCRCFromHeader, FileStatus.AltCRCVerified);
                     break;
-                case eRomGrid.AltSHA1:
+                case ERomGrid.AltSHA1:
                     e.Value = SetCell(tFile.AltSHA1.ToHexString(), tFile, FileStatus.AltSHA1FromDAT, FileStatus.AltSHA1FromHeader, FileStatus.AltSHA1Verified);
                     break;
-                case eRomGrid.AltMD5:
+                case ERomGrid.AltMD5:
                     e.Value = SetCell(tFile.AltMD5.ToHexString(), tFile, FileStatus.AltMD5FromDAT, FileStatus.AltMD5FromHeader, FileStatus.AltMD5Verified);
                     break;
-                case eRomGrid.Status:
+                case ERomGrid.Status:
                     e.Value = tFile.Status;
                     break;
-                case eRomGrid.DateModFile:
+                case ERomGrid.DateModFile:
                     {
                         if (tFile.FileModTimeStamp == 0)
                         {
@@ -230,14 +230,14 @@ namespace ROMVault
                     break;
                 }
 #endif
-                case eRomGrid.ZipIndex:
+                case ERomGrid.ZipIndex:
                     if (tFile.FileType == FileType.ZipFile)
                     {
                         e.Value = tFile.ZipFileIndex == -1 ? "" : tFile.ZipFileIndex.ToString();
                     }
 
                     break;
-                case eRomGrid.DupeCount:
+                case ERomGrid.DupeCount:
                     if (tFile.FileGroup != null)
                     {
                         e.Value = tFile.FileGroup.Files.Count.ToString();
@@ -332,9 +332,9 @@ namespace ROMVault
             public int Compare(RvFile x, RvFile y)
             {
                 int retVal = 0;
-                switch ((eRomGrid)_colIndex)
+                switch ((ERomGrid)_colIndex)
                 {
-                    case eRomGrid.Got:   // then by name
+                    case ERomGrid.Got:   // then by name
                         retVal = x.GotStatus - y.GotStatus;
                         if (retVal != 0)
                         {
@@ -349,37 +349,37 @@ namespace ROMVault
 
                         retVal = string.Compare(x.UiDisplayName ?? "", y.UiDisplayName ?? "", StringComparison.Ordinal);
                         break;
-                    case eRomGrid.Rom:
+                    case ERomGrid.Rom:
                         retVal = string.Compare(x.UiDisplayName ?? "", y.UiDisplayName ?? "", StringComparison.Ordinal);
                         break;
-                    case eRomGrid.Merge:
+                    case ERomGrid.Merge:
                         retVal = string.Compare(x.Merge ?? "", y.Merge ?? "", StringComparison.Ordinal);
                         break;
-                    case eRomGrid.Size:
+                    case ERomGrid.Size:
                         retVal = ULong.iCompareNull(x.Size, y.Size);
                         break;
-                    case eRomGrid.CRC32:
+                    case ERomGrid.CRC32:
                         retVal = ArrByte.ICompare(x.CRC, y.CRC);
                         break;
-                    case eRomGrid.SHA1:
+                    case ERomGrid.SHA1:
                         retVal = ArrByte.ICompare(x.SHA1, y.SHA1);
                         break;
-                    case eRomGrid.MD5:
+                    case ERomGrid.MD5:
                         retVal = ArrByte.ICompare(x.MD5, y.MD5);
                         break;
-                    case eRomGrid.AltSize:
+                    case ERomGrid.AltSize:
                         retVal = ULong.iCompareNull(x.AltSize, y.AltSize);
                         break;
-                    case eRomGrid.AltCRC32:
+                    case ERomGrid.AltCRC32:
                         retVal = ArrByte.ICompare(x.AltCRC, y.AltCRC);
                         break;
-                    case eRomGrid.AltSHA1:
+                    case ERomGrid.AltSHA1:
                         retVal = ArrByte.ICompare(x.AltSHA1, y.AltSHA1);
                         break;
-                    case eRomGrid.AltMD5:
+                    case ERomGrid.AltMD5:
                         retVal = ArrByte.ICompare(x.AltMD5, y.AltMD5);
                         break;
-                    case eRomGrid.Status:
+                    case ERomGrid.Status:
                         retVal = string.Compare(x.Status ?? "", y.Status ?? "", StringComparison.Ordinal);
                         break;
                 }
@@ -403,7 +403,7 @@ namespace ROMVault
             if (e == null || e.Button == MouseButtons.Left)
             {
                 DataGridView.HitTestInfo hitTest = RomGrid.HitTest(e.X, e.Y);
-                if (hitTest.ColumnIndex != (int)eRomGrid.DupeCount)
+                if (hitTest.ColumnIndex != (int)ERomGrid.DupeCount)
                 {
                     return;
                 }

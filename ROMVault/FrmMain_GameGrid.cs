@@ -269,7 +269,7 @@ namespace ROMVault
                         Bitmap bmp = new Bitmap(GameGrid.Columns[0].Width, 18);
                         using (Graphics g = Graphics.FromImage(bmp))
                         {
-                            Bitmap bm = rvImages.GetBitmap(bitmapName);
+                            Bitmap bm = RvImages.GetBitmap(bitmapName);
                             if (bm != null)
                             {
                                 float xSize = (float)bm.Width / bm.Height * (18 - 1);
@@ -332,7 +332,7 @@ namespace ROMVault
                                 }
 
                                 gOff = _gameGridColumnXPositions[columnIndex];
-                                Bitmap bmg = rvImages.GetBitmap(@"G_" + RepairStatus.DisplayOrder[l]);
+                                Bitmap bmg = RvImages.GetBitmap(@"G_" + RepairStatus.DisplayOrder[l]);
                                 if (bmg != null)
                                 {
                                     g.DrawImage(bmg, gOff, 0, 21, 18);

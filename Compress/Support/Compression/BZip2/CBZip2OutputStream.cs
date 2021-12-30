@@ -459,7 +459,7 @@ namespace Compress.Support.Compression.BZip2 {
 			}
 
 			/* 20 is just a paranoia constant */
-			allowableBlockSize = BZip2Constants.baseBlockSize * blockSize100k - 20;
+			allowableBlockSize = BZip2Constants.BaseBlockSize * blockSize100k - 20;
 		}
 
 		private void EndBlock() {
@@ -1586,7 +1586,7 @@ namespace Compress.Support.Compression.BZip2 {
 							797161, 2391484 };
 
 		private void AllocateCompressStructures() {
-			var n = BZip2Constants.baseBlockSize * blockSize100k;
+			var n = BZip2Constants.BaseBlockSize * blockSize100k;
 			block = new char[(n + 1 + BZip2Constants.NUM_OVERSHOOT_BYTES)];
 			quadrant = new int[(n + BZip2Constants.NUM_OVERSHOOT_BYTES)];
 			zptr = new int[n];

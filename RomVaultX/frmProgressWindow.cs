@@ -48,11 +48,11 @@ namespace RomVaultX {
 				return;
 			}
 
-			if (e.UserState is bgwText bgwT) {
+			if (e.UserState is BgwText bgwT) {
 				label.Text = bgwT.Text;
 				return;
 			}
-			if (e.UserState is bgwSetRange bgwSR) {
+			if (e.UserState is BgwSetRange bgwSR) {
 				progressBar.Minimum = 0;
 				progressBar.Maximum = bgwSR.MaxVal >= 0 ? bgwSR.MaxVal : 0;
 				progressBar.Value = 0;
@@ -60,12 +60,12 @@ namespace RomVaultX {
 				return;
 			}
 
-			if (e.UserState is bgwText2 bgwT2) {
+			if (e.UserState is BgwText2 bgwT2) {
 				label2.Text = bgwT2.Text;
 				return;
 			}
 
-			if (e.UserState is bgwValue2 bgwV2) {
+			if (e.UserState is BgwValue2 bgwV2) {
 				if ((bgwV2.Value >= progressBar2.Minimum) && (bgwV2.Value <= progressBar2.Maximum)) {
 					progressBar2.Value = bgwV2.Value;
 				}
@@ -73,26 +73,26 @@ namespace RomVaultX {
 				return;
 			}
 
-			if (e.UserState is bgwSetRange2 bgwSR2) {
+			if (e.UserState is BgwSetRange2 bgwSR2) {
 				progressBar2.Minimum = 0;
 				progressBar2.Maximum = bgwSR2.MaxVal >= 0 ? bgwSR2.MaxVal : 0;
 				progressBar2.Value = 0;
 				UpdateStatusText2();
 				return;
 			}
-			if (e.UserState is bgwRange2Visible bgwR2V) {
+			if (e.UserState is BgwRange2Visible bgwR2V) {
 				label2.Visible = bgwR2V.Visible;
 				progressBar2.Visible = bgwR2V.Visible;
 				lbl2Prog.Visible = bgwR2V.Visible;
 				return;
 			}
 
-			if (e.UserState is bgwText3 bgwT3) {
+			if (e.UserState is BgwText3 bgwT3) {
 				label3.Text = bgwT3.Text;
 				return;
 			}
 
-			if (e.UserState is bgwShowError bgwSDE) {
+			if (e.UserState is BgwShowError bgwSDE) {
 				if (!_errorOpen) {
 					_errorOpen = true;
 					ClientSize = new Size(498, 292);
@@ -103,9 +103,9 @@ namespace RomVaultX {
 				ErrorGrid.Rows.Add();
 				var row = ErrorGrid.Rows.Count - 1;
 
-				ErrorGrid.Rows[row].Cells["CError"].Value = bgwSDE.error;
+				ErrorGrid.Rows[row].Cells["CError"].Value = bgwSDE.Error;
 
-				ErrorGrid.Rows[row].Cells["CErrorFile"].Value = bgwSDE.filename;
+				ErrorGrid.Rows[row].Cells["CErrorFile"].Value = bgwSDE.Filename;
 
 				if (row >= 0) {
 					ErrorGrid.FirstDisplayedScrollingRowIndex = row;

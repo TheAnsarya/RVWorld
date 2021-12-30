@@ -5,7 +5,7 @@ using System.Data.SQLite;
 
 namespace RVXCore.DB
 {
-    public class rvGameGridRow
+    public class RvGameGridRow
     {
         private static SQLiteCommand _commandRvGameGridRowRead;
         public int GameId;
@@ -15,7 +15,7 @@ namespace RVXCore.DB
         public int RomTotal;
         public int RomNoDump;
 
-        public static List<rvGameGridRow> ReadGames(int datId)
+        public static List<RvGameGridRow> ReadGames(int datId)
         {
             if (_commandRvGameGridRowRead == null)
             {
@@ -25,14 +25,14 @@ namespace RVXCore.DB
                 _commandRvGameGridRowRead.Parameters.Add(new SQLiteParameter("datId"));
             }
 
-            List<rvGameGridRow> rows = new List<rvGameGridRow>();
+            List<RvGameGridRow> rows = new List<RvGameGridRow>();
             _commandRvGameGridRowRead.Parameters["DatId"].Value = datId;
 
             using (DbDataReader dr = _commandRvGameGridRowRead.ExecuteReader())
             {
                 while (dr.Read())
                 {
-                    rvGameGridRow gridRow = new rvGameGridRow
+                    RvGameGridRow gridRow = new RvGameGridRow
                     {
                         GameId = Convert.ToInt32(dr["GameID"]),
                         Name = dr["name"].ToString(),

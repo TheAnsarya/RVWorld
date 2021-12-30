@@ -55,7 +55,7 @@ namespace ROMVault
         }
 
         // check report, remove games without either rom or disk content, delete reports without any game content
-        public static void scrub()
+        public static void Scrub()
         {
             if (_ro < _rpy) // don't bother unless there is a difference
             {
@@ -155,7 +155,7 @@ namespace ROMVault
             _ts.Close();
             if (scrubIt)
             {
-                scrub();
+                Scrub();
             }
         }
 
@@ -181,7 +181,7 @@ namespace ROMVault
                                 _ts.Close();
                                 if (scrubIt)
                                 {
-                                    scrub();
+                                    Scrub();
                                 }
                             }
 

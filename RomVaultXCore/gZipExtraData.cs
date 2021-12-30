@@ -6,9 +6,9 @@ using System;
 
 namespace RVXCore
 {
-    internal static class gZipExtraData
+    internal static class GZipExtraData
     {
-        public static RvFile fromGZip(string filename, byte[] bytes, ulong compressedSize)
+        public static RvFile FromGZip(string filename, byte[] bytes, ulong compressedSize)
         {
             RvFile retFile = new RvFile
             {

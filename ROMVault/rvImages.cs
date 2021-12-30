@@ -2,7 +2,7 @@
 
 namespace ROMVault
 {
-    public static class rvImages
+    public static class RvImages
     {
         public static Bitmap TickBoxLocked => GetBitmap("TickBoxLocked");
 

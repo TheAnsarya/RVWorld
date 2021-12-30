@@ -16,12 +16,12 @@ namespace ROMVault
             InitializeComponent();
         }
 
-        public void settype(string s)
+        public void Settype(string s)
         {
             textBox1.Text = s;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }

@@ -93,7 +93,7 @@ namespace ROMVault
         public static void ShowErrorForm(string message)
         {
             FrmShowError fshow = new FrmShowError();
-            fshow.settype(message);
+            fshow.Settype(message);
             fshow.ShowDialog();
         }
 

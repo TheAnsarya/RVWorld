@@ -20,7 +20,7 @@ namespace RVXCore.Util
             return retB;
         }
 
-        public static bool bCompare(byte[] b1, byte[] b2)
+        public static bool BCompare(byte[] b1, byte[] b2)
         {
             if ((b1 == null) || (b2 == null))
             {
@@ -43,7 +43,7 @@ namespace RVXCore.Util
             return true;
         }
 
-        public static int iCompare(byte[] b1, byte[] b2)
+        public static int ICompare(byte[] b1, byte[] b2)
         {
             int b1Len = b1 == null ? 0 : b1.Length;
             int b2Len = b2 == null ? 0 : b2.Length;

@@ -29,7 +29,7 @@ namespace Compress.Support.Compression.BZip2 {
     */
 	internal class BZip2Constants {
 
-		public const int baseBlockSize = 100000;
+		public const int BaseBlockSize = 100000;
 		public const int MAX_ALPHA_SIZE = 258;
 		public const int MAX_CODE_LEN = 23;
 		public const int RUNA = 0;

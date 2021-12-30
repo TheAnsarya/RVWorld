@@ -55,7 +55,7 @@
             this.label1.Size = new System.Drawing.Size(178, 16);
             this.label1.TabIndex = 7;
             this.label1.Text = "http://www.romvault.com/";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // pictureBox2
             // 
@@ -66,7 +66,7 @@
             this.pictureBox2.Size = new System.Drawing.Size(144, 29);
             this.pictureBox2.TabIndex = 14;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.pictureBox2.Click += new System.EventHandler(this.PictureBox2_Click);
             // 
             // FrmHelpAbout
             // 

@@ -232,7 +232,7 @@
             // splitDatInfoTree.Panel1
             // 
             this.splitDatInfoTree.Panel1.Controls.Add(this.gbDatInfo);
-            this.splitDatInfoTree.Panel1.Resize += new System.EventHandler(this.splitContainer3_Panel1_Resize);
+            this.splitDatInfoTree.Panel1.Resize += new System.EventHandler(this.SplitContainer3_Panel1_Resize);
             // 
             // splitDatInfoTree.Panel2
             // 
@@ -271,7 +271,7 @@
             this.gbDatInfo.TabIndex = 3;
             this.gbDatInfo.TabStop = false;
             this.gbDatInfo.Text = "Dat Info :";
-            this.gbDatInfo.Resize += new System.EventHandler(this.gbDatInfo_Resize);
+            this.gbDatInfo.Resize += new System.EventHandler(this.GbDatInfo_Resize);
             // 
             // lblDIRomsUnknown
             // 
@@ -514,7 +514,7 @@
             this.splitGameInfoLists.Panel1.Controls.Add(this.chkBoxShowMissing);
             this.splitGameInfoLists.Panel1.Controls.Add(this.chkBoxShowCorrect);
             this.splitGameInfoLists.Panel1.Controls.Add(this.gbSetInfo);
-            this.splitGameInfoLists.Panel1.Resize += new System.EventHandler(this.splitContainer4_Panel1_Resize);
+            this.splitGameInfoLists.Panel1.Resize += new System.EventHandler(this.SplitContainer4_Panel1_Resize);
             // 
             // splitGameInfoLists.Panel2
             // 
@@ -599,7 +599,7 @@
             this.gbSetInfo.TabIndex = 4;
             this.gbSetInfo.TabStop = false;
             this.gbSetInfo.Text = "Game Info :";
-            this.gbSetInfo.Resize += new System.EventHandler(this.gbSetInfo_Resize);
+            this.gbSetInfo.Resize += new System.EventHandler(this.GbSetInfo_Resize);
             // 
             // splitListArt
             // 
@@ -973,7 +973,7 @@
             this.tabArtWork.Size = new System.Drawing.Size(141, 560);
             this.tabArtWork.TabIndex = 0;
             this.tabArtWork.Text = "ArtWork";
-            this.tabArtWork.Resize += new System.EventHandler(this.tabArtWork_Resize);
+            this.tabArtWork.Resize += new System.EventHandler(this.TabArtWork_Resize);
             // 
             // tabScreens
             // 
@@ -986,7 +986,7 @@
             this.tabScreens.Size = new System.Drawing.Size(141, 560);
             this.tabScreens.TabIndex = 1;
             this.tabScreens.Text = "Screens";
-            this.tabScreens.Resize += new System.EventHandler(this.tabScreens_Resize);
+            this.tabScreens.Resize += new System.EventHandler(this.TabScreens_Resize);
             // 
             // tabInfo
             // 
@@ -997,7 +997,7 @@
             this.tabInfo.Size = new System.Drawing.Size(141, 560);
             this.tabInfo.TabIndex = 2;
             this.tabInfo.Text = "Info";
-            this.tabInfo.Resize += new System.EventHandler(this.tabInfo_Resize);
+            this.tabInfo.Resize += new System.EventHandler(this.TabInfo_Resize);
             // 
             // txtInfo
             // 
@@ -1042,7 +1042,7 @@
             this.updateNewDATsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.updateNewDATsToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.updateNewDATsToolStripMenuItem.Text = "Update New DATs";
-            this.updateNewDATsToolStripMenuItem.Click += new System.EventHandler(this.updateNewDATsToolStripMenuItem_Click);
+            this.updateNewDATsToolStripMenuItem.Click += new System.EventHandler(this.UpdateNewDATsToolStripMenuItem_Click);
             // 
             // updateAllDATsToolStripMenuItem
             // 
@@ -1050,7 +1050,7 @@
             this.updateAllDATsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
             this.updateAllDATsToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.updateAllDATsToolStripMenuItem.Text = "Refresh All DATs";
-            this.updateAllDATsToolStripMenuItem.Click += new System.EventHandler(this.updateAllDATsToolStripMenuItem_Click);
+            this.updateAllDATsToolStripMenuItem.Click += new System.EventHandler(this.UpdateAllDATsToolStripMenuItem_Click);
             // 
             // addToSortToolStripMenuItem
             // 
@@ -1158,7 +1158,7 @@
             this.fixDatReportToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.fixDatReportToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.fixDatReportToolStripMenuItem.Text = "Fix Dat Report";
-            this.fixDatReportToolStripMenuItem.Click += new System.EventHandler(this.fixDatReportToolStripMenuItem_Click);
+            this.fixDatReportToolStripMenuItem.Click += new System.EventHandler(this.FixDatReportToolStripMenuItem_Click);
             // 
             // fullReportToolStripMenuItem
             // 
@@ -1166,7 +1166,7 @@
             this.fullReportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F9)));
             this.fullReportToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.fullReportToolStripMenuItem.Text = "Full Report";
-            this.fullReportToolStripMenuItem.Click += new System.EventHandler(this.fullReportToolStripMenuItem_Click);
+            this.fullReportToolStripMenuItem.Click += new System.EventHandler(this.FullReportToolStripMenuItem_Click);
             // 
             // fixReportToolStripMenuItem
             // 
@@ -1174,7 +1174,7 @@
             this.fixReportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F9)));
             this.fixReportToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.fixReportToolStripMenuItem.Text = "Fix Report";
-            this.fixReportToolStripMenuItem.Click += new System.EventHandler(this.fixReportToolStripMenuItem_Click);
+            this.fixReportToolStripMenuItem.Click += new System.EventHandler(this.FixReportToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -1191,7 +1191,7 @@
             this.colorKeyToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.colorKeyToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.colorKeyToolStripMenuItem.Text = "Color Key";
-            this.colorKeyToolStripMenuItem.Click += new System.EventHandler(this.colorKeyToolStripMenuItem_Click);
+            this.colorKeyToolStripMenuItem.Click += new System.EventHandler(this.ColorKeyToolStripMenuItem_Click);
             // 
             // aboutRomVaultToolStripMenuItem
             // 
@@ -1235,7 +1235,7 @@
             // timer1
             // 
             this.timer1.Interval = 5000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // btnReport
             // 
@@ -1310,7 +1310,7 @@
             this.picPatreon.Size = new System.Drawing.Size(73, 29);
             this.picPatreon.TabIndex = 16;
             this.picPatreon.TabStop = false;
-            this.picPatreon.Click += new System.EventHandler(this.picPatreon_Click);
+            this.picPatreon.Click += new System.EventHandler(this.PicPatreon_Click);
             // 
             // picPayPal
             // 
@@ -1320,7 +1320,7 @@
             this.picPayPal.Size = new System.Drawing.Size(73, 29);
             this.picPayPal.TabIndex = 15;
             this.picPayPal.TabStop = false;
-            this.picPayPal.Click += new System.EventHandler(this.picPayPal_Click);
+            this.picPayPal.Click += new System.EventHandler(this.PicPayPal_Click);
             // 
             // picLogo
             // 

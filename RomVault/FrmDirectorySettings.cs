@@ -177,7 +177,7 @@ namespace ROMVault
             }
         }
 
-        private void btnClearROMLocation_Click(object sender, EventArgs e)
+        private void BtnClearROMLocation_Click(object sender, EventArgs e)
         {
             if (_rule.DirKey == "RomVault")
             {
@@ -385,7 +385,7 @@ namespace ROMVault
             SetDisplay();
         }
 
-        private void chkSingleArchive_CheckedChanged(object sender, EventArgs e)
+        private void ChkSingleArchive_CheckedChanged(object sender, EventArgs e)
         {
             cboDirType.Enabled = chkSingleArchive.Checked;
         }

@@ -133,7 +133,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			var realAllocSize = 1 + allocSize + 4 * N_INDEXES;
 			// adding space for an additional memblock
 			tempMemBlockPos = realAllocSize;
-			realAllocSize += RarMemBlock.size;
+			realAllocSize += RarMemBlock.Size;
 
 			heap = new byte[realAllocSize];
 			heapStart = 1;
@@ -146,7 +146,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			//+   + tempMemBlockPos +   + RarMemBlock.size;
 
 			// Init freeList
-			for (int i = 0, pos = freeListPos; i < freeList.Length; i++, pos += RarNode.size) {
+			for (int i = 0, pos = freeListPos; i < freeList.Length; i++, pos += RarNode.Size) {
 				freeList[i] = new RarNode(heap) {
 					Address = pos
 				};
@@ -334,7 +334,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			}
 		}
 
-		private int sizeOfFreeList() => freeList.Length * RarNode.size;
+		private int sizeOfFreeList() => freeList.Length * RarNode.Size;
 
 		// Debug
 		// public void dumpHeap() {
@@ -375,6 +375,6 @@ namespace Compress.Support.Compression.PPmd.H {
 			buffer.Append("\n]");
 			return buffer.ToString();
 		}
-		static SubAllocator() => UNIT_SIZE = System.Math.Max(PPMContext.size, RarMemBlock.size);
+		static SubAllocator() => UNIT_SIZE = System.Math.Max(PPMContext.size, RarMemBlock.Size);
 	}
 }

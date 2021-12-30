@@ -11,12 +11,12 @@ namespace ROMVault
             splitListArt.Panel2Collapsed = true;
             splitListArt.Panel2.Hide();
 
-            tabArtWork_Resize(null, new EventArgs());
-            tabScreens_Resize(null, new EventArgs());
-            tabInfo_Resize(null, new EventArgs());
+            TabArtWork_Resize(null, new EventArgs());
+            TabScreens_Resize(null, new EventArgs());
+            TabInfo_Resize(null, new EventArgs());
         }
 
-        private void tabArtWork_Resize(object sender, EventArgs e)
+        private void TabArtWork_Resize(object sender, EventArgs e)
         {
             int imageWidth = tabArtWork.Width - 20;
             if (imageWidth < 2)
@@ -35,7 +35,7 @@ namespace ROMVault
             picLogo.Height = (int)(tabArtWork.Height * 0.4);
         }
 
-        private void tabScreens_Resize(object sender, EventArgs e)
+        private void TabScreens_Resize(object sender, EventArgs e)
         {
             int imageWidth = tabScreens.Width - 20;
             if (imageWidth < 2)
@@ -53,7 +53,7 @@ namespace ROMVault
             picScreenShot.Top = (int)(tabScreens.Height * 0.55);
             picScreenShot.Height = (int)(tabScreens.Height * 0.4);
         }
-        private void tabInfo_Resize(object sender, EventArgs e)
+        private void TabInfo_Resize(object sender, EventArgs e)
         {
 
         }

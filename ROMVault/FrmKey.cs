@@ -84,7 +84,7 @@ namespace ROMVault
 
                 Controls.Add(pictureBox);
 
-                Bitmap bm = rvImages.GetBitmap("G_" + displayList[i]);
+                Bitmap bm = RvImages.GetBitmap("G_" + displayList[i]);
                 pictureBox.Image = bm;
 
                 Label label = new Label
