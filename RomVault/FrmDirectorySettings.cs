@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using DATReader.DatClean;
+﻿using DATReader.DatClean;
 using RomVaultCore;
 using RomVaultCore.ReadDat;
 using RomVaultCore.RvDB;
 using RomVaultCore.Utils;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace ROMVault
 {
@@ -50,17 +50,18 @@ namespace ROMVault
 
             tooltip = new ToolTip
             {
-                InitialDelay = 1000, ReshowDelay = 500
+                InitialDelay = 1000,
+                ReshowDelay = 500
             };
             tooltip.AutoPopDelay = 32767;
-            
-            tooltip.SetToolTip(btnSetROMLocation,"Select a new Directory mapping location for this path.");
-            tooltip.SetToolTip(btnClearROMLocation,"Use this to clear the directory mapping.\nThis rule will still apply the archive options and checked options below to the selected directory.");
-            
+
+            tooltip.SetToolTip(btnSetROMLocation, "Select a new Directory mapping location for this path.");
+            tooltip.SetToolTip(btnClearROMLocation, "Use this to clear the directory mapping.\nThis rule will still apply the archive options and checked options below to the selected directory.");
+
             tooltip.SetToolTip(chkFileTypeOverride, "Checking this will force the selected archive type to be used.\nIf unchecked and if the DAT specifies an archive type the DATs archive type will override this setting.");
             tooltip.SetToolTip(chkMergeTypeOverride, "Checking this will force the selected merge type to be used.\nIf unchecked and if the DAT specifies a merge type the DATs merge type will override this setting.");
 
-            tooltip.SetToolTip(chkMultiDatDirOverride,"If two or more DATs share a directory RomVault will automatically\nmake a sub-directory for each DAT so that they do not conflict with each other.\nChecking this will stop sub-directories being automatically added.");
+            tooltip.SetToolTip(chkMultiDatDirOverride, "If two or more DATs share a directory RomVault will automatically\nmake a sub-directory for each DAT so that they do not conflict with each other.\nChecking this will stop sub-directories being automatically added.");
             tooltip.SetToolTip(chkSingleArchive, "Checking this will turn the DATs in these directories into single archives.\n These archives will contain an internal sub-directories for each set in the DATs.\n(Don't use this with 'File' archive type as it will do nothing useful.)");
             tooltip.SetToolTip(chkUseDescription, "For the auto generated directories names & single archive names.\nRomVault will us the 'name' in the header of the DAT,\nChecking this will switch to using the 'description' in the header.\nIf there is no 'description' the 'name' tag will be used.\nIf there is no 'name' tag, the DAT filename will be used.");
         }
@@ -92,10 +93,12 @@ namespace ROMVault
             foreach (DatRule t in Settings.rvSettings.DatRules)
             {
                 if (string.Compare(t.DirKey, dLocation, StringComparison.Ordinal) == 0)
+                {
                     return t;
+                }
             }
 
-            return new DatRule { DirKey = dLocation,IgnoreFiles=new List<string>() };
+            return new DatRule { DirKey = dLocation, IgnoreFiles = new List<string>() };
         }
 
 
@@ -239,7 +242,7 @@ namespace ROMVault
             int i;
             for (i = 0; i < _rule.IgnoreFiles.Count; i++)
             {
-                 _rule.IgnoreFiles[i] = _rule.IgnoreFiles[i].Trim();
+                _rule.IgnoreFiles[i] = _rule.IgnoreFiles[i].Trim();
                 if (string.IsNullOrEmpty(_rule.IgnoreFiles[i]))
                 {
                     _rule.IgnoreFiles.RemoveAt(i);
@@ -263,7 +266,9 @@ namespace ROMVault
             }
 
             if (!updatingRule)
+            {
                 Settings.rvSettings.DatRules.Insert(i, _rule);
+            }
 
             Settings.rvSettings.SetRegExRules();
 
@@ -272,8 +277,9 @@ namespace ROMVault
             DatUpdate.CheckAllDats(DB.DirRoot.Child(0), _rule.DirKey);
 
             if (_displayType)
+            {
                 Close();
-
+            }
         }
         private void BtnDeleteClick(object sender, EventArgs e)
         {
@@ -369,11 +375,13 @@ namespace ROMVault
                     _rule.CompressionOverrideDAT ||
                     _rule.Merge != MergeType.Split ||
                     _rule.MergeOverrideDAT ||
-                    _rule.SubDirType!=RemoveSubType.KeepAllSubDirs ||
+                    _rule.SubDirType != RemoveSubType.KeepAllSubDirs ||
                     _rule.SingleArchive ||
                     _rule.MultiDATDirOverride ||
                     _rule.UseDescriptionAsDirName)
+                {
                     DatUpdate.CheckAllDats(DB.DirRoot.Child(0), _rule.DirKey);
+                }
             }
 
             Settings.rvSettings.ResetDatRules();

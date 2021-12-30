@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Compress;
+using Compress.gZip;
+using Compress.ZipFile;
+using RVXCore.DB;
+using RVXCore.Util;
+using System;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
-using Compress;
-using Compress.gZip;
-using Compress.Support.Utils;
-using Compress.ZipFile;
-using RVXCore.DB;
-using RVXCore.Util;
 using FileStream = RVIO.FileStream;
 
 namespace RVXCore
@@ -20,12 +19,15 @@ namespace RVXCore
         public static void extract(string dirName, string outPath)
         {
             if (CommandFindRomsInGame == null)
+            {
                 CommandFindRomsInGame = new SQLiteCommand(
                     @"SELECT
                     ROM.RomId, ROM.name, FILES.size, FILES.compressedsize, FILES.crc, FILES.sha1
                  FROM ROM,FILES WHERE ROM.FileId=FILES.FileId AND ROM.GameId=@GameId AND ROM.PutInZip ORDER BY ROM.RomId", DBSqlite.db.Connection);
+            }
+
             CommandFindRomsInGame.Parameters.Add(new SQLiteParameter("GameId"));
-            
+
             Debug.WriteLine(dirName);
 
             SQLiteCommand getfiles = new SQLiteCommand(@"SELECT dir.FullName,GameId,game.Name FROM dir,dat,game where dat.dirid=dir.dirid and game.datid=dat.datid and dir.fullname like '" + dirName + "%'", DBSqlite.db.Connection);
@@ -82,7 +84,7 @@ namespace RVXCore
                         GZip.ZipFileOpen(strFilename, -1, true);
                         GZip.ZipFileOpenReadStream(0, true, out Stream oStr, out ulong _);
 
-                        StreamCopier.StreamCopy(oStr,zipFs,compressedSize);
+                        StreamCopier.StreamCopy(oStr, zipFs, compressedSize);
 
                         GZip.ZipFileCloseReadStream();
                         GZip.ZipFileClose();

@@ -4,6 +4,12 @@
  *     Copyright 2010                                 *
  ******************************************************/
 
+using RomVaultCore;
+using RomVaultCore.FindFix;
+using RomVaultCore.ReadDat;
+using RomVaultCore.RvDB;
+using RomVaultCore.Scanner;
+using RVIO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,12 +17,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
-using RomVaultCore;
-using RomVaultCore.FindFix;
-using RomVaultCore.ReadDat;
-using RomVaultCore.RvDB;
-using RomVaultCore.Scanner;
-using RVIO;
 
 
 /*
@@ -291,7 +291,9 @@ namespace ROMVault
         {
             // fixes a rendering issue in mono
             if (splitDatInfoTree.Panel1.Width == 0)
+            {
                 return;
+            }
 
             gbDatInfo.Width = splitDatInfoTree.Panel1.Width - gbDatInfo.Left * 2;
         }
@@ -300,11 +302,15 @@ namespace ROMVault
         {
             // fixes a rendering issue in mono
             if (splitGameInfoLists.Panel1.Width == 0)
+            {
                 return;
+            }
 
             int chkLeft = splitGameInfoLists.Panel1.Width - 150;
             if (chkLeft < 430)
+            {
                 chkLeft = 430;
+            }
 
             chkBoxShowCorrect.Left = chkLeft;
             chkBoxShowMissing.Left = chkLeft;
@@ -369,7 +375,9 @@ namespace ROMVault
             _clickedTree = (RvFile)sender;
 
             if (_working)
+            {
                 return;
+            }
 
             Point controLocation = ControlLoc(ctrRvTree);
 
@@ -398,7 +406,9 @@ namespace ROMVault
             Point ret = new Point(c.Left, c.Top);
 
             if (c.Parent == this)
+            {
                 return ret;
+            }
 
             Point pNext = ControlLoc(c.Parent);
             ret.X += pNext.X;
@@ -427,14 +437,18 @@ namespace ROMVault
                 sd.ShowDialog(this);
 
                 if (sd.ChangesMade)
+                {
                     UpdateDats();
+                }
             }
         }
         private void MnuOpenClick(object sender, EventArgs e)
         {
             string tDir = _clickedTree.FullName;
             if (Directory.Exists(tDir))
+            {
                 Process.Start(tDir);
+            }
         }
         private void MnuMakeFixDatClick(object sender, EventArgs e)
         {
@@ -491,7 +505,9 @@ namespace ROMVault
         {
             string tDir = _clickedTree.FullName;
             if (Directory.Exists(tDir))
+            {
                 Process.Start(tDir);
+            }
         }
 
         private void MnuToSortDelete(object sender, EventArgs e)
@@ -526,7 +542,9 @@ namespace ROMVault
 
             _clickedTree.FileStatusSet(FileStatus.PrimaryToSort);
             if (wasCache)
+            {
                 _clickedTree.FileStatusSet(FileStatus.CacheToSort);
+            }
 
             DB.Write();
             ctrRvTree.Refresh();
@@ -563,13 +581,16 @@ namespace ROMVault
             DatUpdate.CheckAllDats(DB.DirRoot.Child(0), @"DatRoot\");
             UpdateDats();
         }
-              
+
 
         private void AddToSortToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
             DialogResult result = folderBrowserDialog1.ShowDialog();
-            if (result != DialogResult.OK) return;
+            if (result != DialogResult.OK)
+            {
+                return;
+            }
 
             RvFile ts = new RvFile(FileType.Dir)
             {
@@ -638,7 +659,9 @@ namespace ROMVault
                 sd.ShowDialog(this);
 
                 if (sd.ChangesMade)
+                {
                     UpdateDats();
+                }
             }
         }
 
@@ -703,7 +726,7 @@ namespace ROMVault
             {
                 DatUpdate.CheckAllDats(DB.DirRoot.Child(0), @"DatRoot\");
             }
-           
+
             UpdateDats();
         }
         private void BtnScanRomsClick(object sender, EventArgs e)
@@ -736,9 +759,9 @@ namespace ROMVault
 
         private void ChkBoxShowCorrectCheckedChanged(object sender, EventArgs e)
         {
-            if (Settings.rvSettings.chkBoxShowCorrect != this.chkBoxShowCorrect.Checked)
+            if (Settings.rvSettings.chkBoxShowCorrect != chkBoxShowCorrect.Checked)
             {
-                Settings.rvSettings.chkBoxShowCorrect = this.chkBoxShowCorrect.Checked;
+                Settings.rvSettings.chkBoxShowCorrect = chkBoxShowCorrect.Checked;
                 Settings.WriteConfig(Settings.rvSettings);
                 DatSetSelected(ctrRvTree.Selected);
             }
@@ -746,9 +769,9 @@ namespace ROMVault
 
         private void ChkBoxShowMissingCheckedChanged(object sender, EventArgs e)
         {
-            if (Settings.rvSettings.chkBoxShowMissing != this.chkBoxShowMissing.Checked)
+            if (Settings.rvSettings.chkBoxShowMissing != chkBoxShowMissing.Checked)
             {
-                Settings.rvSettings.chkBoxShowMissing = this.chkBoxShowMissing.Checked;
+                Settings.rvSettings.chkBoxShowMissing = chkBoxShowMissing.Checked;
                 Settings.WriteConfig(Settings.rvSettings);
                 DatSetSelected(ctrRvTree.Selected);
             }
@@ -756,9 +779,9 @@ namespace ROMVault
 
         private void ChkBoxShowFixedCheckedChanged(object sender, EventArgs e)
         {
-            if (Settings.rvSettings.chkBoxShowFixed != this.chkBoxShowFixed.Checked)
+            if (Settings.rvSettings.chkBoxShowFixed != chkBoxShowFixed.Checked)
             {
-                Settings.rvSettings.chkBoxShowFixed = this.chkBoxShowFixed.Checked;
+                Settings.rvSettings.chkBoxShowFixed = chkBoxShowFixed.Checked;
                 Settings.WriteConfig(Settings.rvSettings);
                 DatSetSelected(ctrRvTree.Selected);
             }
@@ -766,9 +789,9 @@ namespace ROMVault
 
         private void ChkBoxShowMergedCheckedChanged(object sender, EventArgs e)
         {
-            if (Settings.rvSettings.chkBoxShowMerged != this.chkBoxShowMerged.Checked)
+            if (Settings.rvSettings.chkBoxShowMerged != chkBoxShowMerged.Checked)
             {
-                Settings.rvSettings.chkBoxShowMerged = this.chkBoxShowMerged.Checked;
+                Settings.rvSettings.chkBoxShowMerged = chkBoxShowMerged.Checked;
                 Settings.WriteConfig(Settings.rvSettings);
                 DatSetSelected(ctrRvTree.Selected);
             }
@@ -784,7 +807,10 @@ namespace ROMVault
         private void TxtFilter_TextChanged(object sender, EventArgs e)
         {
             if (gameGridSource != null)
+            {
                 UpdateGameGrid(gameGridSource);
+            }
+
             txtFilter.Focus();
         }
 
@@ -804,7 +830,7 @@ namespace ROMVault
 
         #region coreFunctions
 
-      
+
         private void UpdateDats()
         {
             // incase the selected tree item(DAT) is removed from the tree in the updated we need to build a parent list and traverse up it until we find a parent item still in the tree.
@@ -830,13 +856,19 @@ namespace ROMVault
             // if the rvFile.Parent is null it have been removed from the tree so remove it from the list.
             // set up until we find a rvFile with a parent.
             while (parents.Count > 1 && parents[0].Parent == null)
+            {
                 parents.RemoveAt(0);
+            }
 
             // did we find a parent
             if (parents.Count > 0)
+            {
                 selected = parents[0];
+            }
             else
+            {
                 selected = null;
+            }
 
             // update the selected tree item, and the game grid view.
             ctrRvTree.SetSelected(selected);
@@ -874,7 +906,9 @@ namespace ROMVault
         private void ScanRomsClosed(object sender, FormClosedEventArgs e)
         {
             if (!_multiFixing)
+            {
                 return;
+            }
 
             if (frmScanRoms.Cancelled)
             {
@@ -901,7 +935,9 @@ namespace ROMVault
         private void FindFixsClosed(object sender, FormClosedEventArgs e)
         {
             if (!_multiFixing)
+            {
                 return;
+            }
 
             if (frmFindFixs.Cancelled)
             {
@@ -915,7 +951,9 @@ namespace ROMVault
         private void FixFiles()
         {
             if (frmFixFiles != null)
+            {
                 frmFixFiles.Dispose();
+            }
 
             frmFixFiles = new FrmProgressWindowFix(this, Finish);
             Start();
@@ -975,7 +1013,10 @@ namespace ROMVault
             ctrRvTree.Refresh();
             UpdateGameGrid();
             if (ctrRvTree.Selected != null)
+            {
                 UpdateDatMetaData(ctrRvTree.Selected);
+            }
+
             GameGrid.Refresh();
         }
 
@@ -1012,7 +1053,9 @@ namespace ROMVault
                 lblDITDate.Text = tDat.GetData(RvDat.DatData.Date);
                 string header = tDat.GetData(RvDat.DatData.Header);
                 if (!string.IsNullOrWhiteSpace(header))
+                {
                     lblDITName.Text += " (" + header + ")";
+                }
             }
             else if (tDir.DirDatCount == 1)
             {
@@ -1024,7 +1067,9 @@ namespace ROMVault
                 lblDITDate.Text = tDat.GetData(RvDat.DatData.Date);
                 string header = tDat.GetData(RvDat.DatData.Header);
                 if (!string.IsNullOrWhiteSpace(header))
+                {
                     lblDITName.Text += " (" + header + ")";
+                }
             }
             else
             {

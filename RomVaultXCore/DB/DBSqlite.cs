@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RVIO;
+using System;
 using System.ComponentModel;
 using System.Data.Common;
 using System.Data.SQLite;
-using RVIO;
 
 namespace RVXCore.DB
 {

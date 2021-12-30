@@ -1,11 +1,11 @@
-﻿using System;
+﻿using RVXCore;
+using RVXCore.DB;
+using RVXCore.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using RVXCore;
-using RVXCore.DB;
-using RVXCore.Util;
 
 namespace RomVaultX
 {
@@ -24,7 +24,7 @@ namespace RomVaultX
         private float _scaleFactorY = 1;
 
         private FolderBrowserDialog sortDir;
-        
+
         public frmMain()
         {
             InitializeComponent();
@@ -185,12 +185,18 @@ namespace RomVaultX
         private void extractFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DirTree.Selected == null)
+            {
                 return;
+            }
 
             using (FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog())
             {
                 DialogResult result = folderBrowserDialog1.ShowDialog();
-                if (result != DialogResult.OK) return;
+                if (result != DialogResult.OK)
+                {
+                    return;
+                }
+
                 string outPath = folderBrowserDialog1.SelectedPath;
 
                 ExtractFiles.extract(DirTree.Selected.TRow.dirFullName, outPath);
@@ -200,7 +206,9 @@ namespace RomVaultX
         private void fixDatsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DirTree.Selected == null)
+            {
                 return;
+            }
 
             using (SaveFileDialog openFileDialog = new SaveFileDialog())
             {
@@ -209,9 +217,11 @@ namespace RomVaultX
                 string outPath = openFileDialog.FileName;
 
                 if (string.IsNullOrWhiteSpace(outPath))
+                {
                     return;
+                }
 
-                FixDatList.extract(DirTree.Selected.TRow.dirFullName,outPath);
+                FixDatList.extract(DirTree.Selected.TRow.dirFullName, outPath);
             }
         }
 

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Compress.ZipFile;
+using RVXCore.DB;
+using RVXCore.Util;
+using System;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Diagnostics;
-using Compress.ZipFile;
-using RVXCore.DB;
-using RVXCore.Util;
 
 namespace RVXCore
 {
@@ -19,12 +19,12 @@ namespace RVXCore
         {
             SetupSQLCommands();
 
-             DBSqlite.db.ExecuteNonQuery(@"update game set dirid=(select dirId from DAT where game.Datid=dat.datid) where dirid is null;");
+            DBSqlite.db.ExecuteNonQuery(@"update game set dirid=(select dirId from DAT where game.Datid=dat.datid) where dirid is null;");
 
             using (DbDataReader drGame = ZipSetGetAllGames())
             {
                 int commitCount = 0;
-                 DBSqlite.db.Begin();
+                DBSqlite.db.Begin();
 
                 while (drGame.Read())
                 {
@@ -71,13 +71,13 @@ namespace RVXCore
 
                     if (commitCount >= 100)
                     {
-                         DBSqlite.db.Commit();
-                         DBSqlite.db.Begin();
+                        DBSqlite.db.Commit();
+                        DBSqlite.db.Begin();
                         commitCount = 0;
                     }
                 }
             }
-             DBSqlite.db.Commit();
+            DBSqlite.db.Commit();
 
             //MessageBox.Show("Zip Header Database Update Complete");
         }
@@ -90,13 +90,13 @@ namespace RVXCore
                 return;
             }
 
-            CommandGetAllGamesWithRoms = new SQLiteCommand(@"SELECT GameId,name FROM game WHERE RomGot>0 AND ZipFileLength is null",  DBSqlite.db.Connection);
+            CommandGetAllGamesWithRoms = new SQLiteCommand(@"SELECT GameId,name FROM game WHERE RomGot>0 AND ZipFileLength is null", DBSqlite.db.Connection);
 
 
             CommandFindRomsInGame = new SQLiteCommand(
                 @"SELECT
                     ROM.RomId, ROM.name, FILES.size, FILES.compressedsize, FILES.crc,FILES.sha1
-                 FROM ROM,FILES WHERE ROM.FileId=FILES.FileId AND ROM.GameId=@GameId AND ROM.PutInZip ORDER BY ROM.RomId",  DBSqlite.db.Connection);
+                 FROM ROM,FILES WHERE ROM.FileId=FILES.FileId AND ROM.GameId=@GameId AND ROM.PutInZip ORDER BY ROM.RomId", DBSqlite.db.Connection);
             CommandFindRomsInGame.Parameters.Add(new SQLiteParameter("GameId"));
 
             CommandWriteLocalHeaderToRom = new SQLiteCommand(
@@ -107,7 +107,7 @@ namespace RVXCore
                     LocalFileSha1=@localFileSha1,
                     LocalFileCompressedSize=@localFileCompressedSize
                 WHERE
-                    RomId=@romID",  DBSqlite.db.Connection);
+                    RomId=@romID", DBSqlite.db.Connection);
             CommandWriteLocalHeaderToRom.Parameters.Add(new SQLiteParameter("localFileHeader"));
             CommandWriteLocalHeaderToRom.Parameters.Add(new SQLiteParameter("localFileHeaderOffset"));
             CommandWriteLocalHeaderToRom.Parameters.Add(new SQLiteParameter("localFileHeaderLength"));
@@ -126,7 +126,7 @@ namespace RVXCore
                     CentralDirectoryOffset=@centralDirectoryOffset,
                     CentralDirectoryLength=@centralDirectoryLength
                 WHERE
-                    GameId=@gameID",  DBSqlite.db.Connection);
+                    GameId=@gameID", DBSqlite.db.Connection);
             CommandWriteCentralDirToGame.Parameters.Add(new SQLiteParameter("zipFileLength"));
             CommandWriteCentralDirToGame.Parameters.Add(new SQLiteParameter("zipFileTimeStamp"));
             CommandWriteCentralDirToGame.Parameters.Add(new SQLiteParameter("centralDirectory"));

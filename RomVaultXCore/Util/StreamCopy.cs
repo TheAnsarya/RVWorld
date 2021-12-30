@@ -10,7 +10,9 @@ namespace RVXCore.Util
         public static void StreamCopy(Stream sIn, Stream sOut, ulong size)
         {
             if (buffer == null)
+            {
                 buffer = new byte[bufferSize];
+            }
 
             ulong sizetogo = size;
             while (sizetogo > 0)

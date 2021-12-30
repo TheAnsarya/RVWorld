@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RVXCore.Util;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
-using RVXCore.Util;
 
 namespace RVXCore.DB
 {
@@ -30,13 +30,13 @@ namespace RVXCore.DB
         public bool ExtraDir;
         public string Path;
         public long DatTimeStamp;
-        
+
         public List<RvGame> Games;
 
 
         public static void CreateTable()
         {
-             DBSqlite.db.ExecuteNonQuery(@"
+            DBSqlite.db.ExecuteNonQuery(@"
                  CREATE TABLE IF NOT EXISTS [DAT] (
                     [DatId] INTEGER  PRIMARY KEY NOT NULL,
                     [DirId] INTEGER  NOT NULL,
@@ -71,7 +71,7 @@ namespace RVXCore.DB
             {
                 _commandRvDatRead = new SQLiteCommand(@"
                 SELECT DirId,Filename,name,rootdir,description,category,version,date,author,email,homepage,url,comment,mergetype
-                FROM DAT WHERE DatId=@datId ORDER BY Filename",  DBSqlite.db.Connection);
+                FROM DAT WHERE DatId=@datId ORDER BY Filename", DBSqlite.db.Connection);
                 _commandRvDatRead.Parameters.Add(new SQLiteParameter("datId"));
             }
 
@@ -115,7 +115,7 @@ namespace RVXCore.DB
                 INSERT INTO DAT ( DirId, Filename, name, rootdir, description, category, version, date, author, email, homepage, url, comment, MergeType, Path, DatTimeStamp,ExtraDir)
                 VALUES          (@DirId,@Filename,@name,@rootdir,@description,@category,@version,@date,@author,@email,@homepage,@url,@comment,@MergeType,@Path, @DatTimeStamp,@ExtraDir);
 
-                SELECT last_insert_rowid();",  DBSqlite.db.Connection);
+                SELECT last_insert_rowid();", DBSqlite.db.Connection);
 
                 _commandRvDatWrite.Parameters.Add(new SQLiteParameter("DirId"));
                 _commandRvDatWrite.Parameters.Add(new SQLiteParameter("Filename"));
@@ -209,7 +209,7 @@ namespace RVXCore.DB
             //Binary chop to find the closest match
             while ((intBottom < intTop) && (intRes != 0))
             {
-                intMid = (intBottom + intTop)/2;
+                intMid = (intBottom + intTop) / 2;
 
                 intRes = VarFix.CompareName(lGameName, Games[intMid].Name);
                 if (intRes < 0)

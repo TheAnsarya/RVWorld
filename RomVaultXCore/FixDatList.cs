@@ -1,11 +1,11 @@
-﻿using System;
+﻿using RVXCore.DB;
+using RVXCore.Util;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
-using RVXCore.DB;
-using RVXCore.Util;
 
 namespace RVXCore
 {
@@ -25,7 +25,7 @@ namespace RVXCore
         }
 
 
-        public static void extract(string dirName,string datFilename)
+        public static void extract(string dirName, string datFilename)
         {
             Debug.WriteLine(dirName);
 
@@ -39,7 +39,7 @@ namespace RVXCore
                     order by dir.FullName,GAME.Name,ROM.RomId", DBSqlite.db.Connection);
 
             DbDataReader reader = getfiles.ExecuteReader();
-            
+
             StreamWriter _ts = new StreamWriter(datFilename);
 
             _ts.WriteLine("<?xml version=\"1.0\"?>");
@@ -63,7 +63,7 @@ namespace RVXCore
                 string filename = reader["FullName"].ToString();
                 filename = filename.Substring(dirName.Length);
                 string GameName = reader["GameName"].ToString();
-                
+
                 string RomName = reader["RomName"].ToString();
                 ulong? size = reader["size"].Equals(DBNull.Value) ? (ulong?)null : Convert.ToUInt64(reader["size"]);
                 byte[] CRC = VarFix.CleanMD5SHA1(reader["crc"].ToString(), 8);
@@ -75,20 +75,24 @@ namespace RVXCore
                 string strSHA1 = sha1 != null ? $" sha1=\"{VarFix.ToString(sha1)}\"" : "";
                 string strMD5 = md5 != null ? $" md5=\"{VarFix.ToString(md5)}\"" : "";
 
-                
+
                 if (matchingcrc.Contains(strCRC))
+                {
                     continue;
+                }
 
                 matchingcrc.Add(strCRC);
-                
+
 
                 string thisFilename = filename + GameName;
                 if (thisFilename != lastname)
                 {
                     if (!string.IsNullOrEmpty(lastname))
+                    {
                         _ts.WriteLine($"\t</game>");
+                    }
 
-                    _ts.WriteLine($"\t<game name=\"{Etxt(thisFilename.Replace('\\','-').Replace('/','-'))}\">");
+                    _ts.WriteLine($"\t<game name=\"{Etxt(thisFilename.Replace('\\', '-').Replace('/', '-'))}\">");
                     _ts.WriteLine($"\t\t<description>{Etxt(thisFilename.Replace('\\', '-').Replace('/', '-'))}</description>");
                     lastname = thisFilename;
                 }
@@ -96,9 +100,9 @@ namespace RVXCore
 
             }
             if (!string.IsNullOrEmpty(lastname))
+            {
                 _ts.WriteLine($"\t</game>");
-
-
+            }
 
             _ts.WriteLine($"</datafile>");
             _ts.Flush();

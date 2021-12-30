@@ -3,10 +3,6 @@ using RVIO;
 using RVXCore.DB;
 using RVXCore.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RVXCore
 {
@@ -14,18 +10,22 @@ namespace RVXCore
     {
         public static RvFile fromGZip(string filename, byte[] bytes, ulong compressedSize)
         {
-            RvFile retFile = new RvFile();
-            retFile.CompressedSize = compressedSize;
+            RvFile retFile = new RvFile
+            {
+                CompressedSize = compressedSize,
 
-            retFile.SHA1 = VarFix.CleanMD5SHA1(Path.GetFileNameWithoutExtension(filename), 40);
-            retFile.MD5 = new byte[16];
+                SHA1 = VarFix.CleanMD5SHA1(Path.GetFileNameWithoutExtension(filename), 40),
+                MD5 = new byte[16]
+            };
             Array.Copy(bytes, 0, retFile.MD5, 0, 16);
             retFile.CRC = new byte[4];
             Array.Copy(bytes, 16, retFile.CRC, 0, 4);
             retFile.Size = BitConverter.ToUInt64(bytes, 20);
 
             if (bytes.Length == 28)
+            {
                 return retFile;
+            }
 
             retFile.AltType = (HeaderFileType)bytes[28];
             retFile.AltMD5 = new byte[16];
@@ -51,7 +51,9 @@ namespace RVXCore
             Array.Copy(BitConverter.GetBytes(gFile.Size), 0, retData, 20, 8);
 
             if (!alt)
+            {
                 return retData;
+            }
 
             retData[28] = (byte)gFile.AltType;
             Array.Copy(gFile.AltMD5, 0, retData, 29, 16);

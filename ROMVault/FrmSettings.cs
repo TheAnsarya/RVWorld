@@ -4,11 +4,11 @@
  *     Copyright 2020                                 *
  ******************************************************/
 
+using RomVaultCore;
+using RomVaultCore.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using RomVaultCore;
-using RomVaultCore.Utils;
 
 namespace ROMVault
 {

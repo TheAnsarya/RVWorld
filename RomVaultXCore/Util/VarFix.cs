@@ -1,6 +1,6 @@
-﻿using System;
+﻿using FileHeaderReader;
+using System;
 using System.Xml;
-using FileHeaderReader;
 
 namespace RVXCore.Util
 {

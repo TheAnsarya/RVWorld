@@ -2,153 +2,125 @@
 using System.IO;
 using Compress.Support.Compression.RangeCoder;
 
-namespace Compress.Support.Compression.PPmd
-{
-    public class PpmdStream : Stream
-    {
-        private PpmdProperties properties;
-        private Stream stream;
-        private bool compress;
-        private I1.Model model;
-        private H.ModelPPM modelH;
-        private Decoder decoder;
-        private long position = 0;
+namespace Compress.Support.Compression.PPmd {
+	public class PpmdStream : Stream {
+		private readonly PpmdProperties properties;
+		private readonly Stream stream;
+		private readonly bool compress;
+		private readonly I1.Model model;
+		private readonly H.ModelPPM modelH;
+		private readonly Decoder decoder;
+		private long position = 0;
 
-        public PpmdStream(PpmdProperties properties, Stream stream, bool compress)
-        {
-            this.properties = properties;
-            this.stream = stream;
-            this.compress = compress;
+		public PpmdStream(PpmdProperties properties, Stream stream, bool compress) {
+			this.properties = properties;
+			this.stream = stream;
+			this.compress = compress;
 
-            if (properties.Version == PpmdVersion.I1)
-            {
-                model = new I1.Model();
-                if (compress)
-                    model.EncodeStart(properties);
-                else
-                    model.DecodeStart(stream, properties);
-            }
-            if (properties.Version == PpmdVersion.H)
-            {
-                modelH = new H.ModelPPM();
-                if (compress)
-                    throw new NotImplementedException();
-                else
-                    modelH.decodeInit(stream, properties.ModelOrder, properties.AllocatorSize);
-            }
-            if (properties.Version == PpmdVersion.H7z)
-            {
-                modelH = new H.ModelPPM();
-                if (compress)
-                    throw new NotImplementedException();
-                else
-                    modelH.decodeInit(null, properties.ModelOrder, properties.AllocatorSize);
-                decoder = new Decoder();
-                decoder.Init(stream);
-            }
-        }
+			if (properties.Version == PpmdVersion.I1) {
+				model = new I1.Model();
+				if (compress) {
+					model.EncodeStart(properties);
+				} else {
+					model.DecodeStart(stream, properties);
+				}
+			}
+			if (properties.Version == PpmdVersion.H) {
+				modelH = new H.ModelPPM();
+				if (compress) {
+					throw new NotImplementedException();
+				} else {
+					modelH.decodeInit(stream, properties.ModelOrder, properties.AllocatorSize);
+				}
+			}
+			if (properties.Version == PpmdVersion.H7z) {
+				modelH = new H.ModelPPM();
+				if (compress) {
+					throw new NotImplementedException();
+				} else {
+					modelH.decodeInit(null, properties.ModelOrder, properties.AllocatorSize);
+				}
 
-        public override bool CanRead
-        {
-            get { return !compress; }
-        }
+				decoder = new Decoder();
+				decoder.Init(stream);
+			}
+		}
 
-        public override bool CanSeek
-        {
-            get { return false; }
-        }
+		public override bool CanRead => !compress;
 
-        public override bool CanWrite
-        {
-            get { return compress; }
-        }
+		public override bool CanSeek => false;
 
-        public override void Flush()
-        {
-        }
+		public override bool CanWrite => compress;
 
-        protected override void Dispose(bool isDisposing)
-        {
-            if (isDisposing)
-            {
-                if (compress)
-                    model.EncodeBlock(stream, new MemoryStream(), true);
-            }
-            base.Dispose(isDisposing);
-        }
+		public override void Flush() {
+		}
 
-        public override long Length
-        {
-            get { throw new NotImplementedException(); }
-        }
+		protected override void Dispose(bool isDisposing) {
+			if (isDisposing) {
+				if (compress) {
+					model.EncodeBlock(stream, new MemoryStream(), true);
+				}
+			}
+			base.Dispose(isDisposing);
+		}
 
-        public override long Position
-        {
-            get
-            {
-                return position;
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+		public override long Length => throw new NotImplementedException();
 
-        public override int Read(byte[] buffer, int offset, int count)
-        {
-            if (compress)
-                return 0;
-            int size = 0;
-            if (properties.Version == PpmdVersion.I1)
-                size = model.DecodeBlock(stream, buffer, offset, count);
-            if (properties.Version == PpmdVersion.H)
-            {
-                int c;
-                while (size < count && (c = modelH.decodeChar()) >= 0)
-                {
-                    buffer[offset++] = (byte)c;
-                    size++;
-                }
-            }
-            if (properties.Version == PpmdVersion.H7z)
-            {
-                int c;
-                while (size < count && (c = modelH.decodeChar(decoder)) >= 0)
-                {
-                    buffer[offset++] = (byte)c;
-                    size++;
-                }
-            }
-            position += size;
-            return size;
-        }
+		public override long Position {
+			get => position;
+			set => throw new NotImplementedException();
+		}
 
-        public override long Seek(long offset, SeekOrigin origin)
-        {
-            if (origin != SeekOrigin.Current)
-                throw new NotImplementedException();
+		public override int Read(byte[] buffer, int offset, int count) {
+			if (compress) {
+				return 0;
+			}
 
-            byte[] tmpBuff = new byte[1024];
-            long sizeToGo = offset;
-            while (sizeToGo > 0)
-            {
-                int sizenow = sizeToGo > 1024 ? 1024 : (int)sizeToGo;
-                Read(tmpBuff, 0, sizenow);
-                sizeToGo -= sizenow;
-            }
+			var size = 0;
+			if (properties.Version == PpmdVersion.I1) {
+				size = model.DecodeBlock(stream, buffer, offset, count);
+			}
 
-            return offset;
-        }
+			if (properties.Version == PpmdVersion.H) {
+				int c;
+				while (size < count && (c = modelH.decodeChar()) >= 0) {
+					buffer[offset++] = (byte)c;
+					size++;
+				}
+			}
+			if (properties.Version == PpmdVersion.H7z) {
+				int c;
+				while (size < count && (c = modelH.decodeChar(decoder)) >= 0) {
+					buffer[offset++] = (byte)c;
+					size++;
+				}
+			}
+			position += size;
+			return size;
+		}
 
-        public override void SetLength(long value)
-        {
-            throw new NotImplementedException();
-        }
+		public override long Seek(long offset, SeekOrigin origin) {
+			if (origin != SeekOrigin.Current) {
+				throw new NotImplementedException();
+			}
 
-        public override void Write(byte[] buffer, int offset, int count)
-        {
-            if (compress)
-                model.EncodeBlock(stream, new MemoryStream(buffer, offset, count), false);
-        }
-    }
+			var tmpBuff = new byte[1024];
+			var sizeToGo = offset;
+			while (sizeToGo > 0) {
+				var sizenow = sizeToGo > 1024 ? 1024 : (int)sizeToGo;
+				Read(tmpBuff, 0, sizenow);
+				sizeToGo -= sizenow;
+			}
+
+			return offset;
+		}
+
+		public override void SetLength(long value) => throw new NotImplementedException();
+
+		public override void Write(byte[] buffer, int offset, int count) {
+			if (compress) {
+				model.EncodeBlock(stream, new MemoryStream(buffer, offset, count), false);
+			}
+		}
+	}
 }

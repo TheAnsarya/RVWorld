@@ -1,11 +1,11 @@
-﻿using System;
+﻿using RomVaultCore;
+using RomVaultCore.RvDB;
+using RomVaultCore.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using RomVaultCore;
-using RomVaultCore.RvDB;
-using RomVaultCore.Utils;
 
 namespace ROMVault
 {
@@ -117,7 +117,7 @@ namespace ROMVault
             }
         }
 
-        public static void MakeFixFiles(RvFile root=null, bool scrubIt = true)
+        public static void MakeFixFiles(RvFile root = null, bool scrubIt = true)
         {
             _tDat = null;
             _ts = null;
@@ -139,7 +139,9 @@ namespace ROMVault
             _tDat = null;
 
             if (root == null)
+            {
                 root = DB.DirRoot.Child(0);
+            }
 
             MakeFixFilesRecurse(root, true, scrubIt);
 
@@ -212,7 +214,7 @@ namespace ROMVault
                             {
                                 _ts.WriteLine("\t\t<description>fix_" + Etxt(description) + "</description>");
                             }
-                            
+
                             _ts.WriteLine("\t\t<category>FIXDATFILE</category>");
                             _ts.WriteLine("\t\t<version>" + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + "</version>");
                             _ts.WriteLine("\t\t<date>" + DateTime.Now.ToString("MM/dd/yyyy") + "</date>");
@@ -223,7 +225,9 @@ namespace ROMVault
 
                         string gamename = tDir.SuperDatFileName();
                         if (tDir.FileType == FileType.Zip || tDir.FileType == FileType.SevenZip)
+                        {
                             gamename = Path.GetFileNameWithoutExtension(gamename);
+                        }
 
                         _ts.WriteLine("\t<game name=\"" + Etxt(gamename) + "\">");
                         if (!string.IsNullOrEmpty(tDir.Game.GetData(RvGame.GameData.Description)))

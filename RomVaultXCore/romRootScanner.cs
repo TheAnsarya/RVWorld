@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using Compress;
+﻿using Compress;
 using Compress.gZip;
 using FileHeaderReader;
 using RVXCore.DB;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Directory = RVIO.Directory;
 using DirectoryInfo = RVIO.DirectoryInfo;
 using File = RVIO.File;
@@ -25,7 +24,9 @@ namespace RVXCore
             _bgw = sender as BackgroundWorker;
 
             for (int i = 0; i < 256; i++)
+            {
                 ScanRomRoot(RomRootDir.GetRootDir((byte)i));
+            }
 
             DatUpdate.UpdateGotTotal();
             _bgw.ReportProgress(0, new bgwText("Scanning Files Complete"));
@@ -42,7 +43,9 @@ namespace RVXCore
             {
                 ScanRomRoot(RomRootDir.GetRootDir((byte)i));
                 if (_bgw.CancellationPending)
+                {
                     break;
+                }
             }
 
             DatUpdate.UpdateGotTotal();
@@ -81,7 +84,10 @@ namespace RVXCore
                     {
                         _bgw.ReportProgress(0, new bgwShowError(f.FullName, "gz File corrupt"));
                         if (!Directory.Exists("corrupt"))
+                        {
                             Directory.CreateDirectory("corrupt");
+                        }
+
                         File.Move(f.FullName, Path.Combine("corrupt", f.Name));
                         continue;
                     }
@@ -114,7 +120,10 @@ namespace RVXCore
                                 gZipTest.ZipFileClose();
                                 _bgw.ReportProgress(0, new bgwShowError(f.FullName, "gz Crashed Compression"));
                                 if (!Directory.Exists("corrupt"))
+                                {
                                     Directory.CreateDirectory("corrupt");
+                                }
+
                                 File.Move(f.FullName, Path.Combine("corrupt", f.Name));
                                 continue;
                             }
@@ -123,7 +132,10 @@ namespace RVXCore
                             {
                                 _bgw.ReportProgress(0, new bgwShowError(f.FullName, "gz File corrupt"));
                                 if (!Directory.Exists("corrupt"))
+                                {
                                     Directory.CreateDirectory("corrupt");
+                                }
+
                                 File.Move(f.FullName, Path.Combine("corrupt", f.Name));
                                 continue;
                             }

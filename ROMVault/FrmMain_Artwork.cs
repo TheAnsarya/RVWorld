@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RomVaultCore.RvDB;
+using System;
 using System.IO;
-using RomVaultCore.RvDB;
 
 namespace ROMVault
 {
@@ -21,7 +21,9 @@ namespace ROMVault
         {
             int imageWidth = tabArtWork.Width - 20;
             if (imageWidth < 2)
+            {
                 imageWidth = 2;
+            }
 
             picArtwork.Left = 10;
             picArtwork.Width = imageWidth;
@@ -38,7 +40,9 @@ namespace ROMVault
         {
             int imageWidth = tabScreens.Width - 20;
             if (imageWidth < 2)
+            {
                 imageWidth = 2;
+            }
 
             picScreenTitle.Left = 10;
             picScreenTitle.Width = imageWidth;
@@ -68,7 +72,10 @@ namespace ROMVault
             foreach (string p in path)
             {
                 if (fExtra.ChildNameSearch(new RvFile(FileType.Dir) { Name = p }, out int pIndex) != 0)
+                {
                     return;
+                }
+
                 fExtra = fExtra.Child(pIndex);
             }
 
@@ -120,9 +127,20 @@ namespace ROMVault
             }
 
 
-            if (artLoaded || logoLoaded) TabEmuArc.TabPages.Add(tabArtWork);
-            if (titleLoaded || screenLoaded) TabEmuArc.TabPages.Add(tabScreens);
-            if (storyLoaded) TabEmuArc.TabPages.Add(tabInfo);
+            if (artLoaded || logoLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabArtWork);
+            }
+
+            if (titleLoaded || screenLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabScreens);
+            }
+
+            if (storyLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabInfo);
+            }
 
             if (artLoaded || logoLoaded || titleLoaded || screenLoaded || storyLoaded)
             {
@@ -150,7 +168,10 @@ namespace ROMVault
             foreach (string p in path)
             {
                 if (fExtra.ChildNameSearch(new RvFile(FileType.Dir) { Name = p }, out int pIndex) != 0)
+                {
                     return;
+                }
+
                 fExtra = fExtra.Child(pIndex);
             }
 
@@ -183,9 +204,20 @@ namespace ROMVault
                 screenLoaded = picScreenShot.TryLoadImage(fExtra.Child(index), fname);
             }
 
-            if (artLoaded || logoLoaded) TabEmuArc.TabPages.Add(tabArtWork);
-            if (titleLoaded || screenLoaded) TabEmuArc.TabPages.Add(tabScreens);
-            if (storyLoaded) TabEmuArc.TabPages.Add(tabInfo);
+            if (artLoaded || logoLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabArtWork);
+            }
+
+            if (titleLoaded || screenLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabScreens);
+            }
+
+            if (storyLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabInfo);
+            }
 
             if (artLoaded || logoLoaded || titleLoaded || screenLoaded || storyLoaded)
             {
@@ -226,9 +258,20 @@ namespace ROMVault
             bool screenLoaded = picScreenShot.TryLoadImage(tGame, "screenshot");
             bool storyLoaded = txtInfo.LoadText(tGame, "story.txt");
 
-            if (artLoaded || logoLoaded) TabEmuArc.TabPages.Add(tabArtWork);
-            if (titleLoaded || screenLoaded) TabEmuArc.TabPages.Add(tabScreens);
-            if (storyLoaded) TabEmuArc.TabPages.Add(tabInfo);
+            if (artLoaded || logoLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabArtWork);
+            }
+
+            if (titleLoaded || screenLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabScreens);
+            }
+
+            if (storyLoaded)
+            {
+                TabEmuArc.TabPages.Add(tabInfo);
+            }
 
             if (artLoaded || logoLoaded || titleLoaded || screenLoaded || storyLoaded)
             {

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ROMVault.RVServices;
+using RomVaultCore;
+using System;
 using System.Reflection;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ROMVault.RVServices;
-using RomVaultCore;
 
 namespace ROMVault
 {
@@ -20,9 +20,11 @@ namespace ROMVault
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            BasicHttpBinding b = new BasicHttpBinding();
-            b.SendTimeout = new TimeSpan(0, 0, 10);
-            b.ReceiveTimeout = new TimeSpan(0, 0, 10);
+            BasicHttpBinding b = new BasicHttpBinding
+            {
+                SendTimeout = new TimeSpan(0, 0, 10),
+                ReceiveTimeout = new TimeSpan(0, 0, 10)
+            };
             EndpointAddress e = new EndpointAddress(@"http://services.romvault.com/RVService.svc");
             RVServiceClient s = new RVServiceClient(b, e);
 
@@ -55,7 +57,7 @@ namespace ROMVault
                 ReportError.vMinor = Version.Minor;
                 ReportError.vBuild = Version.Build;
 
-                var taskUpdateCheck = s.UpdateCheckAsync(Version.Major, Version.Minor, Version.Build);
+                Task<bool> taskUpdateCheck = s.UpdateCheckAsync(Version.Major, Version.Minor, Version.Build);
                 taskUpdateCheck.Wait();
                 bool v = taskUpdateCheck.Result;
 

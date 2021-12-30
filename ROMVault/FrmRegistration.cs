@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RomVaultCore;
+using System;
 using System.Windows.Forms;
-using RomVaultCore;
 
 namespace ROMVault
 {
@@ -19,7 +19,7 @@ namespace ROMVault
             UISettings.Username = txtName.Text;
             UISettings.EMail = txtEmail.Text;
             UISettings.OptOut = chkBoxOptOut.Checked;
-            
+
             ReportError.Username = UISettings.Username;
             ReportError.EMail = UISettings.EMail;
             ReportError.OptOut = UISettings.OptOut;

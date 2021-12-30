@@ -9,7 +9,7 @@ namespace RVXCore
         public static ShowError ErrorForm;
 
         public static void UnhandledExceptionHandler(Exception e)
-        {       
+        {
             try
             {
                 // Create Error Message

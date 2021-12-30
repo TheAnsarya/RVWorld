@@ -3,37 +3,32 @@ using System.Diagnostics;
 using System.Text;
 using Compress.Support.Utils;
 
-namespace Compress.ZipFile
-{
-    internal static class ZipExtraField
-    {
-        public static ZipReturn ReadExtraField(byte[] extraField, byte[] bFileName,
-            LocalFile lf, ref ulong compressedSize, ref ulong relativeOffsetOfLocalHeader,
-            bool centralDir)
-        {
-            int extraFieldLength = extraField.Length;
+namespace Compress.ZipFile {
+	internal static class ZipExtraField {
+		public static ZipReturn ReadExtraField(byte[] extraField, byte[] bFileName,
+			LocalFile lf, ref ulong compressedSize, ref ulong relativeOffsetOfLocalHeader,
+			bool centralDir) {
+			var extraFieldLength = extraField.Length;
 
-            lf.SetStatus(LocalFileStatus.Zip64,false);
-            lf.ModifiedTime = null;
-            lf.AccessedTime = null;
-            lf.CreatedTime = null;
+			lf.SetStatus(LocalFileStatus.Zip64, false);
+			lf.ModifiedTime = null;
+			lf.AccessedTime = null;
+			lf.CreatedTime = null;
 
-            int blockPos = 0;
+			var blockPos = 0;
 
-            // the +4 is added as there must be at least 4 bytes more to read to get the next blocks type and blockLength
-            // this is added to handle some incorrectly format extra data fields.
+			// the +4 is added as there must be at least 4 bytes more to read to get the next blocks type and blockLength
+			// this is added to handle some incorrectly format extra data fields.
 
-            while (blockPos <= extraFieldLength - 4)
-            {
-                ushort type = BitConverter.ToUInt16(extraField, blockPos);
-                blockPos += 2;
-                ushort blockLength = BitConverter.ToUInt16(extraField, blockPos);
-                blockPos += 2;
+			while (blockPos <= extraFieldLength - 4) {
+				var type = BitConverter.ToUInt16(extraField, blockPos);
+				blockPos += 2;
+				var blockLength = BitConverter.ToUInt16(extraField, blockPos);
+				blockPos += 2;
 
-                int pos = blockPos;
-                switch (type)
-                {
-                    /*
+				var pos = blockPos;
+				switch (type) {
+					/*
                             -Zip64 Extended Information Extra Field (0x0001):
                             ===============================================
 
@@ -69,35 +64,31 @@ namespace Compress.ZipFile
                             flag is set indicating masking, the value stored in the
                             Local Header for the original file size will be zero.
                     */
-                    case 0x0001:
-                        lf.SetStatus(LocalFileStatus.Zip64);
-                        if (lf.UncompressedSize == 0xffffffff)
-                        {
-                            lf.UncompressedSize = BitConverter.ToUInt64(extraField, pos);
-                            pos += 8;
-                        }
-                        if (compressedSize == 0xffffffff)
-                        {
-                            compressedSize = BitConverter.ToUInt64(extraField, pos);
-                            pos += 8;
-                        }
-                        if (centralDir)
-                        {
-                            if (relativeOffsetOfLocalHeader == 0xffffffff)
-                            {
-                                relativeOffsetOfLocalHeader = BitConverter.ToUInt64(extraField, pos);
-                                pos += 8;
-                            }
-                        }
-                        break;
+					case 0x0001:
+						lf.SetStatus(LocalFileStatus.Zip64);
+						if (lf.UncompressedSize == 0xffffffff) {
+							lf.UncompressedSize = BitConverter.ToUInt64(extraField, pos);
+							pos += 8;
+						}
+						if (compressedSize == 0xffffffff) {
+							compressedSize = BitConverter.ToUInt64(extraField, pos);
+							pos += 8;
+						}
+						if (centralDir) {
+							if (relativeOffsetOfLocalHeader == 0xffffffff) {
+								relativeOffsetOfLocalHeader = BitConverter.ToUInt64(extraField, pos);
+								pos += 8;
+							}
+						}
+						break;
 
 
-                    /* PKWARE's authenticity verification */
-                    case 0x0007: // Not Needed
-                        break;
+					/* PKWARE's authenticity verification */
+					case 0x0007: // Not Needed
+						break;
 
 
-                    /*
+					/*
                               -PKWARE Win95/WinNT Extra Field (0x000a):
                               =======================================
 
@@ -150,31 +141,31 @@ namespace Compress.ZipFile
                               ================
                               WinRar only write this to the central Directory
                     */
-                    case 0x000a:
-                        pos += 4; // Reserved      Long        for future use
-                        int tag1 = BitConverter.ToInt16(extraField, pos); // Tag1          Short       NTFS attribute tag value #1
-                        pos += 2;
-                        int size1 = BitConverter.ToInt16(extraField, pos); // Size1         Short       Size of attribute #1, in bytes
-                        pos += 2;
-                        if (tag1 == 0x0001 && size1 == 24
-                        ) // (currently only one set of attributes is defined for NTFS)
-                        {
-                            lf.ModifiedTime = CompressUtils.UtcTicksFromNtfsDateTime(BitConverter.ToInt64(extraField, pos)); // Mtime      8 bytes    64-bit NTFS file last modification time
-                            pos += 8;
-                            lf.AccessedTime = CompressUtils.UtcTicksFromNtfsDateTime(BitConverter.ToInt64(extraField, pos)); // Atime      8 bytes    64-bit NTFS file last access time
-                            pos += 8;
-                            lf.CreatedTime = CompressUtils.UtcTicksFromNtfsDateTime(BitConverter.ToInt64(extraField, pos)); // Ctime      8 bytes    64-bit NTFS file creation time
-                            pos += 8;
+					case 0x000a:
+						pos += 4; // Reserved      Long        for future use
+						int tag1 = BitConverter.ToInt16(extraField, pos); // Tag1          Short       NTFS attribute tag value #1
+						pos += 2;
+						int size1 = BitConverter.ToInt16(extraField, pos); // Size1         Short       Size of attribute #1, in bytes
+						pos += 2;
+						if (tag1 == 0x0001 && size1 == 24
+						) // (currently only one set of attributes is defined for NTFS)
+						{
+							lf.ModifiedTime = CompressUtils.UtcTicksFromNtfsDateTime(BitConverter.ToInt64(extraField, pos)); // Mtime      8 bytes    64-bit NTFS file last modification time
+							pos += 8;
+							lf.AccessedTime = CompressUtils.UtcTicksFromNtfsDateTime(BitConverter.ToInt64(extraField, pos)); // Atime      8 bytes    64-bit NTFS file last access time
+							pos += 8;
+							lf.CreatedTime = CompressUtils.UtcTicksFromNtfsDateTime(BitConverter.ToInt64(extraField, pos)); // Ctime      8 bytes    64-bit NTFS file creation time
+							pos += 8;
 
-                            Debug.WriteLine("modtime = " + new DateTime((long)lf.ModifiedTime));
-                            Debug.WriteLine("Acctime = " + new DateTime((long)lf.AccessedTime));
-                            Debug.WriteLine("Cretime = " + new DateTime((long)lf.CreatedTime));
-                        }
+							Debug.WriteLine("modtime = " + new DateTime((long)lf.ModifiedTime));
+							Debug.WriteLine("Acctime = " + new DateTime((long)lf.AccessedTime));
+							Debug.WriteLine("Cretime = " + new DateTime((long)lf.CreatedTime));
+						}
 
-                        break;
+						break;
 
 
-                    /*
+					/*
                               -Windows NT Security Descriptor Extra Field (0x4453):
                               ===================================================
 
@@ -212,11 +203,11 @@ namespace Compress.ZipFile
                               format.
 
                     */
-                    case 0x4453: // Not Needed
-                        break;
+					case 0x4453: // Not Needed
+						break;
 
 
-                    /*
+					/*
                              -FWKCS MD5 Extra Field (0x4b46):
                               ==============================
 
@@ -257,11 +248,11 @@ namespace Compress.ZipFile
                                   public domain for review and possible adoption as a
                                   standard."
                     */
-                    case 0x4B46: // Not Needed
-                        break;
+					case 0x4B46: // Not Needed
+						break;
 
 
-                    /*
+					/*
                              -Extended Timestamp Extra Field:
                               ==============================
 
@@ -318,37 +309,33 @@ namespace Compress.ZipFile
                               (1 + 4*(number of set bits in Flags)), as the block is currently
                               defined.  Other timestamps may be added in the future.
                     */
-                    case 0x5455:
-                        byte flags = extraField[pos];
-                        pos += 1;
-                        if ((flags & 1) == 1)
-                        {
-                            lf.ModifiedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // (ModTime)     Long        time of last modification (UTC/GMT)
-                            Debug.WriteLine("Umodtime = " + new DateTime((long)lf.ModifiedTime));
-                            pos += 4;
-                        }
+					case 0x5455:
+						var flags = extraField[pos];
+						pos += 1;
+						if ((flags & 1) == 1) {
+							lf.ModifiedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // (ModTime)     Long        time of last modification (UTC/GMT)
+							Debug.WriteLine("Umodtime = " + new DateTime((long)lf.ModifiedTime));
+							pos += 4;
+						}
 
-                        if (!centralDir)
-                        {
-                            if ((flags & 2) == 2)
-                            {
-                                lf.AccessedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // (AcTime)      Long        time of last access (UTC/GMT)
-                                Debug.WriteLine("UAcctime = " + new DateTime((long)lf.AccessedTime));
-                                pos += 4;
-                            }
+						if (!centralDir) {
+							if ((flags & 2) == 2) {
+								lf.AccessedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // (AcTime)      Long        time of last access (UTC/GMT)
+								Debug.WriteLine("UAcctime = " + new DateTime((long)lf.AccessedTime));
+								pos += 4;
+							}
 
-                            if ((flags & 4) == 4)
-                            {
-                                lf.CreatedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // (CrTime)      Long        time of original creation (UTC/GMT)
-                                Debug.WriteLine("UCretime = " + new DateTime((long)lf.CreatedTime));
-                                pos += 4;
-                            }
-                        }
+							if ((flags & 4) == 4) {
+								lf.CreatedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // (CrTime)      Long        time of original creation (UTC/GMT)
+								Debug.WriteLine("UCretime = " + new DateTime((long)lf.CreatedTime));
+								pos += 4;
+							}
+						}
 
-                        break;
+						break;
 
 
-                    /*
+					/*
                              -Info-ZIP Unix Extra Field (type 1):
                               ==================================
 
@@ -414,17 +401,17 @@ namespace Compress.ZipFile
                                   archive, any "Unix1" extra field blocks should be converted to
                                   the new "time" and/or "Unix2" types.
                     */
-                    case 0x5855:
-                        lf.AccessedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // AcTime        Long        time of last access (UTC/GMT)
-                        Debug.WriteLine("UAcctime = " + new DateTime((long)lf.AccessedTime));
-                        pos += 4;
-                        lf.ModifiedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // ModTime       Long        time of last modification (UTC/GMT)
-                        Debug.WriteLine("Umodtime = " + new DateTime((long)lf.ModifiedTime));
-                        pos += 4;
-                        break;
+					case 0x5855:
+						lf.AccessedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // AcTime        Long        time of last access (UTC/GMT)
+						Debug.WriteLine("UAcctime = " + new DateTime((long)lf.AccessedTime));
+						pos += 4;
+						lf.ModifiedTime = CompressUtils.UtcTicksFromUnixDateTime(BitConverter.ToInt32(extraField, pos)); // ModTime       Long        time of last modification (UTC/GMT)
+						Debug.WriteLine("Umodtime = " + new DateTime((long)lf.ModifiedTime));
+						pos += 4;
+						break;
 
 
-                    /*
+					/*
                              -Info-ZIP Unicode Path Extra Field:
                               =================================
 
@@ -486,26 +473,25 @@ namespace Compress.ZipFile
                                  the standard name field was changed by some non-"up"-aware
                                  utility without synchronizing this UTF-8 name e.f. block.
                     */
-                    case 0x7075:
-                        byte version = extraField[pos];
-                        pos += 1;
-                        uint nameCRC32 = BitConverter.ToUInt32(extraField, pos);
-                        pos += 4;
+					case 0x7075:
+						var version = extraField[pos];
+						pos += 1;
+						var nameCRC32 = BitConverter.ToUInt32(extraField, pos);
+						pos += 4;
 
-                        CRC crcTest = new();
-                        crcTest.SlurpBlock(bFileName, 0, bFileName.Length);
-                        uint fCRC = crcTest.Crc32ResultU;
+						CRC crcTest = new();
+						crcTest.SlurpBlock(bFileName, 0, bFileName.Length);
+						var fCRC = crcTest.Crc32ResultU;
 
-                        if (nameCRC32 == fCRC)
-                        {
-                            int charLen = blockLength - 5;
-                            lf.Filename = Encoding.UTF8.GetString(extraField, pos, charLen);
-                        }
+						if (nameCRC32 == fCRC) {
+							var charLen = blockLength - 5;
+							lf.Filename = Encoding.UTF8.GetString(extraField, pos, charLen);
+						}
 
-                        break;
+						break;
 
 
-                    /*
+					/*
                              -Info-ZIP UNIX Extra Field (type 2):
                               ==================================
 
@@ -537,11 +523,11 @@ namespace Compress.ZipFile
                               machine, and they generally require root access to restore.
 
                     */
-                    case 0x7855: // Not Needed
-                        break;
+					case 0x7855: // Not Needed
+						break;
 
 
-                    /*
+					/*
                              -Info-ZIP New Unix Extra Field:
                               ====================================
 
@@ -577,25 +563,25 @@ namespace Compress.ZipFile
                               and this extra field are present, the values in this extra field
                               supercede the values in that extra field.
                     */
-                    case 0x7875: // Not Needed
-                        break;
+					case 0x7875: // Not Needed
+						break;
 
 
 
-                    /*      UNKNOWN    */
-                    case 0xe57a:
-                        break;
+					/*      UNKNOWN    */
+					case 0xe57a:
+						break;
 
 
-                    default:
-                        break;
-                }
+					default:
+						break;
+				}
 
-                blockPos += blockLength;
+				blockPos += blockLength;
 
-            }
+			}
 
-            return ZipReturn.ZipGood;
-        }
-    }
+			return ZipReturn.ZipGood;
+		}
+	}
 }

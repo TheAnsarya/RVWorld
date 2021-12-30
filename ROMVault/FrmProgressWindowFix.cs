@@ -4,13 +4,13 @@
  *     Copyright 2020                                 *
  ******************************************************/
 
+using RomVaultCore;
+using RomVaultCore.FixFile;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using RomVaultCore;
-using RomVaultCore.FixFile;
 
 namespace ROMVault
 {
@@ -71,7 +71,10 @@ namespace ROMVault
             int tmpRowCount = _rowCount;
 
             if (_rowDisplay == tmpRowCount || tmpRowCount == 0)
+            {
                 return;
+            }
+
             dataGridView1.RowCount = tmpRowCount;
             _rowDisplay = tmpRowCount;
             dataGridView1.FirstDisplayedScrollingRowIndex = tmpRowCount - 1;
@@ -102,7 +105,9 @@ namespace ROMVault
             }
 
             if (_pageDisplay[rowIndex][8] == null)
+            {
                 return;
+            }
 
             e.CellStyle.BackColor = Color.Red;
             e.CellStyle.ForeColor = Color.Black;

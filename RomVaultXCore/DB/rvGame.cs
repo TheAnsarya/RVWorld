@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RVXCore.Util;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
-using RVXCore.Util;
 
 namespace RVXCore.DB
 {
@@ -46,7 +46,7 @@ namespace RVXCore.DB
 
         public static void CreateTable()
         {
-             DBSqlite.db.ExecuteNonQuery(@"
+            DBSqlite.db.ExecuteNonQuery(@"
                  CREATE TABLE IF NOT EXISTS [GAME] (
                     [GameId] INTEGER  PRIMARY KEY NOT NULL,
                     [DatId] INTEGER NOT NULL,
@@ -96,7 +96,7 @@ namespace RVXCore.DB
             {
                 _commandRvGameRead = new SQLiteCommand(@"
                 SELECT GameId, DatId, name, description, manufacturer, cloneof, romof, sourcefile, isbios, board, year, istrurip, publisher, developer, edition, version, type, media, language, players, ratings, genre, peripheral, barcode, mediacatalognumber
-                    FROM GAME WHERE GameId=@GameId ORDER BY name",  DBSqlite.db.Connection);
+                    FROM GAME WHERE GameId=@GameId ORDER BY name", DBSqlite.db.Connection);
                 _commandRvGameRead.Parameters.Add(new SQLiteParameter("GameId"));
             }
 
@@ -124,7 +124,7 @@ namespace RVXCore.DB
             {
                 _commandRvGameReadDatGames = new SQLiteCommand(@"
                 SELECT GameId, DatId, name, description, manufacturer, cloneof, romof, sourcefile, isbios, board, year, istrurip, publisher, developer, edition, version, type, media, language, players, ratings, genre, peripheral, barcode, mediacatalognumber
-                    FROM GAME WHERE DatId=@DatId ORDER BY name",  DBSqlite.db.Connection);
+                    FROM GAME WHERE DatId=@DatId ORDER BY name", DBSqlite.db.Connection);
                 _commandRvGameReadDatGames.Parameters.Add(new SQLiteParameter("DatId"));
             }
 
@@ -190,7 +190,7 @@ namespace RVXCore.DB
                 INSERT INTO GAME ( DatId, name, description, manufacturer, cloneof, romof, sourcefile, isbios, board, year, istrurip, publisher, developer, edition, version, type, media, language, players, ratings, genre, peripheral, barcode, mediacatalognumber)
                           VALUES (@DatId,@Name,@Description,@Manufacturer,@CloneOf,@RomOf,@SourceFile,@IsBios,@Board,@Year,@IsTrurip,@Publisher,@Developer,@Edition,@Version,@Type,@Media,@Language,@Players,@Ratings,@Genre,@Peripheral,@BarCode,@MediaCatalogNumber);
 
-                SELECT last_insert_rowid();",  DBSqlite.db.Connection);
+                SELECT last_insert_rowid();", DBSqlite.db.Connection);
 
                 _commandRvGameWrite.Parameters.Add(new SQLiteParameter("DatId")); //DatId;
                 _commandRvGameWrite.Parameters.Add(new SQLiteParameter("Name")); //Name;
@@ -291,7 +291,7 @@ namespace RVXCore.DB
             //Binary chop to find the closest match
             while ((intBottom < intTop) && (intRes != 0))
             {
-                intMid = (intBottom + intTop)/2;
+                intMid = (intBottom + intTop) / 2;
 
                 intRes = VarFix.CompareName(lRomName, Roms[intMid].Name);
                 if (intRes < 0)

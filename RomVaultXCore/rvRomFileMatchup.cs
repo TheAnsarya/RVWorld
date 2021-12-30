@@ -1,7 +1,7 @@
-﻿using System;
-using System.Data.SQLite;
-using RVXCore.DB;
+﻿using RVXCore.DB;
 using RVXCore.Util;
+using System;
+using System.Data.SQLite;
 
 namespace RVXCore
 {
@@ -50,7 +50,7 @@ namespace RVXCore
             {
                 _commandFindInFiles = new SQLiteCommand(@"
                     SELECT COUNT(1) FROM FILES WHERE
-                        size=@size AND crc=@CRC and sha1=@SHA1 and md5=@MD5",  DBSqlite.db.Connection);
+                        size=@size AND crc=@CRC and sha1=@SHA1 and md5=@MD5", DBSqlite.db.Connection);
                 _commandFindInFiles.Parameters.Add(new SQLiteParameter("size"));
                 _commandFindInFiles.Parameters.Add(new SQLiteParameter("crc"));
                 _commandFindInFiles.Parameters.Add(new SQLiteParameter("sha1"));
@@ -81,7 +81,7 @@ namespace RVXCore
                         ( sha1=@SHA1 OR sha1 is NULL ) AND 
                         ( md5=@MD5 OR md5 is NULL) AND
                         ( crc=@CRC OR crc is NULL ) AND
-                        ( size=0 and (status !='nodump' or status is null)) ",  DBSqlite.db.Connection);
+                        ( size=0 and (status !='nodump' or status is null)) ", DBSqlite.db.Connection);
                 _commandFindInRoMsZero.Parameters.Add(new SQLiteParameter("crc"));
                 _commandFindInRoMsZero.Parameters.Add(new SQLiteParameter("sha1"));
                 _commandFindInRoMsZero.Parameters.Add(new SQLiteParameter("md5"));
@@ -110,7 +110,7 @@ namespace RVXCore
                                 ( md5=@MD5 OR md5 is NULL) AND
                                 ( size=@size OR size is NULL )
                         ) 
-                        AS TotalFound",  DBSqlite.db.Connection);
+                        AS TotalFound", DBSqlite.db.Connection);
                 _commandFindInRoMs.Parameters.Add(new SQLiteParameter("size"));
                 _commandFindInRoMs.Parameters.Add(new SQLiteParameter("crc"));
                 _commandFindInRoMs.Parameters.Add(new SQLiteParameter("sha1"));
@@ -180,7 +180,7 @@ namespace RVXCore
                                 ( md5=@MD5 OR md5 is NULL) AND
                                 ( size=@size OR size is NULL )
                         ) 
-                        AS TotalFound",  DBSqlite.db.Connection);
+                        AS TotalFound", DBSqlite.db.Connection);
                 _commandFindInRoMsAlt.Parameters.Add(new SQLiteParameter("type"));
                 _commandFindInRoMsAlt.Parameters.Add(new SQLiteParameter("size"));
                 _commandFindInRoMsAlt.Parameters.Add(new SQLiteParameter("crc"));
@@ -271,7 +271,7 @@ namespace RVXCore
 	                    ( md5  is NULL OR md5  = @md5  ) AND 
 	                    ( size is NULL OR size = @Size ) AND
                         FileId IS NULL;
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
                 _commandRvFileUpdateRom.Parameters.Add(new SQLiteParameter("FileId"));
                 _commandRvFileUpdateRom.Parameters.Add(new SQLiteParameter("size"));
                 _commandRvFileUpdateRom.Parameters.Add(new SQLiteParameter("crc"));
@@ -331,7 +331,7 @@ namespace RVXCore
 	                    ( md5  is NULL OR md5  = @md5  ) AND 
 	                    ( size is NULL OR size = @Size ) AND
                         FileId IS NULL;
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
                 _commandRvFileUpdateRomAlt.Parameters.Add(new SQLiteParameter("FileId"));
                 _commandRvFileUpdateRomAlt.Parameters.Add(new SQLiteParameter("type"));
                 _commandRvFileUpdateRomAlt.Parameters.Add(new SQLiteParameter("size"));
@@ -366,7 +366,7 @@ namespace RVXCore
 	                    ( sha1 is NULL OR sha1 = @sha1 ) AND
 	                    ( md5  is NULL OR md5  = @md5  ) AND 
                         FileId IS NULL;
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
                 _commandRvFileUpdateZeroRom.Parameters.Add(new SQLiteParameter("FileId"));
                 _commandRvFileUpdateZeroRom.Parameters.Add(new SQLiteParameter("crc"));
                 _commandRvFileUpdateZeroRom.Parameters.Add(new SQLiteParameter("sha1"));
@@ -405,7 +405,7 @@ namespace RVXCore
 	                                    ( @crc  is NULL OR @crc  = crc  ) AND
 	                                    ( @size is NULL OR @size = Size )
                             limit 1
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
 
                 _commandSHA1.Parameters.Add(new SQLiteParameter("sha1"));
                 _commandSHA1.Parameters.Add(new SQLiteParameter("md5"));
@@ -422,7 +422,7 @@ namespace RVXCore
 	                                    ( @crc  is NULL OR @crc  = altcrc  ) AND
 	                                    ( @size is NULL OR @size = altSize )
                             limit 1
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
 
                 _commandSHA1Alt.Parameters.Add(new SQLiteParameter("alttype"));
                 _commandSHA1Alt.Parameters.Add(new SQLiteParameter("sha1"));
@@ -438,7 +438,7 @@ namespace RVXCore
 	                                    ( @crc  is NULL OR @crc  = crc  ) AND
 	                                    ( @size is NULL OR @size = Size )
                             limit 1
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
 
                 _commandMD5.Parameters.Add(new SQLiteParameter("md5"));
                 _commandMD5.Parameters.Add(new SQLiteParameter("crc"));
@@ -452,7 +452,7 @@ namespace RVXCore
 	                                    ( @crc  is NULL OR @crc  = altcrc  ) AND
 	                                    ( @size is NULL OR @size = altSize )
                             limit 1
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
 
                 _commandMD5Alt.Parameters.Add(new SQLiteParameter("alttype"));
                 _commandMD5Alt.Parameters.Add(new SQLiteParameter("md5"));
@@ -465,7 +465,7 @@ namespace RVXCore
 	                                    (                  @crc  = crc  ) AND
 	                                    ( @size is NULL OR @size = Size )
                             limit 1
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
 
                 _commandCRC.Parameters.Add(new SQLiteParameter("crc"));
                 _commandCRC.Parameters.Add(new SQLiteParameter("size"));
@@ -477,7 +477,7 @@ namespace RVXCore
 	                                    (                  @crc  = altcrc  ) AND
 	                                    ( @size is NULL OR @size = altSize )
                             limit 1
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
 
                 _commandCRCAlt.Parameters.Add(new SQLiteParameter("alttype"));
                 _commandCRCAlt.Parameters.Add(new SQLiteParameter("crc"));
@@ -489,7 +489,7 @@ namespace RVXCore
                             WHERE
 	                                    ( @size = Size )
                             limit 1
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
 
                 _commandSize.Parameters.Add(new SQLiteParameter("size"));
             }

@@ -1,13 +1,12 @@
-﻿using System;
+﻿using FileHeaderReader;
+using RomVaultCore;
+using RomVaultCore.RvDB;
+using RomVaultCore.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using Compress;
-using FileHeaderReader;
-using RomVaultCore;
-using RomVaultCore.RvDB;
-using RomVaultCore.Utils;
 
 namespace ROMVault
 {
@@ -52,7 +51,9 @@ namespace ROMVault
             }
 
             if (romSortIndex != -1)
+            {
                 RomGrid.Columns[romSortIndex].HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
 
             romSortIndex = -1;
             romSortDir = SortOrder.None;
@@ -83,7 +84,9 @@ namespace ROMVault
         private void AddDir(RvFile tGame, string pathAdd, ref List<RvFile> fileList)
         {
             if (tGame == null)
+            {
                 return;
+            }
 
             for (int l = 0; l < tGame.ChildCount; l++)
             {
@@ -209,7 +212,10 @@ namespace ROMVault
                 case eRomGrid.DateModFile:
                     {
                         if (tFile.FileModTimeStamp == 0)
+                        {
                             break;
+                        }
+
                         DateTime tmp = new DateTime(tFile.FileModTimeStamp);
                         e.Value = tmp.ToString("yyyy/MM/dd HH:mm:ss");
                         break;
@@ -226,7 +232,10 @@ namespace ROMVault
 #endif
                 case eRomGrid.ZipIndex:
                     if (tFile.FileType == FileType.ZipFile)
+                    {
                         e.Value = tFile.ZipFileIndex == -1 ? "" : tFile.ZipFileIndex.ToString();
+                    }
+
                     break;
                 case eRomGrid.DupeCount:
                     if (tFile.FileGroup != null)
@@ -275,15 +284,22 @@ namespace ROMVault
         private void RomGridColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (romGrid == null)
+            {
                 return;
+            }
 
             if (RomGrid.Columns[e.ColumnIndex].SortMode == DataGridViewColumnSortMode.NotSortable)
+            {
                 return;
+            }
 
             if (romSortIndex != e.ColumnIndex)
             {
                 if (romSortIndex >= 0)
+                {
                     RomGrid.Columns[romSortIndex].HeaderCell.SortGlyphDirection = SortOrder.None;
+                }
+
                 romSortIndex = e.ColumnIndex;
                 romSortDir = SortOrder.Ascending;
             }
@@ -321,10 +337,16 @@ namespace ROMVault
                     case eRomGrid.Got:   // then by name
                         retVal = x.GotStatus - y.GotStatus;
                         if (retVal != 0)
+                        {
                             break;
+                        }
+
                         retVal = x.RepStatus - y.RepStatus;
                         if (retVal != 0)
+                        {
                             break;
+                        }
+
                         retVal = string.Compare(x.UiDisplayName ?? "", y.UiDisplayName ?? "", StringComparison.Ordinal);
                         break;
                     case eRomGrid.Rom:
@@ -363,10 +385,14 @@ namespace ROMVault
                 }
 
                 if (_sortDir == SortOrder.Descending)
+                {
                     retVal = -retVal;
+                }
 
                 if (retVal == 0 && _colIndex != 1)
+                {
                     retVal = string.Compare(x.UiDisplayName ?? "", y.UiDisplayName ?? "", StringComparison.Ordinal);
+                }
 
                 return retVal;
             }
@@ -377,11 +403,16 @@ namespace ROMVault
         {
             if (e == null || e.Button == MouseButtons.Left)
             {
-                var hitTest = RomGrid.HitTest(e.X, e.Y);
+                DataGridView.HitTestInfo hitTest = RomGrid.HitTest(e.X, e.Y);
                 if (hitTest.ColumnIndex != (int)eRomGrid.DupeCount)
+                {
                     return;
+                }
+
                 if (hitTest.RowIndex < 0)
+                {
                     return;
+                }
 
                 RvFile tFile = romGrid[hitTest.RowIndex];
                 FrmRomInfo fri = new FrmRomInfo();

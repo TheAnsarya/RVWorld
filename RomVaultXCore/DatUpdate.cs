@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.SQLite;
-using DATReader;
+﻿using DATReader;
 using DATReader.DatStore;
 using RVIO;
 using RVXCore.DB;
 using RVXCore.Util;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.SQLite;
 
 namespace RVXCore
 {
@@ -68,22 +68,22 @@ namespace RVXCore
                 if (dropIndex)
                 {
                     _bgw.ReportProgress(0, new bgwText("Removing Indexes"));
-                     DBSqlite.db.DropIndex();
+                    DBSqlite.db.DropIndex();
                 }
 
                 _bgw.ReportProgress(0, new bgwText("Scanning Dats"));
                 _datsProcessed = 0;
 
                 _bgw.ReportProgress(0, new bgwSetRange(_datCount - 1));
-                 DBSqlite.db.Begin();
+                DBSqlite.db.Begin();
                 ScanDirs(dirId, datRoot, "DatRoot");
-                 DBSqlite.db.Commit();
+                DBSqlite.db.Commit();
 
                 _bgw.ReportProgress(0, new bgwText("Removing old DATs"));
                 RemoveNotFoundDATs();
 
                 _bgw.ReportProgress(0, new bgwText("Re-Creating Indexes"));
-                 DBSqlite.db.MakeIndex(_bgw);
+                DBSqlite.db.MakeIndex(_bgw);
 
                 _bgw.ReportProgress(0, new bgwText("Re-calculating DIR Got Totals"));
                 UpdateGotTotal();
@@ -142,7 +142,7 @@ namespace RVXCore
 
         private static void ReadError(string filename, string error)
         {
-            _bgw.ReportProgress(0, new bgwShowError(filename,error));
+            _bgw.ReportProgress(0, new bgwShowError(filename, error));
         }
 
         private static void ReadDat(FileInfo[] fis, string subPath, uint dirId, bool extraDir)
@@ -155,16 +155,16 @@ namespace RVXCore
                 uint? datId = FindDat(subPath, f.Name, f.LastWriteTime, extraDir);
                 if (datId != null)
                 {
-                    SetDatFound((uint) datId);
+                    SetDatFound((uint)datId);
                     continue;
                 }
 
                 _bgw.ReportProgress(0, new bgwText("Dat : " + subPath + @"\" + f.Name));
 
-                if (DatRead.ReadDat(f.FullName,ReadError, out DatHeader dh))
+                if (DatRead.ReadDat(f.FullName, ReadError, out DatHeader dh))
                 //if (DatReader.DatReader.ReadDat(f.FullName, _bgw, out RvDat rvDat))
                 {
-                    RvDat rvDat = ExternalDatConverter.ConvertFromExternalDat(f.FullName,dh);
+                    RvDat rvDat = ExternalDatConverter.ConvertFromExternalDat(f.FullName, dh);
                     uint nextDirId = dirId;
                     if (extraDir)
                     {
@@ -190,11 +190,11 @@ namespace RVXCore
 
                     DatSetCheckCollect(rvDat);
 
-                     DBSqlite.db.Commit();
-                     DBSqlite.db.Begin();
+                    DBSqlite.db.Commit();
+                    DBSqlite.db.Begin();
                     rvDat.DbWrite();
-                     DBSqlite.db.Commit();
-                     DBSqlite.db.Begin();
+                    DBSqlite.db.Commit();
+                    DBSqlite.db.Begin();
                 }
 
                 if (_bgw.CancellationPending)
@@ -204,7 +204,7 @@ namespace RVXCore
             }
         }
 
-        
+
         private static void DatSetRemoveUnneededDirs(RvDat tDat)
         {
             if (tDat.Games == null)
@@ -591,7 +591,7 @@ namespace RVXCore
             }
 
 
-            if (ArrByte.bCompare(tRom.CRC, new byte[] {0, 0, 0, 0}) && (tRom.Size == 0))
+            if (ArrByte.bCompare(tRom.CRC, new byte[] { 0, 0, 0, 0 }) && (tRom.Size == 0))
             {
                 tRom.PutInZip = true;
                 return;
@@ -600,13 +600,13 @@ namespace RVXCore
 
             tRom.PutInZip = true;
         }
-        
+
 
         private static int DatDBCount()
         {
             if (_commandCountDaTs == null)
             {
-                _commandCountDaTs = new SQLiteCommand(@"select count(1) from dat",  DBSqlite.db.Connection);
+                _commandCountDaTs = new SQLiteCommand(@"select count(1) from dat", DBSqlite.db.Connection);
             }
 
             object res = _commandCountDaTs.ExecuteScalar();
@@ -625,7 +625,7 @@ namespace RVXCore
                 _commandClearfoundDirDATs = new SQLiteCommand(@"
                     UPDATE DIR SET Found=0;
                     UPDATE DAT SET Found=0;
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
             }
 
             _commandClearfoundDirDATs.ExecuteNonQuery();
@@ -638,7 +638,7 @@ namespace RVXCore
             {
                 CommandFindDat = new SQLiteCommand(@"
                             SELECT DatId FROM Dat WHERE path=@path AND Filename=@filename AND DatTimeStamp=@DatTimeStamp AND ExtraDir=@ExtraDir
-                    ",  DBSqlite.db.Connection);
+                    ", DBSqlite.db.Connection);
                 CommandFindDat.Parameters.Add(new SQLiteParameter("path"));
                 CommandFindDat.Parameters.Add(new SQLiteParameter("filename"));
                 CommandFindDat.Parameters.Add(new SQLiteParameter("DatTimeStamp"));
@@ -666,7 +666,7 @@ namespace RVXCore
                 CommandSetDatFound = new SQLiteCommand(@"
                         Update Dat SET Found=1 WHERE DatId=@DatId;
                         Update Dir SET Found=1 WHERE DirId=(select DirId from Dat WHERE DatId=@DatId);
-                    ",  DBSqlite.db.Connection);
+                    ", DBSqlite.db.Connection);
                 CommandSetDatFound.Parameters.Add(new SQLiteParameter("DatId"));
             }
 
@@ -696,7 +696,7 @@ namespace RVXCore
                     delete from dat where found=0;
 
                     delete from dir where found=0;
-                ",  DBSqlite.db.Connection);
+                ", DBSqlite.db.Connection);
             }
 
             _commandCleanupNotFoundDaTs.ExecuteNonQuery();
@@ -704,7 +704,7 @@ namespace RVXCore
 
         public static void UpdateGotTotal()
         {
-             DBSqlite.db.ExecuteNonQuery(@"
+            DBSqlite.db.ExecuteNonQuery(@"
 
             UPDATE DIR SET RomTotal=null, ROMGot=null,RomNoDump=null;
 
@@ -723,9 +723,9 @@ namespace RVXCore
                         romNodump=(IFNULL((SELECT SUM(dir1.romNodump) FROM dir AS dir1 WHERE dir1.parentdirid=dir.dirid),0)) + (IFNULL((SELECT SUM(RomNoDump) FROM Dat WHERE dat.dirid=dir.dirid),0))
                     WHERE
                         romtotal IS null AND
-                        (SELECT COUNT(1) FROM dir AS dir1 WHERE dir1.parentdirid=dir.dirid AND dir1.romtotal IS null) = 0;",  DBSqlite.db.Connection);
+                        (SELECT COUNT(1) FROM dir AS dir1 WHERE dir1.parentdirid=dir.dirid AND dir1.romtotal IS null) = 0;", DBSqlite.db.Connection);
 
-            SQLiteCommand sqlNullCount = new SQLiteCommand(@"SELECT COUNT(1) FROM dir WHERE RomTotal IS null",  DBSqlite.db.Connection);
+            SQLiteCommand sqlNullCount = new SQLiteCommand(@"SELECT COUNT(1) FROM dir WHERE RomTotal IS null", DBSqlite.db.Connection);
 
             int nullcount;
             do

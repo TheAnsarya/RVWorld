@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using Compress;
+﻿using Compress;
 using Compress.gZip;
 using Compress.SevenZip;
 using Compress.ZipFile;
 using FileHeaderReader;
 using RVXCore.DB;
 using RVXCore.Util;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using DirectoryInfo = RVIO.DirectoryInfo;
 using FileInfo = RVIO.FileInfo;
 using FileStream = RVIO.FileStream;
@@ -171,7 +171,10 @@ namespace RVXCore
                         if (streamSize <= _inMemorySize)
                         {
                             if (openFile == ZipReturn.ZipTryingToAccessADirectory)
+                            {
                                 continue;
+                            }
+
                             byte[] tmpFile = new byte[streamSize];
                             stream.Read(tmpFile, 0, (int)streamSize);
                             using (Stream memStream = new MemoryStream(tmpFile, false))
@@ -186,7 +189,7 @@ namespace RVXCore
                             ulong sizetogo = streamSize;
                             while (sizetogo > 0)
                             {
-                                int sizenow = sizetogo > (ulong)Buffersize ? Buffersize : (int)sizetogo;
+                                int sizenow = sizetogo > Buffersize ? Buffersize : (int)sizetogo;
                                 stream.Read(Buffer, 0, sizenow);
                                 fs.Write(Buffer, 0, sizenow);
                                 sizetogo -= (ulong)sizenow;

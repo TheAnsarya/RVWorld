@@ -1,0 +1,36 @@
+
+# Ignore working-notes in language percentage calculation
+starfire-five-ui/working-notes/* linguist-vendored
+
+
+# Text files
+*.cmd text eol=crlf
+*.cs text eol=crlf
+*.csproj text eol=crlf
+*.editorconfig text eol=crlf
+*.gitattributes text eol=crlf
+*.gitignore text eol=crlf
+*.html text eol=crlf
+*.js text eol=crlf
+*.json text eol=crlf
+*.md text eol=crlf
+*.scss text eol=crlf
+*.sln text eol=crlf
+*.ts text eol=crlf
+*.tsx text eol=crlf
+*.txt text eol=crlf
+*.user text eol=crlf
+*.yml text eol=crlf
+
+# Text files - Unix
+*.sh text eol=lf
+
+# Binary files
+*.ico binary
+*.jpg binary
+*.pdf binary
+*.png binary
+*.svg binary
+*.ttf binary
+*.woff binary
+*.xcf binary

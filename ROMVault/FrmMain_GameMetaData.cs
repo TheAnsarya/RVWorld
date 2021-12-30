@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RomVaultCore;
+using RomVaultCore.RvDB;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using RomVaultCore;
-using RomVaultCore.RvDB;
 
 namespace ROMVault
 {
@@ -279,28 +279,40 @@ namespace ROMVault
                     foreach (EmulatorInfo ei in Settings.rvSettings.EInfo)
                     {
                         if (path.Length <= 8)
+                        {
                             continue;
+                        }
 
                         if (!string.Equals(path.Substring(8), ei.TreeDir, StringComparison.CurrentCultureIgnoreCase))
+                        {
                             continue;
+                        }
 
                         if (string.IsNullOrWhiteSpace(ei.ExtraPath))
+                        {
                             continue;
+                        }
 
                         if (ei.ExtraPath != null)
                         {
                             found = true;
                             if (ei.ExtraPath.Substring(0, 1) == "%")
+                            {
                                 LoadMameSLPannels(tGame, ei.ExtraPath.Substring(1));
+                            }
                             else
+                            {
                                 LoadMamePannels(tGame, ei.ExtraPath);
+                            }
 
                             break;
                         }
                     }
 
                     if (!found)
+                    {
                         HidePannel();
+                    }
 
                     _labelGameDescription.Visible = true;
                     _textGameDescription.Visible = true;

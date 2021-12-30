@@ -1,9 +1,9 @@
-﻿using System.Drawing;
-using RVXCore;
+﻿using RVXCore;
+using System.Drawing;
 
 namespace RomVaultX
 {
-    public class UITreeRow 
+    public class UITreeRow
     {
         public Rectangle RTree;
         public Rectangle RExpand;

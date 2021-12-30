@@ -4,12 +4,12 @@
  *     Copyright 2020                                 *
  ******************************************************/
 
+using RomVaultCore;
+using RomVaultCore.RvDB;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using RomVaultCore;
-using RomVaultCore.RvDB;
 
 namespace ROMVault
 {
@@ -83,7 +83,9 @@ namespace ROMVault
                 for (int i = 0; i < pTree.DirDatCount; i++)
                 {
                     if (!pTree.DirDat(i).AutoAddedDirectory)
+                    {
                         nodeHeight += 12;
+                    }
                 }
             }
 
@@ -109,15 +111,20 @@ namespace ROMVault
             {
                 RvFile dir = pTree.Child(i);
                 if (!dir.IsDir)
+                {
                     continue;
+                }
 
                 if (dir.Tree == null)
+                {
                     continue;
+                }
 
                 found = true;
                 if (pTree.Tree.TreeExpanded)
+                {
                     last = i;
-
+                }
             }
 
 
@@ -135,18 +142,28 @@ namespace ROMVault
             {
                 RvFile dir = pTree.Child(i);
                 if (!dir.IsDir)
+                {
                     continue;
+                }
 
                 if (dir.Tree == null)
+                {
                     continue;
+                }
 
                 if (!pTree.Tree.TreeExpanded)
+                {
                     continue;
+                }
 
                 if (i != last)
+                {
                     SetupTree(pTree.Child(i), pTreeBranches + "├");
+                }
                 else
+                {
                     SetupTree(pTree.Child(i), pTreeBranches + "└");
+                }
             }
         }
 
@@ -169,13 +186,17 @@ namespace ROMVault
             g.FillRectangle(Brushes.White, e.ClipRectangle);
 
             if (_lTree == null)
+            {
                 return;
+            }
 
             for (int i = 0; i < _lTree.ChildCount; i++)
             {
                 RvFile tDir = _lTree.Child(i);
                 if (!tDir.IsDir)
+                {
                     continue;
+                }
 
                 if (tDir.Tree?.UiObject != null)
                 {
@@ -316,7 +337,10 @@ namespace ROMVault
                             {
                                 string title = pTree.DirDat(i).GetData(RvDat.DatData.Description);
                                 if (string.IsNullOrWhiteSpace(title))
+                                {
                                     title = pTree.DirDat(i).GetData(RvDat.DatData.DatName);
+                                }
+
                                 datList.Add(title);
                             }
                         }
@@ -381,7 +405,9 @@ namespace ROMVault
             }
 
             if (!pTree.Tree.TreeExpanded)
+            {
                 return;
+            }
 
             for (int i = 0; i < pTree.ChildCount; i++)
             {
@@ -417,9 +443,14 @@ namespace ROMVault
                 {
                     RvFile tDir = _lTree.Child(i);
                     if (tDir.Tree == null)
+                    {
                         continue;
+                    }
+
                     if (CheckMouseUp(tDir, x, y, mevent))
+                    {
                         break;
+                    }
                 }
             }
 
@@ -468,9 +499,11 @@ namespace ROMVault
                 {
                     _mousehit = true;
                     if (pTree.FileStatusIs(FileStatus.PrimaryToSort) || pTree.FileStatusIs(FileStatus.CacheToSort))
+                    {
                         return true;
+                    }
 
-                    SetChecked(pTree, RvTreeRow.TreeSelect.Locked,Working,shiftPressed);
+                    SetChecked(pTree, RvTreeRow.TreeSelect.Locked, Working, shiftPressed);
                     return true;
                 }
 
@@ -497,13 +530,17 @@ namespace ROMVault
             }
 
             if (!pTree.Tree.TreeExpanded)
+            {
                 return false;
+            }
 
             for (int i = 0; i < pTree.ChildCount; i++)
             {
                 RvFile rDir = pTree.Child(i);
                 if (!rDir.IsDir || rDir.Tree == null)
+                {
                     continue;
+                }
 
                 if (CheckMouseUp(rDir, x, y, mevent))
                 {
@@ -514,24 +551,34 @@ namespace ROMVault
             return false;
         }
 
-        private static void SetChecked(RvFile pTree, RvTreeRow.TreeSelect nSelection, bool isWorking,bool shiftPressed)
+        private static void SetChecked(RvFile pTree, RvTreeRow.TreeSelect nSelection, bool isWorking, bool shiftPressed)
         {
-            if (!isWorking) RvTreeRow.OpenStream();
-            SetCheckedRecurse(pTree, nSelection, isWorking,shiftPressed);
-            if (!isWorking) RvTreeRow.CloseStream();
+            if (!isWorking)
+            {
+                RvTreeRow.OpenStream();
+            }
+
+            SetCheckedRecurse(pTree, nSelection, isWorking, shiftPressed);
+            if (!isWorking)
+            {
+                RvTreeRow.CloseStream();
+            }
         }
 
-        private static void SetCheckedRecurse(RvFile pTree, RvTreeRow.TreeSelect nSelection, bool isworking,bool shiftPressed)
+        private static void SetCheckedRecurse(RvFile pTree, RvTreeRow.TreeSelect nSelection, bool isworking, bool shiftPressed)
         {
             pTree.Tree.SetChecked(nSelection, isworking);
             if (shiftPressed)
+            {
                 return;
+            }
+
             for (int i = 0; i < pTree.ChildCount; i++)
             {
                 RvFile d = pTree.Child(i);
                 if (d.IsDir && d.Tree != null)
                 {
-                    SetCheckedRecurse(d, nSelection, isworking,false);
+                    SetCheckedRecurse(d, nSelection, isworking, false);
                 }
             }
         }
@@ -543,19 +590,27 @@ namespace ROMVault
                 pTree.Tree.SetTreeExpanded(!pTree.Tree.TreeExpanded, isWorking);
                 return;
             }
-            if (!isWorking) RvTreeRow.OpenStream();
+            if (!isWorking)
+            {
+                RvTreeRow.OpenStream();
+            }
             // Find the value of the first child node.
             for (int i = 0; i < pTree.ChildCount; i++)
             {
                 RvFile d = pTree.Child(i);
                 if (!d.IsDir || d.Tree == null)
+                {
                     continue;
+                }
 
                 //Recusivly Set All Child Nodes to this value
                 SetExpandedRecurse(pTree, !d.Tree.TreeExpanded, isWorking);
                 break;
             }
-            if (!isWorking) RvTreeRow.CloseStream();
+            if (!isWorking)
+            {
+                RvTreeRow.CloseStream();
+            }
         }
 
         private static void SetExpandedRecurse(RvFile pTree, bool expanded, bool isWorking)
@@ -564,7 +619,9 @@ namespace ROMVault
             {
                 RvFile d = pTree.Child(i);
                 if (!d.IsDir || d.Tree == null)
+                {
                     continue;
+                }
 
                 d.Tree.SetTreeExpanded(expanded, isWorking);
                 SetExpandedRecurse(d, expanded, isWorking);

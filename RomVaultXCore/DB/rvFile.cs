@@ -1,7 +1,7 @@
-﻿using System;
-using System.Data.SQLite;
-using FileHeaderReader;
+﻿using FileHeaderReader;
 using RVXCore.Util;
+using System;
+using System.Data.SQLite;
 
 namespace RVXCore.DB
 {
@@ -76,7 +76,7 @@ namespace RVXCore.DB
             _commandRvFileWrite.Parameters["crc"].Value = VarFix.ToDBString(CRC);
             _commandRvFileWrite.Parameters["sha1"].Value = VarFix.ToDBString(SHA1);
             _commandRvFileWrite.Parameters["md5"].Value = VarFix.ToDBString(MD5);
-            _commandRvFileWrite.Parameters["alttype"].Value = (int) AltType;
+            _commandRvFileWrite.Parameters["alttype"].Value = (int)AltType;
             _commandRvFileWrite.Parameters["altsize"].Value = AltSize;
             _commandRvFileWrite.Parameters["altcrc"].Value = VarFix.ToDBString(AltCRC);
             _commandRvFileWrite.Parameters["altsha1"].Value = VarFix.ToDBString(AltSHA1);

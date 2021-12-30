@@ -4,10 +4,10 @@
  *     Copyright 2020                                 *
  ******************************************************/
 
-using System;
-using System.Windows.Forms;
 using RomVaultCore;
 using RomVaultCore.RvDB;
+using System;
+using System.Windows.Forms;
 
 namespace ROMVault
 {
@@ -15,7 +15,7 @@ namespace ROMVault
     {
         private double _opacityIncrement = 0.05;
         private readonly ThreadWorker _thWrk;
-        
+
         public FrmSplashScreen()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace ROMVault
             label1.Text = $@"Registered to : {UISettings.Username}                      Contact Email : {UISettings.EMail}";
 
 
-            _thWrk = new ThreadWorker(StartUpCode) {wReport = BgwProgressChanged, wFinal = BgwRunWorkerCompleted};
+            _thWrk = new ThreadWorker(StartUpCode) { wReport = BgwProgressChanged, wFinal = BgwRunWorkerCompleted };
         }
 
         private void FrmSplashScreenShown(object sender, EventArgs e)

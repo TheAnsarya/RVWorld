@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Compress;
+using RomVaultCore;
+using RomVaultCore.RvDB;
+using RVIO;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Globalization;
 using System.Windows.Forms;
-using Compress;
-using RomVaultCore;
-using RomVaultCore.RvDB;
-using RVIO;
 
 namespace ROMVault
 {
@@ -43,7 +43,10 @@ namespace ROMVault
 
             // clear sorting
             if (gameSortIndex >= 0)
+            {
                 GameGrid.Columns[gameSortIndex].HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
+
             gameSortIndex = 0;
             gameSortDir = SortOrder.Descending;
 
@@ -62,10 +65,12 @@ namespace ROMVault
         private void UpdateGameGrid()
         {
             if (gameGridSource == null)
+            {
                 return;
+            }
 
             _updatingGameGrid = true;
-            
+
             List<RvFile> gameList = new List<RvFile>();
 
             _gameGridColumnXPositions = new int[(int)RepStatus.EndValue];
@@ -145,7 +150,9 @@ namespace ROMVault
             {
                 GameGrid.RowCount = gameGrid.Length;
                 if (GameGrid.RowCount > 0)
+                {
                     GameGrid.Rows[0].Selected = false;
+                }
             }
 
             _updatingGameGrid = false;
@@ -196,10 +203,12 @@ namespace ROMVault
         private void GameGridCellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             if (e.RowIndex >= gameGrid.Length)
+            {
                 return;
+            }
 
             RvFile tRvDir = gameGrid[e.RowIndex];
-            
+
             switch (e.ColumnIndex)
             {
                 case 0: // CType
@@ -379,15 +388,22 @@ namespace ROMVault
         private void GameGridColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (gameGrid == null)
+            {
                 return;
+            }
 
             if (GameGrid.Columns[e.ColumnIndex].SortMode == DataGridViewColumnSortMode.NotSortable)
+            {
                 return;
+            }
 
             if (gameSortIndex != e.ColumnIndex)
             {
                 if (gameSortIndex >= 0)
+                {
                     GameGrid.Columns[gameSortIndex].HeaderCell.SortGlyphDirection = SortOrder.None;
+                }
+
                 gameSortIndex = e.ColumnIndex;
                 gameSortDir = SortOrder.Ascending;
             }
@@ -426,13 +442,22 @@ namespace ROMVault
                     case 0:
                         retVal = x.FileType - y.FileType;
                         if (retVal != 0)
+                        {
                             break;
+                        }
+
                         retVal = y.ZipStatus - x.ZipStatus;
                         if (retVal != 0)
+                        {
                             break;
+                        }
+
                         retVal = x.RepStatus - y.RepStatus;
                         if (retVal != 0)
+                        {
                             break;
+                        }
+
                         retVal = string.Compare(x.Name ?? "", y.Name ?? "", StringComparison.Ordinal);
                         break;
 
@@ -442,12 +467,17 @@ namespace ROMVault
                     case 2:
                         retVal = string.Compare(x.Game?.GetData(RvGame.GameData.Description) ?? "", y.Game?.GetData(RvGame.GameData.Description) ?? "", StringComparison.Ordinal);
                         if (retVal == 0)
+                        {
                             retVal = string.Compare(x.Name ?? "", y.Name ?? "", StringComparison.Ordinal);
+                        }
+
                         break;
                 }
 
                 if (_sortDir == SortOrder.Descending)
+                {
                     retVal = -retVal;
+                }
 
                 return retVal;
             }
@@ -497,7 +527,10 @@ namespace ROMVault
             {
                 RvFile tParent = gameGridSource?.Parent;
                 if (tParent == null)
+                {
                     return;
+                }
+
                 UpdateGameGrid(tParent);
                 ctrRvTree.SetSelected(tParent);
 
@@ -521,31 +554,43 @@ namespace ROMVault
             {
                 string path = tGame.Parent.DatTreeFullName;
                 if (Settings.rvSettings?.EInfo == null)
+                {
                     return;
+                }
 
                 foreach (EmulatorInfo ei in Settings.rvSettings.EInfo)
                 {
                     if (!string.Equals(path.Substring(8), ei.TreeDir, StringComparison.CurrentCultureIgnoreCase))
+                    {
                         continue;
+                    }
 
                     if (string.IsNullOrWhiteSpace(ei.CommandLine))
+                    {
                         continue;
+                    }
 
                     string commandLineOptions = ei.CommandLine;
                     string dirname = tGame.Parent.FullName;
                     if (dirname.StartsWith("RomRoot\\"))
+                    {
                         dirname = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), dirname);
-                   
+                    }
+
                     commandLineOptions = commandLineOptions.Replace("{gamename}", Path.GetFileNameWithoutExtension(tGame.Name));
                     commandLineOptions = commandLineOptions.Replace("{gamefilename}", tGame.Name);
                     commandLineOptions = commandLineOptions.Replace("{gamedirectory}", dirname);
 
                     if (!File.Exists(ei.ExeName))
+                    {
                         continue;
+                    }
 
                     string workingDir = ei.WorkingDirectory;
                     if (string.IsNullOrWhiteSpace(workingDir))
+                    {
                         workingDir = Path.GetDirectoryName(ei.ExeName);
+                    }
 
                     using (Process exeProcess = new Process())
                     {

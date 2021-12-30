@@ -1,9 +1,8 @@
-﻿using System;
+﻿using RVXCore.DB;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
-using System.Drawing;
-using RVXCore.DB;
 
 namespace RVXCore
 {
@@ -50,7 +49,7 @@ namespace RVXCore
                         dat.RomGot,
                         dat.RomNoDump
                     FROM dir LEFT JOIN dat ON dir.DirId=dat.DirId
-                    ORDER BY dir.Fullname,dat.Filename",  DBSqlite.db.Connection);
+                    ORDER BY dir.Fullname,dat.Filename", DBSqlite.db.Connection);
             }
 
             List<RvTreeRow> rows = new List<RvTreeRow>();
@@ -71,7 +70,7 @@ namespace RVXCore
                         dirName = dr["dirname"].ToString(),
                         dirFullName = dr["fullname"].ToString(),
                         Expanded = Convert.ToBoolean(dr["expanded"]),
-                        DatId = dr["DatId"] == DBNull.Value ? null : (uint?) Convert.ToUInt32(dr["DatId"]),
+                        DatId = dr["DatId"] == DBNull.Value ? null : (uint?)Convert.ToUInt32(dr["DatId"]),
                         datName = dr["datname"] == DBNull.Value ? null : dr["datname"].ToString(),
                         description = dr["description"] == DBNull.Value ? null : dr["description"].ToString(),
                         RomTotal = dr["RomTotal"] == DBNull.Value ? Convert.ToInt32(dr["dirRomTotal"]) : Convert.ToInt32(dr["RomTotal"]),
@@ -148,12 +147,14 @@ namespace RVXCore
             }
             value = 1 - value;
 
-            List<uint> todo = new List<uint>();
-            todo.Add(DirId);
+            List<uint> todo = new List<uint>
+            {
+                DirId
+            };
 
             while (todo.Count > 0)
             {
-                UpdateSelectedFromList(todo, (int) value);
+                UpdateSelectedFromList(todo, (int)value);
                 todo = UpdateSelectedGetChildList(todo);
             }
         }
@@ -163,7 +164,7 @@ namespace RVXCore
             if (_commandGetFirstExpanded == null)
             {
                 _commandGetFirstExpanded = new SQLiteCommand(@"
-                SELECT expanded FROM dir WHERE ParentDirId=@DirId ORDER BY fullname LIMIT 1",  DBSqlite.db.Connection);
+                SELECT expanded FROM dir WHERE ParentDirId=@DirId ORDER BY fullname LIMIT 1", DBSqlite.db.Connection);
                 _commandGetFirstExpanded.Parameters.Add(new SQLiteParameter("DirId"));
             }
 
@@ -180,7 +181,7 @@ namespace RVXCore
         private static void UpdateSelectedFromList(List<uint> todo, int value)
         {
             string todoList = string.Join(",", todo);
-            using (DbCommand SetStatus = new SQLiteCommand(@"UPDATE dir SET expanded=" + value + " WHERE ParentDirId in (" + todoList + ")",  DBSqlite.db.Connection))
+            using (DbCommand SetStatus = new SQLiteCommand(@"UPDATE dir SET expanded=" + value + " WHERE ParentDirId in (" + todoList + ")", DBSqlite.db.Connection))
             {
                 SetStatus.ExecuteNonQuery();
             }
@@ -190,7 +191,7 @@ namespace RVXCore
         {
             string todoList = string.Join(",", todo);
             List<uint> retList = new List<uint>();
-            using (DbCommand GetChild = new SQLiteCommand(@"select DirId from dir where ParentDirId in (" + todoList + ")",  DBSqlite.db.Connection))
+            using (DbCommand GetChild = new SQLiteCommand(@"select DirId from dir where ParentDirId in (" + todoList + ")", DBSqlite.db.Connection))
             {
                 using (DbDataReader dr = GetChild.ExecuteReader())
                 {

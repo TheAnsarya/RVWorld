@@ -21,7 +21,7 @@ namespace ROMVault
             Bitmap bm = null;
             if (bmObj != null)
             {
-                bm = (Bitmap) bmObj;
+                bm = (Bitmap)bmObj;
             }
 
             return bm;

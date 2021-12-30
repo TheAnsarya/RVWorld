@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Compress.gZip;
+using DokanNet;
+using RVXCore.DB;
+using RVXCore.Util;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Compress.gZip;
-using DokanNet;
-using RVXCore.DB;
-using RVXCore.Util;
 
 namespace RVXCore
 {
@@ -114,7 +114,7 @@ namespace RVXCore
             // try and find this directory in the DIR table
             string testName = filename.Substring(1) + @"\"; // takes the slash of the front of the string and add one on the end
             Debug.WriteLine("Looking in DIR from  " + testName);
-            using (DbCommand getDirectoryId =  DBSqlite.db.Command(@"
+            using (DbCommand getDirectoryId = DBSqlite.db.Command(@"
                                     SELECT 
                                         DirId,
                                         CreationTime,
@@ -125,7 +125,7 @@ namespace RVXCore
                                     WHERE 
                                         fullname=@FName"))
             {
-                DbParameter pFName =  DBSqlite.db.Parameter("FName", testName);
+                DbParameter pFName = DBSqlite.db.Parameter("FName", testName);
                 getDirectoryId.Parameters.Add(pFName);
 
                 using (DbDataReader reader = getDirectoryId.ExecuteReader())
@@ -208,7 +208,7 @@ namespace RVXCore
             }
 
             string testName = dirName.Substring(1) + @"\";
-            using (DbCommand getDirectoryId =  DBSqlite.db.Command(@"
+            using (DbCommand getDirectoryId = DBSqlite.db.Command(@"
                     SELECT 
                         DirId 
                     FROM
@@ -216,7 +216,7 @@ namespace RVXCore
                     WHERE 
                         Fullname=@FName"))
             {
-                DbParameter pFName =  DBSqlite.db.Parameter("FName", testName);
+                DbParameter pFName = DBSqlite.db.Parameter("FName", testName);
                 getDirectoryId.Parameters.Add(pFName);
 
                 object ret = getDirectoryId.ExecuteScalar();
@@ -230,7 +230,7 @@ namespace RVXCore
 
         private static VFile DBGameFindFile(int dirId, string searchFilename, string realFilename)
         {
-            using (DbCommand getFileInDirectory =  DBSqlite.db.Command(@"
+            using (DbCommand getFileInDirectory = DBSqlite.db.Command(@"
                             SELECT 
                                 GameId, 
                                 ZipFileLength,
@@ -245,9 +245,9 @@ namespace RVXCore
                                 name = @name
                                 "))
             {
-                DbParameter pDirId =  DBSqlite.db.Parameter("DirId", dirId);
+                DbParameter pDirId = DBSqlite.db.Parameter("DirId", dirId);
                 getFileInDirectory.Parameters.Add(pDirId);
-                DbParameter pName =  DBSqlite.db.Parameter("Name", searchFilename.Replace(@"\", @"/"));
+                DbParameter pName = DBSqlite.db.Parameter("Name", searchFilename.Replace(@"\", @"/"));
                 getFileInDirectory.Parameters.Add(pName);
                 using (DbDataReader dr = getFileInDirectory.ExecuteReader())
                 {
@@ -272,7 +272,7 @@ namespace RVXCore
 
         private static VFile DBGameFindDir(int dirId, string searchDirectoryName, string realFilename)
         {
-            using (DbCommand getFileInDirectory =  DBSqlite.db.Command(@"
+            using (DbCommand getFileInDirectory = DBSqlite.db.Command(@"
                             SELECT 
                                 GameId, 
                                 ZipFileLength,
@@ -287,9 +287,9 @@ namespace RVXCore
                                 name Like @name
                             LIMIT 1"))
             {
-                DbParameter pDirId =  DBSqlite.db.Parameter("DirId", dirId);
+                DbParameter pDirId = DBSqlite.db.Parameter("DirId", dirId);
                 getFileInDirectory.Parameters.Add(pDirId);
-                DbParameter pName =  DBSqlite.db.Parameter("Name", searchDirectoryName.Replace(@"\", @"/") + @"/%");
+                DbParameter pName = DBSqlite.db.Parameter("Name", searchDirectoryName.Replace(@"\", @"/") + @"/%");
                 getFileInDirectory.Parameters.Add(pName);
                 using (DbDataReader dr = getFileInDirectory.ExecuteReader())
                 {
@@ -327,7 +327,7 @@ namespace RVXCore
                 // we are not inside a DAT directory structure
 
                 // find any child DIR's from this DIR level
-                using (DbCommand getDirectory =  DBSqlite.db.Command(@"
+                using (DbCommand getDirectory = DBSqlite.db.Command(@"
                     SELECT 
                         DirId,
                         Name,
@@ -339,7 +339,7 @@ namespace RVXCore
                     WHERE 
                         ParentDirId=@DirId"))
                 {
-                    DbParameter pParentDirId =  DBSqlite.db.Parameter("DirId", dirId);
+                    DbParameter pParentDirId = DBSqlite.db.Parameter("DirId", dirId);
                     getDirectory.Parameters.Add(pParentDirId);
                     using (DbDataReader dr = getDirectory.ExecuteReader())
                     {
@@ -366,7 +366,7 @@ namespace RVXCore
                 }
 
                 // find any DB items from top filename level
-                using (DbCommand getFilesInDirectory =  DBSqlite.db.Command(@"
+                using (DbCommand getFilesInDirectory = DBSqlite.db.Command(@"
                         SELECT 
                             GameId, 
                             Name,
@@ -381,7 +381,7 @@ namespace RVXCore
                             ZipFileLength>0 
                             "))
                 {
-                    DbParameter pDirId =  DBSqlite.db.Parameter("DirId", vDir._fileId);
+                    DbParameter pDirId = DBSqlite.db.Parameter("DirId", vDir._fileId);
                     getFilesInDirectory.Parameters.Add(pDirId);
                     using (DbDataReader dr = getFilesInDirectory.ExecuteReader())
                     {
@@ -414,6 +414,7 @@ namespace RVXCore
                                 string zipFilename = filename + ".zip";
                                 bool found = dirs.Any(t => t.FileName == zipFilename);
                                 if (!found)
+                                {
                                     dirs.Add(new VFile
                                     {
                                         IsDirectory = false,
@@ -424,6 +425,7 @@ namespace RVXCore
                                         _lastAccessTime = new DateTime(Convert.ToInt64(dr["LastAccessTime"])),
                                         _lastWriteTime = new DateTime(Convert.ToInt64(dr["LastWriteTime"]))
                                     });
+                                }
                             }
                         }
                     }
@@ -436,7 +438,7 @@ namespace RVXCore
                 string datfilePart = vDir.FileName.Substring(1 + vDir._fileSplitIndex).Replace(@"\", @"/") + @"/";
                 int datfilePartLength = datfilePart.Length;
                 // find any DB items from top filename level
-                using (DbCommand getFilesInDirectory =  DBSqlite.db.Command(@"
+                using (DbCommand getFilesInDirectory = DBSqlite.db.Command(@"
                         SELECT 
                             GameId, 
                             Name,
@@ -452,10 +454,10 @@ namespace RVXCore
                             Name LIKE @dirName
                             "))
                 {
-                    DbParameter pDirName =  DBSqlite.db.Parameter("DirName", datfilePart + "%");
+                    DbParameter pDirName = DBSqlite.db.Parameter("DirName", datfilePart + "%");
                     getFilesInDirectory.Parameters.Add(pDirName);
 
-                    DbParameter pDirId =  DBSqlite.db.Parameter("DirId", vDir._fileId);
+                    DbParameter pDirId = DBSqlite.db.Parameter("DirId", vDir._fileId);
                     getFilesInDirectory.Parameters.Add(pDirId);
                     using (DbDataReader dr = getFilesInDirectory.ExecuteReader())
                     {
@@ -554,7 +556,7 @@ namespace RVXCore
         {
             Files = new List<VZipFile>();
 
-            using (DbCommand getRoms =  DBSqlite.db.Command(
+            using (DbCommand getRoms = DBSqlite.db.Command(
                 @"SELECT
                     LocalFileSha1,
                     LocalFileCompressedSize,
@@ -569,7 +571,7 @@ namespace RVXCore
                  ORDER BY 
                     Rom.RomId"))
             {
-                DbParameter pGameId =  DBSqlite.db.Parameter("GameId", _fileId);
+                DbParameter pGameId = DBSqlite.db.Parameter("GameId", _fileId);
                 getRoms.Parameters.Add(pGameId);
                 using (DbDataReader dr = getRoms.ExecuteReader())
                 {
@@ -592,14 +594,14 @@ namespace RVXCore
 
 
             // the central directory is now added on to the end of the file list, like is another file with zero bytes of compressed data.
-            using (DbCommand getCentralDir =  DBSqlite.db.Command(
+            using (DbCommand getCentralDir = DBSqlite.db.Command(
                 @"select 
                     CentralDirectory, 
                     CentralDirectoryOffset, 
                     CentralDirectoryLength 
                  from game where GameId=@gameId"))
             {
-                DbParameter pGameId =  DBSqlite.db.Parameter("GameId", _fileId);
+                DbParameter pGameId = DBSqlite.db.Parameter("GameId", _fileId);
                 getCentralDir.Parameters.Add(pGameId);
                 using (DbDataReader dr = getCentralDir.ExecuteReader())
                 {

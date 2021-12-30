@@ -21,7 +21,7 @@ namespace RVXCore.DB
             {
                 _commandRvGameGridRowRead = new SQLiteCommand(@"
                     SELECT GameId,Name,Description,RomTotal,RomGot,RomNoDump FROM game WHERE DatId=@datId ORDER BY Name"
-                    ,  DBSqlite.db.Connection);
+                    , DBSqlite.db.Connection);
                 _commandRvGameGridRowRead.Parameters.Add(new SQLiteParameter("datId"));
             }
 

@@ -39,28 +39,34 @@ namespace RVXCore
         {
             DatBase[] datB = datD.ToArray();
             if (datB == null)
+            {
                 return;
+            }
+
             foreach (DatBase b in datB)
             {
                 switch (b)
                 {
                     case DatDir nDir:
                         if (nDir.DGame == null)
+                        {
                             break;
+                        }
 
                         DatGame dGame = nDir.DGame;
-                        RvGame cGame = new RvGame();
-
-                        cGame.Name = b.Name;
-                        cGame.Description = dGame.Description;
-                        cGame.Manufacturer = dGame.Manufacturer;
-                        cGame.CloneOf = dGame.CloneOf;
-                        cGame.RomOf = dGame.RomOf;
-                        cGame.SampleOf = dGame.SampleOf;
-                        cGame.SourceFile = dGame.SourceFile;
-                        cGame.IsBios = dGame.IsBios;
-                        cGame.Board = dGame.Board;
-                        cGame.Year = dGame.Year;
+                        RvGame cGame = new RvGame
+                        {
+                            Name = b.Name,
+                            Description = dGame.Description,
+                            Manufacturer = dGame.Manufacturer,
+                            CloneOf = dGame.CloneOf,
+                            RomOf = dGame.RomOf,
+                            SampleOf = dGame.SampleOf,
+                            SourceFile = dGame.SourceFile,
+                            IsBios = dGame.IsBios,
+                            Board = dGame.Board,
+                            Year = dGame.Year
+                        };
 
                         if (dGame.IsEmuArc)
                         {
@@ -86,7 +92,9 @@ namespace RVXCore
 
                     case DatFile nFile:
                         if (nFile.isDisk)
+                        {
                             break;
+                        }
 
                         RvRom nf = new RvRom()
                         {

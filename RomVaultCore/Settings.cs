@@ -4,263 +4,236 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using DATReader.DatClean;
-using Microsoft.Win32;
 using RomVaultCore.RvDB;
 using File = RVIO.File;
 using Path = RVIO.Path;
 
-namespace RomVaultCore
-{
-    public enum EScanLevel
-    {
-        Level1,
-        Level2,
-        Level3
-    }
+namespace RomVaultCore {
+	public enum EScanLevel {
+		Level1,
+		Level2,
+		Level3
+	}
 
 
-    public enum EFixLevel
-    {
-        Level1,
-        Level2,
-        Level3,
-        //  Level1Old,
-        //  Level2Old,
-        //  Level3Old
-    }
+	public enum EFixLevel {
+		Level1,
+		Level2,
+		Level3,
+		//  Level1Old,
+		//  Level2Old,
+		//  Level3Old
+	}
 
-    public enum MergeType
-    {
-        None,
-        Split,
-        Merge,
-        NonMerged,
-        CHDsMerge
-    }
+	public enum MergeType {
+		None,
+		Split,
+		Merge,
+		NonMerged,
+		CHDsMerge
+	}
 
-    public enum FilterType
-    {
-        KeepAll,
-        RomsOnly,
-        CHDsOnly
-    }
+	public enum FilterType {
+		KeepAll,
+		RomsOnly,
+		CHDsOnly
+	}
 
 
-    public class Settings
-    {
-        public static Settings rvSettings;
-        public static byte[] FCUsername;
+	public class Settings {
+		public static Settings rvSettings;
+		public static byte[] FCUsername;
 
-        public bool FilesOnly = false;
-        public bool zstd = false;
+		public bool FilesOnly = false;
+		public bool zstd = false;
 
-        public string DatRoot;
-        public string CacheFile;
-        public EFixLevel FixLevel;
+		public string DatRoot;
+		public string CacheFile;
+		public EFixLevel FixLevel;
 
-        public List<DatRule> DatRules;
+		public List<DatRule> DatRules;
 
-        public List<string> IgnoreFiles;
+		public List<string> IgnoreFiles;
 
-        [XmlIgnore]
-        public List<Regex> IgnoreFilesRegex;
+		[XmlIgnore]
+		public List<Regex> IgnoreFilesRegex;
 
-        public List<EmulatorInfo> EInfo;
+		public List<EmulatorInfo> EInfo;
 
-        public bool DoubleCheckDelete = true;
-        public bool DebugLogsEnabled;
-        public bool DetailedFixReporting = true;
-        public bool CacheSaveTimerEnabled = true;
-        public int CacheSaveTimePeriod = 10;
+		public bool DoubleCheckDelete = true;
+		public bool DebugLogsEnabled;
+		public bool DetailedFixReporting = true;
+		public bool CacheSaveTimerEnabled = true;
+		public int CacheSaveTimePeriod = 10;
 
-        public bool ConvertToTrrntzip = true;
-        public bool ConvertToRV7Z = false;
+		public bool ConvertToTrrntzip = true;
+		public bool ConvertToRV7Z = false;
 
-        public bool chkBoxShowCorrect = true;
-        public bool chkBoxShowMissing = true;
-        public bool chkBoxShowFixed = true;
-        public bool chkBoxShowMerged = true;
+		public bool chkBoxShowCorrect = true;
+		public bool chkBoxShowMissing = true;
+		public bool chkBoxShowFixed = true;
+		public bool chkBoxShowMerged = true;
 
-        public static bool isLinux
-        {
-            get
-            {
-                int p = (int)Environment.OSVersion.Platform;
-                return p == 4 || p == 6 || p == 128;
-            }
-        }
+		public static bool isLinux {
+			get {
+				var p = (int)Environment.OSVersion.Platform;
+				return p == 4 || p == 6 || p == 128;
+			}
+		}
 
-        public static bool IsMono => Type.GetType("Mono.Runtime") != null;
+		public static bool IsMono => Type.GetType("Mono.Runtime") != null;
 
-        public static Settings SetDefaults()
-        {
-            Settings ret = ReadConfig();
-            if (ret == null)
-            {
-                ret = new Settings
-                {
-                    CacheFile = "RomVault3_" + DBVersion.Version + ".Cache",
-                    DatRoot = "DatRoot",
-                    FixLevel = EFixLevel.Level2,
-                    EInfo = new List<EmulatorInfo>(),
-                    ConvertToTrrntzip = true,
-                    chkBoxShowCorrect = true,
-                    chkBoxShowMissing = true,
-                    chkBoxShowFixed = true,
-                    chkBoxShowMerged = false,
-                    IgnoreFiles = new List<string>()
-                };
-                ret.ResetDatRules();
-            }
+		public static Settings SetDefaults() {
+			var ret = ReadConfig();
+			if (ret == null) {
+				ret = new Settings {
+					CacheFile = "RomVault3_" + DBVersion.Version + ".Cache",
+					DatRoot = "DatRoot",
+					FixLevel = EFixLevel.Level2,
+					EInfo = new List<EmulatorInfo>(),
+					ConvertToTrrntzip = true,
+					chkBoxShowCorrect = true,
+					chkBoxShowMissing = true,
+					chkBoxShowFixed = true,
+					chkBoxShowMerged = false,
+					IgnoreFiles = new List<string>()
+				};
+				ret.ResetDatRules();
+			}
 
-            // check this incase no ignorefiles list was read from the file
-            if (ret.IgnoreFiles == null)
-                ret.IgnoreFiles = new List<string>();
-            
-            // fix old DatRules by adding a dir seprator on the end of the dirpaths
-            foreach (DatRule r in ret.DatRules)
-            {
-                string lastchar = r.DirKey.Substring(r.DirKey.Length - 1);
-                if (lastchar == "\\")
-                    r.DirKey = r.DirKey.Substring(0, r.DirKey.Length - 1);
+			// check this incase no ignorefiles list was read from the file
+			if (ret.IgnoreFiles == null) {
+				ret.IgnoreFiles = new List<string>();
+			}
 
-                if (r.SubDirType == RemoveSubType.RemoveSubIfNameMatches)
-                    r.SubDirType = RemoveSubType.RemoveSubIfSingleFiles;
-            }
-            ret.DatRules.Sort();
+			// fix old DatRules by adding a dir seprator on the end of the dirpaths
+			foreach (var r in ret.DatRules) {
+				var lastchar = r.DirKey.Substring(r.DirKey.Length - 1);
+				if (lastchar == "\\") {
+					r.DirKey = r.DirKey.Substring(0, r.DirKey.Length - 1);
+				}
 
-            ret.SetRegExRules();
-            return ret;
-        }
+				if (r.SubDirType == RemoveSubType.RemoveSubIfNameMatches) {
+					r.SubDirType = RemoveSubType.RemoveSubIfSingleFiles;
+				}
+			}
+			ret.DatRules.Sort();
 
-        public void SetRegExRules()
-        {
-            IgnoreFilesRegex = new List<Regex>();
-            foreach (string str in IgnoreFiles)
-            {
-                IgnoreFilesRegex.Add(WildcardToRegex(str));
-            }
+			ret.SetRegExRules();
+			return ret;
+		}
 
-            foreach (DatRule r in DatRules)
-            {
-                r.IgnoreFilesRegex = new List<Regex>();
-                foreach (string str in r.IgnoreFiles)
-                    r.IgnoreFilesRegex.Add(WildcardToRegex(str));
-            }
-        }
+		public void SetRegExRules() {
+			IgnoreFilesRegex = new List<Regex>();
+			foreach (var str in IgnoreFiles) {
+				IgnoreFilesRegex.Add(WildcardToRegex(str));
+			}
 
-        private static Regex WildcardToRegex(string pattern)
-        {
-            if (pattern.ToLower().StartsWith("regex:"))
-                return new Regex(pattern.Substring(6), RegexOptions.IgnoreCase);
+			foreach (var r in DatRules) {
+				r.IgnoreFilesRegex = new List<Regex>();
+				foreach (var str in r.IgnoreFiles) {
+					r.IgnoreFilesRegex.Add(WildcardToRegex(str));
+				}
+			}
+		}
 
-            return new Regex("^" + Regex.Escape(pattern).
-            Replace("\\*", ".*").
-            Replace("\\?", ".") + "$", RegexOptions.IgnoreCase);
-        }
+		private static Regex WildcardToRegex(string pattern) {
+			if (pattern.ToLower().StartsWith("regex:")) {
+				return new Regex(pattern.Substring(6), RegexOptions.IgnoreCase);
+			}
 
-        public void ResetDatRules()
-        {
-            DatRules = new List<DatRule>
-            {
-                new DatRule
-                {
-                    DirKey = "RomVault",
-                    DirPath="RomRoot",
-                    Compression = FileType.Zip,
-                    CompressionOverrideDAT = false,
-                    Merge = MergeType.None,
-                    MergeOverrideDAT = false,
-                    SingleArchive = false,
-                    MultiDATDirOverride = false,
-                    IgnoreFiles = new List<string>()
-                }
-            };
-        }
+			return new Regex("^" + Regex.Escape(pattern).
+			Replace("\\*", ".*").
+			Replace("\\?", ".") + "$", RegexOptions.IgnoreCase);
+		}
 
-        public static void WriteConfig(Settings settings)
-        {
-            string configPath = Path.Combine(Environment.CurrentDirectory, "RomVault3cfg.xml");
-            if (File.Exists(configPath))
-            {
-                File.Delete(configPath);
-            }
+		public void ResetDatRules() => DatRules = new List<DatRule>
+			{
+				new DatRule
+				{
+					DirKey = "RomVault",
+					DirPath="RomRoot",
+					Compression = FileType.Zip,
+					CompressionOverrideDAT = false,
+					Merge = MergeType.None,
+					MergeOverrideDAT = false,
+					SingleArchive = false,
+					MultiDATDirOverride = false,
+					IgnoreFiles = new List<string>()
+				}
+			};
 
-            using (StreamWriter sw = new StreamWriter(configPath))
-            {
-                XmlSerializer x = new XmlSerializer(typeof(Settings));
-                x.Serialize(sw, settings);
-                sw.Flush();
-            }
-        }
+		public static void WriteConfig(Settings settings) {
+			var configPath = Path.Combine(Environment.CurrentDirectory, "RomVault3cfg.xml");
+			if (File.Exists(configPath)) {
+				File.Delete(configPath);
+			}
 
-        private static Settings ReadConfig()
-        {
-            string configPath = Path.Combine(Environment.CurrentDirectory, "RomVault3cfg.xml");
-            if (!File.Exists(configPath))
-            {
-                Console.WriteLine($"{configPath} not Found");
-                return null;
-            }
-            Console.WriteLine($"Reading {configPath}");
-            string strXml = System.IO.File.ReadAllText(configPath);
+			using (var sw = new StreamWriter(configPath)) {
+				var x = new XmlSerializer(typeof(Settings));
+				x.Serialize(sw, settings);
+				sw.Flush();
+			}
+		}
 
-            // converting old enum to new:
-            strXml = strXml.Replace("TrrntZipLevel", "Level");
+		private static Settings ReadConfig() {
+			var configPath = Path.Combine(Environment.CurrentDirectory, "RomVault3cfg.xml");
+			if (!File.Exists(configPath)) {
+				Console.WriteLine($"{configPath} not Found");
+				return null;
+			}
+			Console.WriteLine($"Reading {configPath}");
+			var strXml = System.IO.File.ReadAllText(configPath);
 
-            Settings retSettings;
-            using (TextReader sr = new StringReader(strXml))
-            {
-                XmlSerializer x = new XmlSerializer(typeof(Settings));
-                retSettings = (Settings)x.Deserialize(sr);
-            }
+			// converting old enum to new:
+			strXml = strXml.Replace("TrrntZipLevel", "Level");
 
-            foreach (var rule in retSettings.DatRules)
-            {
-                if (rule.Merge == MergeType.CHDsMerge)
-                {
-                    rule.Merge = MergeType.Merge;
-                    rule.Filter = FilterType.CHDsOnly;
-                }
-            }
+			Settings retSettings;
+			using (TextReader sr = new StringReader(strXml)) {
+				var x = new XmlSerializer(typeof(Settings));
+				retSettings = (Settings)x.Deserialize(sr);
+			}
 
-            return retSettings;
-        }
-    }
+			foreach (var rule in retSettings.DatRules) {
+				if (rule.Merge == MergeType.CHDsMerge) {
+					rule.Merge = MergeType.Merge;
+					rule.Filter = FilterType.CHDsOnly;
+				}
+			}
 
-    public class DatRule : IComparable<DatRule>
-    {
-        public string DirKey;
-        public string DirPath;
+			return retSettings;
+		}
+	}
 
-        // compression
-        // TZip,7Zip,File
-        public FileType Compression = FileType.Zip;
-        public bool CompressionOverrideDAT;
+	public class DatRule : IComparable<DatRule> {
+		public string DirKey;
+		public string DirPath;
 
-        // Merge Type
-        // split,merge,nonmerged
-        public MergeType Merge;
-        public FilterType Filter;
+		// compression
+		// TZip,7Zip,File
+		public FileType Compression = FileType.Zip;
+		public bool CompressionOverrideDAT;
 
-        public bool MergeOverrideDAT;
+		// Merge Type
+		// split,merge,nonmerged
+		public MergeType Merge;
+		public FilterType Filter;
 
-        public bool SingleArchive;
-        public RemoveSubType SubDirType;
-        public bool MultiDATDirOverride;
-        public bool UseDescriptionAsDirName;
+		public bool MergeOverrideDAT;
 
-        public List<string> IgnoreFiles;
+		public bool SingleArchive;
+		public RemoveSubType SubDirType;
+		public bool MultiDATDirOverride;
+		public bool UseDescriptionAsDirName;
 
-        [XmlIgnore]
-        public List<Regex> IgnoreFilesRegex;
+		public List<string> IgnoreFiles;
+
+		[XmlIgnore]
+		public List<Regex> IgnoreFilesRegex;
 
 
-        public int CompareTo(DatRule obj)
-        {
-            return Math.Sign(string.Compare(DirKey, obj.DirKey, StringComparison.Ordinal));
-        }
+		public int CompareTo(DatRule obj) => Math.Sign(string.Compare(DirKey, obj.DirKey, StringComparison.Ordinal));
 
-    }
+	}
 
 }

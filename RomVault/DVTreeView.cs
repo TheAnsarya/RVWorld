@@ -59,9 +59,15 @@ namespace ROMVault
             {
                 CheckedState tState = SetAllNodeImages(node);
                 if (tState == CheckedState.Checked)
+                {
                     isChecked = true;
+                }
+
                 if (tState == CheckedState.UnChecked)
+                {
                     isUnchecked = true;
+                }
+
                 if (tState == CheckedState.Mixed)
                 {
                     isChecked = true;
@@ -70,11 +76,17 @@ namespace ROMVault
             }
             CheckedState rState;
             if (isChecked && isUnchecked)
+            {
                 rState = CheckedState.Mixed;
+            }
             else if (isChecked)
+            {
                 rState = CheckedState.Checked;
+            }
             else
+            {
                 rState = CheckedState.UnChecked;
+            }
 
             tNode.StateImageIndex = (int)rState;
 
@@ -87,7 +99,9 @@ namespace ROMVault
 
             TreeViewHitTestInfo info = HitTest(e.X, e.Y);
             if (info == null || info.Location != TreeViewHitTestLocations.StateImage)
+            {
                 return;
+            }
 
             CheckedState rState = (CheckedState)e.Node.StateImageIndex;
             SetChildNodes(e.Node, rState == CheckedState.UnChecked);
@@ -103,7 +117,9 @@ namespace ROMVault
             }
 
             foreach (TreeNode treeNode in tn.Nodes)
+            {
                 SetChildNodes(treeNode, nChecked);
+            }
         }
     }
 

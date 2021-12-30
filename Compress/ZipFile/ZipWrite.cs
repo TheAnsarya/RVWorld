@@ -3,112 +3,99 @@ using FileInfo = RVIO.FileInfo;
 using FileStream = RVIO.FileStream;
 
 
-namespace Compress.ZipFile
-{
-  
-    public partial class Zip
-    {
+namespace Compress.ZipFile {
 
-        public ZipReturn ZipFileCreate(string newFilename)
-        {
-            return ZipFileCreate(newFilename, OutputZipType.None);
-        }
+	public partial class Zip {
 
-        // OutType of Trrntzip forces that we must have a trrtnzip file made
-        // OutType of None will still make a trrntzip file if everything was supplied in trrntzip format.
+		public ZipReturn ZipFileCreate(string newFilename) => ZipFileCreate(newFilename, OutputZipType.None);
 
-        public ZipReturn ZipFileCreate(string newFilename, OutputZipType outType)
-        {
-            if (ZipOpen != ZipOpenType.Closed)
-            {
-                return ZipReturn.ZipFileAlreadyOpen;
-            }
+		// OutType of Trrntzip forces that we must have a trrtnzip file made
+		// OutType of None will still make a trrntzip file if everything was supplied in trrntzip format.
 
-            writeZipType = outType;
+		public ZipReturn ZipFileCreate(string newFilename, OutputZipType outType) {
+			if (ZipOpen != ZipOpenType.Closed) {
+				return ZipReturn.ZipFileAlreadyOpen;
+			}
 
-            CompressUtils.CreateDirForFile(newFilename);
-            _zipFileInfo = new FileInfo(newFilename);
+			writeZipType = outType;
 
-            int errorCode = FileStream.OpenFileWrite(newFilename, out _zipFs);
-            if (errorCode != 0)
-            {
-                ZipFileClose();
-                return ZipReturn.ZipErrorOpeningFile;
-            }
-            ZipOpen = ZipOpenType.OpenWrite;
-            return ZipReturn.ZipGood;
-        }
+			CompressUtils.CreateDirForFile(newFilename);
+			_zipFileInfo = new FileInfo(newFilename);
 
-        private void zipFileCloseWrite()
-        {
-            bool lTrrntzip = true;
+			var errorCode = FileStream.OpenFileWrite(newFilename, out _zipFs);
+			if (errorCode != 0) {
+				ZipFileClose();
+				return ZipReturn.ZipErrorOpeningFile;
+			}
+			ZipOpen = ZipOpenType.OpenWrite;
+			return ZipReturn.ZipGood;
+		}
 
-            _centralDirStart = (ulong)_zipFs.Position;
+		private void zipFileCloseWrite() {
+			var lTrrntzip = true;
 
-            using (CrcCalculatorStream crcCs = new CrcCalculatorStream(_zipFs, true))
-            {
-                foreach (ZipLocalFile t in _localFiles)
-                {
-                    t.CentralDirectoryWrite(crcCs);
-                    lTrrntzip &= t.GetStatus(LocalFileStatus.TrrntZip);
-                }
+			_centralDirStart = (ulong)_zipFs.Position;
 
-                crcCs.Flush();
-                crcCs.Close();
+			using (var crcCs = new CrcCalculatorStream(_zipFs, true)) {
+				foreach (var t in _localFiles) {
+					t.CentralDirectoryWrite(crcCs);
+					lTrrntzip &= t.GetStatus(LocalFileStatus.TrrntZip);
+				}
 
-                _centralDirSize = (ulong)_zipFs.Position - _centralDirStart;
+				crcCs.Flush();
+				crcCs.Close();
 
-                FileComment = lTrrntzip ? CompressUtils.GetBytes("TORRENTZIPPED-" + crcCs.Crc.ToString("X8")) : new byte[0];
-                ZipStatus = lTrrntzip ? ZipStatus.TrrntZip : ZipStatus.None;
-            }
+				_centralDirSize = (ulong)_zipFs.Position - _centralDirStart;
 
-            _zip64 = false;
-            _zip64 |= _centralDirStart >= 0xffffffff;
-            _zip64 |= _centralDirSize >= 0xffffffff;
-            _zip64 |= _localFiles.Count >= 0xffff;
+				FileComment = lTrrntzip ? CompressUtils.GetBytes("TORRENTZIPPED-" + crcCs.Crc.ToString("X8")) : new byte[0];
+				ZipStatus = lTrrntzip ? ZipStatus.TrrntZip : ZipStatus.None;
+			}
 
-            if (_zip64)
-            {
-                _endOfCentralDir64 = (ulong)_zipFs.Position;
-                Zip64EndOfCentralDirWrite();
-                Zip64EndOfCentralDirectoryLocatorWrite();
-            }
-            EndOfCentralDirWrite();
+			_zip64 = false;
+			_zip64 |= _centralDirStart >= 0xffffffff;
+			_zip64 |= _centralDirSize >= 0xffffffff;
+			_zip64 |= _localFiles.Count >= 0xffff;
 
-            _zipFs.SetLength(_zipFs.Position);
-            _zipFs.Flush();
-            _zipFs.Close();
-            _zipFs.Dispose();
-            _zipFileInfo = new FileInfo(_zipFileInfo.FullName);
-            ZipOpen = ZipOpenType.Closed;
-        }
+			if (_zip64) {
+				_endOfCentralDir64 = (ulong)_zipFs.Position;
+				Zip64EndOfCentralDirWrite();
+				Zip64EndOfCentralDirectoryLocatorWrite();
+			}
+			EndOfCentralDirWrite();
+
+			_zipFs.SetLength(_zipFs.Position);
+			_zipFs.Flush();
+			_zipFs.Close();
+			_zipFs.Dispose();
+			_zipFileInfo = new FileInfo(_zipFileInfo.FullName);
+			ZipOpen = ZipOpenType.Closed;
+		}
 
 
-        public void ZipFileCloseFailed()
-        {
-            switch (ZipOpen)
-            {
-                case ZipOpenType.Closed:
-                    return;
-                case ZipOpenType.OpenRead:
-                    if (_zipFs != null)
-                    {
-                        _zipFs.Close();
-                        _zipFs.Dispose();
-                    }
-                    break;
-                case ZipOpenType.OpenWrite:
-                    _zipFs.Flush();
-                    _zipFs.Close();
-                    _zipFs.Dispose();
-                    if (_zipFileInfo != null)
-                        RVIO.File.Delete(_zipFileInfo.FullName);
-                    _zipFileInfo = null;
-                    break;
-            }
+		public void ZipFileCloseFailed() {
+			switch (ZipOpen) {
+				case ZipOpenType.Closed:
+					return;
+				case ZipOpenType.OpenRead:
+					if (_zipFs != null) {
+						_zipFs.Close();
+						_zipFs.Dispose();
+					}
+					break;
+				case ZipOpenType.OpenWrite:
+					_zipFs.Flush();
+					_zipFs.Close();
+					_zipFs.Dispose();
+					if (_zipFileInfo != null) {
+						RVIO.File.Delete(_zipFileInfo.FullName);
+					}
 
-            ZipOpen = ZipOpenType.Closed;
-        }
+					_zipFileInfo = null;
+					break;
+			}
 
-    }
+			ZipOpen = ZipOpenType.Closed;
+		}
+
+	}
 }

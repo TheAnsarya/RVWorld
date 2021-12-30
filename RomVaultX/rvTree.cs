@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using RVXCore;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using RVXCore;
 
 namespace RomVaultX
 {
     public partial class RvTree : UserControl
     {
-        private List<UITreeRow> _rows;
+        private readonly List<UITreeRow> _rows;
 
         public RvTree()
         {
@@ -29,7 +29,7 @@ namespace RomVaultX
             int treeCount = rows.Count;
             for (int i = 0; i < treeCount; i++)
             {
-                UITreeRow pTree=new UITreeRow(rows[i]);
+                UITreeRow pTree = new UITreeRow(rows[i]);
                 _rows.Add(pTree);
 
                 int nodeDepth = pTree.TRow.dirFullName.Count(x => x == '\\') - 1;

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using FileHeaderReader;
+using RVXCore.Util;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SQLite;
-using FileHeaderReader;
-using RVXCore.Util;
 
 namespace RVXCore.DB
 {
@@ -100,7 +100,7 @@ namespace RVXCore.DB
                         MD5 = VarFix.CleanMD5SHA1(dr["MD5"].ToString(), 32),
                         Merge = dr["merge"].ToString(),
                         Status = dr["status"].ToString(),
-                        PutInZip = (bool) dr["putinzip"],
+                        PutInZip = (bool)dr["putinzip"],
                         FileId = VarFix.FixLong(dr["FileId"]),
                         FileSize = VarFix.FixLong(dr["fileSize"]),
                         FileCompressedSize = VarFix.FixLong(dr["fileCompressedSize"]),
@@ -143,7 +143,7 @@ namespace RVXCore.DB
             FileId = DatUpdate.NoFilesInDb ? null : RvRomFileMatchup.FindAFile(this);
             _commandRvRomWrite.Parameters["GameId"].Value = GameId;
             _commandRvRomWrite.Parameters["name"].Value = Name;
-            _commandRvRomWrite.Parameters["type"].Value = (int) AltType;
+            _commandRvRomWrite.Parameters["type"].Value = (int)AltType;
             _commandRvRomWrite.Parameters["size"].Value = Size;
             _commandRvRomWrite.Parameters["crc"].Value = VarFix.ToDBString(CRC);
             _commandRvRomWrite.Parameters["sha1"].Value = VarFix.ToDBString(SHA1);

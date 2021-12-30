@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Compress.gZip;
+using DokanNet;
+using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
 using System.Threading;
-using Compress.gZip;
-using DokanNet;
-using RVXCore.DB;
 using FileAccess = DokanNet.FileAccess;
 
 namespace RVXCore
@@ -451,7 +449,7 @@ namespace RVXCore
                 source.GZip = new gZip();
 
                 string strFilename = RomRootDir.Getfilename(source.GZipSha1);
-                source.GZip.ZipFileOpen(strFilename,-1, true);
+                source.GZip.ZipFileOpen(strFilename, -1, true);
             }
 
             source.GZip.ZipFileOpenReadStream(0, true, out Stream coms, out ulong _);

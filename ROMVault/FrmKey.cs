@@ -4,11 +4,11 @@
  *     Copyright 2020                                 *
  ******************************************************/
 
+using RomVaultCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using RomVaultCore;
 
 namespace ROMVault
 {
@@ -56,7 +56,7 @@ namespace ROMVault
                 RepStatus.UnScanned,
             };
             Height = displayList.Count * 46 + 110;
-            AddLabel(new Point(6,6),new Size(538,20),"LabelBasic","Basic Statuses");
+            AddLabel(new Point(6, 6), new Size(538, 20), "LabelBasic", "Basic Statuses");
             int eOffset = 28;
 
             for (int i = 0; i < displayList.Count; i++)

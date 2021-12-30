@@ -47,7 +47,7 @@ namespace RVXCore.Util
             int b2Len = b2 == null ? 0 : b2.Length;
 
             int p = 0;
-            for (;;)
+            for (; ; )
             {
                 if (b1Len == p)
                 {
