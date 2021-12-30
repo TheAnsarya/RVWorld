@@ -216,8 +216,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// <returns>true if obj and this instance are the same type and represent the same value; otherwise, false.</returns>
 			/// <param name="obj">Another object to compare to.</param>
 			public override bool Equals(object obj) {
-				if (obj is PpmContext) {
-					var context = (PpmContext)obj;
+				if (obj is PpmContext context) {
 					return context.Address == Address;
 				}
 				return base.Equals(obj);
