@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -19,7 +19,7 @@ namespace Compress.Support.Compression.Deflate64 {
 			Debug.Assert(StartIndex + Count <= Buffer.Length, "Input buffer is in invalid state!");
 		}
 
-		internal InputState DumpState() => new InputState(Count, StartIndex);
+		internal InputState DumpState() => new(Count, StartIndex);
 
 		internal void RestoreState(InputState state) {
 			Count = state._count;

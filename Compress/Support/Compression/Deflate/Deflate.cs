@@ -260,9 +260,9 @@ namespace Compress.Support.Compression.Deflate {
 		internal short[] dyn_dtree;         // distance tree
 		internal short[] bl_tree;           // Huffman tree for bit lengths
 
-		internal Tree treeLiterals = new Tree();  // desc for literal tree
-		internal Tree treeDistances = new Tree();  // desc for distance tree
-		internal Tree treeBitLengths = new Tree(); // desc for bit length tree
+		internal Tree treeLiterals = new();  // desc for literal tree
+		internal Tree treeDistances = new();  // desc for distance tree
+		internal Tree treeBitLengths = new(); // desc for bit length tree
 
 		// number of codes at each bit length for an optimal tree
 		internal short[] bl_count = new short[InternalConstants.MAX_BITS + 1];

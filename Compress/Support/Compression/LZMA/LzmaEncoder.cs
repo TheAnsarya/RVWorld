@@ -50,7 +50,7 @@ namespace Compress.Support.Compression.LZMA {
 			return (uint)(g_FastPos[pos >> 26] + 52);
 		}
 
-		Base.State _state = new Base.State();
+		Base.State _state = new();
 		byte _previousByte;
 		readonly uint[] _repDistances = new uint[Base.kNumRepDistances];
 
@@ -158,11 +158,11 @@ namespace Compress.Support.Compression.LZMA {
 		}
 
 		class LenEncoder {
-			RangeCoder.BitEncoder _choice = new RangeCoder.BitEncoder();
-			RangeCoder.BitEncoder _choice2 = new RangeCoder.BitEncoder();
+			RangeCoder.BitEncoder _choice = new();
+			RangeCoder.BitEncoder _choice2 = new();
 			readonly RangeCoder.BitTreeEncoder[] _lowCoder = new RangeCoder.BitTreeEncoder[Base.kNumPosStatesEncodingMax];
 			readonly RangeCoder.BitTreeEncoder[] _midCoder = new RangeCoder.BitTreeEncoder[Base.kNumPosStatesEncodingMax];
-			readonly RangeCoder.BitTreeEncoder _highCoder = new RangeCoder.BitTreeEncoder(Base.kNumHighLenBits);
+			readonly RangeCoder.BitTreeEncoder _highCoder = new(Base.kNumHighLenBits);
 
 			public LenEncoder() {
 				for (uint posState = 0; posState < Base.kNumPosStatesEncodingMax; posState++) {
@@ -280,7 +280,7 @@ namespace Compress.Support.Compression.LZMA {
 
 		readonly Optimal[] _optimum = new Optimal[kNumOpts];
 		LZ.BinTree _matchFinder = null;
-		readonly RangeCoder.Encoder _rangeEncoder = new RangeCoder.Encoder();
+		readonly RangeCoder.Encoder _rangeEncoder = new();
 		readonly RangeCoder.BitEncoder[] _isMatch = new RangeCoder.BitEncoder[Base.kNumStates << Base.kNumPosStatesBitsMax];
 		readonly RangeCoder.BitEncoder[] _isRep = new RangeCoder.BitEncoder[Base.kNumStates];
 		readonly RangeCoder.BitEncoder[] _isRepG0 = new RangeCoder.BitEncoder[Base.kNumStates];
@@ -289,10 +289,10 @@ namespace Compress.Support.Compression.LZMA {
 		readonly RangeCoder.BitEncoder[] _isRep0Long = new RangeCoder.BitEncoder[Base.kNumStates << Base.kNumPosStatesBitsMax];
 		readonly RangeCoder.BitTreeEncoder[] _posSlotEncoder = new RangeCoder.BitTreeEncoder[Base.kNumLenToPosStates];
 		readonly RangeCoder.BitEncoder[] _posEncoders = new RangeCoder.BitEncoder[Base.kNumFullDistances - Base.kEndPosModelIndex];
-		readonly RangeCoder.BitTreeEncoder _posAlignEncoder = new RangeCoder.BitTreeEncoder(Base.kNumAlignBits);
-		readonly LenPriceTableEncoder _lenEncoder = new LenPriceTableEncoder();
-		readonly LenPriceTableEncoder _repMatchLenEncoder = new LenPriceTableEncoder();
-		readonly LiteralEncoder _literalEncoder = new LiteralEncoder();
+		readonly RangeCoder.BitTreeEncoder _posAlignEncoder = new(Base.kNumAlignBits);
+		readonly LenPriceTableEncoder _lenEncoder = new();
+		readonly LenPriceTableEncoder _repMatchLenEncoder = new();
+		readonly LiteralEncoder _literalEncoder = new();
 		readonly uint[] _matchDistances = new uint[Base.kMatchMaxLen * 2 + 2];
 
 		uint _numFastBytes = kNumFastBytesDefault;

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Compress.Support.Compression.PPmd {
 	internal static class Utility {
-		public static ReadOnlyCollection<T> ToReadOnly<T>(this IEnumerable<T> items) => new ReadOnlyCollection<T>(items.ToList());
+		public static ReadOnlyCollection<T> ToReadOnly<T>(this IEnumerable<T> items) => new(items.ToList());
 
 		/// <summary>
 		/// Performs an unsigned bitwise right shift with the specified number

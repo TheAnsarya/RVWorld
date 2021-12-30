@@ -95,7 +95,7 @@ namespace Compress.Support.Compression.Deflate {
 		internal int[] bb = new int[1];                   // bit length tree depth
 		internal int[] tb = new int[1];                   // bit length decoding tree
 
-		internal InflateCodes codes = new InflateCodes(); // if CODES, current state
+		internal InflateCodes codes = new(); // if CODES, current state
 
 		internal int last;                                // true if this block is the last block
 
@@ -112,7 +112,7 @@ namespace Compress.Support.Compression.Deflate {
 		internal object checkfn;                   // check function
 		internal uint check;                              // check on output
 
-		internal InfTree inftree = new InfTree();
+		internal InfTree inftree = new();
 
 		internal InflateBlocks(ZlibCodec codec, object checkfn, int w) {
 			_codec = codec;

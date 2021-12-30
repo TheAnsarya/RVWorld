@@ -1,4 +1,4 @@
-#region Using
+﻿#region Using
 
 
 
@@ -22,7 +22,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		internal struct PpmContext {
 			public uint Address;
 			public byte[] Memory;
-			public static readonly PpmContext Zero = new PpmContext(0, null);
+			public static readonly PpmContext Zero = new(0, null);
 			public const int Size = 12;
 
 			/// <summary>
@@ -64,7 +64,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// Gets or sets the statistics.
 			/// </summary>
 			public PpmState Statistics {
-				get => new PpmState(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
+				get => new(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
 				set {
 					Memory[Address + 4] = (byte)value.Address;
 					Memory[Address + 5] = (byte)(value.Address >> 8);
@@ -77,7 +77,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// Gets or sets the suffix.
 			/// </summary>
 			public PpmContext Suffix {
-				get => new PpmContext(Memory[Address + 8] | ((uint)Memory[Address + 9]) << 8 | ((uint)Memory[Address + 10]) << 16 | ((uint)Memory[Address + 11]) << 24, Memory);
+				get => new(Memory[Address + 8] | ((uint)Memory[Address + 9]) << 8 | ((uint)Memory[Address + 10]) << 16 | ((uint)Memory[Address + 11]) << 24, Memory);
 				set {
 					Memory[Address + 8] = (byte)value.Address;
 					Memory[Address + 9] = (byte)(value.Address >> 8);
@@ -111,7 +111,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// </para>
 			/// </remarks>
 			/// <returns></returns>
-			public PpmState FirstState => new PpmState(Address + 2, Memory);
+			public PpmState FirstState => new(Address + 2, Memory);
 
 			/// <summary>
 			/// Gets or sets the symbol of the first PPM state.  This is provided for convenience.  The same
@@ -140,7 +140,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// </summary>
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The property getter is provided for completeness.")]
 			public PpmContext FirstStateSuccessor {
-				get => new PpmContext(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
+				get => new(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
 				set {
 					Memory[Address + 4] = (byte)value.Address;
 					Memory[Address + 5] = (byte)(value.Address >> 8);
@@ -154,7 +154,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// </summary>
 			/// <param name="pointer"></param>
 			/// <returns></returns>
-			public static implicit operator PpmContext(Pointer pointer) => new PpmContext(pointer.Address, pointer.Memory);
+			public static implicit operator PpmContext(Pointer pointer) => new(pointer.Address, pointer.Memory);
 
 			/// <summary>
 			/// Allow pointer-like addition on a PPM context.

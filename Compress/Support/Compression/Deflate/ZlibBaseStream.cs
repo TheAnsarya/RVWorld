@@ -315,7 +315,7 @@ namespace Compress.Support.Compression.Deflate {
 			return iso8859dash1.GetString(a, 0, a.Length);
 		}
 		internal static readonly System.Text.Encoding iso8859dash1 = System.Text.Encoding.GetEncoding("iso-8859-1");
-		internal static readonly System.DateTime _unixEpoch = new System.DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		internal static readonly System.DateTime _unixEpoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
 
 		private int _ReadAndValidateGzipHeader() {

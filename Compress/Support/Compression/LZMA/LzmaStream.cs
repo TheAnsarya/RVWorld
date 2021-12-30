@@ -9,8 +9,8 @@ namespace Compress.Support.Compression.LZMA {
 		private readonly long outputSize;
 
 		private readonly int dictionarySize;
-		private readonly OutWindow outWindow = new OutWindow();
-		private readonly RangeCoder.Decoder rangeDecoder = new RangeCoder.Decoder();
+		private readonly OutWindow outWindow = new();
+		private readonly RangeCoder.Decoder rangeDecoder = new();
 		private Decoder decoder;
 
 		private long position = 0;

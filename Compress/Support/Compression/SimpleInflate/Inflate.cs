@@ -54,9 +54,9 @@
 		private byte[] _bOut;
 		private int _indexOut; //public int endOut;
 
-		private readonly Tree _dLitCodes = new Tree();
-		private readonly Tree _dDistCodes = new Tree();
-		private readonly Tree _lenCodes = new Tree();
+		private readonly Tree _dLitCodes = new();
+		private readonly Tree _dDistCodes = new();
+		private readonly Tree _lenCodes = new();
 
 
 		private Tree _litCodes;
@@ -71,8 +71,8 @@
 		private static readonly byte[] ReverseTable = new byte[256];
 
 		// Static tables
-		private static readonly Tree SLitCodes = new Tree();
-		private static readonly Tree SDistCodes = new Tree();
+		private static readonly Tree SLitCodes = new();
+		private static readonly Tree SDistCodes = new();
 		static Inflate() {
 			for (var i = 0; i < 256; i++) {
 				ReverseTable[i] = (byte)(

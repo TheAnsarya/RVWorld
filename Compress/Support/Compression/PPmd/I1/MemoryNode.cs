@@ -29,7 +29,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 	internal struct MemoryNode {
 		public uint Address;
 		public byte[] Memory;
-		public static readonly MemoryNode Zero = new MemoryNode(0, null);
+		public static readonly MemoryNode Zero = new(0, null);
 		public const int Size = 12;
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// Gets or sets the next memory node.
 		/// </summary>
 		public MemoryNode Next {
-			get => new MemoryNode(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
+			get => new(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
 			set {
 				Memory[Address + 4] = (byte)value.Address;
 				Memory[Address + 5] = (byte)(value.Address >> 8);
@@ -126,7 +126,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// </summary>
 		/// <param name="pointer"></param>
 		/// <returns></returns>
-		public static implicit operator MemoryNode(Pointer pointer) => new MemoryNode(pointer.Address, pointer.Memory);
+		public static implicit operator MemoryNode(Pointer pointer) => new(pointer.Address, pointer.Memory);
 
 		/// <summary>
 		/// Allow pointer-like addition on a memory node.

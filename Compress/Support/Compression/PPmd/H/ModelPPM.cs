@@ -101,31 +101,31 @@ namespace Compress.Support.Compression.PPmd.H {
 
 		private RangeCoder coder;
 
-		private readonly SubAllocator subAlloc = new SubAllocator();
+		private readonly SubAllocator subAlloc = new();
 
 		private static readonly int[] InitBinEsc = new int[] { 0x3CDD, 0x1F3F, 0x59BF, 0x48F3, 0x64A1, 0x5ABC, 0x6632, 0x6051 };
 
 		// Temp fields
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState1 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState1 = new State(null);
+		private readonly State tempState1 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState2 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState2 = new State(null);
+		private readonly State tempState2 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState3 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState3 = new State(null);
+		private readonly State tempState3 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState4 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState4 = new State(null);
+		private readonly State tempState4 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempStateRef1 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly StateRef tempStateRef1 = new StateRef();
+		private readonly StateRef tempStateRef1 = new();
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempStateRef2 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly StateRef tempStateRef2 = new StateRef();
+		private readonly StateRef tempStateRef2 = new();
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempPPMContext1 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly PPMContext tempPPMContext1 = new PPMContext(null);
+		private readonly PPMContext tempPPMContext1 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempPPMContext2 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly PPMContext tempPPMContext2 = new PPMContext(null);
+		private readonly PPMContext tempPPMContext2 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempPPMContext3 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly PPMContext tempPPMContext3 = new PPMContext(null);
+		private readonly PPMContext tempPPMContext3 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempPPMContext4 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly PPMContext tempPPMContext4 = new PPMContext(null);
+		private readonly PPMContext tempPPMContext4 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'ps '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private readonly int[] ps = new int[MAX_O];
 

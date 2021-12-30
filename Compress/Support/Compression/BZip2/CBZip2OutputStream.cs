@@ -238,7 +238,7 @@ namespace Compress.Support.Compression.BZip2 {
 		int bytesOut;
 		int bsBuff;
 		int bsLive;
-		readonly CRC mCrc = new CRC();
+		readonly CRC mCrc = new();
 
 		private readonly bool[] inUse = new bool[256];
 		private int nInUse;

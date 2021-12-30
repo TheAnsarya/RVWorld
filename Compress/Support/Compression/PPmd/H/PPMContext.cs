@@ -54,15 +54,15 @@ namespace Compress.Support.Compression.PPmd.H {
 
 		// Temp fields
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState1 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState1 = new State(null);
+		private readonly State tempState1 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState2 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState2 = new State(null);
+		private readonly State tempState2 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState3 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState3 = new State(null);
+		private readonly State tempState3 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState4 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState4 = new State(null);
+		private readonly State tempState4 = new(null);
 		//UPGRADE_NOTE: Final was removed from the declaration of 'tempState5 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private readonly State tempState5 = new State(null);
+		private readonly State tempState5 = new(null);
 		private PPMContext tempPPMContext = null;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'ps '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		internal int[] ps = new int[256];

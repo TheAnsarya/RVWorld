@@ -1,4 +1,4 @@
-#region Using
+﻿#region Using
 
 
 
@@ -21,7 +21,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 	internal struct PpmState {
 		public uint Address;
 		public byte[] Memory;
-		public static readonly PpmState Zero = new PpmState(0, null);
+		public static readonly PpmState Zero = new(0, null);
 		public const int Size = 6;
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// Gets or sets the successor.
 		/// </summary>
 		public Model.PpmContext Successor {
-			get => new Model.PpmContext(Memory[Address + 2] | ((uint)Memory[Address + 3]) << 8 | ((uint)Memory[Address + 4]) << 16 | ((uint)Memory[Address + 5]) << 24, Memory);
+			get => new(Memory[Address + 2] | ((uint)Memory[Address + 3]) << 8 | ((uint)Memory[Address + 4]) << 16 | ((uint)Memory[Address + 5]) << 24, Memory);
 			set {
 				Memory[Address + 2] = (byte)value.Address;
 				Memory[Address + 3] = (byte)(value.Address >> 8);
@@ -67,14 +67,14 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// </summary>
 		/// <param name="offset"></param>
 		/// <returns></returns>
-		public PpmState this[int offset] => new PpmState((uint)(Address + offset * Size), Memory);
+		public PpmState this[int offset] => new((uint)(Address + offset * Size), Memory);
 
 		/// <summary>
 		/// Allow a pointer to be implicitly converted to a PPM state.
 		/// </summary>
 		/// <param name="pointer"></param>
 		/// <returns></returns>
-		public static implicit operator PpmState(Pointer pointer) => new PpmState(pointer.Address, pointer.Memory);
+		public static implicit operator PpmState(Pointer pointer) => new(pointer.Address, pointer.Memory);
 
 		/// <summary>
 		/// Allow pointer-like addition on a PPM state.

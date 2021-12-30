@@ -1,4 +1,4 @@
-#region Using
+﻿#region Using
 
 using System;
 
@@ -22,7 +22,7 @@ namespace Compress.Support.Compression.PPmd.I1 {
 	internal struct Pointer {
 		public uint Address;
 		public byte[] Memory;
-		public static readonly Pointer Zero = new Pointer(0, null);
+		public static readonly Pointer Zero = new(0, null);
 		public const int Size = 1;
 
 		/// <summary>
@@ -62,21 +62,21 @@ namespace Compress.Support.Compression.PPmd.I1 {
 		/// </summary>
 		/// <param name="memoryNode"></param>
 		/// <returns></returns>
-		public static implicit operator Pointer(MemoryNode memoryNode) => new Pointer(memoryNode.Address, memoryNode.Memory);
+		public static implicit operator Pointer(MemoryNode memoryNode) => new(memoryNode.Address, memoryNode.Memory);
 
 		/// <summary>
 		/// Allow a <see cref="Model.PpmContext"/> to be implicitly converted to a <see cref="Pointer"/>.
 		/// </summary>
 		/// <param name="context"></param>
 		/// <returns></returns>
-		public static implicit operator Pointer(Model.PpmContext context) => new Pointer(context.Address, context.Memory);
+		public static implicit operator Pointer(Model.PpmContext context) => new(context.Address, context.Memory);
 
 		/// <summary>
 		/// Allow a <see cref="PpmState"/> to be implicitly converted to a <see cref="Pointer"/>.
 		/// </summary>
 		/// <param name="state"></param>
 		/// <returns></returns>
-		public static implicit operator Pointer(PpmState state) => new Pointer(state.Address, state.Memory);
+		public static implicit operator Pointer(PpmState state) => new(state.Address, state.Memory);
 
 		/// <summary>
 		/// Increase the address of a pointer by the given number of bytes.
