@@ -13,8 +13,8 @@ namespace Dir2Dat {
 	// newver version available for rvdat
 
 	class Program {
-		private static bool testMode = false;
-		private static bool quick = false;
+		private static bool testMode;
+		private static bool quick;
 
 		static void Main(string[] args) {
 			var ThisDat = new DatHeader() {
@@ -209,9 +209,9 @@ namespace Dir2Dat {
 			return true;
 		}
 
-		private static int zCount = 0;
-		private static int tCount = 0;
-		private static int cCount = 0;
+		private static int zCount;
+		private static int tCount;
+		private static int cCount;
 
 		private static void AddZip(FileInfo f, DatDir thisDir) {
 
