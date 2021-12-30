@@ -13,50 +13,50 @@ namespace Compress.Support.Compression.PPmd.H {
 			}
 		}
 		public SubAllocator SubAlloc => subAlloc;
-		virtual public SEE2Context DummySEE2Cont => dummySEE2Cont;
-		virtual public int InitRL => initRL;
-		virtual public int EscCount {
+		public virtual SEE2Context DummySEE2Cont => dummySEE2Cont;
+		public virtual int InitRL => initRL;
+		public virtual int EscCount {
 			get => escCount;
 
 			set => escCount = value & 0xff;
 
 		}
-		virtual public int[] CharMask => charMask;
-		virtual public int NumMasked {
+		public virtual int[] CharMask => charMask;
+		public virtual int NumMasked {
 			get => numMasked;
 
 			set => numMasked = value;
 
 		}
-		virtual public int PrevSuccess {
+		public virtual int PrevSuccess {
 			get => prevSuccess;
 
 			set => prevSuccess = value & 0xff;
 
 		}
-		virtual public int InitEsc {
+		public virtual int InitEsc {
 			get => initEsc;
 
 			set => initEsc = value;
 
 		}
-		virtual public int RunLength {
+		public virtual int RunLength {
 			get => runLength;
 
 			set => runLength = value;
 
 		}
-		virtual public int HiBitsFlag {
+		public virtual int HiBitsFlag {
 			get => hiBitsFlag;
 
 			set => hiBitsFlag = value & 0xff;
 
 		}
-		virtual public int[][] BinSumm => binSumm;
+		public virtual int[][] BinSumm => binSumm;
 		internal RangeCoder Coder => coder;
 		internal State FoundState => foundState;
-		virtual public byte[] Heap => subAlloc.Heap;
-		virtual public int OrderFall => orderFall;
+		public virtual byte[] Heap => subAlloc.Heap;
+		public virtual int OrderFall => orderFall;
 		public const int MAX_O = 64; /* maximum allowed model order */
 
 		public const int INT_BITS = 7;

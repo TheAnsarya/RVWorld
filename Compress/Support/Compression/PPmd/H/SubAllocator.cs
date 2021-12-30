@@ -3,26 +3,26 @@ using System.Text;
 
 namespace Compress.Support.Compression.PPmd.H {
 	internal class SubAllocator {
-		virtual public int FakeUnitsStart {
+		public virtual int FakeUnitsStart {
 			get => fakeUnitsStart;
 
 			set => fakeUnitsStart = value;
 
 		}
-		virtual public int HeapEnd => heapEnd;
-		virtual public int PText {
+		public virtual int HeapEnd => heapEnd;
+		public virtual int PText {
 			get => pText;
 
 			set => pText = value;
 
 		}
-		virtual public int UnitsStart {
+		public virtual int UnitsStart {
 			get => unitsStart;
 
 			set => unitsStart = value;
 
 		}
-		virtual public byte[] Heap => heap;
+		public virtual byte[] Heap => heap;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'N4 '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		public const int N1 = 4;
 		public const int N2 = 4;

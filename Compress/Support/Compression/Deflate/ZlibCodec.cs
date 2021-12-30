@@ -84,7 +84,7 @@ namespace Compress.Support.Compression.Deflate {
 #if !NETCF
 	[Interop.ClassInterface(Interop.ClassInterfaceType.AutoDispatch)]
 #endif
-	sealed public class ZlibCodec {
+	public sealed class ZlibCodec {
 		/// <summary>
 		/// The buffer from which data is taken.
 		/// </summary>

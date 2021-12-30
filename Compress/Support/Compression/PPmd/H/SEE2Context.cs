@@ -2,7 +2,7 @@
 
 namespace Compress.Support.Compression.PPmd.H {
 	internal class SEE2Context {
-		virtual public int Mean {
+		public virtual int Mean {
 			get {
 				var retVal = Utility.URShift(summ, shift);
 				summ -= retVal;
@@ -10,19 +10,19 @@ namespace Compress.Support.Compression.PPmd.H {
 			}
 
 		}
-		virtual public int Count {
+		public virtual int Count {
 			get => count;
 
 			set => count = value & 0xff;
 
 		}
-		virtual public int Shift {
+		public virtual int Shift {
 			get => shift;
 
 			set => shift = value & 0xff;
 
 		}
-		virtual public int Summ {
+		public virtual int Summ {
 			get => summ;
 
 			set => summ = value & 0xffff;

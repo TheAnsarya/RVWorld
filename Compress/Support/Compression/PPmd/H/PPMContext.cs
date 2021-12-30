@@ -11,7 +11,7 @@ namespace Compress.Support.Compression.PPmd.H {
 			}
 
 		}
-		virtual public int NumStats {
+		public virtual int NumStats {
 			get {
 				if (Memory != null) {
 					numStats = Utility.readShortLittleEndian(Memory, Address) & 0xffff;
