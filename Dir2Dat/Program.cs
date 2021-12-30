@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Compress;
 using Compress.SevenZip;
 using Compress.ZipFile;
@@ -30,7 +31,7 @@ namespace Dir2Dat {
 				var isflag = arg[..1] == "-";
 				if (isflag) {
 					var flag = arg[1..];
-					switch (flag.ToLower()) {
+					switch (flag.ToLower(CultureInfo.InvariantCulture)) {
 						case "help":
 						case "h":
 						case "?":
@@ -111,7 +112,7 @@ namespace Dir2Dat {
 			var di = new DirectoryInfo(dirSource);
 			ProcessDir(di, ThisDat.BaseDir, style);
 
-			if (Path.GetExtension(outfile).ToLower() != ".dat") {
+			if (Path.GetExtension(outfile).ToLower(CultureInfo.InvariantCulture) != ".dat") {
 				outfile += ".dat";
 			}
 
@@ -163,7 +164,7 @@ namespace Dir2Dat {
 			var fCount = 0;
 			foreach (var f in fia) {
 				//Console.WriteLine(f.FullName);
-				var ext = Path.GetExtension(f.Name).ToLower();
+				var ext = Path.GetExtension(f.Name).ToLower(CultureInfo.InvariantCulture);
 
 				switch (ext) {
 					case ".zip":
@@ -198,7 +199,7 @@ namespace Dir2Dat {
 			var fia = di.GetFiles();
 
 			foreach (var f in fia) {
-				var ext = Path.GetExtension(f.Name).ToLower();
+				var ext = Path.GetExtension(f.Name).ToLower(CultureInfo.InvariantCulture);
 
 				switch (ext) {
 					case ".zip":
