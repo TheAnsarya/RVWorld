@@ -32,7 +32,7 @@ namespace RomVaultX
 
             Text = $@"RomVaultX {Application.StartupPath}";
 
-            string driveLetter = AppSettings.ReadSetting("vDriveLetter");
+            var driveLetter = AppSettings.ReadSetting("vDriveLetter");
             if (driveLetter == null)
             {
                 AppSettings.AddUpdateAppSettings("vDriveLetter", "V");
@@ -43,7 +43,7 @@ namespace RomVaultX
             vDriveLetter = driveLetter.ToCharArray()[0];
 
             addGameGrid();
-            string res = DBSqlite.db.ConnectToDB();
+            var res = DBSqlite.db.ConnectToDB();
 
             if (!string.IsNullOrEmpty(res))
             {
@@ -71,7 +71,7 @@ namespace RomVaultX
 
         private void btnUpdateDats_Click(object sender, EventArgs e)
         {
-            FrmProgressWindow progress = new FrmProgressWindow(this, "Scanning Dats", DatUpdate.UpdateDat);
+            var progress = new FrmProgressWindow(this, "Scanning Dats", DatUpdate.UpdateDat);
             progress.ShowDialog(this);
             progress.Dispose();
             DirTree.Setup(RvTreeRow.ReadTreeFromDB());
@@ -105,7 +105,7 @@ namespace RomVaultX
 
         private void DoScan()
         {
-            FrmProgressWindow progress = new FrmProgressWindow(this, "Scanning Files", RomScanner.ScanFiles);
+            var progress = new FrmProgressWindow(this, "Scanning Files", RomScanner.ScanFiles);
             progress.ShowDialog(this);
             progress.Dispose();
             DirTree.Setup(RvTreeRow.ReadTreeFromDB());
@@ -114,7 +114,7 @@ namespace RomVaultX
 
         private void quickReScanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmProgressWindow progress = new FrmProgressWindow(this, "Scanning RomRoot Files", romRootScanner.ScanFiles);
+            var progress = new FrmProgressWindow(this, "Scanning RomRoot Files", romRootScanner.ScanFiles);
             progress.ShowDialog(this);
             progress.Dispose();
             DirTree.Setup(RvTreeRow.ReadTreeFromDB());
@@ -123,7 +123,7 @@ namespace RomVaultX
 
         private void deepReScanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmProgressWindow progress = new FrmProgressWindow(this, "Scanning RomRoot Files", romRootScanner.ScanFilesDeep);
+            var progress = new FrmProgressWindow(this, "Scanning RomRoot Files", romRootScanner.ScanFilesDeep);
             progress.ShowDialog(this);
             progress.Dispose();
             DirTree.Setup(RvTreeRow.ReadTreeFromDB());
@@ -133,7 +133,7 @@ namespace RomVaultX
 
         private void DirTree_RvSelected(object sender, MouseEventArgs e)
         {
-            UITreeRow tr = (UITreeRow)sender;
+            var tr = (UITreeRow)sender;
             Debug.WriteLine(tr.TRow.dirFullName);
             updateSelectedTreeRow(tr.TRow);
         }
@@ -191,15 +191,15 @@ namespace RomVaultX
                 return;
             }
 
-            using (FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog())
+            using (var folderBrowserDialog1 = new FolderBrowserDialog())
             {
-                DialogResult result = folderBrowserDialog1.ShowDialog();
+                var result = folderBrowserDialog1.ShowDialog();
                 if (result != DialogResult.OK)
                 {
                     return;
                 }
 
-                string outPath = folderBrowserDialog1.SelectedPath;
+                var outPath = folderBrowserDialog1.SelectedPath;
 
                 ExtractFiles.extract(DirTree.Selected.TRow.dirFullName, outPath);
             }
@@ -212,11 +212,11 @@ namespace RomVaultX
                 return;
             }
 
-            using (SaveFileDialog openFileDialog = new SaveFileDialog())
+            using (var openFileDialog = new SaveFileDialog())
             {
                 openFileDialog.Filter = "Dat File (*.Dat)|*.DAT";
                 openFileDialog.ShowDialog();
-                string outPath = openFileDialog.FileName;
+                var outPath = openFileDialog.FileName;
 
                 if (string.IsNullOrWhiteSpace(outPath))
                 {
@@ -247,18 +247,17 @@ namespace RomVaultX
         private void gbDatInfo_Resize(object sender, EventArgs e)
         {
             const int leftPos = 89;
-            int rightPos = (int)(gbDatInfo.Width / _scaleFactorX) - 15;
+            var rightPos = (int)(gbDatInfo.Width / _scaleFactorX) - 15;
             if (rightPos > 600)
             {
                 rightPos = 600;
             }
 
-            int width = rightPos - leftPos;
-            int widthB1 = (int)((double)width * 120 / 340);
-            int leftB2 = rightPos - widthB1;
+            var width = rightPos - leftPos;
+            var widthB1 = (int)((double)width * 120 / 340);
+            var leftB2 = rightPos - widthB1;
 
-
-            int backD = 97;
+            var backD = 97;
 
             width = (int)(width * _scaleFactorX);
             widthB1 = (int)(widthB1 * _scaleFactorX);
@@ -303,7 +302,7 @@ namespace RomVaultX
 
             if (tr.DatId != null)
             {
-                RvDat tDat = new RvDat();
+                var tDat = new RvDat();
                 tDat.DbRead((uint)tr.DatId);
                 lblDITDescription.Text = tDat.Description;
                 lblDITCategory.Text = tDat.Category;
@@ -515,7 +514,7 @@ namespace RomVaultX
 
         private void splitContainer4_Panel1_Resize(object sender, EventArgs e)
         {
-            int chkLeft = splitContainer4.Panel1.Width - 150;
+            var chkLeft = splitContainer4.Panel1.Width - 150;
             if (chkLeft < 430)
             {
                 chkLeft = 430;
@@ -529,17 +528,17 @@ namespace RomVaultX
 
         private void gbSetInfo_Resize(object sender, EventArgs e)
         {
-            int leftPos = 84;
-            int rightPos = gbSetInfo.Width - 15;
+            var leftPos = 84;
+            var rightPos = gbSetInfo.Width - 15;
             if (rightPos > 750)
             {
                 rightPos = 750;
             }
 
-            int width = rightPos - leftPos;
+            var width = rightPos - leftPos;
 
-            int widthB1 = (int)((double)width * 120 / 340);
-            int leftB2 = leftPos + width - widthB1;
+            var widthB1 = (int)((double)width * 120 / 340);
+            var leftB2 = leftPos + width - widthB1;
 
             if (lblSITName == null)
             {
@@ -565,10 +564,10 @@ namespace RomVaultX
             lblSITPublisher.Width = width;
             lblSITDeveloper.Width = width;
 
-            int width3 = (int)(width * 0.24);
-            int P2 = (int)(width * 0.38);
+            var width3 = (int)(width * 0.24);
+            var P2 = (int)(width * 0.38);
 
-            int width4 = (int)(width * 0.24);
+            var width4 = (int)(width * 0.24);
 
             lblSITEdition.Width = width3;
 
@@ -621,14 +620,14 @@ namespace RomVaultX
                 return;
             }
 
-            List<rvGameGridRow> rows = rvGameGridRow.ReadGames((int)DatId);
+            var rows = rvGameGridRow.ReadGames((int)DatId);
 
-            foreach (rvGameGridRow row in rows)
+            foreach (var row in rows)
             {
-                bool gCorrect = row.HasCorrect();
-                bool gMissing = row.HasMissing();
+                var gCorrect = row.HasCorrect();
+                var gMissing = row.HasMissing();
 
-                bool show = chkBoxShowCorrect.Checked && gCorrect && !gMissing;
+                var show = chkBoxShowCorrect.Checked && gCorrect && !gMissing;
                 show = show || (chkBoxShowMissing.Checked && gMissing);
                 show = show || !(gCorrect || gMissing);
 
@@ -638,7 +637,7 @@ namespace RomVaultX
                 }
 
                 GameGrid.Rows.Add();
-                int iRow = GameGrid.Rows.Count - 1;
+                var iRow = GameGrid.Rows.Count - 1;
 
                 Color cellColor;
                 if (row.RomGot >= row.RomTotal - row.RomNoDump)
@@ -672,7 +671,7 @@ namespace RomVaultX
                     GameGrid.Rows[iRow].Cells[4].Value = row.RomTotal - row.RomGot;
                 }
 
-                for (int i = 0; i < 5; i++)
+                for (var i = 0; i < 5; i++)
                 {
                     GameGrid.Rows[iRow].DefaultCellStyle.BackColor = cellColor;
                 }
@@ -698,7 +697,7 @@ namespace RomVaultX
 
             if (GameGrid.SelectedRows.Count == 1)
             {
-                int GameId = (int)GameGrid.SelectedRows[0].Tag;
+                var GameId = (int)GameGrid.SelectedRows[0].Tag;
                 tGame = new RvGame();
                 tGame.DBRead(GameId);
             }
@@ -928,10 +927,10 @@ namespace RomVaultX
 
             IEnumerable<RvRom> roms = RvRom.ReadRoms(GameId);
 
-            foreach (RvRom rom in roms)
+            foreach (var rom in roms)
             {
                 RomGrid.Rows.Add();
-                int iRow = RomGrid.Rows.Count - 1;
+                var iRow = RomGrid.Rows.Count - 1;
 
                 RomGrid.Rows[iRow].Selected = false;
                 RomGrid.Rows[iRow].Tag = rom.RomId;
@@ -1023,7 +1022,7 @@ namespace RomVaultX
                 sortDir = new FolderBrowserDialog { ShowNewFolderButton = false };
             }
 
-            DialogResult result = sortDir.ShowDialog();
+            var result = sortDir.ShowDialog();
             if (result != DialogResult.OK)
             {
                 return;

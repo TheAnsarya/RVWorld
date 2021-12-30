@@ -32,7 +32,7 @@ namespace RomVaultX
             get
             {
                 const int CP_NOCLOSE_BUTTON = 0x200;
-                CreateParams mdiCp = base.CreateParams;
+                var mdiCp = base.CreateParams;
                 mdiCp.ClassStyle |= CP_NOCLOSE_BUTTON;
                 return mdiCp;
             }
@@ -114,7 +114,7 @@ namespace RomVaultX
 				}
 
 				ErrorGrid.Rows.Add();
-				int row = ErrorGrid.Rows.Count - 1;
+				var row = ErrorGrid.Rows.Count - 1;
 
 				ErrorGrid.Rows[row].Cells["CError"].Value = bgwSDE.error;
 
@@ -128,8 +128,8 @@ namespace RomVaultX
 
         private void UpdateStatusText()
         {
-            int range = progressBar.Maximum - progressBar.Minimum;
-            int percent = range > 0 ? progressBar.Value * 100 / range : 0;
+            var range = progressBar.Maximum - progressBar.Minimum;
+            var percent = range > 0 ? progressBar.Value * 100 / range : 0;
 
             Text = _titleRoot + $" - {percent}% complete";
         }
@@ -207,7 +207,7 @@ namespace RomVaultX
 
         private void Complete(object sender, RunWorkerCompletedEventArgs e)
         {
-            Exception er = e.Error;
+            var er = e.Error;
             if (er != null)
             {
                 MessageBox.Show(e.Error.ToString(), "RomVault", MessageBoxButtons.OK, MessageBoxIcon.Error);
