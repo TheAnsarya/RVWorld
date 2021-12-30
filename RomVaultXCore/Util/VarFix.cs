@@ -89,7 +89,7 @@ namespace RVXCore.Util
         //CleanMD5SHA1 with a null or empty string will return null
         public static byte[] CleanMD5SHA1(XmlNode n, int length)
         {
-            return CleanMD5SHA1(n == null ? null : n.InnerText, length);
+            return CleanMD5SHA1(n?.InnerText, length);
         }
 
         public static byte[] CleanMD5SHA1(string checksum, int length)
