@@ -45,7 +45,6 @@ namespace ROMVault
 
         private void BgwProgressChanged(object e)
         {
-
             if (InvokeRequired)
             {
                 BeginInvoke(new MethodInvoker(() => BgwProgressChanged(e)));
@@ -60,8 +59,7 @@ namespace ROMVault
                 }
                 return;
             }
-            bgwSetRange bgwSr = e as bgwSetRange;
-            if (bgwSr != null)
+            if (e is bgwSetRange bgwSr)
             {
                 progressBar.Minimum = 0;
                 progressBar.Maximum = bgwSr.MaxVal;
@@ -69,8 +67,7 @@ namespace ROMVault
                 return;
             }
 
-            bgwText bgwT = e as bgwText;
-            if (bgwT != null)
+            if (e is bgwText bgwT)
             {
                 lblStatus.Text = bgwT.Text;
             }
