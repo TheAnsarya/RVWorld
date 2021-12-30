@@ -59,7 +59,7 @@ namespace Dir2Dat {
 							break;
 						case "autodate":
 						case "ad":
-							ThisDat.Date = DateTime.Now.ToString("MM/dd/yyyy");
+							ThisDat.Date = DateTime.Now.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
 							break;
 						case "author":
 						case "a":
@@ -266,7 +266,7 @@ namespace Dir2Dat {
 					Size = fr[i].Size,
 					CRC = fr[i].CRC,
 					SHA1 = fr[i].SHA1,
-					DateModified = new DateTime(lf.LastModified).ToString("yyyy/MM/dd HH:mm:ss"),
+					DateModified = new DateTime(lf.LastModified).ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture),
 					//df.MD5 = zf.MD5(i)
 				};
 				if (lf.LastModified != 629870671200000000) {
