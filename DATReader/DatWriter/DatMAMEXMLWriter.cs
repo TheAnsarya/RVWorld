@@ -160,7 +160,7 @@ namespace DATReader.DatWriter {
 				if (c == '>') { ret += "&gt;"; continue; }
 				if (c == 127) { ret += "&#7f;"; continue; }
 				if (c < ' ') {
-					ret += $"&#{((int)c).ToString("X2")};";
+					ret += $"&#{(int)c:X2};";
 					continue;
 				}
 				ret += c;
