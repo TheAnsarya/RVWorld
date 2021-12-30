@@ -28,7 +28,7 @@ namespace RVXCore
             Dokan.Unmount(vDriveLetter);
             di = new VDrive();
 #if DEBUG
-            Thread t2 = new Thread(() => { di.Mount(vDriveLetter + ":\\", DokanOptions.DebugMode, 1); });
+            Thread t2 = new Thread(() => di.Mount(vDriveLetter + ":\\", DokanOptions.DebugMode, 1));
 #else
             Thread t2 = new Thread(() => { di.Mount(vDriveLetter + ":\\", DokanOptions.FixedDrive, 10); });
 #endif
