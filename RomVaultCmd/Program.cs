@@ -25,9 +25,9 @@ namespace RomVaultCmd {
 			}
 
 			foreach (var arg in args) {
-				var isflag = arg.Substring(0, 1) == "-";
+				var isflag = arg[..1] == "-";
 				if (isflag) {
-					var flag = arg.Substring(1).ToLower();
+					var flag = arg[1..].ToLower();
 					switch (flag) {
 						case "help":
 						case "h":

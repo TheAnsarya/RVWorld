@@ -32,7 +32,7 @@ namespace TrrntZipCMD {
 					if (arg.Length < 2) {
 						continue;
 					}
-					if (arg.Substring(0, 1) != "-") {
+					if (arg[..1] != "-") {
 						continue;
 					}
 
@@ -88,12 +88,12 @@ namespace TrrntZipCMD {
 					if (arg.Length < 2) {
 						continue;
 					}
-					if (arg.Substring(0, 1) == "-") {
+					if (arg[..1] == "-") {
 						continue;
 					}
 
-					if (arg.Length > 2 && arg.Substring(0, 2) == ".\\") {
-						arg = arg.Substring(2);
+					if (arg.Length > 2 && arg[..2] == ".\\") {
+						arg = arg[2..];
 					}
 					// first check if arg is a directory
 					if (Directory.Exists(arg)) {

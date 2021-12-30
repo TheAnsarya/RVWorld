@@ -27,9 +27,9 @@ namespace Dir2Dat {
 
 			for (var i = 0; i < args.Length; i++) {
 				var arg = args[i];
-				var isflag = arg.Substring(0, 1) == "-";
+				var isflag = arg[..1] == "-";
 				if (isflag) {
-					var flag = arg.Substring(1);
+					var flag = arg[1..];
 					switch (flag.ToLower()) {
 						case "help":
 						case "h":
@@ -229,7 +229,7 @@ namespace Dir2Dat {
 			} else if (zf1.FileComment != null && zf1.FileComment.Length > 0) {
 				var comments = CompressUtils.GetString(zf1.FileComment);
 
-				if (comments.Length > 13 && comments.Substring(0, 13) == "TORRENTZIPPED") {
+				if (comments.Length > 13 && comments[..13] == "TORRENTZIPPED") {
 					tCount += 1;
 				} else {
 					cCount += 1;
