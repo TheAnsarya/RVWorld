@@ -118,7 +118,6 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// information can be obtained using the Symbol property on the PPM state provided by the
 			/// <see cref="FirstState"/> property.
 			/// </summary>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The property getter is provided for completeness.")]
 			public byte FirstStateSymbol {
 				get => Memory[Address + 2];
 				set => Memory[Address + 2] = value;
@@ -138,7 +137,6 @@ namespace Compress.Support.Compression.PPmd.I1 {
 			/// Gets or sets the successor of the first PPM state.  This is provided for convenience.  The same
 			/// information can be obtained using the Successor property on the PPM state provided by the
 			/// </summary>
-			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The property getter is provided for completeness.")]
 			public PpmContext FirstStateSuccessor {
 				get => new(Memory[Address + 4] | ((uint)Memory[Address + 5]) << 8 | ((uint)Memory[Address + 6]) << 16 | ((uint)Memory[Address + 7]) << 24, Memory);
 				set {
