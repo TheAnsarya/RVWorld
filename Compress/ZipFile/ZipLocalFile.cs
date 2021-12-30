@@ -216,107 +216,105 @@ namespace Compress.ZipFile {
 		}
 		internal ZipReturn LocalFileHeaderRead(Stream zipFs) {
 			try {
-				using (BinaryReader br = new(zipFs, Encoding.UTF8, true)) {
+				using BinaryReader br = new(zipFs, Encoding.UTF8, true);
+				SetStatus(LocalFileStatus.TrrntZip);
 
-					SetStatus(LocalFileStatus.TrrntZip);
-
-					zipFs.Position = (long)RelativeOffsetOfLocalHeader;
-					var thisSignature = br.ReadUInt32();
-					if (thisSignature != LocalFileHeaderSignature) {
-						return ZipReturn.ZipLocalFileHeaderError;
-					}
-
-					br.ReadUInt16(); // version needed to extract
-					var generalPurposeBitFlagLocal = br.ReadUInt16();
-					if (generalPurposeBitFlagLocal != GeneralPurposeBitFlag) {
-						SetStatus(LocalFileStatus.TrrntZip, false);
-					}
-
-					var tshort = br.ReadUInt16();
-					if (tshort != _compressionMethod) {
-						return ZipReturn.ZipLocalFileHeaderError;
-					}
-
-					var lastModFileTime = br.ReadUInt16();
-					var lastModFileDate = br.ReadUInt16();
-
-					var tTime = CompressUtils.UtcTicksFromDosDateTime(lastModFileDate, lastModFileTime);
-
-					if (tTime != HeaderLastModified) {
-						SetStatus(LocalFileStatus.DateTimeMisMatch);
-						SetStatus(LocalFileStatus.TrrntZip, false);
-					}
-
-					LocalFile localHeader = new();
-					localHeader.CRC = ReadCRC(br);
-					ulong localHeaderCompressedSize = br.ReadUInt32();
-					localHeader.UncompressedSize = br.ReadUInt32();
-					ulong localRelativeOffset = 0;
-
-					var fileNameLength = br.ReadUInt16();
-					var extraFieldLength = br.ReadUInt16();
-
-
-					var bFileName = br.ReadBytes(fileNameLength);
-					localHeader.Filename = (generalPurposeBitFlagLocal & (1 << 11)) == 0
-						? CompressUtils.GetString(bFileName)
-						: Encoding.UTF8.GetString(bFileName, 0, fileNameLength);
-
-
-					if (extraFieldLength > 0) {
-						var extraField = br.ReadBytes(extraFieldLength);
-
-						var zr = ZipExtraField.ReadExtraField(extraField, bFileName, localHeader, ref localHeaderCompressedSize, ref localRelativeOffset, false);
-						if (zr != ZipReturn.ZipGood) {
-							return zr;
-						}
-					}
-
-					if (!CompressUtils.CompareString(Filename, localHeader.Filename)) {
-						SetStatus(LocalFileStatus.TrrntZip, false);
-						if (!CompressUtils.CompareStringSlash(Filename.ToLower(), localHeader.Filename.ToLower())) {
-							SetStatus(LocalFileStatus.FilenameMisMatch);
-						}
-					}
-
-					_dataLocation = (ulong)zipFs.Position;
-
-					if ((GeneralPurposeBitFlag & 8) == 8) {
-						SetStatus(LocalFileStatus.TrrntZip, false);
-						zipFs.Position += (long)_compressedSize;
-
-						localHeader.CRC = ReadCRC(br);
-						if (CompressUtils.ByteArrCompare(localHeader.CRC, new byte[] { 0x08, 0x07, 0x4b, 0x50 })) {
-							localHeader.CRC = ReadCRC(br);
-						}
-
-						if (GetStatus(LocalFileStatus.Zip64)) {
-							localHeaderCompressedSize = br.ReadUInt64();
-							localHeader.UncompressedSize = br.ReadUInt64();
-						} else {
-							localHeaderCompressedSize = br.ReadUInt32();
-							localHeader.UncompressedSize = br.ReadUInt32();
-						}
-					}
-
-					if (CompressUtils.IsCodePage437(Filename) != ((GeneralPurposeBitFlag & (1 << 11)) == 0)) {
-						SetStatus(LocalFileStatus.TrrntZip, false);
-					}
-
-					if (!CompressUtils.ByteArrCompare(localHeader.CRC, CRC)) {
-						return ZipReturn.ZipLocalFileHeaderError;
-					}
-
-					if (localHeaderCompressedSize != _compressedSize) {
-						return ZipReturn.ZipLocalFileHeaderError;
-					}
-
-					if (localHeader.UncompressedSize != UncompressedSize) {
-						return ZipReturn.ZipLocalFileHeaderError;
-					}
-
-					return ZipReturn.ZipGood;
+				zipFs.Position = (long)RelativeOffsetOfLocalHeader;
+				var thisSignature = br.ReadUInt32();
+				if (thisSignature != LocalFileHeaderSignature) {
+					return ZipReturn.ZipLocalFileHeaderError;
 				}
+
+				br.ReadUInt16(); // version needed to extract
+				var generalPurposeBitFlagLocal = br.ReadUInt16();
+				if (generalPurposeBitFlagLocal != GeneralPurposeBitFlag) {
+					SetStatus(LocalFileStatus.TrrntZip, false);
+				}
+
+				var tshort = br.ReadUInt16();
+				if (tshort != _compressionMethod) {
+					return ZipReturn.ZipLocalFileHeaderError;
+				}
+
+				var lastModFileTime = br.ReadUInt16();
+				var lastModFileDate = br.ReadUInt16();
+
+				var tTime = CompressUtils.UtcTicksFromDosDateTime(lastModFileDate, lastModFileTime);
+
+				if (tTime != HeaderLastModified) {
+					SetStatus(LocalFileStatus.DateTimeMisMatch);
+					SetStatus(LocalFileStatus.TrrntZip, false);
+				}
+
+				LocalFile localHeader = new();
+				localHeader.CRC = ReadCRC(br);
+				ulong localHeaderCompressedSize = br.ReadUInt32();
+				localHeader.UncompressedSize = br.ReadUInt32();
+				ulong localRelativeOffset = 0;
+
+				var fileNameLength = br.ReadUInt16();
+				var extraFieldLength = br.ReadUInt16();
+
+
+				var bFileName = br.ReadBytes(fileNameLength);
+				localHeader.Filename = (generalPurposeBitFlagLocal & (1 << 11)) == 0
+					? CompressUtils.GetString(bFileName)
+					: Encoding.UTF8.GetString(bFileName, 0, fileNameLength);
+
+
+				if (extraFieldLength > 0) {
+					var extraField = br.ReadBytes(extraFieldLength);
+
+					var zr = ZipExtraField.ReadExtraField(extraField, bFileName, localHeader, ref localHeaderCompressedSize, ref localRelativeOffset, false);
+					if (zr != ZipReturn.ZipGood) {
+						return zr;
+					}
+				}
+
+				if (!CompressUtils.CompareString(Filename, localHeader.Filename)) {
+					SetStatus(LocalFileStatus.TrrntZip, false);
+					if (!CompressUtils.CompareStringSlash(Filename.ToLower(), localHeader.Filename.ToLower())) {
+						SetStatus(LocalFileStatus.FilenameMisMatch);
+					}
+				}
+
+				_dataLocation = (ulong)zipFs.Position;
+
+				if ((GeneralPurposeBitFlag & 8) == 8) {
+					SetStatus(LocalFileStatus.TrrntZip, false);
+					zipFs.Position += (long)_compressedSize;
+
+					localHeader.CRC = ReadCRC(br);
+					if (CompressUtils.ByteArrCompare(localHeader.CRC, new byte[] { 0x08, 0x07, 0x4b, 0x50 })) {
+						localHeader.CRC = ReadCRC(br);
+					}
+
+					if (GetStatus(LocalFileStatus.Zip64)) {
+						localHeaderCompressedSize = br.ReadUInt64();
+						localHeader.UncompressedSize = br.ReadUInt64();
+					} else {
+						localHeaderCompressedSize = br.ReadUInt32();
+						localHeader.UncompressedSize = br.ReadUInt32();
+					}
+				}
+
+				if (CompressUtils.IsCodePage437(Filename) != ((GeneralPurposeBitFlag & (1 << 11)) == 0)) {
+					SetStatus(LocalFileStatus.TrrntZip, false);
+				}
+
+				if (!CompressUtils.ByteArrCompare(localHeader.CRC, CRC)) {
+					return ZipReturn.ZipLocalFileHeaderError;
+				}
+
+				if (localHeaderCompressedSize != _compressedSize) {
+					return ZipReturn.ZipLocalFileHeaderError;
+				}
+
+				if (localHeader.UncompressedSize != UncompressedSize) {
+					return ZipReturn.ZipLocalFileHeaderError;
+				}
+
+				return ZipReturn.ZipGood;
 			} catch {
 				return ZipReturn.ZipLocalFileHeaderError;
 			}
